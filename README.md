@@ -1,68 +1,94 @@
 # friulivillas.com — coming soon
 
-Landing page statica, zero build. Una pagina sola: wordmark, claim IT/EN, contatti.
-Stessa impostazione di [`elegie-duino`](https://github.com/TriesteVillas/elegie-duino):
-HTML + CSS serviti da **GitHub Pages**, nessun framework, nessuna dipendenza a runtime.
+Sito statico su **GitHub Pages**, niente Vercel. **Deploy = `git push` su `main`.**
 
-**Deploy = `git push` su `main`.** Non c'è Vercel su questo progetto.
+Veste grafica del gruppo: stesso scheletro di [triestevillas.com](https://triestevillas.com)
+e [triesteimmobiliare.com](https://triesteimmobiliare.com) — **Poppins**, header a pillola
+di vetro fisso in alto, hero video a tutto schermo, footer con fascia + tre colonne + barra
+legale. Ogni brand tiene la stessa struttura e cambia solo l'accento cromatico: TSV
+blu-petrolio + sabbia, TSI azzurro, **FriuliVillas verde bosco + sabbia/ottone**.
 
 ```
-index.html                 la pagina
-robots.txt                 indicizzazione libera
-CNAME                      friulivillas.com  (dominio custom di GitHub Pages)
-.nojekyll                  serve i file così come sono, senza passare da Jekyll
+tools/build.py             genera le tre pagine + sitemap.xml   <- si tocca QUESTO
+index.html  en/  de/       output generato (committato)
 assets/css/style.css       tutto lo stile
-assets/logos/              wordmark (SVG gradiente + SVG avorio + PNG di fallback)
-assets/favicons/           favicon, apple-touch, icone 32/192/512
-assets/images/             immagine Open Graph 1200x630
-assets/video/              vuota: qui va il video di sfondo (vedi sotto)
+assets/js/nav.js           apre/chiude il pannello mobile
+assets/logos/              wordmark SVG (gradiente + avorio) + PNG di fallback
+assets/video/              hero.mp4 + hero.webm
+assets/images/             poster del video + immagine Open Graph
+assets/favicons/           favicon, apple-touch, 32/192/512
+CNAME .nojekyll robots.txt sitemap.xml
 ```
+
+## Modificare i testi
+
+Le tre lingue sono la stessa pagina. Non si modificano gli `.html`: si tocca il
+dizionario `STRINGS` in **`tools/build.py`** e si rigenera.
+
+```bash
+python3 tools/build.py    # riscrive index.html, en/index.html, de/index.html, sitemap.xml
+```
+
+L'HTML generato è committato, quindi **il deploy resta senza build**: GitHub Pages serve
+i file così come sono.
+
+> ⚠️ I testi tedeschi sono scritti a mano, non tradotti a macchina — sul WordPress di
+> triesteaffitti.com TranslatePress aveva prodotto perfino un brand sbagliato
+> ("TriesteRentals", "Haus"). Prima di campagne in DE, farli rileggere a un madrelingua.
+
+## Le voci di menu
+
+`Compra · Ristruttura · Possiedi · Vendi · Il Gruppo` sono le stesse di triestevillas.com,
+ma **non sono link**: sono `<span>` spenti con accanto il chip **Presto**, perché le pagine
+non esistono ancora. Quando arriveranno, diventano `<a>` — la struttura è già lì, in
+header, pannello mobile e mappa del sito nel footer.
+
+Per lo stesso motivo la fascia del footer **non ha un form newsletter** ma un pulsante
+mailto: su Pages non c'è backend, e un form che non scrive da nessuna parte è peggio di
+nessun form.
+
+## Il video
+
+`assets/video/hero.mp4` (989 KB) + `.webm` (1,3 MB), **muto, in loop, autoplay**.
+
+La ripresa originale è un drone che scende sulla piscina: il primo e l'ultimo fotogramma
+sono lontanissimi, quindi un loop diretto avrebbe fatto uno stacco secco ogni 5 secondi.
+Il file montato è un **palindromo** — clip in avanti + la stessa al contrario — così il
+punto di giunzione non esiste e la discesa diventa un respiro continuo di 10 secondi.
+
+Rigenerarlo da un nuovo girato:
+
+```bash
+ffmpeg -i sorgente.mp4 \
+  -filter_complex "[0:v]scale=1280:-2,split[a][b];[b]reverse,trim=start_frame=1,setpts=PTS-STARTPTS[r];[a][r]concat=n=2:v=1[out]" \
+  -map "[out]" -an -c:v libx264 -crf 30 -preset slow -profile:v main -pix_fmt yuv420p \
+  -movflags +faststart assets/video/hero.mp4
+ffmpeg -i assets/video/hero.mp4 -frames:v 1 -q:v 4 assets/images/hero-poster.jpg
+```
+
+`-an` toglie l'audio: senza, il browser non fa partire l'autoplay. Con
+`prefers-reduced-motion: reduce` il video non viene mostrato e resta il poster.
 
 ## Il wordmark
 
-L'originale fornito era un **PNG 317×75** in due verdi piatti (`#1F962B` / `#104C14`) —
-troppo poco per un hero su schermi retina, e un verde che sopra un video scuro sparisce.
-
-È stato **vettorializzato** (`potrace` sul canale alpha upscalato 8×) e ricolorato con il
-gradiente sabbia/ottone `#E8D5AF → #BE9A63`, cioè la famiglia cromatica del gruppo
+L'originale era un **PNG 317×75** in due verdi piatti (`#1F962B`/`#104C14`): troppo poco
+per un hero su schermi retina, e un verde che sopra il video sparisce nei fotogrammi
+scuri. È stato **vettorializzato** (`potrace` sul canale alpha upscalato 8×) e ricolorato
+col gradiente sabbia/ottone `#E8D5AF → #BE9A63`, la famiglia cromatica del gruppo
 (il `--color-sand` `#cfb795` di triestevillas.com). Le forme delle lettere sono quelle
-dell'originale: è stato cambiato solo il colore.
+dell'originale: è cambiato solo il colore.
 
-Il favicon usa la sola **"f"**, che nel wordmark è una componente connessa a sé
-(x 0..44 nelle unità originali) e si isola senza tagliare il traversino né portarsi
-dietro la "r".
-
-Gli asset raster (PNG, favicon, Open Graph) sono **derivati dall'SVG**: se cambia il
-colore, si rigenerano da lì, non si ritoccano a mano.
-
-## Aggiungere il video di sfondo
-
-Il file **non è ancora arrivato**. Fino ad allora lo sfondo è quello CSS
-(`.stage__bg`: alone caldo + vignettatura), che resta comunque come fallback sotto al
-video. Quando il video c'è:
-
-1. Metterlo in `assets/video/hero.mp4` — H.264, muto, **max ~4 MB** (limite di GitHub
-   per file: 100 MB, ma qui conta il tempo di caricamento su mobile). Utile anche una
-   versione `.webm`. Estrarre un fotogramma come `assets/images/hero-poster.jpg`.
-2. In `index.html`, subito dopo `<div class="stage__bg">`:
-   ```html
-   <video class="stage__video" autoplay muted loop playsinline
-          poster="./assets/images/hero-poster.jpg" aria-hidden="true">
-     <source src="./assets/video/hero.mp4" type="video/mp4">
-   </video>
-   ```
-3. In `style.css` il selettore `.stage__video` va posizionato come `.stage__bg`
-   (`position:absolute; inset:0; width:100%; height:100%; object-fit:cover;`) più un
-   velo scuro sopra, altrimenti il testo non regge il contrasto sui fotogrammi chiari.
+Il favicon usa la sola **"f"**, che nel tracciato è una componente connessa a sé e si
+isola senza tagliare il traversino né portarsi dietro la "r". Favicon, PNG di fallback e
+Open Graph **derivano tutti dall'SVG**: se cambia il colore si rigenerano da lì.
 
 ## DNS
 
-Il dominio è registrato via **Tucows** e la zona DNS sta su **Aruba**
-(`dns.technorail.com`, `dns2.technorail.com`, `dns3.arubadns.net`, `dns4.arubadns.cz`) —
-non su Cloudflare come `triestevillas.com`. Le modifiche si fanno dal pannello Aruba.
+Registrar **Tucows**, zona DNS su **Aruba** (`dns.technorail.com`, `dns2.technorail.com`,
+`dns3.arubadns.net`, `dns4.arubadns.cz`) — non su Cloudflare come `triestevillas.com`.
+Le modifiche si fanno dal pannello Aruba.
 
-Per puntare il dominio a GitHub Pages, sostituire il record A esistente
-(`89.46.104.249`, il WordPress Aruba) con:
+Sostituire il record A esistente (`89.46.104.249`, il vecchio WordPress) con:
 
 | Tipo | Nome | Valore |
 |---|---|---|
@@ -74,12 +100,11 @@ Per puntare il dominio a GitHub Pages, sostituire il record A esistente
 
 > ⚠️ **Non toccare il record MX** (`mx.friulivillas.com`) né l'SPF
 > (`v=spf1 include:_spf.aruba.it ~all`): la posta del dominio è su Aruba e continua a
-> funzionare solo se quei record restano dove sono. Si cambia **solo** il web.
+> funzionare solo se restano dove sono. Si cambia **solo** il web.
 
-Dopo la propagazione, in *Settings → Pages* del repo spuntare **Enforce HTTPS**
-(GitHub emette il certificato da solo, ci mette qualche minuto).
-
-`www.friulivillas.com` viene rediretto sull'apex da GitHub Pages.
+Dopo la propagazione, in *Settings → Pages* spuntare **Enforce HTTPS**. GitHub emette il
+certificato da solo, ci mette qualche minuto. `www.friulivillas.com` viene rediretto
+sull'apex da GitHub Pages.
 
 ## Domini collegati
 
@@ -91,3 +116,6 @@ Dopo la propagazione, in *Settings → Pages* del repo spuntare **Enforce HTTPS*
 ```bash
 cd ~/dev/friulivillas && python3 -m http.server 4173
 ```
+
+I percorsi degli asset sono assoluti (`/assets/...`), quindi il sito va servito dalla
+radice — aprire gli `.html` con `file://` non funziona.
