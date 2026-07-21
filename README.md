@@ -36,16 +36,31 @@ i file così come sono.
 > triesteaffitti.com TranslatePress aveva prodotto perfino un brand sbagliato
 > ("TriesteRentals", "Haus"). Prima di campagne in DE, farli rileggere a un madrelingua.
 
-## Le voci di menu
+## Il menu
 
-`Compra · Ristruttura · Possiedi · Vendi · Il Gruppo` sono le stesse di triestevillas.com,
-ma **non sono link**: sono `<span>` spenti con accanto il chip **Presto**, perché le pagine
-non esistono ancora. Quando arriveranno, diventano `<a>` — la struttura è già lì, in
-header, pannello mobile e mappa del sito nel footer.
+**Una voce sola: `Il Gruppo`**, ancorata alla sezione `#gruppo` di questa stessa pagina.
+Le altre voci di triestevillas.com (Compra · Ristruttura · Possiedi · Vendi) sono state
+tolte: puntavano a pagine che non esistono, e un menu di link morti è peggio di un menu
+corto. Torneranno quando torneranno le pagine.
 
-Per lo stesso motivo la fascia del footer **non ha un form newsletter** ma un pulsante
-mailto: su Pages non c'è backend, e un form che non scrive da nessuna parte è peggio di
-nessun form.
+L'ancora ha bisogno di `scroll-margin-top: 88px` sulla sezione, altrimenti l'header
+`fixed` le finisce sopra e il titolo resta nascosto.
+
+La fascia del footer **non ha un form newsletter** ma un pulsante mailto: su Pages non c'è
+backend, e un form che non scrive da nessuna parte è peggio di nessun form.
+
+## La sezione Gruppo
+
+Blocco chiaro (`--paper`) fra hero e footer: dà al sito il ritmo scuro → chiaro → scuro di
+triestevillas.com, e sul chiaro il testo lungo si legge davvero. Contiene il
+posizionamento del brand, i quattro brand fratelli in tabella e la chiusura sul *sistema
+di ownership* — la sequenza `comprare, detenere, mettere a reddito, vendere, riallocare`
+è evidenziata in `--brand` perché è il cuore del messaggio, non un elenco qualsiasi.
+
+Il testo è di Martino (21/07/2026), verbatim in italiano. **EN e DE sono traduzioni
+mie**: `una regia sola` → `a single direction` / `eine Regie`, `qualità di lettura` →
+`a trained eye` / `ein geschulter Blick`. Sono scelte interpretative, non letterali: da
+far confermare.
 
 ## Il video
 
