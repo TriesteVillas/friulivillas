@@ -62,10 +62,10 @@ STRINGS = {
         "groupEyebrow": "Il Gruppo",
         "groupLede": "Il brand del Gruppo TriesteVillas dedicato al Friuli Venezia Giulia. Non un contenitore generico, ma un progetto costruito per portare nel resto della regione metodo, specializzazione e qualità di lettura.",
         "brands": [
-            ("TriesteVillas", "Il polo Luxury del Gruppo a Trieste."),
-            ("TriesteImmobiliare", "Ogni tipo di immobile, ogni budget."),
-            ("TriesteAffitti", "Gestione affitti, Flex o Classici."),
-            ("LignanoVillas", "Luxury a Lignano. English-first, pensato per venditori e compratori esteri."),
+            ("TriesteVillas", "Il polo Luxury del Gruppo a Trieste.", "https://www.triestevillas.com/"),
+            ("TriesteImmobiliare", "Ogni tipo di immobile, ogni budget.", "https://www.triesteimmobiliare.com/"),
+            ("TriesteAffitti", "Gestione affitti, Flex o Classici.", "https://www.triesteaffitti.com/"),
+            ("LignanoVillas", "Luxury a Lignano. English-first, pensato per venditori e compratori esteri.", "https://www.lignanovillas.com/it/"),
         ],
         "groupClose1": "FriuliVillas nasce per applicare questa stessa cultura del lavoro al resto del FVG. E per leggerlo non solo come mercato di immobili, ma come <strong>sistema di ownership</strong>:",
         "groupSeq": "comprare, detenere, mettere a reddito, vendere, riallocare.",
@@ -98,10 +98,10 @@ STRINGS = {
         "groupEyebrow": "The Group",
         "groupLede": "The TriesteVillas Group's brand for Friuli Venezia Giulia. Not a generic container, but a project built to bring method, specialisation and a trained eye to the rest of the region.",
         "brands": [
-            ("TriesteVillas", "The Group's luxury arm in Trieste."),
-            ("TriesteImmobiliare", "Every kind of property, every budget."),
-            ("TriesteAffitti", "Rental management, Flex or classic contracts."),
-            ("LignanoVillas", "Luxury in Lignano. English-first, built for foreign sellers and buyers."),
+            ("TriesteVillas", "The Group's luxury arm in Trieste.", "https://www.triestevillas.com/en"),
+            ("TriesteImmobiliare", "Every kind of property, every budget.", "https://www.triesteimmobiliare.com/en"),
+            ("TriesteAffitti", "Rental management, Flex or classic contracts.", "https://www.triesteaffitti.com/"),
+            ("LignanoVillas", "Luxury in Lignano. English-first, built for foreign sellers and buyers.", "https://www.lignanovillas.com/"),
         ],
         "groupClose1": "FriuliVillas exists to apply that same working culture to the rest of the region — and to read it not only as a property market, but as a <strong>system of ownership</strong>:",
         "groupSeq": "buying, holding, putting to income, selling, reallocating.",
@@ -134,10 +134,10 @@ STRINGS = {
         "groupEyebrow": "Die Gruppe",
         "groupLede": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien. Kein generischer Sammelbegriff, sondern ein Projekt, das Methode, Spezialisierung und einen geschulten Blick in den Rest der Region trägt.",
         "brands": [
-            ("TriesteVillas", "Der Luxusbereich der Gruppe in Triest."),
-            ("TriesteImmobiliare", "Jede Art von Immobilie, jedes Budget."),
-            ("TriesteAffitti", "Mietverwaltung, Flex oder klassisch."),
-            ("LignanoVillas", "Luxus in Lignano. English-first, für ausländische Verkäufer und Käufer."),
+            ("TriesteVillas", "Der Luxusbereich der Gruppe in Triest.", "https://www.triestevillas.com/de"),
+            ("TriesteImmobiliare", "Jede Art von Immobilie, jedes Budget.", "https://www.triesteimmobiliare.com/de"),
+            ("TriesteAffitti", "Mietverwaltung, Flex oder klassisch.", "https://www.triesteaffitti.com/"),
+            ("LignanoVillas", "Luxus in Lignano. English-first, für ausländische Verkäufer und Käufer.", "https://www.lignanovillas.com/de/"),
         ],
         "groupClose1": "FriuliVillas entsteht, um dieselbe Arbeitskultur auf das übrige Friaul-Julisch Venetien anzuwenden — und die Region nicht nur als Immobilienmarkt zu lesen, sondern als <strong>System des Eigentums</strong>:",
         "groupSeq": "kaufen, halten, Ertrag erzielen, verkaufen, umschichten.",
@@ -163,9 +163,9 @@ def locale_switcher(current):
 
 def page(locale):
     s = STRINGS[locale]
-    brands = "".join(
-        f'<div class="brand"><p class="brand__name">{name}</p><p class="brand__what">{what}</p></div>'
-        for name, what in s["brands"]
+    brands = "\n      ".join(
+        f'<div class="brand"><p class="brand__name"><a class="brand__link nav-underline" href="{url}" target="_blank" rel="noopener">{name} ↗</a></p><p class="brand__what">{what}</p></div>'
+        for name, what, url in s["brands"]
     )
     sitemap_items = (
         f'<li><a href="{PATHS[locale]}">{s["home"]}</a></li>'
