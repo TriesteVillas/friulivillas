@@ -15,17 +15,19 @@ function languagesFor(path: string): Record<string, string> {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
-  const now = new Date();
 
   const staticPaths = ["/", "/immobili", "/vendi", "/investimenti", "/gruppo", "/contatti", "/privacy"];
   const entries: MetadataRoute.Sitemap = [];
 
+  // lastModified solo dove esiste una data vera: Google lo usa se è
+  // «consistently and verifiably accurate», altrimenti impara a ignorarlo.
+  // Le pagine fisse non ne hanno una → meglio nessun lastmod del timestamp
+  // di build.
   for (const path of staticPaths) {
     const languages = languagesFor(path);
     for (const locale of routing.locales) {
       entries.push({
         url: `${SITE_URL}${localizedPath(locale, path) === "/" ? "" : localizedPath(locale, path)}`,
-        lastModified: now,
         changeFrequency: path === "/" || path === "/immobili" ? "daily" : "monthly",
         priority: path === "/" ? 1 : path === "/vendi" ? 0.9 : path === "/immobili" ? 0.9 : 0.6,
         alternates: { languages },
@@ -39,7 +41,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const locale of routing.locales) {
       entries.push({
         url: absUrl(locale, path),
-        lastModified: now,
+        // onlineDa (la messa online) è l'unica data vera che il record porta.
+        ...(p.onlineDa ? { lastModified: new Date(p.onlineDa) } : {}),
         changeFrequency: "weekly",
         priority: 0.7,
         alternates: { languages },
