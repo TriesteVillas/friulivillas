@@ -1,0 +1,569 @@
+import { NextResponse } from "next/server";
+import { normCity } from "@/lib/citynorm";
+import { splitNomeCerta } from "@/lib/nomesplit";
+import {
+  brandMailShell,
+  mailContact,
+  mailCta,
+  mailRecapCard,
+  mailSafeUrl,
+  mailText,
+} from "@/lib/brandMail";
+
+// Lead intake for the property forms (richiesta info / prenota visita / invia a
+// un amico). Writes to the unified Airtable LEADS table (by field name +
+// typecast) and, when configured, sends an email via Resend. Email is
+// best-effort: a saved lead is the source of truth, so an email failure never
+// fails the request.
+
+// LEADS now lives in the SAME base as the properties (app1ZDay9vQNU5V2u),
+// table tbl1RolmcvI7WxDdr. The site token (AIRTABLE_TOKEN) just needs
+// data.records:write on that base in addition to the existing read.
+const LEADS_BASE_ID = process.env.LEADS_BASE_ID ?? "app1ZDay9vQNU5V2u";
+const LEADS_TABLE = process.env.LEADS_TABLE ?? "tbl1RolmcvI7WxDdr";
+const LEADS_TOKEN = process.env.LEADS_AIRTABLE_TOKEN ?? process.env.AIRTABLE_TOKEN;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const RESEND_FROM = process.env.RESEND_FROM; // e.g. "FriuliVillas <noreply@triestevillas.com>"
+const NOTIFY_EMAIL = process.env.LEAD_NOTIFY_EMAIL ?? "richieste@triestevillas.com";
+
+const MOTIVI = new Set([
+  "Richiedere maggiori informazioni",
+  "Richiedere più foto",
+  "Richiedere disponibilità",
+  "Altro",
+]);
+
+const isEmail = (v: unknown): v is string =>
+  typeof v === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+const clean = (v: unknown, max = 2000): string =>
+  typeof v === "string" ? v.trim().slice(0, max) : "";
+
+/** "45.64951, 13.77681" from a geocoded pick, or "" — never a partial pair. */
+const geoPoint = (lat: unknown, lon: unknown): string =>
+  typeof lat === "number" && Number.isFinite(lat) &&
+  typeof lon === "number" && Number.isFinite(lon)
+    ? `${lat.toFixed(5)}, ${lon.toFixed(5)}`
+    : "";
+
+async function airtableCreate(fields: Record<string, unknown>) {
+  const res = await fetch(`https://api.airtable.com/v0/${LEADS_BASE_ID}/${LEADS_TABLE}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${LEADS_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ records: [{ fields }], typecast: true }),
+  });
+  if (!res.ok) throw new Error(`Airtable ${res.status}: ${await res.text()}`);
+  return res.json();
+}
+
+// L'invio resta best-effort — il lead su Airtable è la fonte di verità e una
+// mail persa non deve far fallire la richiesta — ma NON silenzioso: prima questa
+// funzione ingoiava anche i rifiuti di Resend (`.catch(() => {})` senza guardare
+// `res.ok`), e il 30/07 è costato mezz'ora capire perché i recap non partivano
+// mentre tutto il resto sì. Se Resend dice di no, adesso finisce nei log.
+async function sendEmail(to: string, subject: string, html: string, replyTo?: string) {
+  if (!RESEND_API_KEY || !RESEND_FROM) return; // email not configured yet
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: RESEND_FROM,
+        to,
+        subject,
+        html,
+        ...(replyTo ? { reply_to: replyTo } : {}),
+      }),
+    });
+    if (!res.ok) {
+      console.error(
+        `[lead] resend ${res.status} per "${subject}" → ${to}: ${(await res.text()).slice(0, 300)}`,
+      );
+    }
+  } catch (e) {
+    console.error(`[lead] resend irraggiungibile per "${subject}" → ${to}:`, e);
+  }
+}
+
+const esc = (s: string) =>
+  s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[c]!);
+
+// Customer-facing recap copy, localized (the API has no i18n context).
+const RECAP = {
+  it: {
+    subject: "Abbiamo ricevuto la vostra richiesta — FriuliVillas",
+    hello: "Buongiorno",
+    received: "abbiamo ricevuto la vostra richiesta e vi ricontatteremo a breve.",
+    recapTitle: "Riepilogo della richiesta",
+    zones: "Zone di interesse", budget: "Budget", size: "Dimensioni",
+    purpose: "Scopo", condition: "Stato immobile", listing: "Immobile",
+    request: "Richiesta", message: "Messaggio", visit: "Disponibilità per la visita",
+    timing: "Tempistiche", roi: "Rendita attesa", horizon: "Orizzonte", objective: "Obiettivo",
+    closing: `Per qualsiasi cosa rispondete pure a questa email o chiamateci allo ${mailContact.phone}.`,
+    sign: `FriuliVillas · ${mailContact.email}`,
+  },
+  en: {
+    subject: "We received your request — FriuliVillas",
+    hello: "Hello",
+    received: "we received your request and will get back to you shortly.",
+    recapTitle: "Your request at a glance",
+    zones: "Areas of interest", budget: "Budget", size: "Size",
+    purpose: "Purpose", condition: "Property condition", listing: "Property",
+    request: "Request", message: "Message", visit: "Availability for the visit",
+    timing: "Timing", roi: "Target yield", horizon: "Horizon", objective: "Objective",
+    closing: `Feel free to reply to this email or call us on ${mailContact.phone}.`,
+    sign: `FriuliVillas · ${mailContact.email}`,
+  },
+  de: {
+    subject: "Wir haben Ihre Anfrage erhalten — FriuliVillas",
+    hello: "Guten Tag",
+    received: "wir haben Ihre Anfrage erhalten und melden uns in Kürze.",
+    recapTitle: "Ihre Anfrage im Überblick",
+    zones: "Interessensgebiete", budget: "Budget", size: "Größe",
+    purpose: "Zweck", condition: "Zustand der Immobilie", listing: "Immobilie",
+    request: "Anfrage", message: "Nachricht", visit: "Verfügbarkeit für die Besichtigung",
+    timing: "Zeitrahmen", roi: "Erwartete Rendite", horizon: "Horizont", objective: "Ziel",
+    closing: `Antworten Sie gerne auf diese E-Mail oder rufen Sie uns an unter ${mailContact.phone}.`,
+    sign: `FriuliVillas · ${mailContact.email}`,
+  },
+} as const;
+
+// Customer recap on the shared brand shell: greeting, summary card, optional
+// listing CTA, closing and signature. The shell owns logo and footer contacts.
+function recapHtml(
+  lang: keyof typeof RECAP,
+  name: string,
+  rows: Array<[string, string]>,
+  extra = "",
+) {
+  const L = RECAP[lang];
+  const received = L.received.charAt(0).toUpperCase() + L.received.slice(1);
+  const body = `<p style="${mailText.title}">${L.hello}${name ? ` ${esc(name)}` : ""},</p>
+    <p style="${mailText.p}">${received}</p>
+    ${mailRecapCard(L.recapTitle, rows.map(([label, value]) => [esc(label), esc(value)] as [string, string]))}
+    ${extra}
+    <p style="${mailText.p}">${L.closing}</p>
+    <p style="${mailText.small}">${L.sign}</p>`;
+  return brandMailShell({ lang, body });
+}
+
+// Whitelist delle zone accettate dal popup buyer.
+//
+// È un SOTTOINSIEME di quelle di TriesteVillas/TriesteImmobiliare, non un elenco
+// nuovo: `zona_interesse_norm` è un campo CONDIVISO fra i marchi, e inventare qui
+// codici tipo "UDINE" o "COLLIO" li creerebbe via typecast su un vocabolario su
+// cui girano i filtri del CRM degli altri due siti. Fuori restano i codici di
+// città (CENTRO, SEMICENTRO, BARCOLA, GRIGNANO, PORTOPICCOLO): su un sito che
+// vende in regione sarebbero risposte senza senso.
+//
+// ⚠️ Il prezzo di questa scelta: chi cerca a Udine o Pordenone finisce tutto
+// dentro "FVG". Per distinguerli servono nuove opzioni Airtable, concordate col
+// CRM — vedi la stessa grana grossa sul campo `zona` di PROPRIETA.
+const BUYER_ZONES = new Set([
+  "FVG", "SISTIANA-DUINO", "COSTIERA", "AURISINA", "MUGGIA", "ALTE", "ALTRO",
+]);
+const BUYER_SCOPI = new Set(["Abitazione principale", "Investimento / rendita", "Casa vacanze"]);
+const BUYER_CONDIZIONI = new Set([
+  "Primo ingresso", "Abitabile da subito", "Anche da ristrutturare", "Indifferente",
+]);
+const eur = (n: number) => `${n.toLocaleString("it-IT")} €`;
+
+// Buyer-profile intake from the site-wide popup (Parla con noi / Diteci
+// cosa cercate / House Tour Days). Same table, richer profile fields.
+async function handleBuyer(body: Record<string, unknown>) {
+  const nome = clean(body.nome, 120);
+  const cognome = clean(body.cognome, 120);
+  const email = clean(body.email, 160);
+  const telefono = clean(body.telefono, 40);
+  // Normalizzata QUI e non a valle: su questo campo ci gira un filtro, e
+  // "wien"/"Wien"/"Vienna" devono essere una voce sola, non tre.
+  const citta = normCity(clean(body.citta, 80));
+  const messaggio = clean(body.messaggio, 4000);
+  const fonteCta = clean(body.fonteCta, 120);
+  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+  const zone = (Array.isArray(body.zone) ? body.zone : [])
+    .map((z) => clean(z, 40))
+    .filter((z) => BUYER_ZONES.has(z));
+  const num = (v: unknown) =>
+    typeof v === "number" && Number.isFinite(v) && v > 0 ? Math.round(v) : null;
+  const budgetMin = num(body.budgetMin);
+  const budgetMax = num(body.budgetMax);
+  const mqMin = num(body.mqMin);
+  const mqMax = num(body.mqMax);
+  const scopo = BUYER_SCOPI.has(clean(body.scopo)) ? clean(body.scopo) : "";
+  const condizioni = BUYER_CONDIZIONI.has(clean(body.condizioni)) ? clean(body.condizioni) : "";
+
+  if (body.privacyOk !== true) {
+    return NextResponse.json({ ok: false, error: "privacy_required" }, { status: 400 });
+  }
+  // Agile form: one reachable contact is enough.
+  if (!isEmail(email) && telefono.length < 6) {
+    return NextResponse.json({ ok: false, error: "contact_info" }, { status: 400 });
+  }
+
+  const budgetText =
+    budgetMin || budgetMax
+      ? `${budgetMin ? eur(budgetMin) : "—"} – ${budgetMax ? eur(budgetMax) : "—"}`
+      : "";
+  const mqText = mqMin || mqMax ? `${mqMin ?? "—"} – ${mqMax ?? "—"} mq` : "";
+
+  try {
+    await airtableCreate({
+      nome_completo: [nome, cognome].filter(Boolean).join(" "),
+      nome,
+      cognome,
+      email,
+      telefono,
+      canale: "Sito FriuliVillas",
+      azienda: "FriuliVillas",
+      tipo_richiesta: "Cerco casa",
+      // Città di residenza: FACOLTATIVA qui (obbligatoria solo sul form della
+      // Private Collection, dove la persona si presenta). Sta su questo form
+      // perché è qui che c'è il volume: se la città arrivasse solo dalla PC, il
+      // filtro per città nel CRM resterebbe inutile anche fra un anno.
+      ...(citta ? { citta_residenza: citta } : {}),
+      motivo: fonteCta ? `CTA sito: ${fonteCta}` : "Popup buyer sito",
+      messaggio,
+      ...(zone.length ? { zona_interesse_norm: zone, zone_preferite: zone.join(", ") } : {}),
+      ...(budgetMin ? { budget_min_eur: budgetMin } : {}),
+      ...(budgetMax ? { budget_max_eur: budgetMax } : {}),
+      ...(budgetText ? { budget: budgetText } : {}),
+      ...(mqText ? { dimensioni_mq: mqText } : {}),
+      ...(scopo ? { scopo } : {}),
+      ...(condizioni ? { condizioni } : {}),
+      privacy_ok: true,
+      lingua,
+      stato: "NUOVO",
+      data_contatto: new Date().toISOString(),
+      ...(body.test === true ? { flag_test: "true" } : {}),
+    });
+  } catch (e) {
+    console.error("[lead] buyer airtable write failed:", e);
+    return NextResponse.json({ ok: false, error: "save_failed" }, { status: 502 });
+  }
+
+  await sendEmail(
+    NOTIFY_EMAIL,
+    `Nuovo profilo buyer dal sito${fonteCta ? ` (${fonteCta})` : ""}`,
+    `<p><strong>Nome:</strong> ${esc([nome, cognome].filter(Boolean).join(" ") || "—")}<br>
+     <strong>Email:</strong> ${esc(email) || "—"}<br>
+     <strong>Telefono:</strong> ${esc(telefono) || "—"}</p>
+     <p><strong>Zone:</strong> ${esc(zone.join(", ") || "—")}<br>
+     <strong>Budget:</strong> ${esc(budgetText || "—")}<br>
+     <strong>Dimensioni:</strong> ${esc(mqText || "—")}<br>
+     <strong>Scopo:</strong> ${esc(scopo || "—")}<br>
+     <strong>Condizioni:</strong> ${esc(condizioni || "—")}</p>
+     ${messaggio ? `<p><strong>Messaggio:</strong><br>${esc(messaggio)}</p>` : ""}
+     <p><small>lingua ${esc(lingua)}</small></p>`,
+    isEmail(email) ? email : undefined,
+  );
+
+  // Recap to the customer, in their language; replies route to the team.
+  if (isEmail(email)) {
+    const lang = lingua as keyof typeof RECAP;
+    const L = RECAP[lang];
+    await sendEmail(
+      email,
+      L.subject,
+      recapHtml(lang, nome, [
+        [L.zones, zone.join(", ")],
+        [L.budget, budgetText],
+        [L.size, mqText],
+        [L.purpose, scopo],
+        [L.condition, condizioni],
+      ]),
+      NOTIFY_EMAIL,
+    );
+  }
+
+  return NextResponse.json({ ok: true });
+}
+
+// Seller intake from /vendi ("Richiedi una valutazione riservata").
+// The structured property summary lands in ha_da_vendere; routing goes
+// to the owners desk via destinatario_interno.
+const SELLER_TIPOLOGIE = new Set([
+  "Appartamento", "Attico", "Villa", "Casa con giardino", "Terreno", "Altro",
+]);
+const SELLER_TAGLIE = new Set(["< 80 mq", "80 – 150 mq", "150 – 250 mq", "250+ mq"]);
+const SELLER_STATI = new Set(["Ottimo / ristrutturato", "Buono / abitabile", "Da ristrutturare"]);
+const SELLER_TEMPI = new Set(["Il prima possibile", "Entro 6 mesi", "Solo esplorativo"]);
+
+async function handleValutazione(body: Record<string, unknown>) {
+  const nome = clean(body.nome, 120);
+  const cognome = clean(body.cognome, 120);
+  const email = clean(body.email, 160);
+  const telefono = clean(body.telefono, 40);
+  // Normalizzata QUI e non a valle: su questo campo ci gira un filtro, e
+  // "wien"/"Wien"/"Vienna" devono essere una voce sola, non tre.
+  const citta = normCity(clean(body.citta, 80));
+  const indirizzo = clean(body.indirizzo, 300);
+  // Present only when the address was picked from the geocoder's suggestions;
+  // the field itself stays free text, so these are a bonus, never a given.
+  const cap = clean(body.cap, 10);
+  const cittaImmobile = clean(body.cittaImmobile, 80);
+  const coord = geoPoint(body.lat, body.lon);
+  const tipologia = SELLER_TIPOLOGIE.has(clean(body.tipologia)) ? clean(body.tipologia) : "";
+  const taglia = SELLER_TAGLIE.has(clean(body.taglia)) ? clean(body.taglia) : "";
+  const statoImmobile = SELLER_STATI.has(clean(body.statoImmobile)) ? clean(body.statoImmobile) : "";
+  const tempistiche = SELLER_TEMPI.has(clean(body.tempistiche)) ? clean(body.tempistiche) : "";
+  const messaggio = clean(body.messaggio, 4000);
+  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+
+  if (body.privacyOk !== true) {
+    return NextResponse.json({ ok: false, error: "privacy_required" }, { status: 400 });
+  }
+  if (!isEmail(email) && telefono.length < 6) {
+    return NextResponse.json({ ok: false, error: "contact_info" }, { status: 400 });
+  }
+
+  const daVendere = [
+    indirizzo && `Indirizzo: ${indirizzo}`,
+    cap && `CAP: ${cap}`,
+    cittaImmobile && `Comune: ${cittaImmobile}`,
+    coord && `Coordinate: ${coord}  ·  https://www.google.com/maps?q=${encodeURIComponent(coord)}`,
+    tipologia && `Tipologia: ${tipologia}`,
+    taglia && `Dimensioni: ${taglia}`,
+    statoImmobile && `Stato: ${statoImmobile}`,
+  ].filter(Boolean).join("\n");
+
+  try {
+    await airtableCreate({
+      nome_completo: [nome, cognome].filter(Boolean).join(" "),
+      nome,
+      cognome,
+      email,
+      telefono,
+      canale: "Sito FriuliVillas",
+      azienda: "FriuliVillas",
+      tipo_richiesta: "Valutazione",
+      // Su un lead venditore la residenza pesa il doppio: dice se il proprietario
+      // è in città o fuori, cioè come si organizzano sopralluogo e firma.
+      ...(citta ? { citta_residenza: citta } : {}),
+      destinatario_interno: "owners@TSV",
+      motivo: "CTA sito: Valutazione riservata",
+      // Un mandato di vendita è il lead a più alto valore: nasce già a massima
+      // priorità (HOT · palla a NOI · owner) così è impossibile perderlo nel CRM.
+      temperatura: "HOT",
+      palla: "NOI",
+      lead_type: "Lead_Owner",
+      ...(daVendere ? { ha_da_vendere: daVendere } : {}),
+      ...(taglia ? { dimensioni_mq: taglia } : {}),
+      ...(tempistiche ? { tempistiche } : {}),
+      messaggio,
+      privacy_ok: true,
+      lingua,
+      stato: "NUOVO",
+      data_contatto: new Date().toISOString(),
+      ...(body.test === true ? { flag_test: "true" } : {}),
+    });
+  } catch (e) {
+    console.error("[lead] valutazione airtable write failed:", e);
+    return NextResponse.json({ ok: false, error: "save_failed" }, { status: 502 });
+  }
+
+  // Notifica interna ad ALTA evidenza: una valutazione è un potenziale mandato.
+  // Va sia alla casella del brand sia direttamente a Martino (owners desk, che
+  // è condiviso fra i marchi — vedi destinatario_interno "owners@TSV").
+  const valSubject = `🔴 Richiesta di VALUTAZIONE dal sito — ${[nome, cognome].filter(Boolean).join(" ") || "contatto"} (potenziale mandato)`;
+  const valHtml =
+    `<p style="font-size:15px"><strong>⛳️ Potenziale mandato di vendita — priorità massima.</strong></p>
+     <p><strong>Nome:</strong> ${esc([nome, cognome].filter(Boolean).join(" ") || "—")}<br>
+     <strong>Email:</strong> ${esc(email) || "—"}<br>
+     <strong>Telefono:</strong> ${esc(telefono) || "—"}</p>
+     <p>${esc(daVendere || "—").replace(/\n/g, "<br>")}</p>
+     ${tempistiche ? `<p><strong>Tempistiche:</strong> ${esc(tempistiche)}</p>` : ""}
+     ${messaggio ? `<p><strong>Note:</strong><br>${esc(messaggio)}</p>` : ""}
+     <p><small>friulivillas.com · lingua ${esc(lingua)} · lead segnato HOT · palla a NOI nel CRM</small></p>`;
+  for (const to of [...new Set([NOTIFY_EMAIL, "martino@triestevillas.com"])]) {
+    await sendEmail(to, valSubject, valHtml, isEmail(email) ? email : undefined);
+  }
+
+  if (isEmail(email)) {
+    const lang = lingua as keyof typeof RECAP;
+    const L = RECAP[lang];
+    await sendEmail(
+      email,
+      L.subject,
+      recapHtml(lang, nome, [
+        [L.request, "Valutazione riservata"],
+        [L.listing, [indirizzo, tipologia, taglia].filter(Boolean).join(" · ")],
+        [L.condition, statoImmobile],
+        [L.timing, tempistiche],
+        [L.message, messaggio],
+      ]),
+      NOTIFY_EMAIL,
+    );
+  }
+
+  return NextResponse.json({ ok: true });
+}
+
+export async function POST(request: Request) {
+  if (!LEADS_TOKEN) {
+    return NextResponse.json({ ok: false, error: "not_configured" }, { status: 503 });
+  }
+
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
+  }
+
+  if (body.tipo === "buyer") return handleBuyer(body);
+  if (body.tipo === "valutazione") return handleValutazione(body);
+
+  const tipo =
+    body.tipo === "amico"
+      ? "Invia a un amico"
+      : body.tipo === "visita"
+        ? "Prenota visita"
+        : "Richiesta info";
+  const privacyOk = body.privacyOk === true;
+  const nome = clean(body.nome, 120);
+  const email = clean(body.email, 160);
+  const telefono = clean(body.telefono, 40);
+  const messaggio = clean(body.messaggio, 4000);
+  const emailAmico = clean(body.emailAmico, 160);
+  const motivo = MOTIVI.has(clean(body.motivo)) ? clean(body.motivo) : "Altro";
+  const rif = clean(body.rif, 40);
+  const immobileNome = clean(body.immobileNome, 200);
+  const url = clean(body.url, 500);
+  const disponibilita = clean(body.disponibilita, 800);
+  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+  // TriesteImmobiliare accettava `sito` dal client per servire due marchi da un
+  // solo endpoint. Qui il marchio è uno: il campo resta accettato per compatibilità
+  // di forma, ma NON decide più canale e azienda — un client che mentisse sul
+  // proprio sito riuscirebbe altrimenti a intestare il lead a un altro brand.
+  const sito = clean(body.sito, 60) || "friulivillas.com";
+  const canale = "Sito FriuliVillas";
+  const azienda = "FriuliVillas";
+
+  if (!privacyOk) {
+    return NextResponse.json({ ok: false, error: "privacy_required" }, { status: 400 });
+  }
+  if (tipo === "Invia a un amico") {
+    if (!isEmail(emailAmico)) {
+      return NextResponse.json({ ok: false, error: "friend_email" }, { status: 400 });
+    }
+  } else if (!isEmail(email) || nome.length < 2) {
+    return NextResponse.json({ ok: false, error: "contact_info" }, { status: 400 });
+  }
+
+  // Il campo del form è UNO: chi scrive "Mario Rossi" finiva tutto in `nome` e
+  // il cognome non esisteva mai (fix 30/07 — è da qui che il portale proprietari
+  // pescava cognomi interi). Split solo nei casi certi; nome_completo conserva
+  // comunque la stringa intera, quindi non si perde niente.
+  const spNome = splitNomeCerta(nome);
+  try {
+    await airtableCreate({
+      nome_completo: nome,
+      nome: spNome ? spNome.nome : nome,
+      ...(spNome ? { cognome: spNome.cognome } : {}),
+      email,
+      telefono,
+      canale,
+      azienda,
+      tipo_richiesta: tipo,
+      motivo,
+      messaggio,
+      disponibilita_visita: disponibilita,
+      email_amico: emailAmico,
+      privacy_ok: privacyOk,
+      immobile_rif: rif,
+      // `immobile` is a linked field to PROPRIETA: link by tsv_prop_id so
+      // typecast matches the existing record instead of creating a phantom one.
+      ...(rif ? { immobile: rif } : {}),
+      immobile_url: url,
+      lingua,
+      stato: "NUOVO",
+      data_contatto: new Date().toISOString(),
+    });
+  } catch (e) {
+    console.error("[lead] airtable write failed:", e);
+    return NextResponse.json({ ok: false, error: "save_failed" }, { status: 502 });
+  }
+
+  // Best-effort notifications.
+  const listingLine = immobileNome
+    ? `<p><strong>${esc(immobileNome)}</strong>${rif ? ` (${esc(rif)})` : ""}${
+        url ? `<br><a href="${mailSafeUrl(esc(url))}">${esc(url)}</a>` : ""
+      }</p>`
+    : "";
+
+  if (tipo === "Invia a un amico") {
+    const fl = (["it", "en", "de"].includes(lingua) ? lingua : "it") as "it" | "en" | "de";
+    const L = RECAP[fl];
+    const FRIEND = {
+      it: { subj: "Un immobile che potrebbe interessarti — FriuliVillas", intro: "Ti è stato segnalato questo immobile:", card: "Immobile segnalato", cta: "Vedi l'immobile", sign: "— FriuliVillas" },
+      en: { subj: "A property you might like — FriuliVillas", intro: "Someone wanted you to see this property:", card: "Shared property", cta: "View the property", sign: "— FriuliVillas" },
+      de: { subj: "Eine Immobilie für Sie — FriuliVillas", intro: "Diese Immobilie wurde Ihnen empfohlen:", card: "Empfohlene Immobilie", cta: "Zur Immobilie", sign: "— FriuliVillas" },
+    }[fl];
+    const friendBody = `<p style="${mailText.title}">${FRIEND.intro}</p>
+      ${mailRecapCard(FRIEND.card, [
+        [L.listing, esc(immobileNome + (rif ? ` (${rif})` : ""))],
+        [L.message, esc(messaggio)],
+      ])}
+      ${url ? mailCta(esc(url), FRIEND.cta) : ""}
+      <p style="${mailText.small}">${FRIEND.sign}</p>`;
+    await sendEmail(
+      emailAmico,
+      FRIEND.subj,
+      brandMailShell({ lang: fl, body: friendBody }),
+      isEmail(email) ? email : undefined,
+    );
+    // Notify the team — otherwise a referral leaves no internal trace beyond Airtable.
+    await sendEmail(
+      NOTIFY_EMAIL,
+      `Segnalazione a un amico dal sito${immobileNome ? `: ${immobileNome}` : ""}`,
+      `<p>Un visitatore ha segnalato un immobile a <strong>${esc(emailAmico)}</strong>.</p>${listingLine}<p><small>${esc(sito)} · lingua ${esc(lingua)}</small></p>`,
+      isEmail(email) ? email : undefined,
+    );
+  } else {
+    await sendEmail(
+      NOTIFY_EMAIL,
+      `${tipo === "Prenota visita" ? "Richiesta visita" : "Nuovo contatto"} dal sito${immobileNome ? `: ${immobileNome}` : ""}`,
+      `<p><strong>Motivo:</strong> ${esc(motivo)}</p>
+       <p><strong>Nome:</strong> ${esc(nome)}<br>
+       <strong>Email:</strong> ${esc(email)}<br>
+       <strong>Telefono:</strong> ${esc(telefono) || "—"}</p>
+       ${messaggio ? `<p><strong>Messaggio:</strong><br>${esc(messaggio)}</p>` : ""}
+       ${disponibilita ? `<p><strong>Disponibilità:</strong><br>${esc(disponibilita).replace(/\n/g, "<br>")}</p>` : ""}
+       ${listingLine}
+       <p><small>${esc(sito)} · lingua ${esc(lingua)}</small></p>`,
+      isEmail(email) ? email : undefined,
+    );
+
+    // Recap to the customer (info / visita requests).
+    if (isEmail(email)) {
+      const lang = lingua as keyof typeof RECAP;
+      const L = RECAP[lang];
+      await sendEmail(
+        email,
+        L.subject,
+        recapHtml(
+          lang,
+          nome,
+          [
+            [L.request, tipo === "Prenota visita" ? tipo : motivo],
+            [L.listing, immobileNome + (rif ? ` (${rif})` : "")],
+            [L.message, messaggio],
+            [L.visit, disponibilita],
+          ],
+          url
+            ? mailCta(esc(url), lingua === "en" ? "View the property" : lingua === "de" ? "Zur Immobilie" : "Vedi l'immobile")
+            : "",
+        ),
+        NOTIFY_EMAIL,
+      );
+    }
+  }
+
+  return NextResponse.json({ ok: true });
+}

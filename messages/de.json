@@ -1,0 +1,659 @@
+{
+  "closure": {
+    "eyebrow": "Sommerpause",
+    "title": "Büro vom 8. bis 24. August geschlossen",
+    "body": "Unsere Büros sind wegen Betriebsferien vom 8. bis 24. August einschließlich geschlossen. Wir danken Ihnen für Ihr Verständnis. Für alle Anliegen erreichen Sie uns per E-Mail oder über WhatsApp: Beide Kontakte werden betreut, Antworten können jedoch etwas länger dauern als gewohnt.",
+    "phone": "+39 331 8940822",
+    "mailSubject": "Anfrage während der Sommerpause",
+    "waText": "Guten Tag, ich schreibe Ihnen während Ihrer Sommerpause."
+  },
+  "nav": {
+    "home": "Start",
+    "properties": "Immobilien",
+    "sell": "Verkaufen",
+    "group": "Die Gruppe",
+    "contact": "Kontakt",
+    "valuation": "Bewertung",
+    "menuLabel": "Menü",
+    "closeLabel": "Schließen",
+    "ctaValuation": "Bewertung anfragen"
+  },
+  "seo": {
+    "home": {
+      "title": "FriuliVillas — Villen und Immobilien in Friaul-Julisch Venetien",
+      "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: ausgewählte Villen und Immobilien in Grado, Udine, Tarvis, Lignano, Sappada.",
+      "ogTitle": "FriuliVillas — Friaul-Julisch Venetien, richtig gelesen",
+      "ogDescription": "Verschiedene Marken, eine Regie. Das in Triest entwickelte Know-how, angewandt auf die übrige Region."
+    },
+    "sell": {
+      "title": "Immobilie in Friaul-Julisch Venetien verkaufen — FriuliVillas",
+      "description": "Verkaufen in der Region mit der Methode der TriesteVillas-Gruppe: Marktlektüre, sorgfältiges Material, ausländische Käufer, Diskretion wo nötig.",
+      "ogTitle": "In Friaul-Julisch Venetien verkaufen, mit Methode",
+      "ogDescription": "Eine ehrliche Bewertung und ein nachvollziehbarer Weg, vom ersten Kontakt bis zum Notartermin."
+    },
+    "invest": {
+      "title": "Immobilien-Investment in Triest — Rendite",
+      "description": "Renditeobjekte in Triest, vermietet und zentral. Budget und Ziel-ROI angeben: nach Rendite sortierte Optionen, Kaufkosten inklusive.",
+      "ogTitle": "Investieren in Triest: Renditeobjekte, nach ROI geordnet",
+      "ogDescription": "Manche Gelegenheiten werden nicht beworben: Sie werden persönlich erzählt. Eine halbe Stunde mit uns, um Ihre Suche auszurichten."
+    },
+    "properties": {
+      "title": "Immobilien zum Verkauf in Friaul-Julisch Venetien",
+      "description": "Villen, Häuser und Wohnungen zum Verkauf in Friaul-Julisch Venetien, ausgewählt von der TriesteVillas-Gruppe.",
+      "ogTitle": "Immobilien zum Verkauf in Friaul-Julisch Venetien",
+      "ogDescription": "Das FriuliVillas-Portfolio, Gebiet für Gebiet."
+    },
+    "group": {
+      "title": "Die TriesteVillas-Gruppe — sechs Marken",
+      "description": "FriuliVillas im Ökosystem TriesteVillas: sechs Marken für Luxus, Wohnimmobilien, Vermietung, Gewerbe und das übrige Friaul-Julisch Venetien.",
+      "ogTitle": "Die TriesteVillas-Gruppe: verschiedene Marken, eine Regie",
+      "ogDescription": "Ein Immobilien-Ökosystem, das auf Spezialisierung gebaut ist, kein generischer Sammelbegriff."
+    },
+    "contact": {
+      "title": "Kontakt — FriuliVillas",
+      "description": "Sprechen Sie mit FriuliVillas: richieste@triestevillas.com, +39 331 8940822. Sagen Sie uns, was Sie suchen oder in der Region verkaufen möchten.",
+      "ogTitle": "FriuliVillas kontaktieren",
+      "ogDescription": "Wir lesen unsere Anfragen wirklich: schreiben Sie uns, wir antworten."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung — FriuliVillas",
+      "description": "Datenschutzhinweise von FriuliVillas: verarbeitete Daten, Zwecke, Ihre Rechte."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Die TriesteVillas-Gruppe in Friaul-Julisch Venetien",
+      "titleLine1": "Ausgewählte Villen und Immobilien",
+      "titleKinetic": "in Friaul-Julisch Venetien.",
+      "titleLine2": "Mit derselben Regie wie in Triest.",
+      "subtitle": "FriuliVillas ist die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien im Nordosten Italiens. Kein generischer Sammelbegriff, sondern ein Projekt, das Methode, Spezialisierung und einen geschulten Blick in den Rest der Region trägt.",
+      "videoAlt": "Luftaufnahme der Landschaft von Friaul-Julisch Venetien.",
+      "ctaPrimary": "Bewertung anfragen",
+      "ctaSecondary": "Immobilien ansehen",
+      "scrollHint": "Scrollen"
+    },
+    "promiseStrip": {
+      "valuation": "Die ganze Region",
+      "online": "Sechs Marken, eine Regie",
+      "mandate": "Vertrauliche Bewertung",
+      "fee": "Italiano · English · Deutsch",
+      "promoNote": "Grado, Udine, Tarvis, Lignano, Sappada — und alles dazwischen."
+    },
+    "positioning": {
+      "eyebrow": "Wer wir sind",
+      "title": "Das übrige Friaul-Julisch Venetien, richtig gelesen.",
+      "body": "FriuliVillas entsteht, um dieselbe Arbeitskultur auf das übrige Friaul-Julisch Venetien anzuwenden — und die Region nicht nur als Immobilienmarkt zu lesen, sondern als System des Eigentums: kaufen, halten, Ertrag erzielen, verkaufen, umschichten.",
+      "routingNote": "Auch dann, wenn es um mehr als eine Immobilie geht, oder wenn die eigentliche Frage nicht das einzelne Objekt ist, sondern der nächste Schritt.",
+      "cta": "Die Gruppe entdecken"
+    },
+    "videoBreak": {
+      "eyebrow": "Unser Marketing",
+      "title": "Wir zeigen das Potenzial, nicht nur die Räume.",
+      "alt": "Innenaufnahmen, die zeigen, wie ein Haus bewohnt wird, nicht nur wie es gebaut ist."
+    },
+    "featured": {
+      "eyebrow": "Jetzt im Verkauf",
+      "title": "Ausgewählte Immobilien",
+      "subtitle": "Eine Auswahl der Objekte, die wir in der Region betreuen.",
+      "viewAll": "Alle Immobilien ansehen",
+      "empty": "Wir aktualisieren gerade die Auswahl. Sagen Sie uns, was Sie suchen — wir melden uns, sobald etwas Passendes hereinkommt."
+    },
+    "sellerValue": {
+      "eyebrow": "Für Verkäufer",
+      "title": "Ein gut gemachter Verkauf nimmt Last ab, er fügt keine hinzu.",
+      "subtitle": "Was den Unterschied macht, ist nicht das Schild an der Tür: es ist, wie die Immobilie gelesen und wie sie dem künftigen Käufer erklärt wird.",
+      "fast": {
+        "title": "Lesen vor dem Preis",
+        "text": "Bevor wir eine Zahl nennen, sehen wir uns die Immobilie, die Unterlagen und den Markt an, in dem sie tatsächlich steht. Ein gut gewählter Preis ist der halbe Verkauf; ein falscher blockiert ihn für Monate."
+      },
+      "zeroFee": {
+        "title": "Klare Konditionen",
+        "text": "Laufzeit, Exklusivität und Kosten werden zu Beginn besprochen und schriftlich festgehalten. Nichts taucht erst beim Notartermin auf."
+      },
+      "simpleMandate": {
+        "title": "Diskretion, wo sie zählt",
+        "text": "Nicht jede Immobilie gehört auf ein Portal. Wo Diskretion zählt, läuft der Verkauf über einen ausgewählten Kreis statt über das Schaufenster."
+      },
+      "marketing": {
+        "title": "Sorgfältiges Material",
+        "text": "Fotos, Video, Drohne und 3D-Rundgänge. Nicht als Schau: weil Käufer von außerhalb der Region auf Basis dessen entscheiden, was sie aus der Ferne verstehen können."
+      },
+      "cta": "So verkaufen wir"
+    },
+    "investorTeaser": {
+      "eyebrow": "Für Investoren",
+      "title": "In Triest kaufen, um zu vermieten.",
+      "body": "Wir halten bereits vermietete Einheiten in kürzlich sanierten, zentralen Gebäuden. Manche werden nie beworben: Wir stellen sie persönlich vor. Nennen Sie Budget und Zielrendite — wir liefern nach ROI sortierte Optionen.",
+      "cta": "Investitionen entdecken"
+    },
+    "groupRouting": {
+      "eyebrow": "Verschiedene Marken, eine Regie",
+      "title": "Sechs Marken, eine Struktur.",
+      "body": "FriuliVillas ist Teil des Ökosystems TriesteVillas. Jede Marke deckt ihr Segment ab, damit eine Anfrage bei denen ankommt, die sie behandeln können.",
+      "luxury": "Luxusimmobilie in Triest → TriesteVillas",
+      "fvg": "Triest und Provinz → TriesteImmobiliare",
+      "rent": "Vermietung → TriesteAffitti",
+      "business": "Lignano → LignanoVillas",
+      "cta": "Die Gruppe entdecken"
+    },
+    "valuationCta": {
+      "eyebrow": "Unverbindlich",
+      "title": "Was ist Ihre Immobilie wirklich wert?",
+      "body": "Wir stehen hinter dem, was wir tun: beginnen wir ein Gespräch, und Sie werden sehen, dass ein Verkauf mit uns anders läuft. Unverbindlich, ohne Druck.",
+      "cta": "Bewertung anfragen",
+      "secondary": "Sprechen Sie uns an"
+    }
+  },
+  "sell": {
+    "hero": {
+      "eyebrow": "Verkaufen mit FriuliVillas",
+      "title": "In Friaul-Julisch Venetien verkaufen — mit mehr Strategie und weniger Reibung.",
+      "intro": "Eine ernsthafte Lektüre der Immobilie, sorgfältiges Material und ein nachvollziehbarer Weg vom ersten Kontakt bis zum Notartermin — mit der TriesteVillas-Gruppe im Rücken.",
+      "videoAlt": "Helle Innenräume, die sich nach außen öffnen.",
+      "ctaPrimary": "Bewertung anfragen",
+      "ctaSecondary": "Videocall vereinbaren"
+    },
+    "blocksTitle": "Was sich ändert, wenn Sie mit uns verkaufen",
+    "blocks": {
+      "velocita": {
+        "title": "Keine Leerlaufzeit",
+        "text": "Wir antworten schnell und handeln, sobald die Unterlagen es zulassen. Langsamkeit ist beim Verkauf keine Vorsicht: Es ist Zeit, in der die Immobilie im Schaufenster altert und an Verhandlungskraft verliert."
+      },
+      "mandatoSemplice": {
+        "title": "Klare Konditionen",
+        "text": "Laufzeit, Exklusivität, Kosten und Leistungsumfang werden zu Beginn besprochen und schriftlich festgehalten. Nichts taucht erst beim Notartermin auf, und nichts verlängert sich von selbst."
+      },
+      "checkup": {
+        "title": "Vorab-Check",
+        "text": "Bevor wir online gehen, prüfen wir, ob das Haus wirklich bereit ist: Konformität, Unterlagen, Energieausweis, Katasterlage. Ein Problem mitten in der Verhandlung zu entdecken kostet weit mehr, als es vorher zu finden.",
+        "cta": "Vorab-Check anfragen"
+      },
+      "materiale": {
+        "title": "Fotos, Video, Drohne, 3D-Rundgang",
+        "text": "Das Material ist nicht zur Schau da: Es soll jemandem, der morgen nicht vorbeikommen kann, die Immobilie verständlich machen. In der Region, wo viele Käufer von weit her kommen, entscheidet es oft überhaupt darüber, ob es zur Besichtigung kommt.",
+        "cta": "3D-Rundgang ansehen"
+      },
+      "liftingPreVendita": {
+        "title": "Auffrischung vor dem Verkauf",
+        "text": "Ein Haus genau so online zu stellen, wie es dasteht, ist nicht immer richtig: Manchmal genügen wenige gezielte Eingriffe, damit die Fotos eine andere Geschichte erzählen. Wir sagen Ihnen, wann es sich lohnt und wann nicht."
+      },
+      "ownerJourney": {
+        "title": "Gebündelte Besichtigungen",
+        "text": "Wo möglich bündeln wir Besichtigungen in wenige vereinbarte Zeitfenster, statt sie zu zerstreuen. Für jemanden, der in der Immobilie wohnt — oder weit entfernt lebt — ist das der Unterschied zwischen einem handhabbaren Verkauf und Monaten permanenter Ordnung."
+      },
+      "primaVendiPoiCerca": {
+        "title": "Erst gut verkaufen, dann suchen",
+        "text": "Sich in das neue Haus zu verlieben, bevor das alte verkauft ist, ist der häufigste Weg, das alte unter Wert abzugeben. Wenn der nächste Schritt schon feststeht, bringen wir ihn in die richtige Reihenfolge.",
+        "cta": "Mehr dazu lesen"
+      },
+      "affittaMentreVendi": {
+        "title": "Vermieten, während Sie verkaufen",
+        "text": "Wenn der Zeitpunkt zum Verkaufen nicht stimmt, kann die Immobilie in der Zwischenzeit Ertrag bringen, statt stillzustehen. Dann übernimmt TriesteAffitti — Teil der Gruppe, wir schicken Sie also nicht weg.",
+        "cta": "Verkaufen, vermieten oder warten?"
+      },
+      "acquirentiEsteri": {
+        "title": "Spezialisten für ausländische Käufer",
+        "text": "Viele unserer Käufer sind keine Italiener: Österreicher, Deutsche und alle, die in einer Region mit Meer und Bergen ein Zweitdomizil suchen. Wir machen alles auf Englisch und Deutsch verständlich, vom Exposé bis zu den Unterlagen.",
+        "quote": "Friaul-Julisch Venetien muss man nicht nur zeigen. Man muss es erklären.",
+        "cta": "House-Tour planen"
+      },
+      "houseTour": {
+        "title": "Begleitete House-Touren",
+        "text": "Wer von weit her anreist, will nicht nur Häuser sehen: Er will den Ort verstehen. Wir planen sinnvolle Besichtigungstage und rechnen die Entfernungen ein — die hier weit mehr zählen als in der Stadt."
+      },
+      "venditaRiservata": {
+        "title": "Diskreter Verkauf",
+        "text": "Verkaufen heißt nicht zwingend, auf Portalen zu veröffentlichen. Wo Diskretion zählt, wird die Immobilie einem ausgewählten Kreis angeboten, ohne je im Schaufenster zu erscheinen."
+      },
+      "forzaDelGruppo": {
+        "title": "Die Stärke der Gruppe",
+        "text": "Mit FriuliVillas haben Sie es nicht mit einem einzigen Namen zu tun. Ob Luxus, ob Triest, ob Lignano, oder ob Vermieten der bessere Weg ist: In der Gruppe gibt es bereits jemanden, der genau das täglich macht."
+      }
+    },
+    "process": {
+      "eyebrow": "So läuft es",
+      "title": "Vom ersten Gespräch bis zum Notartermin, offen dargelegt.",
+      "subtitle": "Ein geordneter, nachvollziehbarer Weg, gedacht, um Verkäufern Reibung abzunehmen.",
+      "steps": {
+        "call": {
+          "n": "01",
+          "title": "Erstgespräch",
+          "text": "Sie erzählen uns von der Immobilie und der Situation. Wir klären sofort, ob und wie wir helfen können — und wenn nicht, sagen wir es."
+        },
+        "docs": {
+          "n": "02",
+          "title": "Unterlagen und Besichtigung",
+          "text": "Sie senden uns die Unterlagen, wir sehen uns die Immobilie an. Daraus entsteht eine begründete Bewertung, keine hingeworfene Zahl."
+        },
+        "online": {
+          "n": "03",
+          "title": "Material und Veröffentlichung",
+          "text": "Fotos, Video, Drohne und 3D-Rundgang. Dann die Veröffentlichung auf den Kanälen, die zu dieser Art von Immobilie passen — und das sind nicht immer dieselben."
+        },
+        "visits": {
+          "n": "04",
+          "title": "Gesteuerte Besichtigungen",
+          "text": "Besichtigungen in vereinbarten Zeitfenstern, mit einem ernsthaften Filter davor: Wer kommt, hat bereits alles gesehen, was aus der Ferne zu sehen war."
+        },
+        "deal": {
+          "n": "05",
+          "title": "Verhandlung und Notartermin",
+          "text": "Wir führen Angebote und Verhandlung bis zum Notartermin und halten den Faden zu Notar und Gegenseite. Sie holen das Ergebnis heim."
+        }
+      }
+    },
+    "closing": {
+      "title": "Eine ehrliche Bewertung, unverbindlich.",
+      "text": "Wir stehen hinter dem, was wir tun: beginnen wir ein Gespräch, und Sie werden sehen, dass ein Verkauf mit uns anders läuft. Unverbindlich, ohne Druck.",
+      "ctaPrimary": "Bewertung anfragen",
+      "ctaSecondary": "Videocall vereinbaren"
+    },
+    "faqQ": {
+      "0": "Welche Art von Auftrag unterzeichne ich bei FriuliVillas?",
+      "1": "Wie lange dauert es, bis meine Immobilie online ist?",
+      "2": "Was prüfen Sie vor dem Verkaufsstart?",
+      "3": "Welches Material erstellen Sie für meine Immobilie?",
+      "4": "Kann ich meine Immobilie diskret verkaufen?"
+    }
+  },
+  "immobili": {
+    "title": "Immobilien",
+    "intro": "Die derzeit verfügbaren Immobilien in Friaul-Julisch Venetien, nach Gebiet gruppiert.",
+    "filterAll": "Alle Gebiete",
+    "buyerHelp": {
+      "eyebrow": "Nicht das Richtige dabei?",
+      "title": "Sagen Sie uns, was Sie suchen.",
+      "text": "Nennen Sie uns Budget, Gebiet, mögliche Arbeiten und geplante Nutzung: vieles bewegt sich, bevor es in die Auswahl kommt.",
+      "cta": "Sagen Sie uns, was Sie suchen"
+    }
+  },
+  "zones": {
+    "CENTRO": "Triest Zentrum",
+    "SEMICENTRO": "Triest Halbzentrum",
+    "BARCOLA": "Barcola",
+    "BARCOLA-MIRAMARE": "Barcola-Miramare",
+    "COSTIERA": "Costiera",
+    "SISTIANA-DUINO": "Sistiana-Duino",
+    "ALTE": "Karst und Hochebene",
+    "MUGGIA": "Muggia",
+    "FVG": "Friaul-Julisch Venetien",
+    "ALTRE": "Weitere Gebiete"
+  },
+  "listing": {
+    "count": "{count, plural, =0 {Keine Immobilien} =1 {1 Immobilie} other {# Immobilien}}",
+    "empty": "Derzeit keine Immobilien in diesem Gebiet. Sagen Sie uns, was Sie suchen, und wir melden uns."
+  },
+  "property": {
+    "forSale": "Zum Verkauf",
+    "forRent": "Zu vermieten",
+    "badgePrivate": "Diskreter Verkauf",
+    "badgeNewBuild": "Neubau",
+    "onlineDays": "{count, plural, =0 {HEUTE ONLINE} one {SEIT # TAG ONLINE} other {SEIT # TAGEN ONLINE}}",
+    "badgeFeatured": "EMPFOHLEN",
+    "priceOnRequest": "Preis auf Anfrage",
+    "priceReserved": "Verhandlung vertraulich",
+    "yearBuilt": "Baujahr",
+    "floorsBuilding": "Geschosse im Gebäude",
+    "galPhotos": "Fotos",
+    "galPlans": "Grundrisse",
+    "galVideo": "Video",
+    "galTour": "3D-Tour",
+    "galViewAll": "Alle {count} Fotos ansehen",
+    "galClose": "Schließen",
+    "perMonth": "/Monat",
+    "sqm": "{value} m²",
+    "rooms": "Zimmer",
+    "baths": "Bäder",
+    "floor": "Etage",
+    "energyClass": "Energieklasse",
+    "surface": "Fläche",
+    "descriptionTitle": "Beschreibung",
+    "featuresTitle": "Merkmale",
+    "locationTitle": "Lage",
+    "locationApprox": "Ungefähre Lage im Gebiet. Die genaue Lage wird auf Anfrage mitgeteilt.",
+    "photosComing": "Fotos folgen in Kürze",
+    "backToList": "Zurück zu den Immobilien",
+    "contactCta": "Informationen anfordern",
+    "reference": "Ref.",
+    "virtualTour": "Virtuelle Tour",
+    "characteristicsTitle": "Merkmale der Immobilie",
+    "showAllFeatures": "Alle Merkmale anzeigen",
+    "showLess": "Weniger anzeigen",
+    "condition": "Zustand",
+    "bedrooms": "Schlafzimmer",
+    "kitchen": "Küche",
+    "terrace": "Terrasse",
+    "heating": "Heizung",
+    "availability": "Verfügbarkeit",
+    "balcony": "Balkon",
+    "garden": "Garten",
+    "accessibility": "Barrierefreier Zugang",
+    "propertyType": "Immobilientyp",
+    "propertyClass": "Immobilienklasse",
+    "yes": "Ja",
+    "similarTitle": "Weitere ähnliche Inserate",
+    "type": "Typ",
+    "contract": "Vertrag",
+    "elevator": "Aufzug",
+    "furnished": "Möbliert",
+    "parking": "Garage / Stellplätze",
+    "pool": "Pool",
+    "galGrid": "Alle Fotos",
+    "taxTitle": "Indikative Steuern & Kosten",
+    "taxFirstHome": "Steuern Erstwohnsitz",
+    "taxSecondHome": "Steuern Zweitwohnsitz",
+    "taxCommission": "FriuliVillas-Provision",
+    "taxCommissionNote": "4% + MwSt.",
+    "taxDisclaimer": "Indikative Schätzungen auf Katasterbasis (Preis-Wert), unverbindlich. Bitte stets mit Notar oder Steuerberater prüfen.",
+    "taxInfoTitle": "Wie wird berechnet",
+    "taxCriteria": "Berechnungskriterien",
+    "taxInfoAria": "Details zur Steuerberechnung",
+    "taxAiDisclaimer": "Automatisch (KI) berechnete Schätzungen: als solche können sie Rechen- oder Übertragungsfehler enthalten. Die einzige verlässliche Quelle ist das persönliche Gespräch mit dem Inhaber nach Prüfung des konkreten Einzelfalls.",
+    "taxGroupAcquisto": "Kaufkosten (einmalig)",
+    "taxGroupGestione": "Jährliche laufende Kosten",
+    "taxPlusVat": "+ MwSt.",
+    "taxPerYear": "/Jahr",
+    "taxCondo": "Hausgeld",
+    "taxIlia": "Immobiliensteuer · ILIA",
+    "taxTari": "Abfallgebühr · TARI",
+    "taxCondoInfoTitle": "Hausgeld",
+    "taxCondoInfoBody": "Indikativer Jahresbetrag auf Basis der gemeldeten ordentlichen Kosten. Außerordentliche Maßnahmen und verbrauchsabhängige Kosten (z. B. Heizung) sind ausgeschlossen. Maßgeblich ist die Abrechnung des Verwalters.",
+    "taxIliaInfoTitle": "ILIA — indikative Schätzung",
+    "taxIliaInfoBody": "KI-generierte Schätzung, berechnet als Zweitwohnsitz in Triest auf Basis des Katasterertrags (Satz 10,6‰). Sie ersetzt nicht die offizielle Berechnung: Sie hängt von der Katasterkategorie, dem Eigentumsanteil und den Besitzmonaten sowie etwaigen Vergünstigungen ab. Ein nicht luxuriöser Hauptwohnsitz ist befreit. Prüfen Sie dies stets mit Ihrem Steuerberater oder dem Steueramt der Stadt Triest.",
+    "taxTariInfoTitle": "TARI — indikative Schätzung",
+    "taxTariInfoBody": "Grobe KI-Schätzung auf Basis der Abfallgebührentarife 2026 der Stadt Triest für Haushalte. Die TARI wird auf die Nettowohnfläche (calpestabile) berechnet: Wir schätzen sie auf etwa 80% der kommerziellen Fläche. Unten können Sie die Anzahl der Bewohner ändern (Standard 2). Der tatsächliche Betrag hängt von der realen Fläche, den Bewohnern und etwaigen Ermäßigungen ab und ersetzt nicht die von ESATTO S.p.A. ausgestellte Rechnung.",
+    "taxTariInfoLink": "Genaue Berechnung bei ESATTO",
+    "taxPrimaCasa": "Hauptwohnsitz",
+    "taxSecondaCasa": "Zweitwohnsitz",
+    "taxIliaEsente": "Befreit (Hauptwohnsitz)",
+    "taxOccupants": "Bewohner",
+    "taxEstimateFootnote": "Die jährlichen Kosten sind indikative KI-Schätzungen und ersetzen keine offizielle Prüfung."
+  },
+  "group": {
+    "eyebrow": "Die TriesteVillas-Gruppe",
+    "title": "Verschiedene Marken, eine Regie.",
+    "intro": "Ein Immobilien-Ökosystem, das auf Spezialisierung gebaut ist. Jede Marke deckt ihr Segment ab, mit derselben Arbeitskultur dahinter.",
+    "ecosystem": {
+      "eyebrow": "Kein generischer Sammelbegriff",
+      "title": "Ein gut gebautes System.",
+      "body": "Nicht jede Immobilie wird gleich verkauft, vermietet oder verwaltet. Eine hochwertige Villa, eine kleine Ertragswohnung und ein Ferienhaus am Meer verlangen andere Sprache, andere Kanäle, andere Ansprechpartner. Deshalb besteht die Gruppe aus getrennten Marken statt aus einem Namen, der behauptet, alles zu können.",
+      "tagline": "Kein gemeinsames Logo, kein wiederholter Name. Dieselbe Arbeitskultur, dort angewandt, wo sie hingehört."
+    },
+    "brandsTitle": "Sechs Marken, eine Regie",
+    "brandsSubtitle": "Eine Struktur für jeden Immobilienbedarf zwischen Triest und dem übrigen Friaul-Julisch Venetien.",
+    "story": {
+      "eyebrow": "Was wir waren, was wir sind",
+      "title": "Von der Hospitality zur Gruppe.",
+      "intro": "FriuliVillas ist in einer Gruppe entstanden, die dieses Gebiet kannte, lange bevor sie mit Kauf und Verkauf zu tun hatte.",
+      "start": {
+        "title": "Der Anfang in der gehobenen Hospitality",
+        "text": "Die Gruppe begann mit der Verwaltung von Villen und Wohnungen für eine anspruchsvolle, überwiegend ausländische Klientel. Daher die Gewohnheit, eine Immobilie als etwas zu behandeln, das erklärt und nicht nur gezeigt werden will."
+      },
+      "pivot": {
+        "title": "Der Schwenk zur Vermittlung",
+        "text": "Aus Beziehungen und Marktkenntnis wurde eine Maklerpraxis: zuerst in Triest, wo die Methode entwickelt und erprobt wurde."
+      },
+      "today": {
+        "title": "Eine Gruppe, klare Rollen",
+        "text": "FriuliVillas ist die räumliche Erweiterung dieses Know-hows auf die übrige Region: Grado, Udine, Tarvis, Lignano, Sappada. Gleiche Regie, anderer Perimeter."
+      }
+    },
+    "valuesTitle": "Eine gemeinsame Arbeitskultur",
+    "values": {
+      "specialised": {
+        "title": "Spezialisiert, nicht generalistisch",
+        "text": "Jede Marke hat ihren Fokus, ihre Sprache und ihre Strategie. Niemand landet zu unserer Bequemlichkeit am falschen Ort."
+      },
+      "local": {
+        "title": "Lokal und unabhängig",
+        "text": "Wir kennen den Nordosten, weil wir hier arbeiten und leben. Keine ferne Zentrale, die auf einer Karte entscheidet."
+      },
+      "clarity": {
+        "title": "Klarheit zuerst",
+        "text": "Unterlagen in Ordnung, realistische Preise, offene Konditionen. Keine Überraschungen, die bis zum Notartermin reifen."
+      },
+      "journey": {
+        "title": "Vom ersten Kontakt bis zum Notartermin",
+        "text": "Wir begleiten Sie in jeder Phase, auf einem Weg, der Reibung nehmen und nicht hinzufügen soll."
+      }
+    },
+    "teamTitle": "Die Menschen der Gruppe",
+    "team": {
+      "carlin": {
+        "name": "Davide Carlin",
+        "role": "Makler · Inhaber und Geschäftsführer"
+      },
+      "martino": {
+        "name": "Martino Coppola di Canzano",
+        "role": "Gesellschafter · Entwicklung TriesteVillas Group"
+      },
+      "giada": {
+        "name": "Giada Comelli",
+        "role": "Maklerin · Vermietung"
+      },
+      "cecile": {
+        "name": "Cécile Van der Salm",
+        "role": "Maklerin · Vermietung"
+      }
+    },
+    "ctaTitle": "Treten Sie durch die richtige Tür ein.",
+    "ctaText": "Jedes Immobiliensegment braucht andere Werkzeuge. Unsere Aufgabe ist es, Sie zu der Marke zu schicken, die Ihren Fall täglich bearbeitet.",
+    "ctaSell": "Zur Seite für Verkäufer",
+    "ctaCall": "Orientierungsgespräch anfragen",
+    "brands": {
+      "tsv": {
+        "name": "TriesteVillas",
+        "tag": "Muttergesellschaft · Luxus Triest",
+        "desc": "Die Muttergesellschaft und der Premium-/Luxuspol in Triest, dazu die Marketing- und Backoffice-Zentrale der Gruppe. Ausgewählte Immobilien, qualifizierte Käufer, starke internationale Ausrichtung."
+      },
+      "tsi": {
+        "name": "FriuliVillas",
+        "tag": "Wohnen bis ~500.000 €",
+        "desc": "Die Marke der Gruppe für Wohnimmobilien in Triest und Provinz bis rund 500.000 €. Klarheit bei den Unterlagen, Qualität in der Präsentation, betriebliche Effizienz, weniger Streuverlust."
+      },
+      "affitti": {
+        "name": "TriesteAffitti",
+        "tag": "Vermietungen 1–18 Monate",
+        "desc": "Methodisch aufgebaute Vermietungen: befristete, vereinbarte und klassische Mietverträge. 2013 für touristische Vermietungen gegründet, weiterentwickelt zu einem reiferen und geordneteren System."
+      },
+      "friuli": {
+        "name": "FriuliVillas",
+        "tag": "Premium im übrigen Friaul-Julisch Venetien",
+        "desc": "Premium-Immobilien im übrigen Friaul-Julisch Venetien: Grado, Udine, Tarvis, Lignano, Sappada. Die räumliche Erweiterung des in Triest entwickelten Know-hows."
+      },
+      "business": {
+        "name": "TriesteBusiness",
+        "tag": "Gewerbe und Investitionen",
+        "desc": "Immobilien und Vorhaben mit geschäftlicher Ausrichtung: Geschäftsräume, Betriebe, Grundstücke, Gebäude, Büros, Hallen und Beherbergungsbetriebe. Anlagen, die nach anderen Logiken als Wohnimmobilien zu lesen sind."
+      },
+      "lignano": {
+        "name": "LignanoVillas",
+        "tag": "Premium in Lignano",
+        "desc": "Premium-Verkäufe in Lignano, gelesen mit einer internationaleren Linse. Für ausländische Käufer und Eigentümer, die Struktur, Kontext und Qualität in der Abwicklung suchen."
+      }
+    },
+    "legalTitle": "Unternehmensdaten",
+    "legal": {
+      "company": "TriesteVillas srl",
+      "address": "Via Milano 5, 34132 Triest",
+      "vat": "Steuernr. / USt-IdNr. 01235580329",
+      "rea": "Eingetragen bei der Handelskammer Triest · REA-Nr. TS 134793",
+      "capital": "Stammkapital 10.200,00 € voll eingezahlt",
+      "pec": "milou@pec.emailc.it"
+    }
+  },
+  "contact": {
+    "eyebrow": "Sprechen Sie uns an",
+    "title": "Kontakt",
+    "intro": "Sagen Sie uns, was Sie suchen oder in der Region verkaufen möchten: wir antworten schnell.",
+    "videoAlt": "Ein Blick auf Friaul-Julisch Venetien.",
+    "emailLabel": "E-Mail",
+    "phoneLabel": "Telefon",
+    "officeLabel": "Büro",
+    "hoursLabel": "Öffnungszeiten",
+    "socialLabel": "Social",
+    "email": "richieste@triestevillas.com",
+    "phone": "+39 331 8940822",
+    "office": "Via Torino 34, zweiter Stock · Triest",
+    "hours": "Nur nach Vereinbarung",
+    "social": "—",
+    "poweredBy": "Powered by TriesteVillas",
+    "ctaSell": "Mit uns verkaufen",
+    "ctaBuy": "Sprechen Sie uns an"
+  },
+  "lead": {
+    "title": "Informationen anfordern",
+    "reason": "Grund der Kontaktaufnahme",
+    "motivo": {
+      "info": "Weitere Informationen anfordern",
+      "foto": "Mehr Fotos anfordern",
+      "disp": "Verfügbarkeit anfragen",
+      "altro": "Sonstiges"
+    },
+    "messagePlaceholder": "Schreiben Sie hier Ihre Nachricht (optional)",
+    "name": "Vor- und Nachname",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "privacyPre": "Ich habe die",
+    "privacyLink": "Datenschutzerklärung",
+    "submit": "Informationen anfordern",
+    "or": "Oder",
+    "brochureNote": "Wir antworten Ihnen so bald wie möglich per E-Mail.",
+    "send": "Anfrage senden",
+    "sending": "Wird gesendet…",
+    "thanks": "Vielen Dank! Wir melden uns in Kürze bei Ihnen.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "friendToggle": "An einen Freund senden",
+    "friendTitle": "Diese Immobilie an einen Freund senden",
+    "friendNote": "Wir senden Ihrem Freund den Link zur Immobilie und die Broschüre.",
+    "friendEmail": "E-Mail des Freundes",
+    "yourEmail": "Ihre E-Mail",
+    "friendSend": "Senden",
+    "friendThanks": "Gesendet!",
+    "visitTitle": "Besichtigung buchen",
+    "visitSubtitle": "Wählen Sie, wann Sie die Immobilie besichtigen möchten.",
+    "visitCta": "Besichtigung buchen",
+    "visitHow": "Wie möchten Sie die Immobilie besichtigen",
+    "visitInPerson": "Persönlich",
+    "visitAvail": "Wählen Sie Ihre Verfügbarkeiten",
+    "visitAsap": "So bald wie möglich",
+    "visitSlots": "Wählen Sie die Zeitfenster",
+    "slotAny": "Beliebig",
+    "visitDisclaimer": "Dies ist keine Buchung: Ihre Verfügbarkeiten werden an die Agentur übermittelt, die sich bei Ihnen meldet.",
+    "visitNext": "Weiter",
+    "visitRecapDates": "Verfügbarkeiten",
+    "visitRecapSlots": "Zeitfenster",
+    "visitBack": "Zurück",
+    "visitSend": "Bestätigen und senden",
+    "visitThanks": "Anfrage gesendet! Wir melden uns, um die Besichtigung zu vereinbaren."
+  },
+  "buyerForm": {
+    "title": "Sagen Sie uns, was Sie suchen",
+    "subtitle": "Zwei Minuten, unverbindlich: Ein Kontakt und Ihre Präferenzen genügen.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Mobiltelefon",
+    "email": "E-Mail",
+    "city": "Stadt, in der Sie wohnen (optional)",
+    "zones": "Zonen von Interesse",
+    "budget": "Budget",
+    "size": "Größe",
+    "purpose": "Wofür möchten Sie sie nutzen?",
+    "purposeOptions": {
+      "0": "Zum Wohnen",
+      "1": "Investition / Rendite",
+      "2": "Ferienhaus"
+    },
+    "condition": "Zustand der Immobilie",
+    "conditionOptions": {
+      "0": "Erstbezug",
+      "1": "Sofort bezugsfertig",
+      "2": "Auch sanierungsbedürftig",
+      "3": "Egal"
+    },
+    "privacy": "Ich willige in die Verarbeitung der Daten gemäß der Datenschutzerklärung ein.",
+    "submit": "Anfrage senden",
+    "sending": "Wird gesendet…",
+    "okTitle": "Anfrage erhalten",
+    "okText": "Wir melden uns in Kürze mit einer maßgeschneiderten Auswahl bei Ihnen.",
+    "error": "Etwas ist schiefgelaufen: Bitte versuchen Sie es erneut oder schreiben Sie an richieste@triestevillas.com.",
+    "close": "Schließen",
+    "errorContact": "Hinterlassen Sie mindestens E-Mail oder Telefon für die Rückmeldung."
+  },
+  "sellerForm": {
+    "eyebrow": "Verkaufen mit FriuliVillas",
+    "title": "Bewertung anfordern",
+    "subtitle": "Unverbindlich: nur eine ehrliche, begründete Bewertung Ihrer Immobilie.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "phone": "Mobiltelefon",
+    "email": "E-Mail",
+    "city": "Stadt, in der Sie wohnen (optional)",
+    "address": "Wo befindet sich die Immobilie?",
+    "addressPlaceholder": "Straße und Hausnummer, Gemeinde (z. B. Strada Costiera 28, Triest)",
+    "addressFound": "Adresse erkannt",
+    "type": "Typ",
+    "typeOptions": {
+      "0": "Wohnung",
+      "1": "Penthouse",
+      "2": "Villa",
+      "3": "Haus mit Garten",
+      "4": "Grundstück",
+      "5": "Sonstiges"
+    },
+    "size": "Größe",
+    "sizeOptions": {
+      "0": "Weniger als 80 m²",
+      "1": "80 – 150 m²",
+      "2": "150 – 250 m²",
+      "3": "Über 250 m²"
+    },
+    "condition": "Zustand der Immobilie",
+    "conditionOptions": {
+      "0": "Sehr gut / saniert",
+      "1": "Gut / bewohnbar",
+      "2": "Sanierungsbedürftig"
+    },
+    "timing": "Zeitrahmen",
+    "timingOptions": {
+      "0": "So bald wie möglich",
+      "1": "Innerhalb von 6 Monaten",
+      "2": "Nur unverbindlich erkundend"
+    },
+    "hasToBuy": "Müssen Sie auch kaufen?",
+    "hasToBuyOptions": {
+      "0": "Ja, ich verkaufe und kaufe wieder",
+      "1": "Nein, nur Verkauf",
+      "2": "Noch nicht entschieden"
+    },
+    "notes": "Anmerkungen",
+    "notesPlaceholder": "Alles, was uns hilft, die Immobilie zu verstehen: Aussicht, Terrassen, Stellplatz…",
+    "privacy": "Ich willige in die Verarbeitung der Daten gemäß der Datenschutzerklärung ein.",
+    "submit": "Bewertung anfordern",
+    "sending": "Wird gesendet…",
+    "okTitle": "Anfrage erhalten",
+    "okText": "Wir melden uns bei Ihnen, um eine Besichtigung zu vereinbaren.",
+    "error": "Etwas ist schiefgelaufen: Bitte versuchen Sie es erneut oder schreiben Sie an richieste@triestevillas.com.",
+    "close": "Schließen",
+    "errorContact": "Hinterlassen Sie mindestens E-Mail oder Telefon für die Rückmeldung."
+  },
+  "footer": {
+    "tagline": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien. Grado, Udine, Tarvis, Lignano, Sappada.",
+    "rights": "Alle Rechte vorbehalten.",
+    "poweredBy": "Powered by TriesteVillas",
+    "sitemapTitle": "Sitemap",
+    "contactTitle": "Kontakt",
+    "groupTitle": "Die Gruppe",
+    "followUs": "Folgen Sie uns",
+    "privacy": "Datenschutz",
+    "appointmentNote": "Via Torino 34, zweiter Stock, Triest. Nur nach Vereinbarung."
+  },
+  "meta": {
+    "title": "FriuliVillas — Ausgewählte Villen und Immobilien in Friaul-Julisch Venetien",
+    "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: Grado, Udine, Tarvis, Lignano, Sappada. Kaufen, verkaufen, Ertrag erzielen."
+  },
+  "ui": {
+    "prev": "Zurück",
+    "next": "Weiter"
+  }
+}

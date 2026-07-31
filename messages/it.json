@@ -1,0 +1,659 @@
+{
+  "closure": {
+    "eyebrow": "Chiusura estiva",
+    "title": "Uffici chiusi dall'8 al 24 agosto",
+    "body": "Le nostre sedi resteranno chiuse per ferie dall'8 al 24 agosto compresi. Vi ringraziamo per la comprensione. Per qualsiasi necessità potete scriverci via email o su WhatsApp: entrambi i recapiti saranno monitorati, pur senza la consueta tempestività nelle risposte.",
+    "phone": "331 8940822",
+    "mailSubject": "Richiesta durante la chiusura estiva",
+    "waText": "Salve, vi scrivo durante la chiusura estiva."
+  },
+  "nav": {
+    "home": "Home",
+    "properties": "Immobili",
+    "sell": "Vendi",
+    "group": "Il Gruppo",
+    "contact": "Contatti",
+    "valuation": "Valutazione",
+    "menuLabel": "Menu",
+    "closeLabel": "Chiudi",
+    "ctaValuation": "Richiedi valutazione"
+  },
+  "seo": {
+    "home": {
+      "title": "FriuliVillas — Ville e proprietà in Friuli Venezia Giulia",
+      "description": "Il marchio del gruppo TriesteVillas per il Friuli Venezia Giulia: ville e proprietà selezionate a Grado, Udine, Tarvisio, Lignano, Sappada.",
+      "ogTitle": "FriuliVillas — il Friuli Venezia Giulia, letto con metodo",
+      "ogDescription": "Brand diversi, una regia sola. Il know-how costruito su Trieste, applicato al resto della regione."
+    },
+    "sell": {
+      "title": "Vendere una proprietà in Friuli Venezia Giulia — FriuliVillas",
+      "description": "Vendere in regione con il metodo del gruppo TriesteVillas: lettura del mercato, materiale fatto bene, acquirenti esteri, riservatezza quando serve.",
+      "ogTitle": "Vendere in Friuli Venezia Giulia, con metodo",
+      "ogDescription": "Una valutazione onesta e un percorso in chiaro, dal primo contatto al rogito."
+    },
+    "invest": {
+      "title": "Investire a Trieste — immobili a reddito",
+      "description": "Immobili a reddito a Trieste, già affittati e centrali. Indica budget e ROI: opzioni ordinate per rendimento, costi d'acquisto inclusi.",
+      "ogTitle": "Investire a Trieste: immobili a reddito, ordinati per ROI",
+      "ogDescription": "Alcune opportunità non si pubblicizzano: si raccontano di persona. Mezz'ora con noi per orientare la ricerca."
+    },
+    "properties": {
+      "title": "Immobili in vendita in Friuli Venezia Giulia",
+      "description": "Ville, case e appartamenti in vendita in Friuli Venezia Giulia, selezionati dal gruppo TriesteVillas.",
+      "ogTitle": "Proprietà in vendita in Friuli Venezia Giulia",
+      "ogDescription": "Il portfolio FriuliVillas, zona per zona."
+    },
+    "group": {
+      "title": "Il Gruppo TriesteVillas — sei brand",
+      "description": "FriuliVillas nell'ecosistema TriesteVillas: sei marchi per luxury, residenziale, affitti, commerciale e il resto del Friuli Venezia Giulia.",
+      "ogTitle": "Il Gruppo TriesteVillas: brand diversi, una regia sola",
+      "ogDescription": "Un ecosistema immobiliare costruito per specializzazione, non un contenitore generico."
+    },
+    "contact": {
+      "title": "Contatti — FriuliVillas",
+      "description": "Parla con FriuliVillas: richieste@triestevillas.com, 331 8940822. Raccontaci cosa cerchi o cosa vuoi vendere in regione.",
+      "ogTitle": "Contatta FriuliVillas",
+      "ogDescription": "Le richieste le leggiamo davvero: scriveteci e vi rispondiamo."
+    },
+    "privacy": {
+      "title": "Privacy Policy — FriuliVillas",
+      "description": "Informativa privacy di FriuliVillas: dati trattati, finalità, diritti dell'interessato."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Il Gruppo TriesteVillas in Friuli Venezia Giulia",
+      "titleLine1": "Ville e proprietà selezionate",
+      "titleKinetic": "in Friuli Venezia Giulia.",
+      "titleLine2": "Con la stessa regia di Trieste.",
+      "subtitle": "FriuliVillas è il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia. Non un contenitore generico: un progetto costruito per portare nel resto della regione metodo, specializzazione e qualità di lettura.",
+      "videoAlt": "Paesaggio del Friuli Venezia Giulia ripreso dall'alto.",
+      "ctaPrimary": "Richiedi una valutazione",
+      "ctaSecondary": "Sfoglia gli immobili",
+      "scrollHint": "Scorri"
+    },
+    "promiseStrip": {
+      "valuation": "Tutta la regione",
+      "online": "Sei marchi, una regia",
+      "mandate": "Valutazione riservata",
+      "fee": "Italiano · English · Deutsch",
+      "promoNote": "Grado, Udine, Tarvisio, Lignano, Sappada — e tutto ciò che sta in mezzo."
+    },
+    "positioning": {
+      "eyebrow": "Chi siamo",
+      "title": "Il resto del Friuli Venezia Giulia, letto come si deve.",
+      "body": "FriuliVillas nasce per applicare al resto della regione la cultura del lavoro costruita su Trieste. E per leggere il territorio non solo come mercato di immobili, ma come sistema di ownership: comprare, detenere, mettere a reddito, vendere, riallocare.",
+      "routingNote": "Anche quando le proprietà sono più di una, o quando la vera questione non è il singolo immobile, ma la prossima mossa.",
+      "cta": "Scopri il Gruppo"
+    },
+    "videoBreak": {
+      "eyebrow": "Il nostro marketing",
+      "title": "Facciamo vedere il potenziale, non solo le stanze.",
+      "alt": "Interni fotografati per raccontare come si vive una casa, non solo com'è fatta."
+    },
+    "featured": {
+      "eyebrow": "In vendita ora",
+      "title": "Immobili in evidenza",
+      "subtitle": "Una selezione delle proprietà seguite in regione.",
+      "viewAll": "Vedi tutti gli immobili",
+      "empty": "Stiamo aggiornando la vetrina. Scriveteci cosa cercate e vi avvisiamo appena rientra qualcosa di adatto."
+    },
+    "sellerValue": {
+      "eyebrow": "Per chi vende",
+      "title": "Una vendita ben fatta toglie peso, non ne aggiunge.",
+      "subtitle": "Quello che cambia non è l'insegna: è come si legge la proprietà e come la si racconta a chi la comprerà.",
+      "fast": {
+        "title": "Lettura prima del prezzo",
+        "text": "Prima di mettere un numero guardiamo l'immobile, i documenti e il mercato in cui sta davvero. Un prezzo scelto bene è metà della vendita; un prezzo sbagliato la blocca per mesi."
+      },
+      "zeroFee": {
+        "title": "Condizioni in chiaro",
+        "text": "Durata, esclusiva e costi si discutono all'inizio e restano scritti. Nessuna voce che compare al rogito."
+      },
+      "simpleMandate": {
+        "title": "Riservatezza quando serve",
+        "text": "Non tutte le proprietà vanno sui portali. Quando la discrezione conta, la vendita passa da una rosa selezionata di interlocutori invece che dalla vetrina."
+      },
+      "marketing": {
+        "title": "Materiale fatto bene",
+        "text": "Foto, video, drone e tour 3D. Non per fare scena: perché chi compra da fuori regione decide sulla base di quello che riesce a capire a distanza."
+      },
+      "cta": "Scopri come vendiamo"
+    },
+    "investorTeaser": {
+      "eyebrow": "Per chi investe",
+      "title": "Comprare a Trieste per metterci a reddito.",
+      "body": "Teniamo unità già affittate, in palazzi centrali ristrutturati di recente. Alcune non si pubblicizzano: si raccontano di persona. Indicaci budget e ritorno atteso e ti restituiamo opzioni ordinate per ROI.",
+      "cta": "Scopri gli investimenti"
+    },
+    "groupRouting": {
+      "eyebrow": "Brand diversi, una regia sola",
+      "title": "Sei brand, un'unica struttura.",
+      "body": "FriuliVillas fa parte dell'ecosistema TriesteVillas. Ogni marchio presidia il suo segmento, e la richiesta arriva a chi la sa trattare.",
+      "luxury": "Immobile di lusso a Trieste → TriesteVillas",
+      "fvg": "Trieste e Provincia → TriesteImmobiliare",
+      "rent": "Affitti → TriesteAffitti",
+      "business": "Lignano → LignanoVillas",
+      "cta": "Scopri il Gruppo"
+    },
+    "valuationCta": {
+      "eyebrow": "Senza impegno",
+      "title": "Quanto vale davvero la vostra proprietà?",
+      "body": "Crediamo in quello che facciamo: apriamo un dialogo e vedrete che vendere con noi è diverso. Nessun impegno, nessuna pressione.",
+      "cta": "Richiedi la valutazione",
+      "secondary": "Parla con noi"
+    }
+  },
+  "sell": {
+    "hero": {
+      "eyebrow": "Vendi con FriuliVillas",
+      "title": "Vendere in Friuli Venezia Giulia con più strategia e meno attrito.",
+      "intro": "Una lettura seria della proprietà, materiale fatto bene e un percorso in chiaro dal primo contatto al rogito. Con alle spalle la struttura del gruppo TriesteVillas.",
+      "videoAlt": "Interni luminosi che si aprono sull'esterno.",
+      "ctaPrimary": "Richiedi una valutazione",
+      "ctaSecondary": "Prenota una videocall"
+    },
+    "blocksTitle": "Cosa cambia a vendere con noi",
+    "blocks": {
+      "velocita": {
+        "title": "Nessun tempo morto",
+        "text": "Rispondiamo in fretta e ci muoviamo appena la documentazione lo consente. La lentezza in una vendita non è prudenza: è tempo in cui l'immobile invecchia in vetrina e perde forza contrattuale."
+      },
+      "mandatoSemplice": {
+        "title": "Mandato in chiaro",
+        "text": "Durata, esclusiva, costi e cosa è incluso si discutono all'inizio e restano scritti. Nessuna voce che spunta al rogito, nessun rinnovo che si attiva da solo mentre guardate altrove."
+      },
+      "checkup": {
+        "title": "Check-up pre-vendita",
+        "text": "Prima di correre online verifichiamo se la casa è davvero pronta: conformità, documenti, APE, situazione catastale. Scoprire un problema a trattativa aperta costa molto più che scoprirlo prima.",
+        "cta": "Richiedi un check-up"
+      },
+      "materiale": {
+        "title": "Foto, video, drone, tour 3D",
+        "text": "Il materiale non serve a fare scena: serve a far capire meglio la proprietà a chi non può passare a vederla domani. In regione, dove molti compratori arrivano da fuori, è spesso ciò che decide se la visita si fa.",
+        "cta": "Guarda un tour 3D"
+      },
+      "liftingPreVendita": {
+        "title": "Lifting pre-vendita",
+        "text": "Non sempre conviene mettere casa online così com'è: a volte bastano pochi interventi mirati perché le foto raccontino un'altra proprietà. Vi diciamo quando ne vale la pena e quando no."
+      },
+      "ownerJourney": {
+        "title": "Visite concentrate",
+        "text": "Quando possibile raccogliamo le visite in poche finestre concordate, invece di frammentarle. Per chi abita nell'immobile — o abita lontano — è la differenza fra una vendita gestibile e mesi di casa sempre in ordine."
+      },
+      "primaVendiPoiCerca": {
+        "title": "Prima vendi bene, poi cerca",
+        "text": "Innamorarsi della casa nuova prima di aver venduto la propria è il modo più comune per svendere la vecchia. Se la prossima mossa è già in mente, mettiamola in fila nell'ordine giusto.",
+        "cta": "Leggi l'approfondimento"
+      },
+      "affittaMentreVendi": {
+        "title": "Affitta mentre vendi",
+        "text": "Se non è il momento giusto per vendere, la proprietà può intanto produrre reddito invece di stare ferma. In quel caso subentra TriesteAffitti, che è del gruppo: non vi mandiamo altrove.",
+        "cta": "Vendi, affitta o aspetta?"
+      },
+      "acquirentiEsteri": {
+        "title": "Specialisti in acquirenti esteri",
+        "text": "Molti dei nostri compratori non sono italiani: austriaci, tedeschi, e chi cerca in regione una seconda casa fra mare e montagna. Rendiamo tutto leggibile in inglese e tedesco, dalla scheda alla documentazione.",
+        "quote": "Il Friuli Venezia Giulia non va solo mostrato. Va spiegato.",
+        "cta": "Pianifica un house tour"
+      },
+      "houseTour": {
+        "title": "House tour guidati",
+        "text": "Per chi arriva da fuori il punto non è solo vedere case: è capire il posto. Organizziamo le visite in giornate sensate, tenendo conto delle distanze — che in regione contano molto più che in città."
+      },
+      "venditaRiservata": {
+        "title": "Vendita riservata",
+        "text": "Vendere non significa per forza pubblicare sui portali. Quando la discrezione conta, la proprietà viene proposta a una rosa selezionata di interlocutori, senza mai comparire in vetrina."
+      },
+      "forzaDelGruppo": {
+        "title": "La forza del gruppo",
+        "text": "Con FriuliVillas non lavorate con una sola insegna. Se la proprietà è luxury, se è a Trieste, se è a Lignano o se la strada giusta è l'affitto, dentro il gruppo c'è già chi la tratta ogni giorno."
+      }
+    },
+    "process": {
+      "eyebrow": "Come funziona",
+      "title": "Dalla prima call al rogito, in chiaro.",
+      "subtitle": "Un percorso ordinato e leggibile, pensato per togliere attrito a chi vende.",
+      "steps": {
+        "call": {
+          "n": "01",
+          "title": "Call conoscitiva",
+          "text": "Ci raccontate la proprietà e la situazione. Capiamo subito se e come possiamo esservi utili — e se non è il caso, ve lo diciamo."
+        },
+        "docs": {
+          "n": "02",
+          "title": "Documentazione e sopralluogo",
+          "text": "Ci inviate la documentazione e veniamo a vedere la proprietà. Da lì nasce una valutazione argomentata, non un numero buttato lì."
+        },
+        "online": {
+          "n": "03",
+          "title": "Materiale e pubblicazione",
+          "text": "Foto, video, drone e tour 3D. Poi la pubblicazione sui canali giusti per quel tipo di immobile — che non sono sempre gli stessi."
+        },
+        "visits": {
+          "n": "04",
+          "title": "Visite gestite",
+          "text": "Visite raccolte in finestre concordate, con un filtro serio a monte: chi arriva ha già visto tutto quello che si poteva vedere a distanza."
+        },
+        "deal": {
+          "n": "05",
+          "title": "Trattativa e rogito",
+          "text": "Gestiamo offerte e trattativa fino al rogito, tenendo il filo con notaio e controparti. Voi portate a casa il risultato."
+        }
+      }
+    },
+    "closing": {
+      "title": "Una valutazione onesta, senza impegno.",
+      "text": "Crediamo in quello che facciamo: apriamo un dialogo e vedrete che vendere con noi è diverso. Nessun impegno, nessuna pressione.",
+      "ctaPrimary": "Richiedi una valutazione",
+      "ctaSecondary": "Prenota una videocall"
+    },
+    "faqQ": {
+      "0": "Che tipo di mandato firmo con FriuliVillas?",
+      "1": "Quanto tempo serve prima di andare online?",
+      "2": "Cosa controllate prima di mettere in vendita?",
+      "3": "Che materiale producete per il mio immobile?",
+      "4": "Posso vendere la mia proprietà in modo riservato?"
+    }
+  },
+  "immobili": {
+    "title": "Immobili",
+    "intro": "Le proprietà attualmente disponibili in Friuli Venezia Giulia, raggruppate per zona.",
+    "filterAll": "Tutte le zone",
+    "buyerHelp": {
+      "eyebrow": "Non trovate quella giusta?",
+      "title": "Diteci cosa cercate.",
+      "text": "Raccontateci budget, zona, lavori ammissibili e destinazione d'uso: molte proprietà si muovono prima di comparire in vetrina.",
+      "cta": "Raccontaci cosa cerchi"
+    }
+  },
+  "zones": {
+    "CENTRO": "Trieste centro",
+    "SEMICENTRO": "Trieste semicentro",
+    "BARCOLA": "Barcola",
+    "BARCOLA-MIRAMARE": "Barcola-Miramare",
+    "COSTIERA": "Costiera",
+    "SISTIANA-DUINO": "Sistiana-Duino",
+    "ALTE": "Carso e Altopiano",
+    "MUGGIA": "Muggia",
+    "FVG": "Friuli Venezia Giulia",
+    "ALTRE": "Altre zone"
+  },
+  "listing": {
+    "count": "{count, plural, =0 {Nessun immobile} =1 {1 immobile} other {# immobili}}",
+    "empty": "Al momento nessun immobile in questa zona. Scriveteci cosa cercate e vi avvisiamo."
+  },
+  "property": {
+    "forSale": "In vendita",
+    "forRent": "In affitto",
+    "badgePrivate": "Vendita riservata",
+    "badgeNewBuild": "Nuova costruzione",
+    "onlineDays": "{count, plural, =0 {ONLINE OGGI} one {ONLINE DA # GIORNO} other {ONLINE DA # GIORNI}}",
+    "badgeFeatured": "IN EVIDENZA",
+    "priceOnRequest": "Prezzo su richiesta",
+    "priceReserved": "Trattativa riservata",
+    "yearBuilt": "Anno di costruzione",
+    "floorsBuilding": "Piani edificio",
+    "galPhotos": "Foto",
+    "galPlans": "Planimetrie",
+    "galVideo": "Video",
+    "galTour": "Tour 3D",
+    "galViewAll": "Vedi tutte le {count} foto",
+    "galClose": "Chiudi",
+    "perMonth": "/mese",
+    "sqm": "{value} m²",
+    "rooms": "Locali",
+    "baths": "Bagni",
+    "floor": "Piano",
+    "energyClass": "Classe energetica",
+    "surface": "Superficie",
+    "descriptionTitle": "Descrizione",
+    "featuresTitle": "Caratteristiche",
+    "locationTitle": "Posizione",
+    "locationApprox": "Posizione indicativa nell'area. La collocazione esatta viene condivisa su richiesta.",
+    "photosComing": "Foto in arrivo",
+    "backToList": "Torna agli immobili",
+    "contactCta": "Richiedi informazioni",
+    "reference": "Rif.",
+    "virtualTour": "Virtual tour",
+    "characteristicsTitle": "Caratteristiche immobile",
+    "showAllFeatures": "Mostra tutte le caratteristiche",
+    "showLess": "Mostra meno",
+    "condition": "Stato",
+    "bedrooms": "Camere da letto",
+    "kitchen": "Cucina",
+    "terrace": "Terrazzo",
+    "heating": "Riscaldamento",
+    "availability": "Disponibilità",
+    "balcony": "Balcone",
+    "garden": "Giardino",
+    "accessibility": "Accesso disabili",
+    "propertyType": "Tipo proprietà",
+    "propertyClass": "Classe immobile",
+    "yes": "Sì",
+    "similarTitle": "Altri annunci simili",
+    "type": "Tipologia",
+    "contract": "Contratto",
+    "elevator": "Ascensore",
+    "furnished": "Arredato",
+    "parking": "Box / posti auto",
+    "pool": "Piscina",
+    "galGrid": "Tutte le foto",
+    "taxTitle": "Tasse e costi indicativi",
+    "taxFirstHome": "Imposte prima casa",
+    "taxSecondHome": "Imposte seconda casa",
+    "taxCommission": "Provvigione FriuliVillas",
+    "taxCommissionNote": "4% + IVA",
+    "taxDisclaimer": "Stime indicative su base catastale (prezzo-valore), non vincolanti. Verifica sempre con il tuo notaio o commercialista.",
+    "taxInfoTitle": "Come sono calcolate",
+    "taxCriteria": "Criteri di calcolo",
+    "taxInfoAria": "Dettagli sul calcolo delle tasse",
+    "taxAiDisclaimer": "Stime calcolate automaticamente (AI): in quanto tali possono contenere errori di calcolo o di trascrizione. L'unica fonte certa è il confronto di persona con il titolare, dopo aver studiato la singola situazione concreta.",
+    "taxGroupAcquisto": "Costi di acquisto (una tantum)",
+    "taxGroupGestione": "Costi di gestione annui",
+    "taxPlusVat": "+ IVA",
+    "taxPerYear": "/anno",
+    "taxCondo": "Condominio",
+    "taxIlia": "Imposta immobile · ILIA",
+    "taxTari": "Tassa rifiuti · TARI",
+    "taxCondoInfoTitle": "Spese condominiali",
+    "taxCondoInfoBody": "Importo annuo indicativo basato sulle spese ordinarie comunicate. Sono escluse le spese straordinarie deliberate e i consumi a misura (es. riscaldamento). Il dato ufficiale è il riparto dell'amministratore.",
+    "taxIliaInfoTitle": "ILIA — stima indicativa",
+    "taxIliaInfoBody": "Stima generata automaticamente (AI), calcolata come seconda casa a Trieste sulla rendita catastale (aliquota 10,6‰). Non sostituisce il calcolo ufficiale: dipende da categoria catastale, quota e mesi di possesso ed eventuali agevolazioni. L'abitazione principale non di lusso è esente. Verifica sempre con il tuo commercialista o con l'Ufficio Tributi del Comune di Trieste.",
+    "taxTariInfoTitle": "TARI — stima indicativa",
+    "taxTariInfoBody": "Stima approssimativa (AI) sulle tariffe TARI 2026 del Comune di Trieste per utenze domestiche. La TARI si calcola sulla superficie calpestabile: dal mq commerciale stimiamo il calpestabile a circa l'80%. Qui sotto puoi cambiare il numero di occupanti (di default 2). L'importo reale dipende dalla superficie effettiva, dagli occupanti e da eventuali riduzioni, e non sostituisce la bolletta di ESATTO S.p.A.",
+    "taxTariInfoLink": "Calcolo puntuale su ESATTO",
+    "taxPrimaCasa": "Prima casa",
+    "taxSecondaCasa": "Seconda casa",
+    "taxIliaEsente": "Esente (prima casa)",
+    "taxOccupants": "Occupanti",
+    "taxEstimateFootnote": "I costi annui sono stime indicative generate con AI e non sostituiscono una verifica ufficiale."
+  },
+  "group": {
+    "eyebrow": "Il Gruppo TriesteVillas",
+    "title": "Brand diversi, una regia sola.",
+    "intro": "Un ecosistema immobiliare costruito per specializzazione. Ogni marchio presidia il suo segmento, con la stessa cultura del lavoro dietro.",
+    "ecosystem": {
+      "eyebrow": "Non un contenitore generico",
+      "title": "Un sistema costruito bene.",
+      "body": "Non tutti gli immobili si vendono, si affittano o si gestiscono allo stesso modo. Una villa di pregio, un bilocale da mettere a reddito e una casa vacanze sul mare chiedono linguaggi, canali e interlocutori diversi. Per questo il gruppo è fatto di marchi separati invece che di un'insegna sola che dice di saper fare tutto.",
+      "tagline": "Non una grafica uguale, non un nome ripetuto. La stessa cultura del lavoro, applicata dove serve."
+    },
+    "brandsTitle": "Sei brand, un'unica regia",
+    "brandsSubtitle": "Una sola struttura per coprire ogni esigenza immobiliare fra Trieste e il resto del Friuli Venezia Giulia.",
+    "story": {
+      "eyebrow": "Cos'eravamo, cosa siamo",
+      "title": "Dall'hospitality al gruppo.",
+      "intro": "FriuliVillas nasce dentro un gruppo che conosce il territorio da molto prima di occuparsi di compravendite.",
+      "start": {
+        "title": "L'inizio nell'hospitality di pregio",
+        "text": "Il gruppo è nato gestendo ville e appartamenti per una clientela esigente, in larga parte straniera. Da lì viene l'abitudine a trattare una proprietà come qualcosa che va spiegato, non solo mostrato."
+      },
+      "pivot": {
+        "title": "Il pivot alle compravendite",
+        "text": "Relazioni e conoscenza del mercato sono diventate una pratica di intermediazione: prima a Trieste, dove il metodo è stato costruito e messo alla prova."
+      },
+      "today": {
+        "title": "Un gruppo, ruoli chiari",
+        "text": "FriuliVillas è l'estensione territoriale di quel know-how al resto della regione: Grado, Udine, Tarvisio, Lignano, Sappada. Stessa regia, perimetro diverso."
+      }
+    },
+    "valuesTitle": "Una stessa cultura del lavoro",
+    "values": {
+      "specialised": {
+        "title": "Specializzati, non generalisti",
+        "text": "Ogni brand ha il suo focus, il suo linguaggio e la sua strategia. Nessuno finisce nel posto sbagliato per comodità nostra."
+      },
+      "local": {
+        "title": "Locali e indipendenti",
+        "text": "Conosciamo il Nord-Est perché ci lavoriamo e ci viviamo. Nessuna centrale lontana che decide su una mappa."
+      },
+      "clarity": {
+        "title": "Chiarezza prima di tutto",
+        "text": "Documenti in ordine, prezzi realistici, condizioni in chiaro. Niente sorprese lasciate maturare fino al rogito."
+      },
+      "journey": {
+        "title": "Dal primo contatto al rogito",
+        "text": "Vi accompagniamo in ogni fase, con un percorso ordinato pensato per togliere attrito invece che aggiungerne."
+      }
+    },
+    "teamTitle": "Le persone del gruppo",
+    "team": {
+      "carlin": {
+        "name": "Davide Carlin",
+        "role": "Agente · Titolare e Amministratore"
+      },
+      "martino": {
+        "name": "Martino Coppola di Canzano",
+        "role": "Socio · Sviluppo TriesteVillas Group"
+      },
+      "giada": {
+        "name": "Giada Comelli",
+        "role": "Agente · Affitti"
+      },
+      "cecile": {
+        "name": "Cécile Van der Salm",
+        "role": "Agente · Affitti"
+      }
+    },
+    "ctaTitle": "Entra dalla porta giusta.",
+    "ctaText": "Ogni segmento immobiliare richiede strumenti diversi. Il nostro compito è mandarvi dal marchio che tratta il vostro caso ogni giorno.",
+    "ctaSell": "Scopri la pagina per chi vende",
+    "ctaCall": "Richiedi una call di orientamento",
+    "brands": {
+      "tsv": {
+        "name": "TriesteVillas",
+        "tag": "Capogruppo · Luxury Trieste",
+        "desc": "La capogruppo e il polo premium/luxury a Trieste, oltre alla centrale marketing e back office del gruppo. Immobili selezionati, compratori qualificati, forte orientamento internazionale."
+      },
+      "tsi": {
+        "name": "FriuliVillas",
+        "tag": "Residenziale fino a ~500k €",
+        "desc": "Il brand del gruppo per il residenziale di Trieste e Provincia fino a circa 500.000 €. Chiarezza documentale, qualità di presentazione, efficienza operativa, meno dispersione."
+      },
+      "affitti": {
+        "name": "TriesteAffitti",
+        "tag": "Locazioni 1–18 mesi",
+        "desc": "Locazioni costruite con metodo: transitori, concordati e classici. Nato nel 2013 per gli affitti turistici, evoluto in un sistema più maturo e ordinato."
+      },
+      "friuli": {
+        "name": "FriuliVillas",
+        "tag": "Premium nel resto del FVG",
+        "desc": "Immobili premium nel resto del Friuli-Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. L'estensione territoriale del know-how sviluppato su Trieste."
+      },
+      "business": {
+        "name": "TriesteBusiness",
+        "tag": "Commerciale e investimenti",
+        "desc": "Immobili e operazioni a vocazione business: locali, attività, terreni, palazzi, uffici, capannoni e strutture ricettive. Asset da leggere con logiche diverse dal residenziale."
+      },
+      "lignano": {
+        "name": "LignanoVillas",
+        "tag": "Premium a Lignano",
+        "desc": "Compravendite premium a Lignano, lette con una lente più internazionale. Per compratori e proprietari esteri che cercano struttura, contesto e qualità nella gestione."
+      }
+    },
+    "legalTitle": "Dati societari",
+    "legal": {
+      "company": "TriesteVillas srl",
+      "address": "Via Milano 5, 34132 Trieste",
+      "vat": "C.F. / P.IVA 01235580329",
+      "rea": "Iscritta alla C.C.I.A.A. di Trieste · REA n° TS 134793",
+      "capital": "Capitale sociale 10.200,00 € i.v.",
+      "pec": "milou@pec.emailc.it"
+    }
+  },
+  "contact": {
+    "eyebrow": "Parla con noi",
+    "title": "Contatti",
+    "intro": "Raccontateci cosa cercate o cosa volete vendere in regione: vi rispondiamo in fretta.",
+    "videoAlt": "Uno scorcio del Friuli Venezia Giulia.",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefono",
+    "officeLabel": "Sede",
+    "hoursLabel": "Orari",
+    "socialLabel": "Social",
+    "email": "richieste@triestevillas.com",
+    "phone": "331 8940822",
+    "office": "Via Torino 34, secondo piano · Trieste",
+    "hours": "Solo su appuntamento",
+    "social": "—",
+    "poweredBy": "Powered by TriesteVillas",
+    "ctaSell": "Vendi con noi",
+    "ctaBuy": "Parla con noi"
+  },
+  "lead": {
+    "title": "Richiedi informazioni",
+    "reason": "Motivo del contatto",
+    "motivo": {
+      "info": "Richiedere maggiori informazioni",
+      "foto": "Richiedere più foto",
+      "disp": "Richiedere disponibilità",
+      "altro": "Altro"
+    },
+    "messagePlaceholder": "Scrivi qui il tuo messaggio (opzionale)",
+    "name": "Nome e cognome",
+    "email": "Email",
+    "phone": "Telefono",
+    "privacyPre": "Ho letto e accetto la",
+    "privacyLink": "Privacy Policy",
+    "submit": "Richiedi informazioni",
+    "or": "Oppure",
+    "brochureNote": "Ti rispondiamo via email il prima possibile.",
+    "send": "Invia richiesta",
+    "sending": "Invio…",
+    "thanks": "Grazie! Ti ricontatteremo a breve.",
+    "error": "Qualcosa è andato storto. Riprova.",
+    "friendToggle": "Manda a un amico",
+    "friendTitle": "Manda questo immobile a un amico",
+    "friendNote": "Invieremo al tuo amico il link dell'immobile e la brochure.",
+    "friendEmail": "Email dell'amico",
+    "yourEmail": "La tua email",
+    "friendSend": "Invia",
+    "friendThanks": "Inviato!",
+    "visitTitle": "Prenota una visita",
+    "visitSubtitle": "Scegli quando vorresti visitare l'immobile.",
+    "visitCta": "Prenota una visita",
+    "visitHow": "Come vuoi visitare l'immobile",
+    "visitInPerson": "Di persona",
+    "visitAvail": "Seleziona le tue disponibilità",
+    "visitAsap": "Il prima possibile",
+    "visitSlots": "Seleziona le fasce orarie",
+    "slotAny": "Qualsiasi",
+    "visitDisclaimer": "Questa non è una prenotazione: le tue disponibilità saranno inviate all'agenzia che ti ricontatterà.",
+    "visitNext": "Prosegui",
+    "visitRecapDates": "Disponibilità",
+    "visitRecapSlots": "Fasce orarie",
+    "visitBack": "Indietro",
+    "visitSend": "Conferma e invia",
+    "visitThanks": "Richiesta inviata! Ti ricontatteremo per fissare la visita."
+  },
+  "buyerForm": {
+    "title": "Diteci cosa cercate",
+    "subtitle": "Due minuti, nessun obbligo: bastano un contatto e le vostre preferenze.",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "phone": "Cellulare",
+    "email": "Email",
+    "city": "Città in cui vivi (facoltativo)",
+    "zones": "Zone di interesse",
+    "budget": "Budget",
+    "size": "Dimensioni",
+    "purpose": "Cosa ci farete?",
+    "purposeOptions": {
+      "0": "Per viverci",
+      "1": "Investimento / rendita",
+      "2": "Casa vacanze"
+    },
+    "condition": "Stato dell'immobile",
+    "conditionOptions": {
+      "0": "Primo ingresso",
+      "1": "Abitabile da subito",
+      "2": "Anche da ristrutturare",
+      "3": "Indifferente"
+    },
+    "privacy": "Acconsento al trattamento dei dati secondo l'informativa privacy.",
+    "submit": "Invia la richiesta",
+    "sending": "Invio…",
+    "okTitle": "Richiesta ricevuta",
+    "okText": "Vi ricontatteremo a breve con una selezione su misura.",
+    "error": "Qualcosa è andato storto: riprova o scrivi a richieste@triestevillas.com.",
+    "close": "Chiudi",
+    "errorContact": "Lasciaci almeno un'email o un telefono per ricontattarti."
+  },
+  "sellerForm": {
+    "eyebrow": "Vendi con FriuliVillas",
+    "title": "Richiedi una valutazione",
+    "subtitle": "Nessun impegno: solo una valutazione onesta e argomentata del vostro immobile.",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "phone": "Cellulare",
+    "email": "Email",
+    "city": "Città in cui vivi (facoltativo)",
+    "address": "Dove si trova l'immobile?",
+    "addressPlaceholder": "Via e civico, comune (es. Strada Costiera 28, Trieste)",
+    "addressFound": "Posizione riconosciuta",
+    "type": "Tipologia",
+    "typeOptions": {
+      "0": "Appartamento",
+      "1": "Attico",
+      "2": "Villa",
+      "3": "Casa con giardino",
+      "4": "Terreno",
+      "5": "Altro"
+    },
+    "size": "Dimensioni",
+    "sizeOptions": {
+      "0": "Meno di 80 mq",
+      "1": "80 – 150 mq",
+      "2": "150 – 250 mq",
+      "3": "Oltre 250 mq"
+    },
+    "condition": "Stato dell'immobile",
+    "conditionOptions": {
+      "0": "Ottimo / ristrutturato",
+      "1": "Buono / abitabile",
+      "2": "Da ristrutturare"
+    },
+    "timing": "Tempistiche",
+    "timingOptions": {
+      "0": "Il prima possibile",
+      "1": "Entro 6 mesi",
+      "2": "Solo esplorativo"
+    },
+    "hasToBuy": "Devi anche comprare?",
+    "hasToBuyOptions": {
+      "0": "Sì, vendo e ricompro",
+      "1": "No, solo vendita",
+      "2": "Non ancora deciso"
+    },
+    "notes": "Note",
+    "notesPlaceholder": "Tutto ciò che ci aiuta a capire l'immobile: vista, terrazze, posto auto…",
+    "privacy": "Acconsento al trattamento dei dati secondo l'informativa privacy.",
+    "submit": "Richiedi la valutazione",
+    "sending": "Invio…",
+    "okTitle": "Richiesta ricevuta",
+    "okText": "Ti ricontatteremo per fissare un sopralluogo.",
+    "error": "Qualcosa è andato storto: riprova o scrivi a richieste@triestevillas.com.",
+    "close": "Chiudi",
+    "errorContact": "Lasciaci almeno un'email o un telefono per ricontattarti."
+  },
+  "footer": {
+    "tagline": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia. Grado, Udine, Tarvisio, Lignano, Sappada.",
+    "rights": "Tutti i diritti riservati.",
+    "poweredBy": "Powered by TriesteVillas",
+    "sitemapTitle": "Mappa del sito",
+    "contactTitle": "Contatti",
+    "groupTitle": "Il Gruppo",
+    "followUs": "Seguici",
+    "privacy": "Privacy policy",
+    "appointmentNote": "Via Torino 34, secondo piano, Trieste. Solo su appuntamento."
+  },
+  "meta": {
+    "title": "FriuliVillas — Ville e proprietà selezionate in Friuli Venezia Giulia",
+    "description": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. Comprare, vendere, mettere a reddito."
+  },
+  "ui": {
+    "prev": "Precedente",
+    "next": "Successivo"
+  }
+}

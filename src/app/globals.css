@@ -1,0 +1,616 @@
+@import "tailwindcss";
+
+/* ================================================================
+   TriesteImmobiliare — light & straightforward
+   Sibling of triestevillas-web: the class names mirror that repo so
+   components can move between the group's sites, but the skin here is
+   deliberately plainer — white paper, nautical blues, calm motion.
+   ================================================================ */
+
+:root {
+  --background: #ffffff;
+  --foreground: #14344a;
+
+  /* Dark surface used by photo heroes, overlays and the lightbox. */
+  --ink: #0b1512;
+  --ink-2: #14231d;
+  --paper: #f4f1ea;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-exit: 160ms;
+  --duration-enter: 280ms;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-poppins);
+
+  /* FriuliVillas brand — i verdi e la sabbia del wordmark. Stessi NOMI di
+   token di TriesteVillas/TriesteImmobiliare (brand, brand-dark, sand, paper…):
+   cambia solo l'accento cromatico, così i componenti restano intercambiabili
+   fra i siti del gruppo senza toccarne le classi. */
+  --color-brand: #2a5f43;
+  --color-brand-dark: #16352a;
+  --color-brand-light: #6d9a80;
+  /* Accent on dark surfaces (footer, photo overlays): a paler boat-blue.
+     Kept under the name "sand" for class parity with triestevillas-web. */
+  --color-sand: #cfb795;
+  --color-ink: #0b1512;
+  --color-ink-2: #14231d;
+  --color-paper: #f4f1ea;
+
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #2c6b96;
+  color: #ffffff;
+}
+
+/* Display typography — calmer scale than the flagship site. */
+.display-hero {
+  font-size: clamp(2.3rem, 5.5vw, 4.1rem);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.display-chapter {
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+/* In a component layer so dark-surface overrides (text-white / text-sand)
+   win — utilities sit in a later cascade layer than @layer components. */
+@layer components {
+  .eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brand, #2a5f43);
+  }
+}
+
+/* Parallax zoom for the listing-page photo hero (Scene sets --p). */
+.par-zoom {
+  transform: scale(calc(1.1 - var(--p, 0) * 0.1));
+  will-change: transform;
+}
+
+/* Kinetic word reveal (hero title, mobile menu). The bottom padding
+   keeps descenders (g, p, y) inside the mask. */
+.kinetic-line {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+}
+.kinetic-word {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: word-rise 800ms var(--ease-lux) both;
+  animation-delay: var(--word-delay, 0ms);
+}
+@keyframes word-rise {
+  to { transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------
+   View transitions (same grammar as triestevillas-web)
+   ---------------------------------------------------------------- */
+::view-transition-old(.page-fade) {
+  animation:
+    var(--duration-exit) ease-out both vt-fade reverse,
+    var(--duration-exit) ease-out both vt-rise reverse;
+}
+::view-transition-new(.page-fade) {
+  animation:
+    var(--duration-enter) var(--ease-lux) var(--duration-exit) both vt-fade,
+    420ms var(--ease-lux) both vt-rise;
+}
+::view-transition-old(.nav-forward) {
+  --slide-offset: -48px;
+  animation:
+    var(--duration-exit) ease-in both vt-fade reverse,
+    400ms var(--ease-lux) both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 48px;
+  animation:
+    var(--duration-enter) ease-out var(--duration-exit) both vt-fade,
+    400ms var(--ease-lux) both vt-slide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 48px;
+  animation:
+    var(--duration-exit) ease-in both vt-fade reverse,
+    400ms var(--ease-lux) both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -48px;
+  animation:
+    var(--duration-enter) ease-out var(--duration-exit) both vt-fade,
+    400ms var(--ease-lux) both vt-slide;
+}
+::view-transition-group(.morph) {
+  animation-duration: 460ms;
+  animation-timing-function: var(--ease-lux);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-soften;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from { opacity: 0; filter: blur(4px); }
+  to { opacity: 1; filter: blur(0); }
+}
+@keyframes vt-rise {
+  from { transform: translateY(14px); }
+  to { transform: translateY(0); }
+}
+@keyframes vt-slide {
+  from { translate: var(--slide-offset) 0; }
+  to { translate: 0 0; }
+}
+@keyframes vt-soften {
+  30% { filter: blur(3px); }
+}
+
+/* ----------------------------------------------------------------
+   Scroll reveals (RevealObserver)
+   ---------------------------------------------------------------- */
+html[data-reveal-armed] [data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 750ms var(--ease-lux),
+    transform 750ms var(--ease-lux);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+html[data-reveal-armed] [data-reveal="left"] {
+  transform: translateX(-36px);
+}
+html[data-reveal-armed] [data-reveal="scale"] {
+  transform: translateY(20px) scale(0.96);
+}
+html[data-reveal-armed] [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+html[data-reveal-armed] [data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 650ms var(--ease-lux),
+    transform 650ms var(--ease-lux);
+}
+html[data-reveal-armed] [data-reveal-stagger].is-revealed > * {
+  opacity: 1;
+  transform: none;
+}
+html[data-reveal-armed] [data-reveal-stagger].is-revealed > :nth-child(2) { transition-delay: 90ms; }
+html[data-reveal-armed] [data-reveal-stagger].is-revealed > :nth-child(3) { transition-delay: 180ms; }
+html[data-reveal-armed] [data-reveal-stagger].is-revealed > :nth-child(4) { transition-delay: 270ms; }
+html[data-reveal-armed] [data-reveal-stagger].is-revealed > :nth-child(n + 5) { transition-delay: 340ms; }
+
+/* ----------------------------------------------------------------
+   Components
+   ---------------------------------------------------------------- */
+
+/* Floating pill header — light glass. Auto-hides while scrolling down
+   (attribute set by HeaderAutoHide.tsx). */
+header[data-pill] {
+  transition:
+    transform 450ms var(--ease-lux),
+    opacity 350ms var(--ease-lux);
+}
+html[data-header-hidden] header[data-pill] {
+  transform: translateY(-130%);
+  opacity: 0;
+  pointer-events: none;
+}
+.pill-header {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border: 1px solid rgba(20, 52, 74, 0.1);
+  box-shadow: 0 12px 36px -18px rgba(15, 39, 55, 0.35);
+}
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1.5px;
+  border-radius: 9999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 350ms var(--ease-lux);
+}
+.nav-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* 3D tilt card (vars set by motion/Tilt.tsx) — toned down. */
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 300ms var(--ease-lux);
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--go, 0);
+  background: radial-gradient(
+    420px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.18),
+    transparent 65%
+  );
+  transition: opacity 300ms ease;
+}
+
+/* Listing card — plain white tile (name kept for parity with the
+   flagship repo, the look is intentionally simpler). */
+.card-cine {
+  background: #ffffff;
+  border: 1px solid #e2e8ee;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: border-color 350ms var(--ease-lux), box-shadow 350ms var(--ease-lux);
+}
+.card-cine:hover {
+  border-color: rgba(44, 107, 150, 0.45);
+  box-shadow: 0 22px 48px -24px rgba(15, 39, 55, 0.35);
+}
+.card-cine .card-photo {
+  transition: transform 700ms var(--ease-lux);
+}
+.card-cine:hover .card-photo {
+  transform: scale(1.04);
+}
+.card-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.14) 50%, transparent 65%);
+  transform: translateX(-110%);
+}
+.card-cine:hover .card-sheen {
+  transition: transform 900ms var(--ease-lux);
+  transform: translateX(110%);
+}
+
+/* CTAs */
+.btn-hero {
+  position: relative;
+  overflow: hidden;
+  transition: transform 250ms var(--ease-lux), box-shadow 250ms var(--ease-lux);
+}
+.btn-hero:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px -12px rgba(44, 107, 150, 0.55);
+}
+.btn-hero:active {
+  transform: scale(0.97);
+}
+.btn-press {
+  transition: transform 250ms var(--ease-lux), box-shadow 250ms var(--ease-lux),
+    background-color 250ms var(--ease-lux), border-color 250ms var(--ease-lux),
+    color 250ms var(--ease-lux);
+}
+.btn-press:hover {
+  transform: translateY(-1px);
+}
+.btn-press:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Featured carousel: native horizontal scroll with snap; hidden scrollbar. */
+.reel-scroll {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.reel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Buyer/seller popup: white sheet + dual-range slider */
+.buyer-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8ee;
+  box-shadow: 0 40px 110px -30px rgba(15, 39, 55, 0.45);
+  animation: lb-zoom 420ms var(--ease-lux) both;
+}
+.range-dual input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+.range-dual input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: #2c6b96;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(15, 39, 55, 0.35);
+  cursor: grab;
+}
+.range-dual input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  height: 18px;
+  width: 18px;
+  border-radius: 9999px;
+  background: #2c6b96;
+  border: 2px solid #ffffff;
+  cursor: grab;
+}
+.range-track {
+  background: #e2e8ee;
+}
+.range-fill {
+  background: linear-gradient(90deg, #6fa1c6, #2c6b96);
+}
+
+/* Lightbox */
+.lightbox-enter {
+  animation: lb-fade 280ms var(--ease-lux) both;
+}
+.lightbox-photo {
+  animation: lb-zoom 420ms var(--ease-lux) both;
+}
+@keyframes lb-fade {
+  from { opacity: 0; }
+}
+@keyframes lb-zoom {
+  from { opacity: 0; transform: scale(0.965); }
+}
+
+/* /immobili filter switch */
+.filter-pop {
+  animation: filter-pop 450ms var(--ease-lux) both;
+}
+@keyframes filter-pop {
+  from { opacity: 0; transform: translateY(16px); }
+}
+
+/* ----------------------------------------------------------------
+   Relaunch utilities (light nautical system)
+   ---------------------------------------------------------------- */
+
+/* Hero wash: paper → white, calm "harbour light". */
+.grad-paper-sea {
+  background:
+    radial-gradient(120% 80% at 80% -10%, rgba(111, 161, 198, 0.16), transparent 60%),
+    radial-gradient(90% 70% at -10% 30%, rgba(44, 107, 150, 0.1), transparent 55%),
+    linear-gradient(180deg, var(--color-paper) 0%, #ffffff 64%);
+}
+
+/* Big ghosted chapter/step numeral. */
+.chapter-num {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  font-weight: 700;
+  line-height: 0.78;
+  letter-spacing: -0.03em;
+  color: var(--color-brand-light);
+  opacity: 0.45;
+}
+
+/* Promise stat — the 4 hero numbers. */
+.stat-num {
+  font-size: clamp(1.05rem, 2.6vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--color-brand-dark);
+  /* No automatic hyphenation; break only as a last defense against future strings wider than the cell. */
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+/* Edge-to-edge scrolling ribbon (Marquee). */
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Hairline gradient rule. */
+.rule-sea {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(44, 107, 150, 0.35), transparent);
+}
+
+/* ----------------------------------------------------------------
+   Reduced motion: collapse everything to its resting state.
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  html[data-reveal-armed] [data-reveal],
+  html[data-reveal-armed] [data-reveal-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .par-zoom {
+    transform: none !important;
+  }
+  .kinetic-word {
+    animation: none;
+    transform: none;
+  }
+  .tilt-card {
+    transform: none !important;
+  }
+  .lightbox-enter, .lightbox-photo, .filter-pop {
+    animation: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ----------------------------------------------------------------
+   Private Collection — takeover blu notte, scoped to .pc-root.
+   Quando una pagina riservata è a schermo togliamo il chrome pubblico
+   (header a pillola + footer) e andiamo su fondo scuro: l'area gated
+   deve sembrare un altro mondo, non una pagina del sito con un login.
+
+   Perché blu e non nero+oro come su triestevillas.com: header e footer
+   spariscono, quindi la palette resta l'UNICO elemento in pagina che dice
+   all'ospite su quale dei due portali del gruppo si trova. Due aree
+   riservate identiche sarebbero indistinguibili, e un cliente mid-market
+   crederebbe di essere su TriesteVillas.
+   ---------------------------------------------------------------- */
+body:has(.pc-root) {
+  background: #05070c;
+}
+body:has(.pc-root) header[data-pill],
+body:has(.pc-root) footer {
+  display: none !important;
+}
+
+/* Selettore lingua dell'area riservata — l'altra faccia della regola qui sopra:
+   nascondendo l'header si nascondeva l'unico comando per cambiare lingua, e chi
+   entra dal link in mail non attraversa mai una pagina che ce l'abbia. */
+.pc-lang {
+  display: none;
+}
+body:has(.pc-root) .pc-lang {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+  display: flex;
+  gap: 0.125rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border: 1px solid rgb(169 200 224 / 0.22);
+  border-radius: 999px;
+  background: rgb(5 7 12 / 0.72);
+  backdrop-filter: blur(6px);
+}
+body:has(.pc-root) .pc-lang button {
+  padding: 0 0.3rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.pc-lang-on {
+  color: #a9c8e0;
+  font-weight: 600;
+}
+.pc-lang-off {
+  color: rgb(169 200 224 / 0.42);
+}
+body:has(.pc-root) .pc-lang button.pc-lang-off:hover {
+  color: rgb(169 200 224 / 0.85);
+}
+
+.pc-root {
+  color: #c3d0dd;
+}
+.pc-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #a9c8e0;
+}
+.pc-title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: #dfe9f3;
+}
+.pc-card {
+  background: linear-gradient(165deg, rgba(16, 34, 56, 0.55), rgba(5, 7, 12, 0.94));
+  border: 1px solid rgba(169, 200, 224, 0.18);
+  border-radius: 1.1rem;
+  transition:
+    border-color 400ms var(--ease-lux),
+    box-shadow 400ms var(--ease-lux);
+}
+.pc-card:hover {
+  border-color: rgba(169, 200, 224, 0.42);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.9);
+}
+.pc-btn {
+  display: inline-block;
+  background: #a9c8e0;
+  color: #05070c;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 0.72rem 1.6rem;
+  border-radius: 9999px;
+  transition:
+    transform 250ms var(--ease-lux),
+    box-shadow 250ms var(--ease-lux),
+    background-color 250ms var(--ease-lux);
+}
+.pc-btn:hover {
+  transform: translateY(-1px);
+  background: #c2d8ec;
+  box-shadow: 0 14px 40px -14px rgba(169, 200, 224, 0.5);
+}
+.pc-btn:active {
+  transform: scale(0.98);
+}
+.pc-btn:disabled {
+  opacity: 0.5;
+}
+/* Deterrente contro il prelievo casuale dentro l'area gated (NON è DRM: gli
+   screenshot restano possibili; la tracciabilità vera è il watermark per-utente). */
+.pc-root img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
