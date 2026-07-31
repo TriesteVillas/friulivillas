@@ -1,5 +1,5 @@
-// Shared shell for every client-facing email the site sends (form recaps,
-// form recaps). One look, mirrored on the site's brand tokens in globals.css:
+// Shared shell for every client-facing email the site sends (form recaps).
+// One look, mirrored on the site's brand tokens in globals.css:
 // Poppins, the FriuliVillas greens, paper background, sand accents and dark
 // footer. Everything is inline-styled and table-based so
 // Gmail/Outlook/Apple Mail agree on it. The header logo is a PNG because Gmail
@@ -29,8 +29,13 @@ const ON_DARK_MUTED = "#9db0b8";
 const ON_DARK_FAINT = "#7f939c";
 
 const EMAIL = "richieste@triestevillas.com";
+// TriesteImmobiliare aveva due numeri, il fisso e il cellulare WhatsApp, e il
+// footer li stampava entrambi. FriuliVillas ne ha uno solo: se restassero due
+// costanti distinte il piè di pagina direbbe «331 8940822 · WhatsApp 331
+// 8940822». `WHATSAPP` resta esportato in `mailContact` perché il registro dei
+// contatti è consumato altrove, ma nel footer il numero compare una volta.
 const PHONE = "331 8940822";
-const WHATSAPP = "331 8940822";
+const WHATSAPP = PHONE;
 const VAT = "01235580329";
 
 export const mailContact = {
@@ -138,7 +143,7 @@ export function brandMailShell(opts: {
         </p>
         <p style="margin:8px 0 0;font-family:${FONT};font-size:12px;color:${ON_DARK_MUTED}">
           <a href="tel:+393318940822" style="color:${ON_DARK};text-decoration:none">${PHONE}</a>
-          <span style="color:${ACCENT}">&nbsp;·&nbsp;</span><a href="https://wa.me/393318940822" target="_blank" style="color:${ON_DARK};text-decoration:none">WhatsApp ${WHATSAPP}</a>
+          <span style="color:${ACCENT}">&nbsp;·&nbsp;</span><a href="https://wa.me/393318940822" target="_blank" style="color:${ON_DARK};text-decoration:none">WhatsApp</a>
         </p>
         <p style="margin:8px 0 0;font-family:${FONT};font-size:11px;color:${ON_DARK_MUTED}">${ADDRESS[lang]}</p>
         <p style="margin:6px 0 0;font-family:${FONT};font-size:11px;color:${ON_DARK_FAINT}">© ${new Date().getFullYear()} FriuliVillas · marchio di TriesteVillas srl · P.IVA ${VAT}</p>
