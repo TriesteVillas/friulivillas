@@ -614,3 +614,71 @@ body:has(.pc-root) .pc-lang button.pc-lang-off:hover {
   -webkit-user-drag: none;
   user-select: none;
 }
+
+/* ── Banner consenso cookie (gemello di TSI/TSV/TA, ombre sul verde FV) ─────── */
+.cc-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  background: #ffffff;
+  border-top: 1px solid rgba(22, 53, 42, 0.15);
+  box-shadow: 0 -12px 40px -24px rgba(22, 53, 42, 0.5);
+  animation: cc-su 320ms var(--ease-lux) both;
+}
+@keyframes cc-su {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.cc-inner {
+  margin: 0 auto;
+  max-width: 72rem;
+  padding: 0.9rem 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (min-width: 768px) {
+  .cc-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.5rem;
+    gap: 1.5rem;
+  }
+}
+.cc-text {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #4b5f6d;
+  margin: 0;
+}
+.cc-link {
+  color: var(--color-brand, #2a5f43);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cc-link:hover { color: var(--color-brand-dark, #16352a); }
+.cc-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.cc-btn {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  border-radius: 9999px;
+  border: 1px solid var(--color-brand, #2a5f43);
+  background: transparent;
+  color: var(--color-brand, #2a5f43);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.55rem 1.35rem;
+  cursor: pointer;
+  transition: background-color 180ms var(--ease-lux), color 180ms var(--ease-lux);
+}
+.cc-btn:hover {
+  background: var(--color-brand, #2a5f43);
+  color: #ffffff;
+}
