@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
+import CookiePrefsButton from "./CookiePrefsButton";
 
 // FriuliVillas non ha profili social propri: la lista è vuota di proposito, e
 // il blocco "Seguici" si spegne da sé quando non c'è nulla da seguire. Mettere
@@ -181,6 +182,7 @@ export default async function Footer() {
             <Link href="/privacy" className="transition-colors hover:text-white/70">
               {t("privacy")}
             </Link>
+            <CookiePrefsButton className="transition-colors hover:text-white/70" />
             <span className="text-white/75">{t("appointmentNote")}</span>
           </div>
         </div>

@@ -655,5 +655,13 @@
   "ui": {
     "prev": "Previous",
     "next": "Next"
+  },
+  "cookie": {
+    "testo": "We use technical cookies and, only with your consent, statistics cookies (Google Analytics) to understand how the site is used. No advertising, no profiling.",
+    "accetta": "Accept",
+    "rifiuta": "Essential only",
+    "privacy": "Privacy and cookies",
+    "preferenze": "Cookie preferences",
+    "aria": "Cookie consent"
   }
 }
