@@ -47,6 +47,9 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "meta" });
   return {
     metadataBase: new URL(SITE_URL),
+    // Token Search Console (23/09/2026): pubblico come l'ID GA4. Ottenuto dalla
+    // sentinella del CRM v4 (Site Verification API), verificata dallo stesso job.
+    verification: { google: "txxKMxo8cyqSvVlnBSsgd5dpCVFY53IN48HiMl9DydM" },
     title: { default: t("title"), template: "%s · FriuliVillas" },
     description: t("description"),
     robots: ALLOW_INDEX
