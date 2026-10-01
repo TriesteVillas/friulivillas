@@ -368,7 +368,30 @@
     "taxSecondaCasa": "Drugo bivališče",
     "taxIliaEsente": "Oproščeno (glavno prebivališče)",
     "taxOccupants": "Stanovalci",
-    "taxEstimateFootnote": "Letni stroški so okvirne ocene, ustvarjene z umetno inteligenco, in ne nadomeščajo uradnega preverjanja."
+    "taxEstimateFootnote": "Letni stroški so okvirne ocene, ustvarjene z umetno inteligenco, in ne nadomeščajo uradnega preverjanja.",
+    "aiFoto": {
+      "tag": {
+        "ai": "AI",
+        "ai_luce": "AI · svetloba",
+        "ai_pulizia": "AI · urejeno",
+        "ai_aggiunte": "AI · simulacija",
+        "ai_rendering": "AI · vizualizacija",
+        "rendering": "Vizualizacija",
+        "originale": "Izvirnik"
+      },
+      "glyph": "AI",
+      "genericAria": "Fotografija, spremenjena z UI, v ponovnem pregledu",
+      "showOriginal": "Poglej izvirnik",
+      "originalCaption": "Izvirna fotografija, pred posegom. Obrazi in osebni podatki so zabrisani.",
+      "summaryTitle": "Kako smo pri teh fotografijah uporabili UI",
+      "navLabel": "UI na fotografijah",
+      "summaryEdited": "{ai, plural, one {# od {total} fotografij je urejena z UI} two {# od {total} fotografij sta urejeni z UI} few {# od {total} fotografij so urejene z UI} other {# od {total} fotografij je urejenih z UI}}",
+      "summaryDefects": "{count, plural, one {# z zaščitenimi pomanjkljivostmi} two {# z zaščitenimi pomanjkljivostmi} few {# z zaščitenimi pomanjkljivostmi} other {# z zaščitenimi pomanjkljivostmi}}",
+      "summaryOriginals": "{count, plural, one {izvirnik na voljo pri # fotografiji} two {izvirnik na voljo pri # fotografijah} few {izvirnik na voljo pri # fotografijah} other {izvirnik na voljo pri # fotografijah}}",
+      "summaryOriginalsAll": "izvirnik na voljo pri vsaki urejeni fotografiji",
+      "summaryClosing": "Edino merilo ostaja ogled.",
+      "summaryLink": "Preberite »UI z odprtimi kartami«: kako uporabljamo umetno inteligenco"
+    }
   },
   "group": {
     "eyebrow": "Skupina TriesteVillas",

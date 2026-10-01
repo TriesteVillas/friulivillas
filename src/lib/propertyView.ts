@@ -1,5 +1,6 @@
 import { formatPrice } from "./format";
 import { photoSrc } from "./photoSrc";
+import { etichettaAi, haEtichetta } from "./fotoAi";
 import type { Property } from "./properties";
 
 export type BadgeVariant = "default" | "private" | "cantiere" | "recent" | "featured";
@@ -19,6 +20,9 @@ export type PropertyView = {
   featuredBadge?: Badge | null;
   meta: string;
   cover: { url: string; alt: string } | null;
+  // Sigla «AI» sulla copertina della card (SPEC §5.1): null se la copertina non
+  // è passata da un modello generativo, o se non lo sappiamo.
+  coverAi: { testo: string; aria: string } | null;
   // Cover + up to 8 top photos (9 total), for the in-card photo slider.
   gallery: { url: string; alt: string }[];
 };
@@ -167,10 +171,15 @@ export function buildPropertyView(
     if (gallery.length >= 9) break;
   }
 
+  const coverAi = haEtichetta(p.coverPhoto?.ai)
+    ? etichettaAi(p.coverPhoto!.ai!, locale, (k) => t(`aiFoto.${k}`))
+    : null;
+
   return {
     slug: p.slug,
     title: localizedTitle(p, locale),
     gallery,
+    coverAi: coverAi ? { testo: coverAi.compatta, aria: coverAi.aria } : null,
     zona: p.zona,
     place: [zonaLabel, p.comune].filter(Boolean).join(" · "),
     priceLabel: priceLabel(p, locale, t),

@@ -368,7 +368,30 @@
     "taxSecondaCasa": "Seconda casa",
     "taxIliaEsente": "Esente (prima casa)",
     "taxOccupants": "Occupanti",
-    "taxEstimateFootnote": "I costi annui sono stime indicative generate con AI e non sostituiscono una verifica ufficiale."
+    "taxEstimateFootnote": "I costi annui sono stime indicative generate con AI e non sostituiscono una verifica ufficiale.",
+    "aiFoto": {
+      "tag": {
+        "ai": "AI",
+        "ai_luce": "AI · luce",
+        "ai_pulizia": "AI · modificata",
+        "ai_aggiunte": "AI · simulazione",
+        "ai_rendering": "AI · rendering",
+        "rendering": "Rendering",
+        "originale": "Originale"
+      },
+      "glyph": "AI",
+      "genericAria": "Foto modificata con AI, in ricontrollo",
+      "showOriginal": "Vedi l'originale",
+      "originalCaption": "Foto originale, prima dell'intervento. Volti e dati personali sfocati.",
+      "summaryTitle": "Come abbiamo usato l'AI in queste foto",
+      "navLabel": "AI nelle foto",
+      "summaryEdited": "{ai, plural, one {# foto su {total} modificata con l'AI} other {# foto su {total} modificate con l'AI}}",
+      "summaryDefects": "{count, plural, one {# con i difetti protetti} other {# con i difetti protetti}}",
+      "summaryOriginals": "{count, plural, one {originale visibile su # foto} other {originale visibile su # foto}}",
+      "summaryOriginalsAll": "originale visibile su ogni foto modificata",
+      "summaryClosing": "La visita resta l'unico riferimento.",
+      "summaryLink": "Leggi «AI a carte scoperte»: come usiamo l'intelligenza artificiale"
+    }
   },
   "group": {
     "eyebrow": "Il Gruppo TriesteVillas",

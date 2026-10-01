@@ -37,6 +37,16 @@ import { pageAlternates, pageOpenGraph, listingJsonLd, breadcrumbJsonLd } from "
 import JsonLd from "@/components/JsonLd";
 import { formatPrice } from "@/lib/format";
 import TaxBox from "@/components/TaxBox";
+import AiTag from "@/components/AiTag";
+import {
+  contaFotoAi,
+  etichettaAi,
+  haEtichetta,
+  serieCompleta,
+  serieHaAi,
+  testoIn,
+  togliNotaAi,
+} from "@/lib/fotoAi";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://friulivillas.com";
 
@@ -160,7 +170,44 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // Titolo e descrizione nella lingua del visitatore, con ritorno all'italiano
   // quando la traduzione non è ancora stata scritta (vedi localizedDescription).
   const title = localizedTitle(property, locale);
-  const description = localizedDescription(property, locale);
+  // Trasparenza AI (SPEC §5.3-5.4): se la vista del CRM porta la nota, la nota
+  // sta nel riepilogo #foto-ai in fondo, e il suo doppione in coda alla
+  // descrizione si toglie. Senza nota la descrizione resta identica.
+  const tAi = await getTranslations("property.aiFoto");
+  const notaAi = testoIn(property.trasparenza?.nota, locale);
+  const descrizioneIntera = localizedDescription(property, locale);
+  const description =
+    descrizioneIntera && notaAi ? togliNotaAi(descrizioneIntera) || null : descrizioneIntera;
+  // I conteggi del riepilogo si fanno sulle foto che la pagina mostra
+  // (copertina + top 8 + galleria, senza doppioni), etichette generiche comprese.
+  const contiAi = contaFotoAi([
+    ...(property.coverPhoto ? [property.coverPhoto] : []),
+    ...property.topPhotos,
+    ...property.photos,
+  ]);
+  const riepilogoAi = Boolean(property.trasparenza) && (notaAi !== null || contiAi.ai > 0);
+  const rigaAi =
+    contiAi.ai > 0
+      ? [
+          tAi("summaryEdited", { ai: contiAi.ai, total: contiAi.pubblicate }),
+          contiAi.bloccoDifetti > 0 && tAi("summaryDefects", { count: contiAi.bloccoDifetti }),
+          contiAi.conOriginale > 0 &&
+            (contiAi.aiConOriginale === contiAi.ai
+              ? tAi("summaryOriginalsAll")
+              : tAi("summaryOriginals", { count: contiAi.conOriginale })),
+        ]
+          .filter(Boolean)
+          .join(" · ")
+      : null;
+  const heroFoto = property.coverPhoto ?? property.photos[0] ?? null;
+  // «Vedi tutte le N foto»: con dati AI il lightbox scorre anche copertina e
+  // top 8 (PhotoGallery → serieCompleta), e N deve contare la stessa serie.
+  const fotoNelLightbox = serieHaAi(heroFoto, property.topPhotos, property.photos)
+    ? serieCompleta(heroFoto, property.topPhotos, property.photos).length
+    : property.photos.length;
+  const heroAi = haEtichetta(heroFoto?.ai)
+    ? etichettaAi(heroFoto!.ai!, locale, (k) => tAi(k))
+    : null;
 
   // Box costi indicativi (solo vendita), col toggle prima/seconda casa —
   // stesso impianto del gemello TriesteVillas: imposta dallo scenario, fee 4%
@@ -276,6 +323,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
     ytIds.length && { id: "video", label: t("galVideo") },
     property.matterportUrl && { id: "tour", label: t("galTour") },
     hasLocation && { id: "posizione", label: t("locationTitle") },
+    riepilogoAi && { id: "foto-ai", label: tAi("navLabel") },
   ].filter((x): x is { id: string; label: string } => Boolean(x));
 
   // Dati strutturati della scheda. Le dotazioni seguono la stessa lettura che fa
@@ -350,6 +398,15 @@ export default async function PropertyPage({ params }: { params: Params }) {
           <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-ink" />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/10 to-ink/90" />
+        {/* Etichetta AI della copertina, in alto a destra sotto l'header fisso
+            (SPEC §5.1): forma estesa, come nella vista singola. */}
+        {heroAi && (
+          <AiTag
+            testo={heroAi.estesa}
+            aria={heroAi.aria}
+            className="absolute right-4 top-24 z-[3] sm:right-6"
+          />
+        )}
 
         <div className="absolute left-0 right-0 top-24 mx-auto max-w-5xl px-6">
           <Link
@@ -452,7 +509,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
               allPhotos={property.photos}
               compact
               labels={{
-                viewAll: t("galViewAll", { count: property.photos.length }),
+                viewAll: t("galViewAll", { count: fotoNelLightbox }),
                 close: t("galClose"),
                 photosComing: t("photosComing"),
                 grid: t("galGrid"),
@@ -550,6 +607,32 @@ export default async function PropertyPage({ params }: { params: Params }) {
                 <PropertyMap lat={property.lat!} lng={property.lng!} />
               </div>
               <p className="mt-2 text-sm text-neutral-500">{t("locationApprox")}</p>
+            </section>
+          )}
+
+          {riepilogoAi && (
+            <section id="foto-ai" className="mt-8 scroll-mt-32" data-reveal>
+              <h2 className="text-lg font-semibold">{tAi("summaryTitle")}</h2>
+              <div className="mt-3 space-y-3 rounded-2xl border border-neutral-200 bg-white p-5 leading-relaxed text-neutral-700 sm:p-6">
+                {notaAi && (
+                  <div lang={notaAi.lang} className="space-y-3">
+                    {notaAi.testo
+                      .split(/\n+/)
+                      .map((x) => x.trim())
+                      .filter(Boolean)
+                      .map((x, i) => (
+                        <p key={i}>{x}</p>
+                      ))}
+                  </div>
+                )}
+                {rigaAi && <p className="text-sm font-medium text-neutral-800">{rigaAi}</p>}
+                <p className="font-medium text-neutral-900">{tAi("summaryClosing")}</p>
+                <p className="text-sm">
+                  <Link href="/ai" className="font-medium text-brand underline-offset-2 hover:underline">
+                    {tAi("summaryLink")}
+                  </Link>
+                </p>
+              </div>
             </section>
           )}
 

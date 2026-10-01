@@ -368,7 +368,30 @@
     "taxSecondaCasa": "Zweitwohnsitz",
     "taxIliaEsente": "Befreit (Hauptwohnsitz)",
     "taxOccupants": "Bewohner",
-    "taxEstimateFootnote": "Die jährlichen Kosten sind indikative KI-Schätzungen und ersetzen keine offizielle Prüfung."
+    "taxEstimateFootnote": "Die jährlichen Kosten sind indikative KI-Schätzungen und ersetzen keine offizielle Prüfung.",
+    "aiFoto": {
+      "tag": {
+        "ai": "AI",
+        "ai_luce": "AI · Licht",
+        "ai_pulizia": "AI · bearbeitet",
+        "ai_aggiunte": "AI · simuliert",
+        "ai_rendering": "AI · Rendering",
+        "rendering": "Rendering",
+        "originale": "Original"
+      },
+      "glyph": "AI",
+      "genericAria": "Mit KI bearbeitetes Foto, wird noch nachgeprüft",
+      "showOriginal": "Original ansehen",
+      "originalCaption": "Originalfoto vor der Bearbeitung. Gesichter und persönliche Daten unkenntlich gemacht.",
+      "summaryTitle": "Wie wir KI bei diesen Fotos eingesetzt haben",
+      "navLabel": "KI in den Fotos",
+      "summaryEdited": "{ai, plural, one {# von {total} Fotos mit KI bearbeitet} other {# von {total} Fotos mit KI bearbeitet}}",
+      "summaryDefects": "{count, plural, one {# mit geschützten Mängeln} other {# mit geschützten Mängeln}}",
+      "summaryOriginals": "{count, plural, one {Original bei # Foto einsehbar} other {Original bei # Fotos einsehbar}}",
+      "summaryOriginalsAll": "Original bei jedem bearbeiteten Foto einsehbar",
+      "summaryClosing": "Maßgeblich bleibt allein die Besichtigung.",
+      "summaryLink": "„KI mit offenen Karten“ lesen: wie wir künstliche Intelligenz einsetzen"
+    }
   },
   "group": {
     "eyebrow": "Die TriesteVillas-Gruppe",

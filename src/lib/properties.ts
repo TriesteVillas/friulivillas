@@ -1,3 +1,5 @@
+import type { FotoAi, Testi } from "./fotoAi";
+
 // Field-ID map for the Airtable PROPRIETA table (base app1ZDay9vQNU5V2u, table tblwAUWPnX7KF8FhU).
 // We key on field IDs (stable across renames) for both the live REST fetch
 // (returnFieldsByFieldId=true) and the dev seed.
@@ -124,6 +126,10 @@ export type Photo = {
   // upload, so the gallery can de-dupe a photo that appears in more than one
   // field (cover / topPhotos / foto) even though each field's signed url differs.
   filename: string | null;
+  // Trasparenza AI della foto (etichetta, didascalia, originale), dalla vista del
+  // CRM: la applica getProperties (src/lib/trasparenza.ts), mapRecord no.
+  // Assente = nessuna etichetta. Mai sulle planimetrie (SPEC §5.5).
+  ai?: FotoAi | null;
 };
 
 export type Property = {
@@ -205,6 +211,10 @@ export type Property = {
   iliaAnnua: number | null;
   tariAnnua: number | null;
   pcSince: string | null;
+  // Riepilogo «Come abbiamo usato l'AI in queste foto» (sezione #foto-ai): c'è
+  // solo quando la vista del CRM ha dati per questo immobile. I conteggi non
+  // stanno qui: si contano sulle foto che il sito mostra (fotoAi.contaFotoAi).
+  trasparenza?: { nota: Testi | null } | null;
 };
 
 type RawAttachment = {

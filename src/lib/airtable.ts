@@ -1,5 +1,6 @@
 import "server-only";
 import { F, mapRecord, type Property } from "./properties";
+import { applicaTrasparenza, getTrasparenza } from "./trasparenza";
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID ?? "app1ZDay9vQNU5V2u";
 const TABLE_ID = "tblwAUWPnX7KF8FhU";
@@ -203,6 +204,9 @@ export async function getProperties(): Promise<Property[]> {
   // In parallelo al catalogo, non dopo: la vetrina non deve allungare la
   // risposta più del suo timeout nemmeno quando è lenta.
   const slovenianTexts = getSlovenianTexts();
+  // Anche la trasparenza AI delle foto è una lettura a parte della vetrina del
+  // CRM (vista=trasparenza), in parallelo e tollerante: vedi trasparenza.ts.
+  const trasparenza = getTrasparenza();
   let raw: RawRecord[];
   if (TOKEN) {
     raw = await fetchAllRaw(FILTER);
@@ -230,11 +234,12 @@ export async function getProperties(): Promise<Property[]> {
     );
   }
   const sl = await slovenianTexts;
+  const ai = await trasparenza;
   return raw
     .map((r) => {
       const p = mapRecord(r.id, r.fields);
       const s = sl.get(r.id);
-      return s ? { ...p, titleSl: s.title, descriptionSl: s.description } : p;
+      return applicaTrasparenza(s ? { ...p, titleSl: s.title, descriptionSl: s.description } : p, ai);
     })
     .sort(compareShowcase);
 }
@@ -260,10 +265,16 @@ const PHOTO_FIELDS = [F.coverPhoto, F.topPhotos, F.foto, F.planimetrie];
 
 // url = originale (per le larghezze grandi), thumb = rendition `large` di
 // Airtable, ~917 px (basta per le piccole ed evita di scaricare un PNG da 6 MB
-// per farne una miniatura).
-export type PhotoSource = { url: string; thumb: string };
+// per farne una miniatura). rec + filename: per ritrovare la foto nella vista
+// trasparenza del CRM e scriverne la marcatura IPTC nel file servito.
+export type PhotoSource = { url: string; thumb: string; rec: string; filename: string | null };
 
-type RawAttachmentCell = { id?: string; url?: string; thumbnails?: { large?: { url: string } } };
+type RawAttachmentCell = {
+  id?: string;
+  url?: string;
+  filename?: string;
+  thumbnails?: { large?: { url: string } };
+};
 
 export async function getPhotoSources(): Promise<Map<string, PhotoSource>> {
   let raw: RawRecord[];
@@ -282,7 +293,12 @@ export async function getPhotoSources(): Promise<Map<string, PhotoSource>> {
       if (!Array.isArray(cell)) continue;
       for (const a of cell as RawAttachmentCell[]) {
         if (!a?.id || typeof a.url !== "string") continue;
-        index.set(a.id, { url: a.url, thumb: a.thumbnails?.large?.url ?? a.url });
+        index.set(a.id, {
+          url: a.url,
+          thumb: a.thumbnails?.large?.url ?? a.url,
+          rec: r.id,
+          filename: typeof a.filename === "string" ? a.filename : null,
+        });
       }
     }
   }

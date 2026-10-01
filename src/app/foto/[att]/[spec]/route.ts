@@ -35,6 +35,7 @@
 // → MISS a 1,01 s; subito dopo → HIT a 0,085 s. Da qui le foto si servono con
 // un <img> nudo (src/components/PhotoImg.tsx), non con next/image.
 import { getPhotoSources } from "@/lib/airtable";
+import { getTrasparenza, iptcDi } from "@/lib/trasparenza";
 
 // sharp gira solo su Node, non su Edge.
 export const runtime = "nodejs";
@@ -99,11 +100,26 @@ export async function GET(
     const input = Buffer.from(await upstream.arrayBuffer());
 
     const { default: sharp } = await import("sharp");
-    const out = await sharp(input)
+    const immagine = sharp(input);
+    // La marcatura IPTC «DigitalSourceType» (SPEC §5.7): deve arrivare al
+    // visitatore anche dopo la ricodifica. Prima la dice il CRM (la vista
+    // trasparenza conosce il trattamento di questa foto), poi il file stesso
+    // (Foto di Apple «Clean Up», per esempio, la scrive da sé).
+    const tipo =
+      iptcDi(await getTrasparenza(), photo.rec, photo.filename) ??
+      digitalSourceTypeDi((await immagine.metadata()).xmp);
+    let lavoro = immagine
       .rotate() // rispetta l'orientamento EXIF prima di ridimensionare
-      .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 78 })
-      .toBuffer();
+      .resize({ width, withoutEnlargement: true });
+    // ⚠️ Non `keepXmp()`, di proposito: l'XMP sorgente non porta solo la
+    // marcatura. Misurato il 01/10/2026 sul catalogo: lo scatto da drone di un
+    // annuncio (DJI_0211.JPG) ha 8 KB di XMP con modello del drone, date,
+    // altitudine assoluta e assetto di volo; altri programmi ci scrivono anche
+    // la posizione GPS. Ricodificando senza metadati non arrivava niente di
+    // tutto questo, e così deve restare. Si scrive un XMP NUOVO con la sola
+    // DigitalSourceType.
+    if (tipo) lavoro = lavoro.withXmp(xmpDigitalSourceType(tipo));
+    const out = await lavoro.webp({ quality: 78 }).toBuffer();
 
     return new Response(new Uint8Array(out), {
       headers: {
@@ -118,4 +134,33 @@ export async function GET(
       headers: { "Cache-Control": CACHE_MISS },
     });
   }
+}
+
+// ---- XMP minimo con la sola DigitalSourceType ---------------------------------
+
+const IPTC_DST = "http://cv.iptc.org/newscodes/digitalsourcetype/";
+const CODICE = /^[A-Za-z]{3,60}$/;
+
+/** Il codice DigitalSourceType scritto nell'XMP del file sorgente, se c'è. */
+function digitalSourceTypeDi(xmp: Buffer | undefined): string | null {
+  if (!xmp) return null;
+  const testo = xmp.toString("utf8");
+  const m =
+    testo.match(/DigitalSourceType>\s*([^<\s]+)\s*</) ??
+    testo.match(/DigitalSourceType="([^"]+)"/) ??
+    testo.match(/DigitalSourceType\s+rdf:resource="([^"]+)"/);
+  if (!m) return null;
+  const codice = m[1].replace(/^https?:\/\/cv\.iptc\.org\/newscodes\/digitalsourcetype\//, "");
+  return CODICE.test(codice) ? codice : null;
+}
+
+function xmpDigitalSourceType(codice: string): string {
+  const c = CODICE.test(codice) ? codice : "trainedAlgorithmicMedia";
+  return (
+    `<?xpacket begin="\uFEFF" id="W5M0MpCehiHzreSzNTczkc9d"?>` +
+    `<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">` +
+    `<rdf:Description rdf:about="" xmlns:Iptc4xmpExt="http://iptc.org/std/Iptc4xmpExt/2008-02-29/">` +
+    `<Iptc4xmpExt:DigitalSourceType>${IPTC_DST}${c}</Iptc4xmpExt:DigitalSourceType>` +
+    `</rdf:Description></rdf:RDF></x:xmpmeta><?xpacket end="w"?>`
+  );
 }

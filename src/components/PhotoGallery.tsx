@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, ViewTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { photoSrc, photoSrcSet } from "@/lib/photoSrc";
+import { etichettaAi, haEtichetta, serieCompleta, serieHaAi } from "@/lib/fotoAi";
 import PhotoImg from "./PhotoImg";
+import AiTag from "./AiTag";
 import type { Photo } from "@/lib/properties";
 import Lightbox from "./Lightbox";
 
@@ -36,12 +39,40 @@ export default function PhotoGallery({
   // ("vedi tutte le N foto" deve far SCEGLIERE da dove partire, non imporre
   // lo scroll dalla foto 1).
   const [open, setOpen] = useState<{ idx: number; grid: boolean } | null>(null);
+  // Etichetta AI (SPEC §5.1): sigla «AI» sulle miniature, forma estesa sulla
+  // foto grande. Le foto senza `ai` restano esattamente come prima.
+  const tAi = useTranslations("property.aiFoto");
+  const locale = useLocale();
+  const tag = (p: Photo, compatta: boolean) => {
+    if (!haEtichetta(p.ai)) return null;
+    const e = etichettaAi(p.ai, locale, (k) => tAi(k));
+    return (
+      <AiTag
+        testo={compatta ? e.compatta : e.estesa}
+        aria={e.aria}
+        compatta={compatta}
+        className={`absolute z-[2] ${compatta ? "right-1.5 top-1.5" : "right-3 top-3"}`}
+      />
+    );
+  };
   const hero = cover ?? allPhotos[0] ?? null;
   const thumbs = topPhotos.length ? topPhotos : allPhotos;
-  const fullSet = allPhotos.length ? allPhotos : hero ? [hero] : [];
+  // Con dati AI la serie del lightbox comprende copertina e top 8 (vedi
+  // serieCompleta in lib/fotoAi.ts); senza, è quella di sempre.
+  const conAi = serieHaAi(hero, topPhotos, allPhotos);
+  const fullSet = conAi
+    ? serieCompleta(hero, topPhotos, allPhotos)
+    : allPhotos.length
+      ? allPhotos
+      : hero
+        ? [hero]
+        : [];
 
   const openAt = (photo: Photo) => {
-    const i = fullSet.findIndex((x) => x.url === photo.url);
+    let i = fullSet.findIndex((x) => x.url === photo.url);
+    // La stessa foto può stare in più campi con url diverse: si ritrova per nome.
+    if (i < 0 && conAi && photo.filename !== null)
+      i = fullSet.findIndex((x) => x.filename === photo.filename);
     setOpen({ idx: i >= 0 ? i : 0, grid: false });
   };
 
@@ -64,6 +95,7 @@ export default function PhotoGallery({
                   alt={p.alt}
                   className="object-cover transition-transform duration-300 hover:scale-105"
                 />
+                {tag(p, true)}
               </button>
             ))}
           </div>
@@ -110,6 +142,7 @@ export default function PhotoGallery({
                 priority
               />
             </ViewTransition>
+            {tag(hero, false)}
           </button>
           {thumbs.length > 0 && (
             <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -127,6 +160,7 @@ export default function PhotoGallery({
                     alt={p.alt}
                     className="object-cover transition-transform duration-300 hover:scale-105"
                   />
+                  {tag(p, true)}
                 </button>
               ))}
             </div>

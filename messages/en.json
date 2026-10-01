@@ -368,7 +368,30 @@
     "taxSecondaCasa": "Second home",
     "taxIliaEsente": "Exempt (main home)",
     "taxOccupants": "Occupants",
-    "taxEstimateFootnote": "Annual costs are indicative AI estimates and do not replace an official check."
+    "taxEstimateFootnote": "Annual costs are indicative AI estimates and do not replace an official check.",
+    "aiFoto": {
+      "tag": {
+        "ai": "AI",
+        "ai_luce": "AI · light",
+        "ai_pulizia": "AI · edited",
+        "ai_aggiunte": "AI · simulated",
+        "ai_rendering": "AI · rendering",
+        "rendering": "Rendering",
+        "originale": "Original"
+      },
+      "glyph": "AI",
+      "genericAria": "Photo edited with AI, being rechecked",
+      "showOriginal": "See the original",
+      "originalCaption": "Original photo, before editing. Faces and personal details blurred.",
+      "summaryTitle": "How we used AI in these photos",
+      "navLabel": "AI in the photos",
+      "summaryEdited": "{ai, plural, one {# photo out of {total} edited with AI} other {# photos out of {total} edited with AI}}",
+      "summaryDefects": "{count, plural, one {# with defects protected} other {# with defects protected}}",
+      "summaryOriginals": "{count, plural, one {original viewable on # photo} other {original viewable on # photos}}",
+      "summaryOriginalsAll": "original viewable on every edited photo",
+      "summaryClosing": "The viewing remains the only true point of reference.",
+      "summaryLink": "Read “AI: cards on the table”: how we use artificial intelligence"
+    }
   },
   "group": {
     "eyebrow": "The TriesteVillas Group",

@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import type { PropertyView } from "@/lib/propertyView";
 import PropertyBadge from "./PropertyBadge";
 import PhotoImg from "./PhotoImg";
+import AiTag from "./AiTag";
 import Tilt from "./motion/Tilt";
 
 export default function PropertyCard({
@@ -44,11 +45,20 @@ export default function PropertyCard({
           )}
           <span className="card-sheen" aria-hidden />
           <PropertyBadge {...leftBadge} className="absolute left-3 top-3 z-[2] shadow-sm" />
-          {rightBadge && (
-            <PropertyBadge
-              {...rightBadge}
-              className="absolute right-3 top-3 z-[2] shadow-sm"
-            />
+          {view.coverAi ? (
+            // La sigla AI prende l'angolo in alto a destra (SPEC §5.1); l'altra
+            // bolla di destra, se c'è, le si mette accanto sulla stessa riga.
+            <div className="absolute right-3 top-3 z-[2] flex items-center gap-1.5">
+              {rightBadge && <PropertyBadge {...rightBadge} className="shadow-sm" />}
+              <AiTag testo={view.coverAi.testo} aria={view.coverAi.aria} compatta />
+            </div>
+          ) : (
+            rightBadge && (
+              <PropertyBadge
+                {...rightBadge}
+                className="absolute right-3 top-3 z-[2] shadow-sm"
+              />
+            )
           )}
         </div>
         <div className="space-y-1 p-5">
