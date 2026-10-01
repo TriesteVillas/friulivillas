@@ -167,26 +167,26 @@ const CONTENT: Record<string, Content> = {
     intro:
       "To obvestilo opisuje, kako FriuliVillas (blagovna znamka družbe TriesteVillas srl) obdeluje osebne podatke, zbrane prek te spletne strani, v skladu z Uredbo (EU) 2016/679 (GDPR).",
     sections: [
-      { h: "1. Upravljavec", p: CONTROLLER },
+      { h: "1. Upravljavec osebnih podatkov", p: CONTROLLER },
       {
         h: "2. Obdelovani podatki",
         p: "Kontaktni podatki, ki jih prostovoljno posredujete prek obrazcev (ime, e-pošta, telefon, morebitno sporočilo in nepremičnina, ki vas zanima), ter tehnični podatki o brskanju (npr. naslov IP, vrsta brskalnika), zbrani prek tehničnih piškotkov, potrebnih za delovanje spletne strani.",
       },
       {
         h: "3. Nameni in pravna podlaga",
-        p: "Podatke obdelujemo, da odgovorimo na vaša povpraševanja in vodimo odnos z vami (izvajanje predpogodbenih ukrepov in vaša privolitev) ter da izpolnimo zakonske obveznosti. Posredovanje podatkov je prostovoljno, vendar brez kontaktnih podatkov povpraševanja ne moremo obravnavati.",
+        p: "Podatke obdelujemo, da odgovorimo na vaša povpraševanja in vodimo odnos z vami (izvajanje ukrepov pred sklenitvijo pogodbe in vaša privolitev) ter da izpolnimo zakonske obveznosti. Posredovanje podatkov je prostovoljno, vendar brez kontaktnih podatkov povpraševanja ne moremo obravnavati.",
       },
       {
         h: "4. Funkcija »Pošljite prijatelju«",
-        p: "Če s to funkcijo nepremičnino priporočite drugi osebi, nam potrjujete, da ste pridobili njeno soglasje za prejem sporočila. Naslov prejemnika uporabimo samo za pošiljanje tega posameznega priporočila.",
+        p: "Če s to funkcijo nepremičnino priporočite drugi osebi, nam potrjujete, da ste pridobili njeno privolitev za prejem sporočila. E-poštni naslov prejemnika uporabimo samo za pošiljanje tega posameznega priporočila.",
       },
       {
         h: "5. Način obdelave in hramba",
-        p: "Podatki se obdelujejo z elektronskimi sredstvi in ustreznimi varnostnimi ukrepi ter se hranijo toliko časa, kolikor je potrebno za obravnavo povpraševanja in za poznejše zakonske obveznosti; nato se izbrišejo ali anonimizirajo.",
+        p: "Podatki se obdelujejo z elektronskimi sredstvi in ustreznimi varnostnimi ukrepi ter se hranijo toliko časa, kolikor je potrebno za obravnavo povpraševanja in za izpolnitev poznejših zakonskih obveznosti; nato se izbrišejo ali anonimizirajo.",
       },
       {
         h: "6. Prejemniki in obdelovalci",
-        p: "Podatke lahko obdelujejo naši pooblaščeni sodelavci in ponudniki, ki kot obdelovalci skrbijo za tehnične storitve spletne strani (zlasti Airtable za upravljanje stikov, Vercel za gostovanje in ponudnik e-pošte za pošiljanje sporočil). Podatki se ne razširjajo.",
+        p: "Podatke lahko obdelujejo naši pooblaščeni sodelavci in ponudniki, ki kot obdelovalci skrbijo za tehnične storitve spletne strani (zlasti Airtable za upravljanje stikov, Vercel za gostovanje in ponudnik e-pošte za pošiljanje sporočil). Podatkov ne objavljamo.",
       },
       {
         h: "7. Prenosi zunaj EU",
@@ -198,11 +198,11 @@ const CONTENT: Record<string, Content> = {
       },
       {
         h: "9. Piškotki",
-        p: "Spletna stran uporablja tehnične piškotke, potrebne za delovanje, in – samo z vašo privolitvijo – statistične piškotke Google Analytics 4 (Google Ireland Ltd), da razumemo, kako se spletna stran uporablja. Dokler se ne odločite, se ne zapiše noben statistični piškotek; premislite si lahko kadar koli prek povezave »Nastavitve piškotkov« na dnu vsake strani. Brez oglasov, brez profiliranja. Storitve tretjih oseb (npr. zemljevidi, videoposnetki) lahko ob aktivaciji njihove vsebine nastavijo lastne piškotke.",
+        p: "Spletna stran uporablja tehnične piškotke, potrebne za delovanje, in – samo z vašo privolitvijo – statistične piškotke Google Analytics 4 (Google Ireland Ltd), da razumemo, kako uporabljate spletno stran. Dokler se ne odločite, se ne namesti noben statistični piškotek; svojo izbiro lahko kadar koli spremenite prek povezave »Nastavitve piškotkov« na dnu vsake strani. Piškotkov ne uporabljamo za oglaševanje ali profiliranje. Storitve tretjih oseb (npr. zemljevidi, videoposnetki) lahko ob aktivaciji njihove vsebine namestijo lastne piškotke.",
       },
       {
         h: "10. Uporabniški račun in prilagajanje",
-        p: "Če ustvarite račun, obdelujemo podatke vašega profila (ime, e-pošta, telefon, navedene želje) in beležimo vašo dejavnost na strani kot prijavljenega uporabnika – odprte nepremičnine, čas, preživet na predstavitvah, priljubljene, ocene in iskanja –, da vam zagotovimo storitev (shranjene priljubljene, osebno območje) in da na podlagi našega zakonitega interesa interno organiziramo nadaljnjo obravnavo povpraševanj. Prilagojeni predlogi in komercialna sporočila po e-pošti se pošiljajo samo na podlagi neobveznih privolitev, ki jih lahko kadar koli podate in prekličete v svojem računu. Neobdelani dogodki brskanja se hranijo 18 mesecev, nato se izbrišejo ali združijo v zbirne podatke. Izbris računa lahko zahtevate neposredno v osebnem območju.",
+        p: "Če ustvarite račun, obdelujemo podatke vašega profila (ime, e-pošta, telefon, navedene želje) in beležimo vašo dejavnost na strani kot prijavljenega uporabnika – odprte nepremičnine, čas, preživet na predstavitvah, priljubljene, ocene in iskanja –, da vam zagotovimo storitev (shranjene priljubljene, osebno območje) in da na podlagi našega zakonitega interesa interno organiziramo nadaljnjo obravnavo povpraševanj. Prilagojeni predlogi in komercialna sporočila po e-pošti se pošiljajo samo na podlagi neobveznih privolitev, ki jih lahko kadar koli podate in prekličete v svojem računu. Neobdelani podatki o brskanju se hranijo 18 mesecev, nato se izbrišejo ali združijo v zbirne podatke. Izbris računa lahko zahtevate neposredno v osebnem območju.",
       },
       {
         h: "11. Spremembe",
