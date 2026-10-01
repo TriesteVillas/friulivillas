@@ -86,8 +86,8 @@ export const F = {
   soggettoIva: "fldKMwdnvCGCSXqzx", // soggetto_iva (checkbox)
   speseCondoMensili: "fldHEZbfTOw0g0Wlj", // spese_condo_mensili (currency, monthly)
   catastoRendita: "fldI7xrGEursVgodv", // catasto_rendita (currency)
-  iliaAnnua: "fldulZHH7o8dIKGAN", // ilia_annua_stima_eur (formula → number, AI estimate)
-  tariAnnua: "fld4JmLypFkLqN341", // tari_annua_stima_eur (formula → number, AI estimate)
+  iliaAnnua: "fldulZHH7o8dIKGAN", // ilia_annua_stima_eur (formula Airtable: rendita × 1,05 × 160 × 10,6‰ — aliquota seconda casa del Comune di Trieste; nessun modello)
+  tariAnnua: "fld4JmLypFkLqN341", // tari_annua_stima_eur (formula Airtable sulle tariffe TARI di Trieste, 2 occupanti; nessun modello — il sito la ricalcola in TaxBox)
   // 2026-07-23: data di ingresso in Private Collection (la scrive il CRM quando
   // pc_visibile_su passa da vuoto a valorizzato). Ordina la collezione riservata
   // (più recente prima) e alimenta la bubble "Nuovo"/"N mesi" sulle card PC.
@@ -207,7 +207,8 @@ export type Property = {
   noteImposte: string | null;
   soggettoIva: boolean;
   // Annual ownership costs. condoMensile is the raw monthly condo fee (×12 for
-  // the year); ilia/tari are AI-estimated annual figures (Airtable formulas).
+  // the year); ilia/tari are annual estimates computed by Airtable FORMULAS (no AI
+  // model involved: verified on the schema, 01/10/2026).
   condoMensile: number | null;
   iliaAnnua: number | null;
   tariAnnua: number | null;

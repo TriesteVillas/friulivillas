@@ -89,7 +89,7 @@
     "videoBreak": {
       "eyebrow": "Il nostro marketing",
       "title": "Facciamo vedere il potenziale, non solo le stanze.",
-      "alt": "Interni fotografati per raccontare come si vive una casa, non solo com'è fatta."
+      "alt": "Home staging virtuale fatto con l'intelligenza artificiale: una mansarda vuota che si arreda progressivamente. Gli arredi sono simulati."
     },
     "featured": {
       "eyebrow": "In vendita ora",
@@ -349,7 +349,7 @@
     "taxInfoTitle": "Come sono calcolate",
     "taxCriteria": "Criteri di calcolo",
     "taxInfoAria": "Dettagli sul calcolo delle tasse",
-    "taxAiDisclaimer": "Stime calcolate automaticamente (AI): in quanto tali possono contenere errori di calcolo o di trascrizione. L'unica fonte certa è il confronto di persona con il titolare, dopo aver studiato la singola situazione concreta.",
+    "taxAiDisclaimer": "Stime calcolate con il criterio del prezzo-valore sulla rendita catastale (sul prezzo, se la vendita è soggetta a IVA): in quanto tali possono contenere errori di calcolo o di trascrizione. L'unica fonte certa è il confronto di persona con il titolare, dopo aver studiato la singola situazione concreta.",
     "taxGroupAcquisto": "Costi di acquisto (una tantum)",
     "taxGroupGestione": "Costi di gestione annui",
     "taxPlusVat": "+ IVA",
@@ -360,15 +360,15 @@
     "taxCondoInfoTitle": "Spese condominiali",
     "taxCondoInfoBody": "Importo annuo indicativo basato sulle spese ordinarie comunicate. Sono escluse le spese straordinarie deliberate e i consumi a misura (es. riscaldamento). Il dato ufficiale è il riparto dell'amministratore.",
     "taxIliaInfoTitle": "ILIA — stima indicativa",
-    "taxIliaInfoBody": "Stima generata automaticamente (AI), calcolata come seconda casa a Trieste sulla rendita catastale (aliquota 10,6‰). Non sostituisce il calcolo ufficiale: dipende da categoria catastale, quota e mesi di possesso ed eventuali agevolazioni. L'abitazione principale non di lusso è esente. Verifica sempre con il tuo commercialista o con l'Ufficio Tributi del Comune di Trieste.",
+    "taxIliaInfoBody": "Stima calcolata con una formula sulla rendita catastale (rendita rivalutata del 5% × 160 × 10,6‰), con l'aliquota della seconda casa del Comune di Trieste: nel comune dell'immobile l'aliquota può essere diversa. Non sostituisce il calcolo ufficiale: dipende da categoria catastale, quota e mesi di possesso ed eventuali agevolazioni. L'abitazione principale non di lusso è esente. Verifica sempre con il tuo commercialista o con l'ufficio tributi del Comune in cui si trova l'immobile.",
     "taxTariInfoTitle": "TARI — stima indicativa",
-    "taxTariInfoBody": "Stima approssimativa (AI) sulle tariffe TARI 2026 del Comune di Trieste per utenze domestiche. La TARI si calcola sulla superficie calpestabile: dal mq commerciale stimiamo il calpestabile a circa l'80%. Qui sotto puoi cambiare il numero di occupanti (di default 2). L'importo reale dipende dalla superficie effettiva, dagli occupanti e da eventuali riduzioni, e non sostituisce la bolletta di ESATTO S.p.A.",
+    "taxTariInfoBody": "Stima approssimativa calcolata con una formula sulle tariffe TARI 2026 del Comune di Trieste per utenze domestiche. La TARI si calcola sulla superficie calpestabile: dal mq commerciale stimiamo il calpestabile a circa l'80%. Qui sotto puoi cambiare il numero di occupanti (di default 2). L'importo reale dipende dalla superficie effettiva, dagli occupanti e da eventuali riduzioni, e non sostituisce la bolletta di ESATTO S.p.A.",
     "taxTariInfoLink": "Calcolo puntuale su ESATTO",
     "taxPrimaCasa": "Prima casa",
     "taxSecondaCasa": "Seconda casa",
     "taxIliaEsente": "Esente (prima casa)",
     "taxOccupants": "Occupanti",
-    "taxEstimateFootnote": "I costi annui sono stime indicative generate con AI e non sostituiscono una verifica ufficiale.",
+    "taxEstimateFootnote": "I costi annui sono stime indicative (spese condominiali comunicate, ILIA e TARI calcolate con una formula) e non sostituiscono una verifica ufficiale.",
     "aiFoto": {
       "tag": {
         "ai": "AI",
@@ -387,6 +387,7 @@
       "navLabel": "AI nelle foto",
       "summaryClosing": "La visita resta l'unico riferimento.",
       "summaryLink": "Leggi «AI a carte scoperte»: come usiamo l'intelligenza artificiale",
+      "summaryLinkGruppo": "Come usiamo l'intelligenza artificiale: la pagina del gruppo su triestevillas.com",
       "genericCaption": "Questa foto è passata da un modello generativo di immagini: la descrizione dell'intervento è in preparazione.",
       "readMore": "Leggi tutto",
       "readLess": "Mostra meno",

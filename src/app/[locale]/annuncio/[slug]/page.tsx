@@ -48,6 +48,7 @@ import {
   testoIn,
   togliNotaAi,
 } from "@/lib/fotoAi";
+import { paginaAiDelGruppo } from "@/lib/paginaAiGruppo";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://friulivillas.com";
 
@@ -55,7 +56,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://friulivillas.com";
 // ancora, e per la SPEC §9.2 resta in anteprima finché la rilettura legale non
 // chiude: fino ad allora il riepilogo #foto-ai non la linka (sarebbe un 404
 // proprio nella sezione sulla trasparenza). Si accende qui quando la rotta
-// esiste in src/app/[locale]/ai.
+// esiste in src/app/[locale]/ai. Nel frattempo il riepilogo linka la pagina
+// del gruppo su triestevillas.com, solo se risponde 200 (lib/paginaAiGruppo.ts).
 const PAGINA_AI_ONLINE = false;
 
 // Le tessere del riepilogo #foto-ai (da 1 a 5): righe piene, mai una tessera
@@ -209,6 +211,9 @@ export default async function PropertyPage({ params }: { params: Params }) {
     ...property.photos,
   ]);
   const riepilogoAi = notaAi !== null || contiAi.etichettate > 0;
+  // Il link in fondo al riepilogo: la pagina /ai di questo sito quando ci sarà;
+  // fino ad allora quella del gruppo su triestevillas.com, se risponde 200.
+  const linkAiGruppo = riepilogoAi && !PAGINA_AI_ONLINE ? await paginaAiDelGruppo(locale) : null;
   const tessereAi = riepilogoAi
     ? [
         contiAi.ai > 0 && {
@@ -718,10 +723,20 @@ export default async function PropertyPage({ params }: { params: Params }) {
                 )}
                 <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-neutral-200 pt-4">
                   <p className="font-medium text-neutral-900">{tAi("summaryClosing")}</p>
-                  {PAGINA_AI_ONLINE && (
+                  {PAGINA_AI_ONLINE ? (
                     <Link href="/ai" className="text-sm font-medium text-brand underline-offset-2 hover:underline">
                       {tAi("summaryLink")} <span aria-hidden>→</span>
                     </Link>
+                  ) : (
+                    linkAiGruppo && (
+                      <a
+                        href={linkAiGruppo}
+                        hrefLang={locale}
+                        className="text-sm font-medium text-brand underline-offset-2 hover:underline"
+                      >
+                        {tAi("summaryLinkGruppo")} <span aria-hidden>→</span>
+                      </a>
+                    )
                   )}
                 </div>
               </div>

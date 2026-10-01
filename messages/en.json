@@ -89,7 +89,7 @@
     "videoBreak": {
       "eyebrow": "Our marketing",
       "title": "We show the potential, not just the rooms.",
-      "alt": "Interiors photographed to convey how a house is lived in, not merely how it is built."
+      "alt": "Virtual home staging made with artificial intelligence: an empty attic gradually filling with furniture. The furniture is simulated."
     },
     "featured": {
       "eyebrow": "For sale now",
@@ -349,7 +349,7 @@
     "taxInfoTitle": "How these are calculated",
     "taxCriteria": "Calculation criteria",
     "taxInfoAria": "Tax calculation details",
-    "taxAiDisclaimer": "Automatically calculated (AI) estimates: as such, they may contain calculation or transcription errors. The only reliable source is an in-person discussion with the owner, after studying the specific situation.",
+    "taxAiDisclaimer": "Estimates calculated with the price-value method on the cadastral income (on the price, where the sale is subject to VAT): as such, they may contain calculation or transcription errors. The only reliable source is an in-person discussion with the owner, after studying the specific situation.",
     "taxGroupAcquisto": "Purchase costs (one-off)",
     "taxGroupGestione": "Annual running costs",
     "taxPlusVat": "+ VAT",
@@ -360,15 +360,15 @@
     "taxCondoInfoTitle": "Condominium charges",
     "taxCondoInfoBody": "Indicative annual figure based on the reported ordinary charges. Extraordinary works and metered consumption (e.g. heating) are excluded. The official figure is the administrator's statement.",
     "taxIliaInfoTitle": "ILIA — indicative estimate",
-    "taxIliaInfoBody": "AI-generated estimate, computed as a second home in Trieste on the cadastral income (rate 10.6‰). It does not replace the official calculation: it depends on the cadastral category, ownership share and months of possession, and any reliefs. A non-luxury main residence is exempt. Always check with your accountant or the Trieste Council tax office.",
+    "taxIliaInfoBody": "Estimate calculated with a formula on the cadastral income (income revalued by 5% × 160 × 10.6‰), using the second-home rate of the City of Trieste: in the municipality where the property is located the rate may differ. It does not replace the official calculation: it depends on the cadastral category, ownership share and months of possession, and any reliefs. A non-luxury main residence is exempt. Always check with your accountant or with the tax office of the municipality where the property is located.",
     "taxTariInfoTitle": "TARI — indicative estimate",
-    "taxTariInfoBody": "Rough AI estimate based on the City of Trieste 2026 household waste-tax rates. TARI is charged on the net floor area (calpestabile): we estimate it at about 80% of the commercial sqm. You can change the number of occupants below (default 2). The actual amount depends on the real area, the occupants and any reductions, and does not replace the bill issued by ESATTO S.p.A.",
+    "taxTariInfoBody": "Rough estimate calculated with a formula on the City of Trieste 2026 household waste-tax rates. TARI is charged on the net floor area (calpestabile): we estimate it at about 80% of the commercial sqm. You can change the number of occupants below (default 2). The actual amount depends on the real area, the occupants and any reductions, and does not replace the bill issued by ESATTO S.p.A.",
     "taxTariInfoLink": "Detailed calculation on ESATTO",
     "taxPrimaCasa": "Main home",
     "taxSecondaCasa": "Second home",
     "taxIliaEsente": "Exempt (main home)",
     "taxOccupants": "Occupants",
-    "taxEstimateFootnote": "Annual costs are indicative AI estimates and do not replace an official check.",
+    "taxEstimateFootnote": "Annual costs are indicative estimates (reported service charges, ILIA and TARI calculated with a formula) and do not replace an official check.",
     "aiFoto": {
       "tag": {
         "ai": "AI",
@@ -387,6 +387,7 @@
       "navLabel": "AI in the photos",
       "summaryClosing": "The viewing remains the only true point of reference.",
       "summaryLink": "Read “AI: cards on the table”: how we use artificial intelligence",
+      "summaryLinkGruppo": "How we use artificial intelligence: the group page on triestevillas.com",
       "genericCaption": "This photo has been through a generative image model: the description of the edit is being prepared.",
       "readMore": "Read more",
       "readLess": "Show less",

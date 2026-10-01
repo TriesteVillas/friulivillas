@@ -1,5 +1,7 @@
 import "server-only";
+import { createHash } from "node:crypto";
 import { unstable_cache } from "next/cache";
+import ripiegoVersionato from "@/content/trasparenza-ripiego.json";
 import {
   LINGUE_AI,
   firmaDiGeneratore,
@@ -24,10 +26,11 @@ import type { Photo, Property } from "./properties";
 //   → { stato, …, immobili: [{ airtable_id, tsv_prop_id, trasparenza }] }
 // indicizzata per id record Airtable, e si abbina alle foto per filename.
 //
-// ── TOLLERANTE, MA SENZA TOGLIERE ETICHETTE ────────────────────────────────
-// Il catalogo non dipende mai da questa lettura: se fallisce, le pagine si
-// costruiscono lo stesso. Ma «fallisce ⇒ nessuna etichetta» non va bene: le
-// foto che l'ultima risposta buona conosceva come AI uscirebbero nude. Quindi,
+// ── TOLLERANTE A RUNTIME, MA SENZA TOGLIERE ETICHETTE ──────────────────────
+// A runtime il catalogo non dipende da questa lettura: se fallisce, le pagine
+// si rigenerano lo stesso. Ma «fallisce ⇒ nessuna etichetta» non va bene: le
+// foto che l'ultima risposta buona conosceva come AI uscirebbero nude. In
+// BUILD, invece, una vista illeggibile ferma la build (dal 01/10 sera). Quindi,
 // dal più al meno informato:
 //   1. la vista, letta e VALIDATA dentro `unstable_cache` (revalidate 600 e
 //      tag "properties", come il catalogo). Il tetto d'attesa (5 s) sta DENTRO
@@ -44,8 +47,20 @@ import type { Photo, Property } from "./properties";
 //   2. l'ultima risposta valida vista da QUESTO processo (in memoria), per i
 //      casi in cui la cache non ha nessuna copia (prima lettura dopo un deploy:
 //      la chiave di unstable_cache contiene il sorgente della funzione);
-//   3. nessuna risposta buona: restano le sole sigle «AI» sui nomi dei
-//      generatori.
+//   3. nessuna risposta buona:
+//      · in BUILD si LANCIA, e la build fallisce (resta online il deploy
+//        precedente, che le etichette le ha). Il prebuild lo controlla già
+//        prima di cominciare (scripts/trasparenza-ripiego.mjs --build); questo
+//        è il caso del CRM che cade a build iniziata;
+//      · a RUNTIME, l'elenco di ripiego versionato
+//        (src/content/trasparenza-ripiego.json: impronta del nome di ogni foto
+//        → trattamento, per immobile, rigenerato dalla vista con
+//        `node scripts/trasparenza-ripiego.mjs --scrivi`; su Vercel il
+//        prebuild lo riscrive nel deploy). Le foto AI escono con l'etichetta
+//        del loro trattamento, senza didascalia né nota. Prima di questo
+//        gradino restavano le sole sigle sui nomi da generatore, e Muggia (43
+//        foto AI su 43 senza firma nel nome) o Le Vigne (46 su 55, `IMG_*`)
+//        uscivano nude finché un ISR non andava a buon fine (review del 01/10).
 // La sigla sui nomi dei generatori NON è un gradino: vale SEMPRE, su ogni foto
 // senza riga nel CRM (vedi fotoAi.ts → firmaDiGeneratore). Così lo stato più
 // informato non mostra mai meno etichette di quello meno informato.
@@ -182,14 +197,52 @@ const vistaInCache = unstable_cache(
 let ultimaBuona: Vista | null = null;
 let inVolo: Promise<Esito> | null = null;
 
+// ---- L'elenco di ripiego (gradino 3, solo a runtime) ------------------------
+
+type RipiegoImmobile = { nonAbbinate: number; perImpronta: Map<string, string> };
+
+/**
+ * L'impronta del nome di una foto nell'elenco di ripiego. IDENTICA a
+ * improntaNome() di scripts/trasparenza-ripiego.mjs: nel file in git ci sono
+ * solo impronte, mai i nomi (possono portare il nome della cartella di chi vende).
+ */
+export function improntaNome(filename: string): string {
+  return createHash("sha256").update(filename, "utf8").digest("hex").slice(0, 16);
+}
+
+function leggiRipiego(dati: unknown): Map<string, RipiegoImmobile> {
+  const out = new Map<string, RipiegoImmobile>();
+  const imm = (dati as { immobili?: unknown } | null)?.immobili;
+  if (!imm || typeof imm !== "object") return out;
+  for (const [rec, v] of Object.entries(imm as Record<string, unknown>)) {
+    if (!REC_ID.test(rec) || !v || typeof v !== "object") continue;
+    const o = v as { non_abbinate?: unknown; foto?: unknown };
+    const perImpronta = new Map<string, string>();
+    if (o.foto && typeof o.foto === "object")
+      for (const [k, t] of Object.entries(o.foto as Record<string, unknown>))
+        if (typeof t === "string") perImpronta.set(k, t);
+    out.set(rec, { nonAbbinate: numero(o.non_abbinate) ?? 0, perImpronta });
+  }
+  return out;
+}
+
+const RIPIEGO = leggiRipiego(ripiegoVersionato);
+
+const IN_BUILD = process.env.NEXT_PHASE === "phase-production-build";
+
 export type Esito = {
-  /** da dove vengono i dati: vista (o sua copia in cache), memoria del processo, nessuna */
-  fonte: "vista" | "memoria" | "nessuna";
+  /**
+   * da dove vengono i dati: vista (o sua copia in cache), memoria del processo,
+   * elenco di ripiego versionato (a runtime, quando non c'è altro)
+   */
+  fonte: "vista" | "memoria" | "ripiego";
   per: Map<string, TrasparenzaImmobile>;
+  /** solo con `fonte: "ripiego"`: impronta del nome → trattamento, per immobile */
+  ripiego: Map<string, RipiegoImmobile> | null;
 };
 
 function esitoDa(v: Vista, fonte: Esito["fonte"]): Esito {
-  return { fonte, per: new Map(Object.entries(v.immobili)) };
+  return { fonte, per: new Map(Object.entries(v.immobili)), ripiego: null };
 }
 
 async function leggi(): Promise<Esito> {
@@ -216,11 +269,18 @@ async function leggi(): Promise<Esito> {
     clearTimeout(timer);
   }
   if (ultimaBuona) return esitoDa(ultimaBuona, "memoria");
-  console.warn("[trasparenza] nessuna risposta buona finora: restano le sole sigle sui nomi dei generatori");
-  return { fonte: "nessuna", per: new Map() };
+  if (IN_BUILD)
+    throw new Error(
+      "[trasparenza] la vista del CRM non è leggibile: la build si ferma (resta online il deploy precedente, che le etichette AI le ha)",
+    );
+  console.warn(`[trasparenza] nessuna risposta buona finora: elenco di ripiego versionato (${RIPIEGO.size} immobili)`);
+  return { fonte: "ripiego", per: new Map(), ripiego: RIPIEGO };
 }
 
-/** La trasparenza di tutti gli immobili del sito. Non lancia mai. */
+/**
+ * La trasparenza di tutti gli immobili del sito. A runtime non lancia mai; in
+ * build lancia se la vista non è leggibile, e la build fallisce.
+ */
 export function getTrasparenza(): Promise<Esito> {
   // Le chiamate concorrenti dello stesso processo (in build sono decine)
   // aspettano la stessa lettura.
@@ -250,6 +310,21 @@ function fotoAiDa(rec: string, f: FotoVista): FotoAi {
         }
       : null,
     bloccoDifetti: f.blocco_difetti,
+  };
+}
+
+// Una riga dell'elenco di ripiego: il trattamento del CRM (all'ultima
+// rigenerazione dell'elenco), senza didascalia né originale. È un dato del
+// CRM, quindi conta come «modificata con l'AI» nel riepilogo, come la riga vera.
+function fotoAiDaRipiego(trattamentoCrm: string): FotoAi {
+  const trattamento = normalizzaTrattamento(trattamentoCrm);
+  return {
+    trattamento,
+    iptc: IPTC_PER_TRATTAMENTO[trattamento],
+    origine: "crm",
+    didascalia: null,
+    originale: null,
+    bloccoDifetti: false,
   };
 }
 
@@ -288,10 +363,16 @@ const GENERICA: FotoAi = {
 export function applicaTrasparenza(p: Property, esito: Esito): Property {
   const t = esito.per.get(p.recId) ?? null;
   const perNome = t ? new Map(t.foto.map((f) => [f.filename, f])) : null;
+  // Gradino 3 (solo a runtime, CRM mai letto da questo processo): l'elenco
+  // versionato, per impronta del nome.
+  const rip = esito.ripiego?.get(p.recId) ?? null;
   const assegna = (ph: Photo): FotoAi | null => {
     const riga = ph.filename !== null ? perNome?.get(ph.filename) : undefined;
     if (riga) return fotoAiDa(p.recId, riga);
     if (t && t.aiNonAbbinate > 0) return GENERICA;
+    const daElenco = rip && ph.filename ? rip.perImpronta.get(improntaNome(ph.filename)) : undefined;
+    if (daElenco) return fotoAiDaRipiego(daElenco);
+    if (rip && rip.nonAbbinate > 0) return GENERICA;
     return firmaDiGeneratore(ph.filename) ? GENERICA : null;
   };
 

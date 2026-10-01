@@ -207,6 +207,10 @@ export async function getProperties(): Promise<Property[]> {
   // Anche la trasparenza AI delle foto è una lettura a parte della vetrina del
   // CRM (vista=trasparenza), in parallelo e tollerante: vedi trasparenza.ts.
   const trasparenza = getTrasparenza();
+  // In build una vista illeggibile la fa rifiutare DI PROPOSITO (la build si
+  // ferma): l'errore arriva all'`await` qui sotto, non come rifiuto orfano
+  // mentre si aspetta Airtable.
+  trasparenza.catch(() => {});
   let raw: RawRecord[];
   if (TOKEN) {
     raw = await fetchAllRaw(FILTER);

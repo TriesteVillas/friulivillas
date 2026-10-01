@@ -89,7 +89,7 @@
     "videoBreak": {
       "eyebrow": "Naš marketing",
       "title": "Pokažemo potencial, ne le prostore.",
-      "alt": "Notranji prostori, fotografirani tako, da pokažejo, kako se v hiši živi, ne le kako je zgrajena."
+      "alt": "Virtualna oprema prostora, narejena z umetno inteligenco: prazno podstrešno stanovanje se postopoma opremi. Pohištvo je simulirano."
     },
     "featured": {
       "eyebrow": "Zdaj na prodaj",
@@ -349,7 +349,7 @@
     "taxInfoTitle": "Kako so izračunani",
     "taxCriteria": "Merila izračuna",
     "taxInfoAria": "Podrobnosti o izračunu davkov",
-    "taxAiDisclaimer": "Ocene so izračunane samodejno (z umetno inteligenco), zato lahko vsebujejo računske napake ali napake pri prepisu. Edini zanesljivi vir je osebni pogovor z vodjo agencije po preučitvi konkretnega primera.",
+    "taxAiDisclaimer": "Ocene so izračunane po merilu »prezzo-valore« na podlagi katastrskega donosa (pri prodaji z DDV na podlagi cene), zato lahko vsebujejo računske napake ali napake pri prepisu. Edini zanesljivi vir je osebni pogovor z vodjo agencije po preučitvi konkretnega primera.",
     "taxGroupAcquisto": "Stroški nakupa (enkratni)",
     "taxGroupGestione": "Letni stroški lastništva",
     "taxPlusVat": "+ DDV",
@@ -360,15 +360,15 @@
     "taxCondoInfoTitle": "Stroški upravljanja stavbe",
     "taxCondoInfoBody": "Okvirni letni znesek na podlagi sporočenih rednih stroškov. Izredna dela in stroški po porabi (npr. ogrevanje) niso vključeni. Uradni podatek je obračun upravnika stavbe.",
     "taxIliaInfoTitle": "ILIA – okvirna ocena",
-    "taxIliaInfoBody": "Ocena, ustvarjena z umetno inteligenco, izračunana kot za drugo bivališče v Trstu na podlagi katastrskega donosa (rendita catastale; stopnja 10,6 ‰). Ne nadomešča uradnega izračuna: odvisna je od katastrske kategorije, lastniškega deleža in mesecev lastništva ter morebitnih olajšav. Glavno prebivališče, ki ni v luksuzni kategoriji, je davka oproščeno. Vedno preverite pri svojem davčnem svetovalcu ali pri davčnem uradu Občine Trst.",
+    "taxIliaInfoBody": "Ocena, izračunana s formulo na podlagi katastrskega donosa (rendita catastale, povečana za 5 % × 160 × 10,6 ‰), po stopnji za drugo bivališče v Občini Trst: v občini, kjer je nepremičnina, je stopnja lahko drugačna. Ne nadomešča uradnega izračuna: odvisna je od katastrske kategorije, lastniškega deleža in mesecev lastništva ter morebitnih olajšav. Glavno prebivališče, ki ni v luksuzni kategoriji, je davka oproščeno. Vedno preverite pri svojem davčnem svetovalcu ali pri davčnem uradu občine, v kateri je nepremičnina.",
     "taxTariInfoTitle": "TARI – okvirna ocena",
-    "taxTariInfoBody": "Groba ocena (z umetno inteligenco) na podlagi tarif TARI Občine Trst za gospodinjstva v letu 2026. TARI se obračuna glede na neto tlorisno površino (calpestabile): ocenjujemo jo na približno 80 % komercialne površine. Spodaj lahko spremenite število stanovalcev (privzeto 2). Končni znesek je odvisen od dejanske površine, števila stanovalcev in morebitnih znižanj ter ne nadomešča računa, ki ga izda ESATTO S.p.A.",
+    "taxTariInfoBody": "Groba ocena, izračunana s formulo na podlagi tarif TARI Občine Trst za gospodinjstva v letu 2026. TARI se obračuna glede na neto tlorisno površino (calpestabile): ocenjujemo jo na približno 80 % komercialne površine. Spodaj lahko spremenite število stanovalcev (privzeto 2). Končni znesek je odvisen od dejanske površine, števila stanovalcev in morebitnih znižanj ter ne nadomešča računa, ki ga izda ESATTO S.p.A.",
     "taxTariInfoLink": "Natančen izračun pri ESATTO",
     "taxPrimaCasa": "Glavno prebivališče",
     "taxSecondaCasa": "Drugo bivališče",
     "taxIliaEsente": "Oproščeno (glavno prebivališče)",
     "taxOccupants": "Stanovalci",
-    "taxEstimateFootnote": "Letni stroški so okvirne ocene, ustvarjene z umetno inteligenco, in ne nadomeščajo uradnega preverjanja.",
+    "taxEstimateFootnote": "Letni stroški so okvirne ocene (sporočeni stroški upravljanja ter ILIA in TARI, izračunana s formulo) in ne nadomeščajo uradnega preverjanja.",
     "aiFoto": {
       "tag": {
         "ai": "AI",
@@ -387,6 +387,7 @@
       "navLabel": "UI na fotografijah",
       "summaryClosing": "Edino merilo ostaja ogled.",
       "summaryLink": "Preberite »UI z odprtimi kartami«: kako uporabljamo umetno inteligenco",
+      "summaryLinkGruppo": "Kako uporabljamo umetno inteligenco: stran skupine na triestevillas.com",
       "genericCaption": "Ta fotografija je šla skozi generativni model slik: opis posega pripravljamo.",
       "readMore": "Preberi več",
       "readLess": "Prikaži manj",

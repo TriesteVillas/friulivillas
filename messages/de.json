@@ -89,7 +89,7 @@
     "videoBreak": {
       "eyebrow": "Unser Marketing",
       "title": "Wir zeigen das Potenzial, nicht nur die Räume.",
-      "alt": "Innenaufnahmen, die zeigen, wie ein Haus bewohnt wird, nicht nur wie es gebaut ist."
+      "alt": "Virtuelles Home Staging mit künstlicher Intelligenz: Ein leeres Dachgeschoss richtet sich nach und nach ein. Die Möbel sind simuliert."
     },
     "featured": {
       "eyebrow": "Jetzt im Verkauf",
@@ -349,7 +349,7 @@
     "taxInfoTitle": "Wie wird berechnet",
     "taxCriteria": "Berechnungskriterien",
     "taxInfoAria": "Details zur Steuerberechnung",
-    "taxAiDisclaimer": "Automatisch (KI) berechnete Schätzungen: als solche können sie Rechen- oder Übertragungsfehler enthalten. Die einzige verlässliche Quelle ist das persönliche Gespräch mit dem Inhaber nach Prüfung des konkreten Einzelfalls.",
+    "taxAiDisclaimer": "Schätzungen, berechnet nach dem Preis-Wert-Verfahren auf Basis des Katasterertrags (bei mehrwertsteuerpflichtigen Verkäufen auf Basis des Preises): Als solche können sie Rechen- oder Übertragungsfehler enthalten. Die einzige verlässliche Quelle ist das persönliche Gespräch mit dem Inhaber nach Prüfung des konkreten Einzelfalls.",
     "taxGroupAcquisto": "Kaufkosten (einmalig)",
     "taxGroupGestione": "Jährliche laufende Kosten",
     "taxPlusVat": "+ MwSt.",
@@ -360,15 +360,15 @@
     "taxCondoInfoTitle": "Hausgeld",
     "taxCondoInfoBody": "Indikativer Jahresbetrag auf Basis der gemeldeten ordentlichen Kosten. Außerordentliche Maßnahmen und verbrauchsabhängige Kosten (z. B. Heizung) sind ausgeschlossen. Maßgeblich ist die Abrechnung des Verwalters.",
     "taxIliaInfoTitle": "ILIA — indikative Schätzung",
-    "taxIliaInfoBody": "KI-generierte Schätzung, berechnet als Zweitwohnsitz in Triest auf Basis des Katasterertrags (Satz 10,6‰). Sie ersetzt nicht die offizielle Berechnung: Sie hängt von der Katasterkategorie, dem Eigentumsanteil und den Besitzmonaten sowie etwaigen Vergünstigungen ab. Ein nicht luxuriöser Hauptwohnsitz ist befreit. Prüfen Sie dies stets mit Ihrem Steuerberater oder dem Steueramt der Stadt Triest.",
+    "taxIliaInfoBody": "Schätzung, mit einer Formel auf Basis des Katasterertrags berechnet (Ertrag um 5 % aufgewertet × 160 × 10,6‰), mit dem Satz der Stadt Triest für Zweitwohnsitze: In der Gemeinde, in der die Immobilie liegt, kann der Satz abweichen. Sie ersetzt nicht die offizielle Berechnung: Sie hängt von der Katasterkategorie, dem Eigentumsanteil und den Besitzmonaten sowie etwaigen Vergünstigungen ab. Ein nicht luxuriöser Hauptwohnsitz ist befreit. Prüfen Sie dies stets mit Ihrem Steuerberater oder dem Steueramt der Gemeinde, in der die Immobilie liegt.",
     "taxTariInfoTitle": "TARI — indikative Schätzung",
-    "taxTariInfoBody": "Grobe KI-Schätzung auf Basis der Abfallgebührentarife 2026 der Stadt Triest für Haushalte. Die TARI wird auf die Nettowohnfläche (calpestabile) berechnet: Wir schätzen sie auf etwa 80% der kommerziellen Fläche. Unten können Sie die Anzahl der Bewohner ändern (Standard 2). Der tatsächliche Betrag hängt von der realen Fläche, den Bewohnern und etwaigen Ermäßigungen ab und ersetzt nicht die von ESATTO S.p.A. ausgestellte Rechnung.",
+    "taxTariInfoBody": "Grobe Schätzung, mit einer Formel auf Basis der Abfallgebührentarife 2026 der Stadt Triest für Haushalte berechnet. Die TARI wird auf die Nettowohnfläche (calpestabile) berechnet: Wir schätzen sie auf etwa 80% der kommerziellen Fläche. Unten können Sie die Anzahl der Bewohner ändern (Standard 2). Der tatsächliche Betrag hängt von der realen Fläche, den Bewohnern und etwaigen Ermäßigungen ab und ersetzt nicht die von ESATTO S.p.A. ausgestellte Rechnung.",
     "taxTariInfoLink": "Genaue Berechnung bei ESATTO",
     "taxPrimaCasa": "Hauptwohnsitz",
     "taxSecondaCasa": "Zweitwohnsitz",
     "taxIliaEsente": "Befreit (Hauptwohnsitz)",
     "taxOccupants": "Bewohner",
-    "taxEstimateFootnote": "Die jährlichen Kosten sind indikative KI-Schätzungen und ersetzen keine offizielle Prüfung.",
+    "taxEstimateFootnote": "Die jährlichen Kosten sind indikative Schätzungen (gemeldetes Hausgeld, ILIA und TARI mit einer Formel berechnet) und ersetzen keine offizielle Prüfung.",
     "aiFoto": {
       "tag": {
         "ai": "AI",
@@ -387,6 +387,7 @@
       "navLabel": "KI in den Fotos",
       "summaryClosing": "Maßgeblich bleibt allein die Besichtigung.",
       "summaryLink": "„KI mit offenen Karten“ lesen: wie wir künstliche Intelligenz einsetzen",
+      "summaryLinkGruppo": "Wie wir künstliche Intelligenz einsetzen: die Seite der Gruppe auf triestevillas.com",
       "genericCaption": "Dieses Foto ist durch ein generatives Bildmodell gegangen: Die Beschreibung der Bearbeitung wird vorbereitet.",
       "readMore": "Weiterlesen",
       "readLess": "Weniger anzeigen",

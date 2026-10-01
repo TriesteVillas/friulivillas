@@ -10,6 +10,7 @@ import FeaturedCarousel from "@/components/FeaturedCarousel";
 import Marquee from "@/components/Marquee";
 import ClosureBanner from "@/components/ClosureBanner";
 import AutoVideo from "@/components/AutoVideo";
+import AiTag from "@/components/AiTag";
 import { BrandMark } from "@/components/Logo";
 import BuyerCta from "@/components/BuyerCta";
 import SellerCta from "@/components/SellerCta";
@@ -41,6 +42,7 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tProp = await getTranslations("property");
+  const tAi = await getTranslations("property.aiFoto");
   const tZones = await getTranslations("zones");
 
   const properties = await getProperties();
@@ -203,6 +205,17 @@ export default async function Home({
           lazy
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark from-8% via-brand-dark/85 via-25% to-transparent to-46% sm:from-10% sm:via-20% sm:to-36%" />
+        {/* L'arredo di questo video è generato con l'AI (home staging virtuale:
+            lo stesso file della home di triesteimmobiliare.com, che lo etichetta
+            «AI · simulazione»): l'etichetta resta VISIBILE per tutta la durata
+            e sul poster, in alto a destra nella colonna del sito — non basta che
+            lo dica l'aria-label (SPEC trasparenza §0 e §5.1, review del 01/10).
+            Sopra il velo, fuori dal flusso del testo in basso. */}
+        <div className="pointer-events-none absolute inset-x-0 top-4 z-[1] sm:top-6">
+          <div className="mx-auto flex max-w-6xl justify-end px-4 sm:px-6">
+            <AiTag testo={tAi("tag.ai_aggiunte")} aria={tAi("tag.ai_aggiunte")} />
+          </div>
+        </div>
         <div className="absolute inset-x-0 bottom-0">
           <div className="mx-auto max-w-6xl px-6 pb-10 sm:pb-14" data-reveal>
             <p className="eyebrow text-sand">{t("videoBreak.eyebrow")}</p>
