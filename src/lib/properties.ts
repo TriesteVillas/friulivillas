@@ -136,6 +136,10 @@ export type Property = {
   // Titolo pubblico tradotto; null quando la traduzione non c'è ancora.
   titleEn: string | null;
   titleDe: string | null;
+  // Sloveno: NON viene da Airtable (i campi _SL_ vivono solo nel CRM, su
+  // Postgres). mapRecord lo lascia null; lo riempie getProperties dalla
+  // vetrina del CRM, quando risponde. Vedi getSlovenianTexts() in airtable.ts.
+  titleSl: string | null;
   inEvidenza: boolean;
   onlineDa: string | null;
   contratto: "VENDITA" | "AFFITTO" | null;
@@ -159,6 +163,10 @@ export type Property = {
   // passa da localizedDescription(), che garantisce il ritorno all'italiano.
   descriptionEn: string | null;
   descriptionDe: string | null;
+  // Variante TSI in sloveno (descrizione_tsi_sl), dalla vetrina del CRM come
+  // titleSl. Null finché il CRM non la scrive: la pagina /sl ripiega
+  // sull'inglese, vedi translatedDescription().
+  descriptionSl: string | null;
   oneliner: string | null;
   tags: string[];
   photos: Photo[];
@@ -330,6 +338,7 @@ export function mapRecord(recordId: string, f: Fields): Property {
     title,
     titleEn: str(f[F.titleEn]),
     titleDe: str(f[F.titleDe]),
+    titleSl: null,
     inEvidenza: f[F.inEvidenza] === true,
     onlineDa: typeof f[F.onlineDa] === "string" ? (f[F.onlineDa] as string) : null,
     contratto,
@@ -350,6 +359,7 @@ export function mapRecord(recordId: string, f: Fields): Property {
     description: str(f[F.descrizioneTsi]) || str(f[F.descrizione]),
     descriptionEn: str(f[F.descrizioneTsiEn]),
     descriptionDe: str(f[F.descrizioneTsiDe]),
+    descriptionSl: null,
     oneliner: str(f[F.onelinerTsi]) || str(f[F.oneliner]),
     tags,
     photos,

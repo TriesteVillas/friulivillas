@@ -18,7 +18,7 @@
 // L'ordine è deliberato: il browser mostra la datalist nell'ordine dell'array quando
 // il campo è vuoto, quindi Trieste e il suo intorno vengono per primi.
 
-export type CityLocale = "it" | "en" | "de";
+export type CityLocale = "it" | "en" | "de" | "sl";
 
 const IT: string[] = [
   "Trieste", "Muggia", "Duino-Aurisina", "Sistiana", "Monfalcone", "Grado", "Gorizia",
@@ -65,7 +65,28 @@ const DE: string[] = [
   "Istanbul", "Dubai", "Tel Aviv", "New York", "Miami", "Toronto", "Singapur", "Hongkong",
 ];
 
-const BY_LOCALE: Record<CityLocale, string[]> = { it: IT, en: EN, de: DE };
+// Sloveno: esonimi dove l'uso sloveno ne ha uno corrente (Trst, Milje, Gradež,
+// Dunaj, Celovec…); dove lo sloveno usa il nome italiano, resta quello. Le due
+// voci col nome italiano fra parentesi sono i casi in cui l'esonimo da solo
+// non basta a riconoscere la città. Stessa lista di triestevillas.com; le
+// forme slovene sono riconosciute da normCity (citynorm.ts), quindi nel CRM
+// «Trst» e «Trieste» restano una città sola.
+const SL: string[] = [
+  "Trst", "Milje", "Devin-Nabrežina", "Sesljan", "Tržič (Monfalcone)", "Gradež", "Gorica",
+  "Videm (Udine)", "Lignano Sabbiadoro", "Pordenone",
+  "Benetke", "Padova", "Treviso", "Verona", "Vicenza", "Trento", "Bolzano", "Bologna",
+  "Milano", "Rim", "Torino", "Genova", "Firence", "Neapelj", "Bari", "Palermo",
+  "Bergamo", "Brescia", "Parma", "Rimini",
+  "Ljubljana", "Koper", "Portorož", "Nova Gorica", "Zagreb", "Reka", "Pulj",
+  "Dunaj", "Gradec", "Celovec", "Beljak", "Salzburg", "Innsbruck",
+  "München", "Berlin", "Hamburg", "Frankfurt", "Stuttgart", "Köln", "Düsseldorf",
+  "Zürich", "Ženeva", "Lugano", "Basel",
+  "London", "Pariz", "Madrid", "Barcelona", "Amsterdam", "Bruselj", "Luksemburg",
+  "Praga", "Budimpešta", "Varšava", "Dublin", "Lizbona", "Atene", "Monako",
+  "Istanbul", "Dubaj", "Tel Aviv", "New York", "Miami", "Toronto", "Singapur", "Hongkong",
+];
+
+const BY_LOCALE: Record<CityLocale, string[]> = { it: IT, en: EN, de: DE, sl: SL };
 
 /** Suggerimenti nella lingua del visitatore. Locale sconosciuto → italiano. */
 export function citySuggestions(locale: string): string[] {

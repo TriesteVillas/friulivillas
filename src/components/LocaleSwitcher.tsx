@@ -5,7 +5,17 @@ import { useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 
-const LABELS: Record<string, string> = { it: "IT", en: "EN", de: "DE" };
+const LABELS: Record<string, string> = { it: "IT", en: "EN", de: "DE", sl: "SL" };
+// Nome completo per gli screen reader: la sigla («SL») verrebbe letta lettera
+// per lettera. Ogni lingua col suo endonimo — «Slovenščina», non «Sloveno» —,
+// che contiene la sigla visibile (WCAG 2.5.3); `lang` sul pulsante fa sì che
+// il lettore lo pronunci nella lingua giusta.
+const NAMES: Record<string, string> = {
+  it: "Italiano",
+  en: "English",
+  de: "Deutsch",
+  sl: "Slovenščina",
+};
 
 export default function LocaleSwitcher({
   // "light" per il pannello scuro del menu mobile, dove le tinte da pillola
@@ -44,6 +54,8 @@ export default function LocaleSwitcher({
           type="button"
           onClick={() => onChange(loc)}
           aria-current={loc === locale}
+          aria-label={NAMES[loc] ?? loc}
+          lang={loc}
           className={`px-1.5 ${loc === locale ? attivo : inattivo}`}
         >
           {LABELS[loc] ?? loc.toUpperCase()}

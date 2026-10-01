@@ -24,7 +24,7 @@ export async function generateMetadata({
 }
 
 const BRANDS = ["tsv", "tsi", "affitti", "friuli", "business", "lignano"] as const;
-type BrandSiteLocale = "it" | "en" | "de";
+type BrandSiteLocale = "it" | "en" | "de" | "sl";
 type BrandSites = Partial<Record<(typeof BRANDS)[number], string>>;
 // URLs verified live on 2026-07-23. TriesteBusiness stays unlinked because it has
 // no website — e `friuli` non compare perché su QUESTO sito è il marchio di casa:
@@ -50,6 +50,17 @@ const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
     tsi: "https://www.triesteimmobiliare.com/de",
     affitti: "https://www.triesteaffitti.com/",
     lignano: "https://www.lignanovillas.com/de/",
+  },
+  // Sloveno (2026-10-01): verso la versione slovena dove esiste — oggi solo
+  // triestevillas.com/sl —, altrimenti verso quella inglese (decisione D7 del
+  // progetto sloveno, tsv-kb/progetti/sloveno-tsv/RIPRESA.md).
+  // TriesteImmobiliare, TriesteAffitti e LignanoVillas non hanno ancora /sl
+  // (404, verificato il 2026-10-01): quando lo pubblicano, si aggiorna qui.
+  sl: {
+    tsv: "https://www.triestevillas.com/sl",
+    tsi: "https://www.triesteimmobiliare.com/en",
+    affitti: "https://www.triesteaffitti.com/",
+    lignano: "https://www.lignanovillas.com/",
   },
 };
 const STORY = [

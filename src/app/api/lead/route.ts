@@ -104,6 +104,18 @@ async function sendEmail(to: string, subject: string, html: string, replyTo?: st
 const esc = (s: string) =>
   s.replace(/[<>&]/g, (c) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[c]!);
 
+// Lingue ammesse su `lingua`. Era la stessa lista copiata in tre handler più
+// il ramo «invia a un amico»: con lo sloveno (2026-10-01) una lingua aggiunta
+// in tre posti su quattro avrebbe fatto cadere il quarto modulo sull'italiano
+// in silenzio. LEAD_.lingua è un single select scritto con typecast: la prima
+// richiesta slovena crea da sé l'opzione "sl" (come su triestevillas.com).
+type Lingua = "it" | "en" | "de" | "sl";
+const LINGUE: readonly Lingua[] = ["it", "en", "de", "sl"];
+const linguaDi = (v: unknown): Lingua => {
+  const l = clean(v);
+  return (LINGUE as readonly string[]).includes(l) ? (l as Lingua) : "it";
+};
+
 // Customer-facing recap copy, localized (the API has no i18n context).
 const RECAP = {
   it: {
@@ -142,7 +154,31 @@ const RECAP = {
     closing: `Antworten Sie gerne auf diese E-Mail oder rufen Sie uns an unter ${mailContact.phone}.`,
     sign: `FriuliVillas · ${mailContact.email}`,
   },
+  // Sloveno: la chiusa dice in che lingue rispondiamo (D1 del progetto
+  // sloveno — nessuna promessa di assistenza in sloveno: visite,
+  // accompagnamento e rogito sono in italiano, inglese e tedesco). È l'unica
+  // frase da cambiare il giorno in cui in agenzia qualcuno risponderà in sloveno.
+  sl: {
+    subject: "Prejeli smo vaše povpraševanje – FriuliVillas",
+    hello: "Pozdravljeni",
+    received: "prejeli smo vaše povpraševanje in se vam kmalu oglasimo.",
+    recapTitle: "Povzetek povpraševanja",
+    zones: "Območja zanimanja", budget: "Proračun", size: "Velikost",
+    purpose: "Namen", condition: "Stanje nepremičnine", listing: "Nepremičnina",
+    request: "Povpraševanje", message: "Sporočilo", visit: "Razpoložljivost za ogled",
+    timing: "Časovni okvir", roi: "Pričakovani donos", horizon: "Časovno obdobje", objective: "Cilj",
+    closing: `Odgovorimo vam v italijanščini, angleščini ali nemščini. Za vsa vprašanja lahko odgovorite na to sporočilo ali nas pokličete na +39 ${mailContact.phone}.`,
+    sign: `FriuliVillas · ${mailContact.email}`,
+  },
 } as const;
+
+// Etichetta del pulsante verso la scheda, nel recap di info/visita.
+const CTA_IMMOBILE: Record<Lingua, string> = {
+  it: "Vedi l'immobile",
+  en: "View the property",
+  de: "Zur Immobilie",
+  sl: "Oglejte si nepremičnino",
+};
 
 // Customer recap on the shared brand shell: greeting, summary card, optional
 // listing CTA, closing and signature. The shell owns logo and footer contacts.
@@ -196,7 +232,7 @@ async function handleBuyer(body: Record<string, unknown>) {
   const citta = normCity(clean(body.citta, 80));
   const messaggio = clean(body.messaggio, 4000);
   const fonteCta = clean(body.fonteCta, 120);
-  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+  const lingua = linguaDi(body.lingua);
   const zone = (Array.isArray(body.zone) ? body.zone : [])
     .map((z) => clean(z, 40))
     .filter((z) => BUYER_ZONES.has(z));
@@ -324,7 +360,7 @@ async function handleValutazione(body: Record<string, unknown>) {
   const statoImmobile = SELLER_STATI.has(clean(body.statoImmobile)) ? clean(body.statoImmobile) : "";
   const tempistiche = SELLER_TEMPI.has(clean(body.tempistiche)) ? clean(body.tempistiche) : "";
   const messaggio = clean(body.messaggio, 4000);
-  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+  const lingua = linguaDi(body.lingua);
 
   if (body.privacyOk !== true) {
     return NextResponse.json({ ok: false, error: "privacy_required" }, { status: 400 });
@@ -447,7 +483,7 @@ export async function POST(request: Request) {
   const immobileNome = clean(body.immobileNome, 200);
   const url = clean(body.url, 500);
   const disponibilita = clean(body.disponibilita, 800);
-  const lingua = ["it", "en", "de"].includes(clean(body.lingua)) ? clean(body.lingua) : "it";
+  const lingua = linguaDi(body.lingua);
   // TriesteImmobiliare accettava `sito` dal client per servire due marchi da un
   // solo endpoint. Qui il marchio è uno: il campo resta accettato per compatibilità
   // di forma, ma NON decide più canale e azienda — un client che mentisse sul
@@ -509,12 +545,13 @@ export async function POST(request: Request) {
     : "";
 
   if (tipo === "Invia a un amico") {
-    const fl = (["it", "en", "de"].includes(lingua) ? lingua : "it") as "it" | "en" | "de";
+    const fl = lingua;
     const L = RECAP[fl];
     const FRIEND = {
       it: { subj: "Un immobile che potrebbe interessarti — FriuliVillas", intro: "Ti è stato segnalato questo immobile:", card: "Immobile segnalato", cta: "Vedi l'immobile", sign: "— FriuliVillas" },
       en: { subj: "A property you might like — FriuliVillas", intro: "Someone wanted you to see this property:", card: "Shared property", cta: "View the property", sign: "— FriuliVillas" },
       de: { subj: "Eine Immobilie für Sie — FriuliVillas", intro: "Diese Immobilie wurde Ihnen empfohlen:", card: "Empfohlene Immobilie", cta: "Zur Immobilie", sign: "— FriuliVillas" },
+      sl: { subj: "Nepremičnina, ki bi vas lahko zanimala – FriuliVillas", intro: "Nekdo vam priporoča to nepremičnino:", card: "Priporočena nepremičnina", cta: "Oglejte si nepremičnino", sign: "– FriuliVillas" },
     }[fl];
     const friendBody = `<p style="${mailText.title}">${FRIEND.intro}</p>
       ${mailRecapCard(FRIEND.card, [
@@ -568,7 +605,7 @@ export async function POST(request: Request) {
             [L.visit, disponibilita],
           ],
           url
-            ? mailCta(esc(url), lingua === "en" ? "View the property" : lingua === "de" ? "Zur Immobilie" : "Vedi l'immobile")
+            ? mailCta(esc(url), CTA_IMMOBILE[lingua])
             : "",
         ),
         NOTIFY_EMAIL,

@@ -17,7 +17,7 @@ const NAV = [
   { href: "/contatti", key: "contact" },
 ] as const;
 
-type GroupSiteLocale = "it" | "en" | "de";
+type GroupSiteLocale = "it" | "en" | "de" | "sl";
 const GROUP_SITES = {
   it: {
     tsv: "https://www.triestevillas.com/",
@@ -36,6 +36,18 @@ const GROUP_SITES = {
     tsi: "https://www.triesteimmobiliare.com/de",
     affitti: "https://www.triesteaffitti.com/",
     lignano: "https://www.lignanovillas.com/de/",
+  },
+  // Sloveno (2026-10-01), come in gruppo/page.tsx: verso la versione slovena
+  // dove esiste — oggi solo triestevillas.com/sl —, altrimenti verso quella
+  // inglese (decisione D7 del progetto sloveno,
+  // tsv-kb/progetti/sloveno-tsv/RIPRESA.md).
+  // TriesteImmobiliare, TriesteAffitti e LignanoVillas non hanno ancora /sl
+  // (404, verificato il 2026-10-01): quando lo pubblicano, si aggiorna qui.
+  sl: {
+    tsv: "https://www.triestevillas.com/sl",
+    tsi: "https://www.triesteimmobiliare.com/en",
+    affitti: "https://www.triesteaffitti.com/",
+    lignano: "https://www.lignanovillas.com/",
   },
 } as const satisfies Record<GroupSiteLocale, Record<string, string>>;
 

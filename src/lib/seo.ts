@@ -1,5 +1,5 @@
 // SEO helpers — canonical + hreflang for next-intl `localePrefix: "as-needed"`
-// (it at the root, en/de prefixed) and JSON-LD builders. The site is read by
+// (it at the root, en/de/sl prefixed) and JSON-LD builders. The site is read by
 // many German-speaking buyers, so hreflang is not cosmetic.
 
 // `?? ` da solo non basta: una variabile d'ambiente definita ma VUOTA (è ciò che
@@ -11,9 +11,30 @@
 export const SITE_URL =
   (process.env.NEXT_PUBLIC_SITE_URL || "").trim() || "https://friulivillas.com";
 
-export const LOCALES = ["it", "en", "de"] as const;
+export const LOCALES = ["it", "en", "de", "sl"] as const;
 // hreflang region codes (en-GB: British-leaning copy; de-DE: the key market).
-const HREFLANG: Record<string, string> = { it: "it-IT", en: "en-GB", de: "de-DE" };
+// Lo sloveno invece è SOLO-LINGUA, `sl` e non `sl-SI`: un codice regionale
+// lascerebbe fuori proprio la minoranza slovena di Trieste e Gorizia (che è in
+// Italia) e la Carinzia — per un sito sul Friuli Venezia Giulia sono il primo
+// pubblico sloveno, non un caso limite. Stessa scelta di triestevillas.com
+// (rapporto SEO del 2026-09-11). Esportata: la sitemap deve dichiarare
+// ESATTAMENTE gli stessi codici delle pagine.
+export const HREFLANG: Record<string, string> = {
+  it: "it-IT",
+  en: "en-GB",
+  de: "de-DE",
+  sl: "sl",
+};
+// og:locale vuole invece il formato lingua_REGIONE: mappa separata, solo OG.
+const OG_LOCALE: Record<string, string> = {
+  it: "it_IT",
+  en: "en_GB",
+  de: "de_DE",
+  sl: "sl_SI",
+};
+export function ogLocale(locale: string): string {
+  return OG_LOCALE[locale] ?? "it_IT";
+}
 
 // Path on the wire for a given locale. `path` uses "/" for home.
 export function localizedPath(locale: string, path: string): string {
@@ -45,10 +66,12 @@ export function pageOpenGraph(
   return {
     type: "website" as const,
     siteName: "FriuliVillas",
-    locale: HREFLANG[locale]?.replace("-", "_") ?? "it_IT",
-    localeAlternate: LOCALES.filter((l) => l !== locale).map((l) =>
-      (HREFLANG[l] ?? "it-IT").replace("-", "_"),
-    ),
+    locale: ogLocale(locale),
+    // `alternateLocale` è la chiave che Next conosce: fino al 2026-10-01 qui
+    // c'era `localeAlternate`, che Next ignorava in silenzio (l'oggetto esce da
+    // una funzione, quindi TypeScript non segnala la chiave in più) e nessuna
+    // pagina emetteva og:locale:alternate.
+    alternateLocale: LOCALES.filter((l) => l !== locale).map(ogLocale),
     url: absUrl(locale, path),
     title,
     description,
@@ -110,7 +133,7 @@ export function webSiteJsonLd() {
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
     name: "FriuliVillas",
-    inLanguage: ["it-IT", "en-GB", "de-DE"],
+    inLanguage: LOCALES.map((l) => HREFLANG[l]),
     publisher: { "@id": `${SITE_URL}/#agency` },
   };
 }

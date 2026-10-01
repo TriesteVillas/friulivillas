@@ -1,7 +1,11 @@
+// Tag Intl per lingua. Chi non è in mappa cade su it-IT — per questo ogni
+// lingua del router DEVE avere la sua riga, o i prezzi escono all'italiana
+// senza errore. sl-SI: migliaia col punto, € dopo la cifra con lo spazio.
 const LOCALE_TAG: Record<string, string> = {
   it: "it-IT",
   en: "en-GB",
   de: "de-DE",
+  sl: "sl-SI",
 };
 
 export function formatPrice(value: number, locale: string): string {

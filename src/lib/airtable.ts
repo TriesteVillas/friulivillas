@@ -113,7 +113,69 @@ export function compareShowcase(a: Property, b: Property): number {
   return bPrice - aPrice;
 }
 
+// ---- Lo sloveno, dalla vetrina del CRM --------------------------------------
+//
+// I testi sloveni NON stanno su Airtable: il CRM (tsv-pg, Postgres) li genera e
+// li tiene lui (`public_name_sl`, e la variante TSI `descrizione_tsi_sl` quando
+// esisterà), e la copia fra i due è a senso unico Airtable → Postgres. Quindi
+// questo sito, che legge il catalogo da Airtable, li chiede alla rotta pubblica
+// del CRM che serve già la vetrina dei siti del gruppo, indicizzata per id
+// record Airtable.
+//
+// TOLLERANTE per costruzione: il catalogo, il filtro di pubblicazione e tutti
+// gli altri dati restano quelli di Airtable, e da qui si prendono SOLO i due
+// testi sloveni. Se la vetrina non risponde, risponde male o tarda più di
+// VETRINA_TIMEOUT_MS, la mappa resta vuota e il sito funziona come prima:
+// /sl ripiega sull'inglese (localizedTitle / translatedDescription), nessuna
+// pagina si rompe e la build non fallisce.
+const VETRINA_URL =
+  (process.env.CRM_VETRINA_URL || "").trim() ||
+  "https://tsv-pg.vercel.app/api/vetrina?sito=friulivillas.com";
+const VETRINA_TIMEOUT_MS = 5000;
+
+type SlovenianTexts = { title: string | null; description: string | null };
+
+const text = (v: unknown): string | null =>
+  typeof v === "string" && v.trim() !== "" ? v.trim() : null;
+
+async function getSlovenianTexts(): Promise<Map<string, SlovenianTexts>> {
+  const byRecord = new Map<string, SlovenianTexts>();
+  try {
+    const res = await fetch(VETRINA_URL, {
+      next: { revalidate: REVALIDATE_SECONDS, tags: ["properties"] },
+      signal: AbortSignal.timeout(VETRINA_TIMEOUT_MS),
+    });
+    if (!res.ok) {
+      console.warn(`[vetrina] HTTP ${res.status}: /sl ripiega sull'inglese`);
+      return byRecord;
+    }
+    const data = (await res.json()) as { immobili?: unknown };
+    if (!Array.isArray(data.immobili)) {
+      console.warn("[vetrina] risposta senza `immobili`: /sl ripiega sull'inglese");
+      return byRecord;
+    }
+    for (const row of data.immobili as Array<Record<string, unknown> | null>) {
+      const id = text(row?.airtable_id);
+      if (!id) continue;
+      // Solo questi due campi, di proposito: la vetrina espone molto altro, ma
+      // qui comanda Airtable e un secondo canale per gli stessi dati sarebbe
+      // un secondo posto dove possono divergere.
+      const title = text(row?.public_name_sl);
+      const description = text(row?.descrizione_tsi_sl);
+      if (title || description) byRecord.set(id, { title, description });
+    }
+  } catch (e) {
+    console.warn(
+      `[vetrina] irraggiungibile (${e instanceof Error ? e.message : String(e)}): /sl ripiega sull'inglese`,
+    );
+  }
+  return byRecord;
+}
+
 export async function getProperties(): Promise<Property[]> {
+  // In parallelo al catalogo, non dopo: la vetrina non deve allungare la
+  // risposta più del suo timeout nemmeno quando è lenta.
+  const slovenianTexts = getSlovenianTexts();
   let raw: RawRecord[];
   if (TOKEN) {
     raw = await fetchAllRaw(FILTER);
@@ -140,8 +202,13 @@ export async function getProperties(): Promise<Property[]> {
       (r) => String(r.fields[F.cluster] ?? "").toUpperCase().trim() !== "PRIVATE",
     );
   }
+  const sl = await slovenianTexts;
   return raw
-    .map((r) => mapRecord(r.id, r.fields))
+    .map((r) => {
+      const p = mapRecord(r.id, r.fields);
+      const s = sl.get(r.id);
+      return s ? { ...p, titleSl: s.title, descriptionSl: s.description } : p;
+    })
     .sort(compareShowcase);
 }
 

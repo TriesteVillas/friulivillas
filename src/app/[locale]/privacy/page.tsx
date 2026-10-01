@@ -157,6 +157,59 @@ const CONTENT: Record<string, Content> = {
       },
     ],
   },
+  // Sloveno (2026-10-01): traduzione fedele del testo italiano, che resta quello
+  // che fa fede. Terminologia allineata all'informativa slovena di
+  // triestevillas.com (upravljavec, obdelovalci, privolitev). ⚠️ Testo legale:
+  // da far rileggere a un madrelingua, come quello di TSV.
+  sl: {
+    title: "Obvestilo o zasebnosti",
+    updated: "Zadnja posodobitev: junij 2026",
+    intro:
+      "To obvestilo opisuje, kako FriuliVillas (blagovna znamka družbe TriesteVillas srl) obdeluje osebne podatke, zbrane prek te spletne strani, v skladu z Uredbo (EU) 2016/679 (GDPR).",
+    sections: [
+      { h: "1. Upravljavec", p: CONTROLLER },
+      {
+        h: "2. Obdelovani podatki",
+        p: "Kontaktni podatki, ki jih prostovoljno posredujete prek obrazcev (ime, e-pošta, telefon, morebitno sporočilo in nepremičnina, ki vas zanima), ter tehnični podatki o brskanju (npr. naslov IP, vrsta brskalnika), zbrani prek tehničnih piškotkov, potrebnih za delovanje spletne strani.",
+      },
+      {
+        h: "3. Nameni in pravna podlaga",
+        p: "Podatke obdelujemo, da odgovorimo na vaša povpraševanja in vodimo odnos z vami (izvajanje predpogodbenih ukrepov in vaša privolitev) ter da izpolnimo zakonske obveznosti. Posredovanje podatkov je prostovoljno, vendar brez kontaktnih podatkov povpraševanja ne moremo obravnavati.",
+      },
+      {
+        h: "4. Funkcija »Pošljite prijatelju«",
+        p: "Če s to funkcijo nepremičnino priporočite drugi osebi, nam potrjujete, da ste pridobili njeno soglasje za prejem sporočila. Naslov prejemnika uporabimo samo za pošiljanje tega posameznega priporočila.",
+      },
+      {
+        h: "5. Način obdelave in hramba",
+        p: "Podatki se obdelujejo z elektronskimi sredstvi in ustreznimi varnostnimi ukrepi ter se hranijo toliko časa, kolikor je potrebno za obravnavo povpraševanja in za poznejše zakonske obveznosti; nato se izbrišejo ali anonimizirajo.",
+      },
+      {
+        h: "6. Prejemniki in obdelovalci",
+        p: "Podatke lahko obdelujejo naši pooblaščeni sodelavci in ponudniki, ki kot obdelovalci skrbijo za tehnične storitve spletne strani (zlasti Airtable za upravljanje stikov, Vercel za gostovanje in ponudnik e-pošte za pošiljanje sporočil). Podatki se ne razširjajo.",
+      },
+      {
+        h: "7. Prenosi zunaj EU",
+        p: "Nekateri ponudniki lahko podatke obdelujejo zunaj Evropske unije; v tem primeru prenos temelji na ustreznih zaščitnih ukrepih (npr. standardnih pogodbenih klavzulah Evropske komisije).",
+      },
+      {
+        h: "8. Vaše pravice",
+        p: "Kadar koli lahko uveljavljate pravice do dostopa, popravka, izbrisa, omejitve obdelave, ugovora in prenosljivosti podatkov ter prekličete privolitev, tako da pišete na richieste@triestevillas.com. Prav tako imate pravico vložiti pritožbo pri italijanskem nadzornem organu za varstvo osebnih podatkov (Garante per la protezione dei dati personali).",
+      },
+      {
+        h: "9. Piškotki",
+        p: "Spletna stran uporablja tehnične piškotke, potrebne za delovanje, in – samo z vašo privolitvijo – statistične piškotke Google Analytics 4 (Google Ireland Ltd), da razumemo, kako se spletna stran uporablja. Dokler se ne odločite, se ne zapiše noben statistični piškotek; premislite si lahko kadar koli prek povezave »Nastavitve piškotkov« na dnu vsake strani. Brez oglasov, brez profiliranja. Storitve tretjih oseb (npr. zemljevidi, videoposnetki) lahko ob aktivaciji njihove vsebine nastavijo lastne piškotke.",
+      },
+      {
+        h: "10. Uporabniški račun in prilagajanje",
+        p: "Če ustvarite račun, obdelujemo podatke vašega profila (ime, e-pošta, telefon, navedene želje) in beležimo vašo dejavnost na strani kot prijavljenega uporabnika – odprte nepremičnine, čas, preživet na predstavitvah, priljubljene, ocene in iskanja –, da vam zagotovimo storitev (shranjene priljubljene, osebno območje) in da na podlagi našega zakonitega interesa interno organiziramo nadaljnjo obravnavo povpraševanj. Prilagojeni predlogi in komercialna sporočila po e-pošti se pošiljajo samo na podlagi neobveznih privolitev, ki jih lahko kadar koli podate in prekličete v svojem računu. Neobdelani dogodki brskanja se hranijo 18 mesecev, nato se izbrišejo ali združijo v zbirne podatke. Izbris računa lahko zahtevate neposredno v osebnem območju.",
+      },
+      {
+        h: "11. Spremembe",
+        p: "To obvestilo lahko posodobimo; veljavna različica je vedno objavljena na tej strani.",
+      },
+    ],
+  },
 };
 
 export async function generateMetadata({

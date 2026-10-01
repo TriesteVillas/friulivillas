@@ -10,7 +10,7 @@ import RevealObserver from "@/components/RevealObserver";
 import Analytics from "@/components/Analytics";
 import CookieBanner from "@/components/CookieBanner";
 import JsonLd from "@/components/JsonLd";
-import { SITE_URL, orgJsonLd, webSiteJsonLd } from "@/lib/seo";
+import { SITE_URL, ogLocale, orgJsonLd, webSiteJsonLd } from "@/lib/seo";
 import "../globals.css";
 
 // Interruttore dell'indicizzazione. Serve a due cose: tenere fuori dall'indice
@@ -27,8 +27,11 @@ const ALLOW_INDEX = process.env.NEXT_PUBLIC_ALLOW_INDEX === "true";
 // html[data-reveal-armed]) so content stays visible when JS never runs.
 const REVEAL_ARM_SCRIPT = `if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.setAttribute("data-reveal-armed","");`;
 
+// latin-ext dal 2026-10-01 (sloveno): senza, č š ž Č Š Ž non sono nel font
+// scaricato e il browser le disegna con un font di sistema, lettera per lettera
+// in mezzo alle parole.
 const poppins = Poppins({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
 });
@@ -58,6 +61,10 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       siteName: "FriuliVillas",
+      // Le pagine che dichiarano il loro openGraph (pageOpenGraph) lo
+      // sostituiscono per intero; questo vale per quelle che non lo fanno
+      // (privacy), che altrimenti uscivano senza og:locale.
+      locale: ogLocale(locale),
       images: [{ url: "/brand/og-default.jpg", width: 1200, height: 630, alt: "FriuliVillas" }],
     },
     twitter: { card: "summary_large_image" },

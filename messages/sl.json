@@ -1,0 +1,668 @@
+{
+  "closure": {
+    "eyebrow": "Poletni dopust",
+    "title": "Pisarne zaprte od 8. do 24. avgusta",
+    "body": "Naše pisarne bodo zaradi poletnega dopusta zaprte od 8. do vključno 24. avgusta. Hvala za razumevanje. Za vse, kar potrebujete, nam pišite po e-pošti ali prek WhatsAppa: oba kanala spremljamo, odgovori pa bodo morda nekoliko počasnejši kot običajno.",
+    "phone": "+39 331 8940822",
+    "mailSubject": "Povpraševanje med poletnim dopustom",
+    "waText": "Pozdravljeni, pišem vam med vašim poletnim dopustom."
+  },
+  "nav": {
+    "home": "Domov",
+    "properties": "Nepremičnine",
+    "sell": "Prodaja",
+    "group": "Skupina",
+    "contact": "Kontakt",
+    "valuation": "Cenitev",
+    "menuLabel": "Meni",
+    "closeLabel": "Zaprite",
+    "ctaValuation": "Naročite cenitev"
+  },
+  "seo": {
+    "home": {
+      "title": "FriuliVillas – vile in nepremičnine v Furlaniji - Julijski krajini",
+      "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: izbrane vile in nepremičnine v Gradežu, Vidmu, Trbižu, Lignanu in Sappadi.",
+      "ogTitle": "FriuliVillas – Furlanija - Julijska krajina, premišljeno",
+      "ogDescription": "Različne blagovne znamke, ena usmeritev. Znanje, pridobljeno v Trstu, prenašamo na preostali del regije."
+    },
+    "sell": {
+      "title": "Prodaja nepremičnine v Furlaniji - Julijski krajini – FriuliVillas",
+      "description": "Prodaja v regiji po metodi skupine TriesteVillas: poznavanje trga, skrbno pripravljeno gradivo, tuji kupci in diskretnost, kjer je potrebna.",
+      "ogTitle": "Prodaja v Furlaniji - Julijski krajini, z metodo",
+      "ogDescription": "Poštena cenitev in pregleden postopek, od prvega stika do notarskega zapisa."
+    },
+    "invest": {
+      "title": "Naložbe v nepremičnine v Trstu (Trieste) – donos in ROI",
+      "description": "Donosne nepremičnine v Trstu, že oddane in v središču mesta. Povejte nam proračun in ciljni ROI: možnosti, razvrščene po donosu, s stroški nakupa vred.",
+      "ogTitle": "Naložbe v Trstu: donosne nepremičnine, razvrščene po ROI",
+      "ogDescription": "Nekaterih priložnosti ne oglašujemo – predstavimo jih osebno. Pol ure z nami, da svoje iskanje usmerite v pravo smer."
+    },
+    "properties": {
+      "title": "Nepremičnine na prodaj v Furlaniji - Julijski krajini",
+      "description": "Vile, hiše in stanovanja na prodaj po vsej Furlaniji - Julijski krajini, ki jih je izbrala skupina TriesteVillas.",
+      "ogTitle": "Nepremičnine na prodaj v Furlaniji - Julijski krajini",
+      "ogDescription": "Ponudba FriuliVillas, območje za območjem."
+    },
+    "group": {
+      "title": "Skupina TriesteVillas – šest blagovnih znamk",
+      "description": "FriuliVillas v ekosistemu TriesteVillas: šest blagovnih znamk za prestižne in stanovanjske nepremičnine, najeme, poslovne nepremičnine in preostali del Furlanije - Julijske krajine.",
+      "ogTitle": "Skupina TriesteVillas: različne blagovne znamke, ena usmeritev",
+      "ogDescription": "Nepremičninski ekosistem, zgrajen na specializaciji, ne splošen zbiralnik."
+    },
+    "contact": {
+      "title": "Kontakt – FriuliVillas",
+      "description": "Pišite FriuliVillas: richieste@triestevillas.com, +39 331 8940822. Povejte nam, kaj iščete ali kaj želite prodati v regiji.",
+      "ogTitle": "Kontaktirajte FriuliVillas",
+      "ogDescription": "Povpraševanja zares preberemo: pišite nam in odgovorili vam bomo."
+    },
+    "privacy": {
+      "title": "Obvestilo o zasebnosti – FriuliVillas",
+      "description": "Obvestilo o zasebnosti FriuliVillas: obdelovani podatki, nameni, vaše pravice."
+    }
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Skupina TriesteVillas v Furlaniji - Julijski krajini",
+      "titleLine1": "Izbrane vile in nepremičnine",
+      "titleKinetic": "v Furlaniji\u00a0- Julijski krajini.",
+      "titleLine2": "Z enakim vodenjem kot v Trstu.",
+      "subtitle": "FriuliVillas je blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino na severovzhodu Italije. Ne splošen zbiralnik, temveč projekt, zasnovan zato, da v preostali del regije prinese metodo, specializacijo in izurjeno oko.",
+      "videoAlt": "Pogled iz zraka na pokrajino Furlanije - Julijske krajine.",
+      "ctaPrimary": "Naročite cenitev",
+      "ctaSecondary": "Preglejte nepremičnine",
+      "scrollHint": "Pomaknite se"
+    },
+    "promiseStrip": {
+      "valuation": "Vsa regija",
+      "online": "Šest znamk, ena usmeritev",
+      "mandate": "Zaupna cenitev",
+      "fee": "Italiano · English · Deutsch",
+      "promoNote": "Gradež, Videm, Trbiž, Lignano, Sappada – in vse vmes."
+    },
+    "positioning": {
+      "eyebrow": "Kdo smo",
+      "title": "Preostali del Furlanije - Julijske krajine, razumljen tako, kot je treba.",
+      "body": "FriuliVillas obstaja zato, da delovno kulturo, zgrajeno v Trstu, prenese na preostali del regije – in da ozemlja ne bere le kot nepremičninskega trga, temveč kot sistem lastništva: nakup, posest, oddajanje, prodaja, prerazporeditev.",
+      "routingNote": "Tudi kadar je nepremičnin več ali kadar pravo vprašanje ni posamezna nepremičnina, temveč naslednji korak.",
+      "cta": "Spoznajte skupino"
+    },
+    "videoBreak": {
+      "eyebrow": "Naš marketing",
+      "title": "Pokažemo potencial, ne le prostore.",
+      "alt": "Notranji prostori, fotografirani tako, da pokažejo, kako se v hiši živi, ne le, kako je zgrajena."
+    },
+    "featured": {
+      "eyebrow": "Zdaj na prodaj",
+      "title": "Izpostavljene nepremičnine",
+      "subtitle": "Izbor nepremičnin, ki jih vodimo po vsej regiji.",
+      "viewAll": "Vse nepremičnine",
+      "empty": "Ponudbo prav osvežujemo. Povejte nam, kaj iščete, in obvestili vas bomo, takoj ko se pojavi kaj primernega."
+    },
+    "sellerValue": {
+      "eyebrow": "Za prodajalce",
+      "title": "Dobro izpeljana prodaja breme odvzame, ne doda.",
+      "subtitle": "Ne spremeni se napis nad vrati, temveč to, kako nepremičnino preberemo in kako jo predstavimo tistemu, ki jo bo kupil.",
+      "fast": {
+        "title": "Najprej analiza, nato cena",
+        "text": "Preden postavimo številko, si ogledamo nepremičnino, dokumentacijo in trg, na katerem dejansko je. Dobro izbrana cena je pol prodaje; napačna jo za več mesecev zaustavi."
+      },
+      "zeroFee": {
+        "title": "Jasni pogoji",
+        "text": "O trajanju, izključnosti in stroških se pogovorimo na začetku in vse zapišemo. Pri notarju se ne pojavi nič novega."
+      },
+      "simpleMandate": {
+        "title": "Diskretnost, kjer je pomembna",
+        "text": "Ne sodi vsaka nepremičnina na portale. Kadar šteje diskretnost, prodaja poteka prek izbranega kroga sogovornikov, ne prek izložbe."
+      },
+      "marketing": {
+        "title": "Skrbno pripravljeno gradivo",
+        "text": "Fotografije, video, posnetki z drona in 3D-ogledi. Ne za okras: kupci, ki prihajajo od drugod, se odločajo na podlagi tega, kar lahko razumejo na daljavo."
+      },
+      "cta": "Kako prodajamo"
+    },
+    "investorTeaser": {
+      "eyebrow": "Za vlagatelje",
+      "title": "Nakup v Trstu, da nepremičnina dela za vas.",
+      "body": "Imamo že oddane enote v osrednjih, nedavno prenovljenih stavbah. Nekaterih ne oglašujemo: predstavimo jih osebno. Povejte nam proračun in ciljni donos, pa vam pripravimo možnosti, razvrščene po ROI.",
+      "cta": "Spoznajte naložbe"
+    },
+    "groupRouting": {
+      "eyebrow": "Različne znamke, ena usmeritev",
+      "title": "Šest znamk, ena struktura.",
+      "body": "FriuliVillas je del ekosistema TriesteVillas. Vsaka znamka pokriva svoj segment, zato povpraševanje pride do ljudi, ki ga znajo obravnavati.",
+      "luxury": "Prestižne nepremičnine v Trstu → TriesteVillas",
+      "fvg": "Trst in Tržaška pokrajina → TriesteImmobiliare",
+      "rent": "Najemi → TriesteAffitti",
+      "business": "Lignano → LignanoVillas",
+      "cta": "Spoznajte skupino"
+    },
+    "valuationCta": {
+      "eyebrow": "Brez obveznosti",
+      "title": "Koliko je vaša nepremičnina res vredna?",
+      "body": "Verjamemo v to, kar delamo: začnimo pogovor in videli boste, da je prodaja z nami drugačna. Brez obveznosti, brez pritiska.",
+      "cta": "Naročite cenitev",
+      "secondary": "Pogovorite se z nami"
+    }
+  },
+  "sell": {
+    "hero": {
+      "eyebrow": "Prodajte s FriuliVillas",
+      "title": "Prodaja v Furlaniji - Julijski krajini z več strategije in manj zapletov.",
+      "intro": "Resna analiza nepremičnine, skrbno pripravljeno gradivo in pregledna pot od prvega stika do notarskega zapisa – s skupino TriesteVillas v ozadju.",
+      "videoAlt": "Svetli notranji prostori, odprti navzven.",
+      "ctaPrimary": "Naročite cenitev",
+      "ctaSecondary": "Dogovorite se za videoklic"
+    },
+    "blocksTitle": "Kaj se spremeni, ko prodajate z nami",
+    "blocks": {
+      "velocita": {
+        "title": "Brez mrtvega časa",
+        "text": "Odgovorimo hitro in ukrepamo, takoj ko dokumentacija to dopušča. Počasnost pri prodaji ni previdnost: to je čas, v katerem se nepremičnina v izložbi postara in izgublja pogajalsko moč."
+      },
+      "mandatoSemplice": {
+        "title": "Jasni pogoji",
+        "text": "O trajanju, izključnosti, stroških in o tem, kaj je vključeno, se pogovorimo na začetku in vse zapišemo. Pri notarju se nič ne pojavi na novo in nič se ne podaljša samo od sebe, medtem ko gledate drugam."
+      },
+      "checkup": {
+        "title": "Pregled pred prodajo",
+        "text": "Preden pohitimo na splet, preverimo, ali je hiša res pripravljena: skladnost, dokumentacija, energetska izkaznica, kataster. Težava, odkrita sredi pogajanj, stane veliko več kot težava, odkrita prej.",
+        "cta": "Naročite pregled"
+      },
+      "materiale": {
+        "title": "Fotografije, video, dron, 3D-ogledi",
+        "text": "Gradivo ni za okras: tistemu, ki si nepremičnine ne more priti ogledat jutri, pomaga, da jo vseeno razume. V regiji, kjer veliko kupcev prihaja iz tujine, pogosto odloči, ali do ogleda sploh pride.",
+        "cta": "Preizkusite 3D-ogled"
+      },
+      "liftingPreVendita": {
+        "title": "Osvežitev pred prodajo",
+        "text": "Objaviti hišo na spletu točno takšno, kot je, ni vedno prava poteza: včasih nekaj ciljnih posegov poskrbi, da fotografije povedo drugačno zgodbo. Povedali vam bomo, kdaj se splača in kdaj ne."
+      },
+      "ownerJourney": {
+        "title": "Strnjeni ogledi",
+        "text": "Kadar je mogoče, oglede združimo v nekaj dogovorjenih terminov, namesto da bi jih razpršili. Za tistega, ki v nepremičnini živi – ali živi daleč od nje –, je to razlika med obvladljivo prodajo in meseci vedno pospravljene hiše."
+      },
+      "primaVendiPoiCerca": {
+        "title": "Najprej dobro prodajte, nato iščite",
+        "text": "Zaljubiti se v novo hišo, preden ste prodali staro, je najpogostejši način, da staro prodate pod ceno. Če že razmišljate o naslednjem koraku, ga postavimo v pravi vrstni red.",
+        "cta": "Več o tem"
+      },
+      "affittaMentreVendi": {
+        "title": "Oddajte, medtem ko prodajate",
+        "text": "Če ni pravi trenutek za prodajo, lahko nepremičnina medtem prinaša dohodek, namesto da stoji prazna. V tem primeru jo prevzame TriesteAffitti, ki je del skupine – ne pošiljamo vas drugam.",
+        "cta": "Prodati, oddati ali počakati?"
+      },
+      "acquirentiEsteri": {
+        "title": "Specialisti za tuje kupce",
+        "text": "Veliko naših kupcev ni Italijanov: Avstrijci, Nemci in vsi, ki iščejo drugi dom v regiji, ki ima tako morje kot gore. Vse pripravimo razumljivo v angleščini in nemščini, od predstavitve nepremičnine do dokumentacije.",
+        "quote": "Furlanije - Julijske krajine ni dovolj le pokazati. Treba jo je razložiti.",
+        "cta": "Načrtujte oglede hiš"
+      },
+      "houseTour": {
+        "title": "Vodeni ogledi hiš",
+        "text": "Za tistega, ki prihaja od drugod, ne gre le za ogled hiš, temveč za razumevanje kraja. Oglede razporedimo v smiselne dneve in upoštevamo razdalje, ki so tu veliko pomembnejše kot v mestu. Ogledi potekajo v italijanščini, angleščini ali nemščini."
+      },
+      "venditaRiservata": {
+        "title": "Zaupna prodaja",
+        "text": "Prodaja ne pomeni nujno objave na portalih. Kadar šteje diskretnost, nepremičnino ponudimo izbranemu krogu sogovornikov, ne da bi se kdaj pojavila v izložbi."
+      },
+      "forzaDelGruppo": {
+        "title": "Moč skupine",
+        "text": "S FriuliVillas ne sodelujete le z enim imenom. Če je nepremičnina prestižna, če je v Trstu, če je v Lignanu ali če je boljša pot najem, v skupini že nekdo vsak dan dela prav to."
+      }
+    },
+    "process": {
+      "eyebrow": "Kako poteka",
+      "title": "Od prvega klica do notarskega zapisa, pregledno.",
+      "subtitle": "Urejena in pregledna pot, zasnovana tako, da prodajalcu prihrani zaplete.",
+      "steps": {
+        "call": {
+          "n": "01",
+          "title": "Uvodni klic",
+          "text": "Predstavite nam nepremičnino in okoliščine. Takoj ugotovimo, ali in kako vam lahko pomagamo – in če ne moremo, vam to povemo."
+        },
+        "docs": {
+          "n": "02",
+          "title": "Dokumentacija in ogled",
+          "text": "Pošljete nam dokumentacijo, mi pa pridemo pogledat nepremičnino. Iz tega nastane utemeljena cenitev, ne na pamet vržena številka."
+        },
+        "online": {
+          "n": "03",
+          "title": "Gradivo in objava",
+          "text": "Fotografije, video, posnetki z drona in 3D-ogledi. Nato objava na kanalih, ki ustrezajo tej vrsti nepremičnine – in ki niso vedno isti."
+        },
+        "visits": {
+          "n": "04",
+          "title": "Organizirani ogledi",
+          "text": "Ogledi, zbrani v dogovorjenih terminih, z resnim predhodnim izborom: kdor pride, je že videl vse, kar se je dalo videti na daljavo."
+        },
+        "deal": {
+          "n": "05",
+          "title": "Pogajanja in notarski zapis",
+          "text": "Ponudbe in pogajanja vodimo vse do notarskega zapisa ter ohranjamo stik z notarjem in drugo stranjo. Vi odnesete rezultat."
+        }
+      }
+    },
+    "closing": {
+      "title": "Poštena cenitev, brez obveznosti.",
+      "text": "Verjamemo v to, kar delamo: začnimo pogovor in videli boste, da je prodaja z nami drugačna. Brez obveznosti, brez pritiska.",
+      "ctaPrimary": "Naročite cenitev",
+      "ctaSecondary": "Dogovorite se za videoklic"
+    },
+    "faqQ": {
+      "0": "Kakšno pogodbo podpišem s FriuliVillas?",
+      "1": "Koliko časa mine, preden je moja nepremičnina objavljena?",
+      "2": "Kaj preverite, preden nepremičnino ponudite na trgu?",
+      "3": "Kakšno gradivo pripravite za mojo nepremičnino?",
+      "4": "Ali lahko svojo nepremičnino prodam zaupno?"
+    }
+  },
+  "immobili": {
+    "title": "Nepremičnine",
+    "intro": "Nepremičnine, ki so trenutno na voljo po Furlaniji - Julijski krajini, razvrščene po območjih.",
+    "filterAll": "Vsa območja",
+    "buyerHelp": {
+      "eyebrow": "Ne najdete prave?",
+      "title": "Povejte nam, kaj iščete.",
+      "text": "Navedite proračun, območje, koliko del bi prevzeli in namen uporabe: precej nepremičnin, ki jih vodimo, se proda, še preden pridejo v izložbo.",
+      "cta": "Povejte nam, kaj želite"
+    }
+  },
+  "zones": {
+    "CENTRO": "Središče Trsta",
+    "SEMICENTRO": "Širše središče Trsta",
+    "BARCOLA": "Barkovlje",
+    "BARCOLA-MIRAMARE": "Barkovlje–Miramar",
+    "COSTIERA": "Obalna cesta",
+    "SISTIANA-DUINO": "Sesljan–Devin",
+    "ALTE": "Kras in planota",
+    "MUGGIA": "Milje",
+    "FVG": "Furlanija - Julijska krajina",
+    "ALTRE": "Druga območja"
+  },
+  "listing": {
+    "count": "{count, plural, =0 {Ni nepremičnin} =1 {1 nepremičnina} one {# nepremičnina} two {# nepremičnini} few {# nepremičnine} other {# nepremičnin}}",
+    "empty": "Na tem območju trenutno ni nepremičnin. Povejte nam, kaj iščete, in obvestili vas bomo."
+  },
+  "property": {
+    "forSale": "Na prodaj",
+    "forRent": "V najem",
+    "badgePrivate": "Zaupna prodaja",
+    "badgeNewBuild": "Novogradnja",
+    "onlineDays": "{count, plural, =0 {ONLINE OD DANES} one {ONLINE # DAN} two {ONLINE # DNEVA} few {ONLINE # DNI} other {ONLINE # DNI}}",
+    "badgeFeatured": "IZPOSTAVLJENO",
+    "priceOnRequest": "Cena na povpraševanje",
+    "priceReserved": "Cena na povpraševanje",
+    "yearBuilt": "Leto gradnje",
+    "floorsBuilding": "Nadstropja v stavbi",
+    "galPhotos": "Fotografije",
+    "galPlans": "Tlorisi",
+    "galVideo": "Video",
+    "galTour": "3D-ogled",
+    "galViewAll": "Vse fotografije ({count})",
+    "galClose": "Zaprite",
+    "perMonth": "/mesec",
+    "sqm": "{value, number} m²",
+    "rooms": "Sobe",
+    "roomsUnit": "{count, plural, one {soba} two {sobi} few {sobe} other {sob}}",
+    "baths": "Kopalnice",
+    "floor": "Nadstropje",
+    "energyClass": "Energijski razred",
+    "surface": "Površina",
+    "descriptionTitle": "Opis",
+    "featuresTitle": "Lastnosti",
+    "locationTitle": "Lokacija",
+    "locationApprox": "Približna lokacija na območju. Točen položaj sporočimo na zahtevo.",
+    "photosComing": "Fotografije so v pripravi",
+    "backToList": "Nazaj na nepremičnine",
+    "contactCta": "Pošljite povpraševanje",
+    "reference": "Ref.",
+    "virtualTour": "Virtualni ogled",
+    "characteristicsTitle": "Lastnosti nepremičnine",
+    "showAllFeatures": "Prikažite vse lastnosti",
+    "showLess": "Prikažite manj",
+    "condition": "Stanje",
+    "bedrooms": "Spalnice",
+    "kitchen": "Kuhinja",
+    "terrace": "Terasa",
+    "heating": "Ogrevanje",
+    "availability": "Razpoložljivost",
+    "balcony": "Balkon",
+    "garden": "Vrt",
+    "accessibility": "Dostop brez stopnic",
+    "propertyType": "Vrsta lastništva",
+    "propertyClass": "Razred nepremičnine",
+    "yes": "Da",
+    "similarTitle": "Druge podobne nepremičnine",
+    "type": "Vrsta",
+    "contract": "Pogodba",
+    "elevator": "Dvigalo",
+    "furnished": "Opremljeno",
+    "parking": "Garaža / parkirno mesto",
+    "pool": "Bazen",
+    "galGrid": "Vse fotografije",
+    "taxTitle": "Okvirni davki in stroški",
+    "taxFirstHome": "Davki – glavno prebivališče (prima casa)",
+    "taxSecondHome": "Davki – drugo bivališče (seconda casa)",
+    "taxCommission": "Provizija FriuliVillas",
+    "taxCommissionNote": "4 % + DDV",
+    "taxDisclaimer": "Okvirne ocene na katastrski osnovi (prezzo-valore), nezavezujoče. Vedno preverite pri svojem notarju ali davčnem svetovalcu.",
+    "taxInfoTitle": "Kako so izračunani",
+    "taxCriteria": "Merila izračuna",
+    "taxInfoAria": "Podrobnosti o izračunu davkov",
+    "taxAiDisclaimer": "Ocene so izračunane samodejno (z umetno inteligenco), zato lahko vsebujejo računske napake ali napake pri prepisu. Edini zanesljivi vir je osebni pogovor z vodjo agencije po preučitvi konkretnega primera.",
+    "taxGroupAcquisto": "Stroški nakupa (enkratni)",
+    "taxGroupGestione": "Letni stroški lastništva",
+    "taxPlusVat": "+ DDV",
+    "taxPerYear": "/leto",
+    "taxCondo": "Stroški upravljanja",
+    "taxIlia": "Davek na nepremičnino · ILIA",
+    "taxTari": "Davek na odpadke · TARI",
+    "taxCondoInfoTitle": "Stroški upravljanja stavbe",
+    "taxCondoInfoBody": "Okvirni letni znesek na podlagi sporočenih rednih stroškov. Izredna dela in stroški po porabi (npr. ogrevanje) niso vključeni. Uradni podatek je obračun upravnika stavbe.",
+    "taxIliaInfoTitle": "ILIA – okvirna ocena",
+    "taxIliaInfoBody": "Ocena, ustvarjena z umetno inteligenco, izračunana kot za drugo bivališče v Trstu na podlagi katastrskega donosa (rendita catastale; stopnja 10,6 ‰). Ne nadomešča uradnega izračuna: odvisna je od katastrske kategorije, lastniškega deleža in mesecev lastništva ter morebitnih olajšav. Glavno prebivališče, ki ni v luksuzni kategoriji, je davka oproščeno. Vedno preverite pri svojem davčnem svetovalcu ali pri davčnem uradu Občine Trst.",
+    "taxTariInfoTitle": "TARI – okvirna ocena",
+    "taxTariInfoBody": "Groba ocena (z umetno inteligenco) na podlagi tarif TARI Občine Trst za gospodinjstva v letu 2026. TARI se obračunava na neto tlorisno površino (calpestabile): ocenjujemo jo na približno 80 % komercialne površine. Spodaj lahko spremenite število stanovalcev (privzeto 2). Končni znesek je odvisen od dejanske površine, števila stanovalcev in morebitnih znižanj ter ne nadomešča računa, ki ga izda ESATTO S.p.A.",
+    "taxTariInfoLink": "Natančen izračun pri ESATTO",
+    "taxPrimaCasa": "Glavno prebivališče",
+    "taxSecondaCasa": "Drugo bivališče",
+    "taxIliaEsente": "Oproščeno (glavno prebivališče)",
+    "taxOccupants": "Stanovalci",
+    "taxEstimateFootnote": "Letni stroški so okvirne ocene, ustvarjene z umetno inteligenco, in ne nadomeščajo uradnega preverjanja."
+  },
+  "group": {
+    "eyebrow": "Skupina TriesteVillas",
+    "title": "Različne blagovne znamke, ena usmeritev.",
+    "intro": "Nepremičninski ekosistem, zgrajen na specializaciji. Vsaka znamka pokriva svoj segment, za vsemi pa stoji ista delovna kultura.",
+    "ecosystem": {
+      "eyebrow": "Ne splošen zbiralnik",
+      "title": "Sistem, zgrajen tako, kot je treba.",
+      "body": "Ne prodajamo, ne oddajamo in ne upravljamo vseh nepremičnin na enak način. Lepa vila, manjše stanovanje, kupljeno za donos, in počitniška hiša ob morju zahtevajo drugačen jezik, drugačne kanale in drugačne stike. Zato skupino sestavljajo ločene blagovne znamke, ne eno samo ime, ki trdi, da zna vse.",
+      "tagline": "Ne skupni logotip, ne ponavljajoče se ime. Ista delovna kultura, uporabljena tam, kamor sodi."
+    },
+    "brandsTitle": "Šest blagovnih znamk, ena usmeritev",
+    "brandsSubtitle": "Enotna struktura za vse nepremičninske potrebe med Trstom in preostalim delom Furlanije - Julijske krajine.",
+    "story": {
+      "eyebrow": "Kaj smo bili, kaj smo",
+      "title": "Od turističnega oddajanja do skupine.",
+      "intro": "FriuliVillas je nastala v skupini, ki je to ozemlje poznala že dolgo, preden se je začela ukvarjati s prodajo.",
+      "start": {
+        "title": "Začetki v prestižnem turističnem oddajanju",
+        "text": "Skupina je začela z upravljanjem vil in stanovanj za zahtevne, večinoma tuje goste. Od tod izvira navada, da nepremičnino razložimo, ne le pokažemo."
+      },
+      "pivot": {
+        "title": "Preusmeritev v prodajo",
+        "text": "Odnosi in poznavanje trga so prerasli v nepremičninsko posredovanje: najprej v Trstu, kjer je bila metoda zgrajena in preizkušena."
+      },
+      "today": {
+        "title": "Ena skupina, jasne vloge",
+        "text": "FriuliVillas to znanje prenaša na preostali del regije: Gradež, Videm, Trbiž, Lignano, Sappada. Enaka usmeritev, drugačno območje."
+      }
+    },
+    "valuesTitle": "Ena delovna kultura",
+    "values": {
+      "specialised": {
+        "title": "Specializirani, ne splošni",
+        "text": "Vsaka znamka ima svoje področje, svoj jezik in svojo strategijo. Nihče ne pristane na napačnem mestu, ker bi nam bilo tako bolj priročno."
+      },
+      "local": {
+        "title": "Lokalni in neodvisni",
+        "text": "Severovzhod Italije poznamo, ker tu delamo in živimo. Ni oddaljenega sedeža, ki bi odločal z zemljevida."
+      },
+      "clarity": {
+        "title": "Najprej jasnost",
+        "text": "Urejena dokumentacija, realne cene, jasni pogoji. Nobenih presenečenj, ki bi dozorela šele pri notarju."
+      },
+      "journey": {
+        "title": "Od prvega stika do notarskega zapisa",
+        "text": "Ob vas smo na vsaki stopnji, na poti, zasnovani tako, da zaplete odpravlja, ne dodaja."
+      }
+    },
+    "teamTitle": "Ljudje skupine",
+    "team": {
+      "carlin": {
+        "name": "Davide Carlin",
+        "role": "Svetovalec · Lastnik in direktor"
+      },
+      "martino": {
+        "name": "Martino Coppola di Canzano",
+        "role": "Partner · Razvoj skupine TriesteVillas"
+      },
+      "giada": {
+        "name": "Giada Comelli",
+        "role": "Svetovalka · Najemi"
+      },
+      "cecile": {
+        "name": "Cécile Van der Salm",
+        "role": "Svetovalka · Najemi"
+      }
+    },
+    "ctaTitle": "Vstopite skozi prava vrata.",
+    "ctaText": "Vsak nepremičninski segment potrebuje drugačna orodja. Naše delo je, da vas usmerimo k znamki, ki vaš primer obravnava vsak dan.",
+    "ctaSell": "Stran za prodajalce",
+    "ctaCall": "Dogovorite se za uvodni klic",
+    "brands": {
+      "tsv": {
+        "name": "TriesteVillas",
+        "tag": "Matična družba · Prestižni Trst",
+        "desc": "Matična družba in središče prestižnih nepremičnin v Trstu ter marketinški in zaledni motor skupine. Skrbno izbrane nepremičnine, preverjeni kupci, izrazito mednarodna usmeritev."
+      },
+      "tsi": {
+        "name": "TriesteImmobiliare",
+        "tag": "Stanovanjske do ~500.000 €",
+        "desc": "Znamka skupine za stanovanjske nepremičnine v Trstu in okolici do približno 500.000 €. Urejena dokumentacija, kakovostna predstavitev, učinkovito delo, manj razpršenosti."
+      },
+      "affitti": {
+        "name": "TriesteAffitti",
+        "tag": "Najemi, 1–18 mesecev",
+        "desc": "Najemi, urejeni z metodo: kratkoročni, regulirani in standardni. Nastala je leta 2013 za počitniško oddajanje in prerasla v zrelejši, urejen sistem."
+      },
+      "friuli": {
+        "name": "FriuliVillas",
+        "tag": "Prestižno v preostali FJK",
+        "desc": "Prestižne nepremičnine v preostalem delu Furlanije - Julijske krajine: Gradež, Videm, Trbiž, Lignano, Sappada. Ozemeljska razširitev znanja, zgrajenega v Trstu."
+      },
+      "business": {
+        "name": "TriesteBusiness",
+        "tag": "Poslovno in naložbe",
+        "desc": "Nepremičnine in posli s poslovnim poudarkom: poslovni prostori, delujoča podjetja, zemljišča, stavbe, pisarne, skladišča in nastanitveni objekti. Premoženje, ki ga je treba brati po drugačni logiki kot stanovanjske nepremičnine."
+      },
+      "lignano": {
+        "name": "LignanoVillas",
+        "tag": "Prestižno v Lignanu",
+        "desc": "Prestižni posli v Lignanu, z bolj mednarodnim pogledom. Za tuje kupce in lastnike, ki pri upravljanju svojega premoženja želijo strukturo, kontekst in kakovost."
+      }
+    },
+    "legalTitle": "Podatki o družbi",
+    "legal": {
+      "company": "TriesteVillas srl",
+      "address": "Via Milano 5, 34132 Trst",
+      "vat": "Davčna številka / ID za DDV 01235580329",
+      "rea": "Vpisana pri Trgovinski zbornici v Trstu · REA št. TS 134793",
+      "capital": "Osnovni kapital 10.200,00 €, v celoti vplačan",
+      "pec": "milou@pec.emailc.it"
+    }
+  },
+  "contact": {
+    "eyebrow": "Pogovorite se z nami",
+    "title": "Kontakt",
+    "intro": "Povejte nam, kaj iščete ali kaj želite prodati v regiji: odgovorimo hitro – v italijanščini, angleščini ali nemščini.",
+    "videoAlt": "Utrinek Furlanije - Julijske krajine.",
+    "emailLabel": "E-pošta",
+    "phoneLabel": "Telefon",
+    "officeLabel": "Pisarna",
+    "hoursLabel": "Delovni čas",
+    "socialLabel": "Družbena omrežja",
+    "email": "richieste@triestevillas.com",
+    "phone": "+39 331 8940822",
+    "office": "Via Torino 34, drugo nadstropje · Trst",
+    "hours": "Samo po dogovoru",
+    "social": "—",
+    "poweredBy": "Powered by TriesteVillas",
+    "ctaSell": "Prodajte z nami",
+    "ctaBuy": "Pogovorite se z nami"
+  },
+  "lead": {
+    "title": "Pošljite povpraševanje",
+    "reason": "Razlog povpraševanja",
+    "motivo": {
+      "info": "Več informacij",
+      "foto": "Več fotografij",
+      "disp": "Razpoložljivost nepremičnine",
+      "altro": "Drugo"
+    },
+    "messagePlaceholder": "Tukaj napišite svoje sporočilo (neobvezno)",
+    "name": "Ime in priimek",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "privacyPre": "Prebral/-a sem in sprejemam",
+    "privacyLink": "obvestilo o zasebnosti",
+    "submit": "Pošljite povpraševanje",
+    "or": "Ali",
+    "brochureNote": "Po e-pošti vam odgovorimo, takoj ko bo mogoče – v italijanščini, angleščini ali nemščini.",
+    "send": "Pošljite povpraševanje",
+    "sending": "Pošiljanje …",
+    "thanks": "Hvala. Kmalu se vam oglasimo.",
+    "error": "Nekaj je šlo narobe. Poskusite znova.",
+    "friendToggle": "Pošljite prijatelju",
+    "friendTitle": "Pošljite to nepremičnino prijatelju",
+    "friendNote": "Prijatelju bomo poslali povezavo do nepremičnine in brošuro.",
+    "friendEmail": "E-pošta prijatelja",
+    "yourEmail": "Vaša e-pošta",
+    "friendSend": "Pošljite",
+    "friendThanks": "Poslano.",
+    "visitTitle": "Rezervacija ogleda",
+    "visitSubtitle": "Izberite, kdaj si želite ogledati nepremičnino.",
+    "visitCta": "Rezervirajte ogled",
+    "visitHow": "Kako želite opraviti ogled",
+    "visitInPerson": "V živo",
+    "visitAvail": "Izberite dneve, ki vam ustrezajo",
+    "visitAsap": "Čim prej",
+    "visitSlots": "Izberite ure, ki vam ustrezajo",
+    "slotAny": "Kadar koli",
+    "visitDisclaimer": "To ni potrjena rezervacija: vaši termini bodo poslani agenciji, ki se vam bo oglasila.",
+    "visitNext": "Naprej",
+    "visitRecapDates": "Razpoložljivost",
+    "visitRecapSlots": "Ure",
+    "visitBack": "Nazaj",
+    "visitSend": "Potrdite in pošljite",
+    "visitThanks": "Povpraševanje je poslano. Oglasili se vam bomo in se dogovorili za ogled."
+  },
+  "buyerForm": {
+    "title": "Povejte nam, kaj iščete",
+    "subtitle": "Dve minuti, brez obveznosti: dovolj so vaši kontaktni podatki in želje.",
+    "firstName": "Ime",
+    "lastName": "Priimek",
+    "phone": "Mobilni telefon",
+    "email": "E-pošta",
+    "city": "Kraj, kjer živite (neobvezno)",
+    "zones": "Območja, ki vas zanimajo",
+    "budget": "Proračun",
+    "size": "Velikost",
+    "purpose": "Namen nakupa",
+    "purposeOptions": {
+      "0": "Za bivanje",
+      "1": "Naložba / donos",
+      "2": "Za počitnice"
+    },
+    "condition": "Stanje nepremičnine",
+    "conditionOptions": {
+      "0": "Prva vselitev",
+      "1": "Takoj vseljiva",
+      "2": "Lahko tudi za prenovo",
+      "3": "Ni pomembno"
+    },
+    "privacy": "Soglašam z obdelavo svojih podatkov v skladu z obvestilom o zasebnosti.",
+    "submit": "Pošljite povpraševanje",
+    "sending": "Pošiljanje …",
+    "okTitle": "Povpraševanje prejeto",
+    "okText": "Kmalu se vam oglasimo z izborom po vaši meri.",
+    "error": "Nekaj je šlo narobe: poskusite znova ali pišite na richieste@triestevillas.com.",
+    "close": "Zaprite",
+    "errorContact": "Navedite vsaj e-pošto ali telefon, da vas lahko dosežemo."
+  },
+  "sellerForm": {
+    "eyebrow": "Prodajte s FriuliVillas",
+    "title": "Naročite cenitev",
+    "subtitle": "Brez obveznosti: le poštena in utemeljena cenitev vaše nepremičnine.",
+    "firstName": "Ime",
+    "lastName": "Priimek",
+    "phone": "Mobilni telefon",
+    "email": "E-pošta",
+    "city": "Kraj, kjer živite (neobvezno)",
+    "address": "Kje je nepremičnina?",
+    "addressPlaceholder": "Ulica in hišna številka, kraj (npr. Strada Costiera 28, Trst)",
+    "addressFound": "Lokacija prepoznana",
+    "type": "Vrsta",
+    "typeOptions": {
+      "0": "Stanovanje",
+      "1": "Penthouse",
+      "2": "Vila",
+      "3": "Hiša z vrtom",
+      "4": "Zemljišče",
+      "5": "Drugo"
+    },
+    "size": "Velikost",
+    "sizeOptions": {
+      "0": "Do 80 m²",
+      "1": "80–150 m²",
+      "2": "150–250 m²",
+      "3": "Nad 250 m²"
+    },
+    "condition": "Stanje nepremičnine",
+    "conditionOptions": {
+      "0": "Odlično / prenovljeno",
+      "1": "Dobro / vseljivo",
+      "2": "Potrebno prenove"
+    },
+    "timing": "Časovni okvir",
+    "timingOptions": {
+      "0": "Čim prej",
+      "1": "V 6 mesecih",
+      "2": "Šele razmišljam"
+    },
+    "hasToBuy": "Ali morate tudi kupiti?",
+    "hasToBuyOptions": {
+      "0": "Da, prodajam in kupujem drugo",
+      "1": "Ne, samo prodajam",
+      "2": "Še nisem odločen/-a"
+    },
+    "notes": "Opombe",
+    "notesPlaceholder": "Vse, kar nam pomaga razumeti nepremičnino: razgled, terase, parkirno mesto …",
+    "privacy": "Soglašam z obdelavo svojih podatkov v skladu z obvestilom o zasebnosti.",
+    "submit": "Naročite cenitev",
+    "sending": "Pošiljanje …",
+    "okTitle": "Povpraševanje prejeto",
+    "okText": "Oglasili se vam bomo, da se dogovorimo za ogled.",
+    "error": "Nekaj je šlo narobe: poskusite znova ali pišite na richieste@triestevillas.com.",
+    "close": "Zaprite",
+    "errorContact": "Navedite vsaj e-pošto ali telefon, da vas lahko dosežemo."
+  },
+  "footer": {
+    "tagline": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino. Gradež, Videm, Trbiž, Lignano, Sappada.",
+    "rights": "Vse pravice pridržane.",
+    "poweredBy": "Powered by TriesteVillas",
+    "sitemapTitle": "Zemljevid strani",
+    "contactTitle": "Kontakt",
+    "groupTitle": "Skupina",
+    "followUs": "Spremljajte nas",
+    "privacy": "Obvestilo o zasebnosti",
+    "appointmentNote": "Via Torino 34, drugo nadstropje, Trst. Samo po dogovoru."
+  },
+  "meta": {
+    "title": "FriuliVillas – izbrane vile in nepremičnine v Furlaniji - Julijski krajini",
+    "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: Gradež, Videm, Trbiž, Lignano, Sappada. Nakup, prodaja, oddajanje."
+  },
+  "ui": {
+    "prev": "Nazaj",
+    "next": "Naprej"
+  },
+  "cookie": {
+    "testo": "Uporabljamo tehnične piškotke in – samo z vašim soglasjem – statistične piškotke (Google Analytics), da razumemo, kako se spletna stran uporablja. Brez oglasov, brez profiliranja.",
+    "accetta": "Sprejmem",
+    "rifiuta": "Samo nujni",
+    "privacy": "Zasebnost in piškotki",
+    "preferenze": "Nastavitve piškotkov",
+    "aria": "Soglasje za piškotke"
+  }
+}

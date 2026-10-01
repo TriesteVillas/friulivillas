@@ -23,6 +23,18 @@ const ZONE_LABELS: Record<string, string> = {
   "SISTIANA-DUINO": "Sistiana-Duino", PORTOPICCOLO: "Portopiccolo",
   MUGGIA: "Muggia", ALTE: "Carso", FVG: "FVG",
 };
+// In sloveno i luoghi hanno il loro nome, e chi legge la pagina slovena li
+// conosce così (Barkovlje, Grljan, Milje, Kras…): stessi esonimi della guida
+// del gruppo. Il VALORE inviato resta il codice qui sopra, la lingua cambia
+// solo l'etichetta. Portopiccolo è un nome commerciale e non si traduce.
+const ZONE_LABELS_SL: Record<string, string> = {
+  CENTRO: "Središče", SEMICENTRO: "Širše središče", BARCOLA: "Barkovlje",
+  MIRAMARE: "Miramar", GRIGNANO: "Grljan", COSTIERA: "Obalna cesta",
+  "SISTIANA-DUINO": "Sesljan–Devin", PORTOPICCOLO: "Portopiccolo",
+  MUGGIA: "Milje", ALTE: "Kras", FVG: "FJK",
+};
+// «mq» è l'abbreviazione italiana; in sloveno si scrive m².
+const MQ_UNIT: Record<string, string> = { sl: "m²" };
 // Canonical Airtable values; display labels come from i18n.
 const SCOPI = ["Abitazione principale", "Investimento / rendita", "Casa vacanze"] as const;
 const CONDIZIONI = [
@@ -40,13 +52,21 @@ export default function BuyerLeadModal({
   open,
   onClose,
   fonteCta,
+  eyebrow,
 }: {
   open: boolean;
   onClose: () => void;
   fonteCta: string;
+  /** Riga tradotta sopra il titolo. Il `fonteCta` grezzo NON si stampa più:
+   *  è l'etichetta interna per il CRM, in italiano («Home · Parla con noi»), e
+   *  finiva in testa al modulo anche su /en, /de e /sl (stessa correzione di
+   *  triestevillas.com). Senza eyebrow, nessuna riga. */
+  eyebrow?: string;
 }) {
   const t = useTranslations("buyerForm");
   const locale = useLocale();
+  const zoneLabels = locale === "sl" ? ZONE_LABELS_SL : ZONE_LABELS;
+  const mqUnit = MQ_UNIT[locale] ?? "mq";
 
   const [nome, setNome] = useState("");
   const [cognome, setCognome] = useState("");
@@ -170,8 +190,8 @@ export default function BuyerLeadModal({
           </div>
         ) : (
           <form onSubmit={submit}>
-            <p className="eyebrow">{fonteCta}</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-neutral-900">
+            {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+            <h2 className={`${eyebrow ? "mt-2 " : ""}text-2xl font-semibold tracking-tight text-neutral-900`}>
               {t("title")}
             </h2>
             <p className="mt-1 text-sm text-neutral-500">{t("subtitle")}</p>
@@ -203,7 +223,7 @@ export default function BuyerLeadModal({
               {ZONES.map((z) => (
                 <button key={z} type="button" onClick={() => toggleZone(z)}
                   aria-pressed={zone.includes(z)} className={chip(zone.includes(z))}>
-                  {ZONE_LABELS[z]}
+                  {zoneLabels[z]}
                 </button>
               ))}
             </div>
@@ -217,8 +237,8 @@ export default function BuyerLeadModal({
               </div>
               <div>
                 <p className="mb-2 text-sm font-medium text-neutral-700">{t("size")}</p>
-                <RangeDual {...MQ} value={mq} maxLabel="300+ mq"
-                  format={(n) => `${n} mq`}
+                <RangeDual {...MQ} value={mq} maxLabel={`300+ ${mqUnit}`}
+                  format={(n) => `${n} ${mqUnit}`}
                   onChange={(v) => { setMq(v); setMqTouched(true); }} />
               </div>
             </div>

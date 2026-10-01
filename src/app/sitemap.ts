@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 import { getProperties } from "@/lib/airtable";
 import { routing } from "@/i18n/routing";
-import { absUrl, localizedPath, SITE_URL } from "@/lib/seo";
+import { absUrl, HREFLANG, localizedPath, SITE_URL } from "@/lib/seo";
 
-const HREFLANG: Record<string, string> = { it: "it-IT", en: "en-GB", de: "de-DE" };
+// I codici hreflang vengono da seo.ts e non sono ricopiati qui: la sitemap e
+// i <link rel="alternate"> delle pagine devono dire la stessa cosa, e con due
+// copie della mappa la quarta lingua (sl, 2026-10-01) andava aggiunta due volte.
 
 // hreflang alternates for a path across all locales (+ x-default → it).
 function languagesFor(path: string): Record<string, string> {
@@ -16,7 +18,11 @@ function languagesFor(path: string): Record<string, string> {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const properties = await getProperties();
 
-  const staticPaths = ["/", "/immobili", "/vendi", "/investimenti", "/gruppo", "/contatti", "/privacy"];
+  // «/investimenti» NON c'è, ed era in elenco fino al 2026-10-01: è una pagina
+  // del gemello TriesteImmobiliare che qui non è mai esistita, e la sitemap la
+  // dichiarava in tre lingue mentre rispondeva 404. Una pagina si aggiunge qui
+  // solo quando esiste in src/app/[locale].
+  const staticPaths = ["/", "/immobili", "/vendi", "/gruppo", "/contatti", "/privacy"];
   const entries: MetadataRoute.Sitemap = [];
 
   // lastModified solo dove esiste una data vera: Google lo usa se è

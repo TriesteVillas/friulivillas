@@ -25,11 +25,15 @@ export type PropertyView = {
 
 type Translate = (key: string, values?: Record<string, string | number>) => string;
 
-// Titolo pubblico nella lingua del visitatore: il nome EN/DE quando c'è, altrimenti
-// quello italiano. Mai una stringa vuota: `title` è sempre valorizzato (mapRecord).
+// Titolo pubblico nella lingua del visitatore: il nome EN/DE/SL quando c'è,
+// altrimenti quello italiano. Mai una stringa vuota: `title` è sempre
+// valorizzato (mapRecord). Lo sloveno passa dall'inglese prima dell'italiano:
+// quando il testo sloveno manca, il ripiego è la lingua internazionale (stessa
+// scelta di triestevillas.com).
 export function localizedTitle(p: Property, locale: string): string {
   if (locale === "de") return p.titleDe ?? p.title;
   if (locale === "en") return p.titleEn ?? p.title;
+  if (locale === "sl") return p.titleSl ?? p.titleEn ?? p.title;
   return p.title;
 }
 
@@ -37,7 +41,12 @@ export function localizedTitle(p: Property, locale: string): string {
 // finisce SEMPRE sull'italiano — meglio una scheda in italiano che una vuota:
 //   EN → descrizione_TSI_EN_# → descrizione_TSI_# → descrizione
 //   DE → descrizione_TSI_DE_# → descrizione_TSI_# → descrizione
+//   SL → descrizione_tsi_sl (vetrina CRM) → descrizione_TSI_EN_# → descrizione_TSI_# → descrizione
 //   IT →                        descrizione_TSI_# → descrizione
+// ⚠️ Per lo sloveno si legge SOLO la variante TSI, mai `descrizione_sl` di
+// triestevillas.com: le varianti TSI esistono proprio per non pubblicare su due
+// siti del gruppo lo stesso testo (duplicate content fra gemelli). Finché il
+// CRM non scrive la variante TSI slovena, /sl mostra quella inglese.
 // (gli ultimi due gradini sono già risolti in `p.description` da mapRecord).
 export function localizedDescription(p: Property, locale: string): string | null {
   return translatedDescription(p, locale) ?? p.description;
@@ -51,7 +60,22 @@ export function localizedDescription(p: Property, locale: string): string | null
 export function translatedDescription(p: Property, locale: string): string | null {
   if (locale === "de") return p.descriptionDe;
   if (locale === "en") return p.descriptionEn;
+  if (locale === "sl") return p.descriptionSl ?? p.descriptionEn;
   return null;
+}
+
+// Lingua in cui è DAVVERO scritta la descrizione che la pagina mostra, per il
+// `lang` del blocco: su /sl, finché manca lo sloveno, il testo è inglese, e
+// dichiararlo sloveno farebbe leggere a un sintetizzatore vocale l'inglese con
+// la pronuncia slovena (e direbbe a un motore di ricerca una cosa falsa).
+export function descriptionLang(p: Property, locale: string): string {
+  if (locale === "de" && p.descriptionDe) return "de";
+  if (locale === "en" && p.descriptionEn) return "en";
+  if (locale === "sl") {
+    if (p.descriptionSl) return "sl";
+    if (p.descriptionEn) return "en";
+  }
+  return "it";
 }
 
 // Taglio per la meta description: mai a metà parola e con l'ellissi, perché
@@ -94,6 +118,19 @@ export function priceLabel(p: Property, locale: string, t: Translate): string {
   return p.priceSale ? formatPrice(p.priceSale, locale) : t("priceOnRequest");
 }
 
+// «6 locali» nella riga della card. Il sostantivo segue il numero con le regole
+// plurali della lingua (`roomsUnit`, ICU): in sloveno sono quattro forme —
+// 1 soba, 2 sobi, 3–4 sobe, 5+ sob — e incollare l'etichetta «Sobe» dopo il
+// numero scriveva «6 sobe». Il campo `locali` di Airtable è testo: «4», «10»
+// o «>5»; si conta sull'ultimo numero, quindi «>5» prende la forma di 5.
+// Senza cifre (un valore che non è un conteggio) si torna alla forma di prima.
+function roomsMeta(rooms: string, t: Translate): string {
+  const n = rooms.match(/(\d+)\s*$/)?.[1];
+  return n
+    ? `${rooms} ${t("roomsUnit", { count: Number(n) })}`
+    : `${rooms} ${t("rooms").toLowerCase()}`;
+}
+
 export function buildPropertyView(
   p: Property,
   locale: string,
@@ -106,7 +143,7 @@ export function buildPropertyView(
   const meta = [
     p.tipologia,
     p.mq ? t("sqm", { value: p.mq }) : null,
-    p.rooms ? `${p.rooms} ${t("rooms").toLowerCase()}` : null,
+    p.rooms ? roomsMeta(p.rooms, t) : null,
   ]
     .filter(Boolean)
     .join(" · ");

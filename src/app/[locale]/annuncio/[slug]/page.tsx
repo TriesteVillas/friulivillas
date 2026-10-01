@@ -26,6 +26,7 @@ import {
   buildPropertyView,
   contractBadge,
   clusterBadge,
+  descriptionLang,
   localizedDescription,
   localizedTitle,
   metaClamp,
@@ -63,14 +64,15 @@ export async function generateMetadata({
   if (!property) return {};
   // Titolo e meta description nella lingua della pagina.
   //
-  // ORDINE, e conta: su /en e /de viene prima la descrizione TRADOTTA (così la
-  // SERP non mostra italiano a chi cerca in inglese o tedesco), ma solo se
+  // ORDINE, e conta: su /en, /de e /sl viene prima la descrizione TRADOTTA (così la
+  // SERP non mostra italiano a chi cerca in inglese, tedesco o sloveno), ma solo se
   // esiste DAVVERO — `translatedDescription`, non `localizedDescription`, che
   // ripiegherebbe sull'italiano e ce lo farebbe preferire all'one-liner.
   // Quando la traduzione manca il gradino giusto è l'one-liner: è italiano come
   // il ripiego, ma è corto, scritto a mano e pensato per lo snippet, invece del
   // primo pezzo di una descrizione da 1000 caratteri tagliata a metà frase.
   //   en/de → descrizione tradotta → one-liner → descrizione italiana
+  //   sl    → slovena, o inglese finché manca → one-liner → descrizione italiana
   //   it    →                        one-liner → descrizione italiana
   const title = localizedTitle(property, locale);
   const description =
@@ -95,13 +97,16 @@ export async function generateMetadata({
 // Split a description into readable paragraphs. Honours author-made line breaks
 // (blank lines or single newlines); for a single wall of text, groups sentences
 // into chunks of ~3. Sentence split only on punctuation + space + capital, so
-// "10.200,00" / "ecc." don't cause false breaks.
+// "10.200,00" / "ecc." don't cause false breaks. Le maiuscole slovene (Č Š Ž,
+// fuori dall'intervallo À-Ý) e la virgoletta d'apertura slovena » contano come
+// inizio di frase: senza, un testo sloveno restava un blocco unico ogni volta
+// che la frase successiva cominciava con una di loro.
 function toParagraphs(text: string): string[] {
   const byBreak = text.split(/\n+/).map((s) => s.trim()).filter(Boolean);
   if (byBreak.length > 1) return byBreak;
   const sentences = text
     .trim()
-    .split(/(?<=[.!?])\s+(?=[A-ZÀ-Ý"«])/)
+    .split(/(?<=[.!?])\s+(?=[A-ZÀ-ÝČŠŽĆĐ"«»])/)
     .map((s) => s.trim())
     .filter(Boolean);
   const chunks: string[] = [];
@@ -141,7 +146,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // "Prenota una visita" vive nel namespace lead (usato da VisitForm), non property.
   const tLead = await getTranslations("lead");
   const fsLabel =
-    ({ it: "Schermo intero", en: "Fullscreen", de: "Vollbild" } as Record<
+    ({ it: "Schermo intero", en: "Fullscreen", de: "Vollbild", sl: "Celozaslonski način" } as Record<
       string,
       string
     >)[locale] ?? "Fullscreen";
@@ -466,7 +471,13 @@ export default async function PropertyPage({ params }: { params: Params }) {
           {description && (
             <section id="descrizione" className="mt-8 scroll-mt-32" data-reveal>
               <h2 className="text-lg font-semibold">{t("descriptionTitle")}</h2>
-              <div className="mt-3 space-y-4 leading-relaxed text-neutral-700">
+              {/* `lang` del testo VERO: su /sl, finché manca lo sloveno, è
+                  l'inglese (vedi descriptionLang). Su it/en/de coincide con la
+                  pagina tranne quando la traduzione manca e si legge l'italiano. */}
+              <div
+                lang={descriptionLang(property, locale)}
+                className="mt-3 space-y-4 leading-relaxed text-neutral-700"
+              >
                 {toParagraphs(description).map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
