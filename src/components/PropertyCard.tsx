@@ -44,21 +44,35 @@ export default function PropertyCard({
             </div>
           )}
           <span className="card-sheen" aria-hidden />
-          <PropertyBadge {...leftBadge} className="absolute left-3 top-3 z-[2] shadow-sm" />
           {view.coverAi ? (
             // La sigla AI prende l'angolo in alto a destra (SPEC §5.1); l'altra
             // bolla di destra, se c'è, le si mette accanto sulla stessa riga.
-            <div className="absolute right-3 top-3 z-[2] flex items-center gap-1.5">
-              {rightBadge && <PropertyBadge {...rightBadge} className="shadow-sm" />}
-              <AiTag testo={view.coverAi.testo} aria={view.coverAi.aria} compatta />
+            // Le bolle e la sigla stanno in UNA riga che va a capo all'indietro
+            // (flex-wrap-reverse): se la card è troppo stretta per tutte, scende
+            // la bolla di SINISTRA e la sigla resta nell'angolo. Prima il gruppo
+            // di destra era un blocco assoluto a sé, cresciuto della sigla, e
+            // sulle card strette copriva «Online da N giorni» (home a 390 e a
+            // 1024 px: review post-pubblicazione del 01/10/2026).
+            <div className="absolute inset-x-3 top-3 z-[2] flex flex-wrap-reverse items-center justify-between gap-1.5">
+              <PropertyBadge {...leftBadge} className="shrink-0 whitespace-nowrap shadow-sm" />
+              <div className="ml-auto flex shrink-0 items-center gap-1.5">
+                {rightBadge && (
+                  <PropertyBadge {...rightBadge} className="shrink-0 whitespace-nowrap shadow-sm" />
+                )}
+                <AiTag testo={view.coverAi.testo} aria={view.coverAi.aria} compatta className="shrink-0" />
+              </div>
             </div>
           ) : (
-            rightBadge && (
-              <PropertyBadge
-                {...rightBadge}
-                className="absolute right-3 top-3 z-[2] shadow-sm"
-              />
-            )
+            // Senza sigla: le due bolle di sempre, identiche a prima.
+            <>
+              <PropertyBadge {...leftBadge} className="absolute left-3 top-3 z-[2] shadow-sm" />
+              {rightBadge && (
+                <PropertyBadge
+                  {...rightBadge}
+                  className="absolute right-3 top-3 z-[2] shadow-sm"
+                />
+              )}
+            </>
           )}
         </div>
         <div className="space-y-1 p-5">
