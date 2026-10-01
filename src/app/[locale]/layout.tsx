@@ -27,11 +27,14 @@ const ALLOW_INDEX = process.env.NEXT_PUBLIC_ALLOW_INDEX === "true";
 // html[data-reveal-armed]) so content stays visible when JS never runs.
 const REVEAL_ARM_SCRIPT = `if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.setAttribute("data-reveal-armed","");`;
 
-// latin-ext dal 2026-10-01 (sloveno): senza, č š ž Č Š Ž non sono nel font
-// scaricato e il browser le disegna con un font di sistema, lettera per lettera
-// in mezzo alle parole.
+// `subsets` decide solo quali file PRECARICARE (doc di next/font): il CSS
+// generato contiene comunque le @font-face di tutti i sottoinsiemi, ciascuna
+// col suo unicode-range, quindi č š ž dello sloveno sono disegnate con Poppins
+// anche con il solo "latin" (il browser scarica latin-ext quando incontra la
+// prima lettera che gli serve). Aggiungere "latin-ext" qui precaricherebbe
+// quattro file in più su OGNI pagina, in tutte e quattro le lingue.
 const poppins = Poppins({
-  subsets: ["latin", "latin-ext"],
+  subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
 });

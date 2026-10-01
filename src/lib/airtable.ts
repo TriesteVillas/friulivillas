@@ -115,9 +115,12 @@ export function compareShowcase(a: Property, b: Property): number {
 
 // ---- Lo sloveno, dalla vetrina del CRM --------------------------------------
 //
-// I testi sloveni NON stanno su Airtable: il CRM (tsv-pg, Postgres) li genera e
-// li tiene lui (`public_name_sl`, e la variante TSI `descrizione_tsi_sl` quando
-// esisterà), e la copia fra i due è a senso unico Airtable → Postgres. Quindi
+// I testi sloveni non si leggono da Airtable: il CRM (tsv-pg, Postgres) li
+// genera e li tiene lui (`public_name_sl`, e la variante TSI `descrizione_tsi_sl`
+// quando esisterà — il nome è quello che il CRM stesso usa nel commento della
+// rotta vetrina, e lo stesso che leggono TriesteImmobiliare e TriesteAffitti).
+// Su Airtable i campi `_SL_` di TriesteVillas esistono ma restano vuoti, perché
+// la copia fra i due è a senso unico Airtable → Postgres. Quindi
 // questo sito, che legge il catalogo da Airtable, li chiede alla rotta pubblica
 // del CRM che serve già la vetrina dei siti del gruppo, indicizzata per id
 // record Airtable.
@@ -128,9 +131,12 @@ export function compareShowcase(a: Property, b: Property): number {
 // VETRINA_TIMEOUT_MS, la mappa resta vuota e il sito funziona come prima:
 // /sl ripiega sull'inglese (localizedTitle / translatedDescription), nessuna
 // pagina si rompe e la build non fallisce.
+// `allegati=snelli`: gli allegati escono senza url firmate e miniature, che qui
+// non servono (si prendono due campi di testo). Dimezza abbondantemente la
+// risposta; un CRM che non conosce il parametro lo ignora e risponde completo.
 const VETRINA_URL =
   (process.env.CRM_VETRINA_URL || "").trim() ||
-  "https://tsv-pg.vercel.app/api/vetrina?sito=friulivillas.com";
+  "https://tsv-pg.vercel.app/api/vetrina?sito=friulivillas.com&allegati=snelli";
 const VETRINA_TIMEOUT_MS = 5000;
 
 type SlovenianTexts = { title: string | null; description: string | null };
@@ -138,12 +144,33 @@ type SlovenianTexts = { title: string | null; description: string | null };
 const text = (v: unknown): string | null =>
   typeof v === "string" && v.trim() !== "" ? v.trim() : null;
 
+// Il tetto di attesa è una corsa contro un timer, NON un `signal` sulla fetch:
+// una fetch con `signal` esce dalla memoizzazione di Next (le chiamate a
+// getProperties dello stesso render, che in build sono decine, la scaricavano
+// ciascuna per conto suo finché la cache non era piena), e nella
+// rigenerazione in background Next il `signal` lo toglie, quindi lì il
+// timeout non valeva. Il timer vale sempre;
+// la fetch rimasta indietro finisce da sola e popola la cache per il giro dopo.
 async function getSlovenianTexts(): Promise<Map<string, SlovenianTexts>> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const scaduto = new Promise<Map<string, SlovenianTexts>>((resolve) => {
+    timer = setTimeout(() => {
+      console.warn(`[vetrina] nessuna risposta in ${VETRINA_TIMEOUT_MS} ms: /sl ripiega sull'inglese`);
+      resolve(new Map());
+    }, VETRINA_TIMEOUT_MS);
+  });
+  try {
+    return await Promise.race([loadSlovenianTexts(), scaduto]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function loadSlovenianTexts(): Promise<Map<string, SlovenianTexts>> {
   const byRecord = new Map<string, SlovenianTexts>();
   try {
     const res = await fetch(VETRINA_URL, {
       next: { revalidate: REVALIDATE_SECONDS, tags: ["properties"] },
-      signal: AbortSignal.timeout(VETRINA_TIMEOUT_MS),
     });
     if (!res.ok) {
       console.warn(`[vetrina] HTTP ${res.status}: /sl ripiega sull'inglese`);

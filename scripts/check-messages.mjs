@@ -11,8 +11,12 @@
 // Controlla, per ogni lingua del router:
 //   1. che messages/<lingua>.json esista e sia JSON valido;
 //   2. stesse chiavi del master (né mancanti né in più) e nessun valore vuoto;
-//   3. stessi argomenti ICU ({count}, {value}…) per ogni chiave;
-//   4. per lo sloveno: ogni `plural` ha le forme one, two, few e other —
+//   3. stessi argomenti ICU ({count}, {value}…) per ogni chiave, e dello
+//      STESSO TIPO del master: un `{count, select, …}` dove l'inglese ha
+//      `plural` passerebbe il controllo delle forme e sbaglierebbe in silenzio;
+//   4. ogni `plural`/`selectordinal`/`select`, in ogni lingua, ha il ramo
+//      `other` — senza, intl-messageformat lancia un errore a runtime;
+//   5. per lo sloveno: ogni `plural` ha le forme one, two, few e other —
 //      lo sloveno ne ha quattro, e «one/other» copiato dall'inglese sbaglia
 //      in silenzio con 2, 3 e 4 («2 nepremičnin» invece di «2 nepremičnini»).
 // Non si spegne per «sbloccare» la build: si completa il dizionario.
@@ -39,12 +43,22 @@ function appiattisci(o, prefisso = "", out = {}) {
   return out;
 }
 
-// Mini-parser ICU MessageFormat: restituisce gli argomenti usati e, per ogni
-// argomento `plural`/`selectordinal`, i selettori dei rami. Basta per il
-// confronto fra lingue; non valida la sintassi in ogni suo angolo.
+// Mini-parser ICU MessageFormat: restituisce gli argomenti usati col loro
+// tipo (`plural`, `select`, `number`…, stringa vuota per il semplice {nome}) e,
+// per ogni argomento a rami, i selettori. Basta per il confronto fra lingue;
+// non valida la sintassi in ogni suo angolo. Limite noto: l'apostrofo ICU
+// ('{' per una graffa letterale) non è gestito, e il testo quotato viene letto
+// come un argomento — al 2026-10-01 nessun messaggio lo usa (provato: un caso
+// costruito apposta passa il controllo; se mai servisse, va gestito qui).
 function analizza(testo) {
-  const argomenti = new Set();
-  const plurali = []; // { nome, selettori: [] }
+  const argomenti = new Map(); // nome → tipo
+  const plurali = []; // { nome, tipo, selettori: [] }
+  const registra = (nome, tipo) => {
+    const prima = argomenti.get(nome);
+    if (prima !== undefined && prima !== tipo && prima !== "" && tipo !== "")
+      throw new Error(`{${nome}} usato sia come ${prima} sia come ${tipo}`);
+    if (!prima) argomenti.set(nome, tipo);
+  };
   let i = 0;
   const salta = () => {
     while (i < testo.length && /\s/.test(testo[i])) i++;
@@ -68,8 +82,8 @@ function analizza(testo) {
     while (i < testo.length && !/[\s,}]/.test(testo[i])) nome += testo[i++];
     salta();
     if (!nome) throw new Error(`argomento senza nome alla posizione ${i}`);
-    argomenti.add(nome);
     if (testo[i] === "}") {
+      registra(nome, "");
       i++;
       return;
     }
@@ -79,6 +93,8 @@ function analizza(testo) {
     let tipo = "";
     while (i < testo.length && /[a-z]/i.test(testo[i])) tipo += testo[i++];
     salta();
+    if (!tipo) throw new Error(`{${nome}, …} senza tipo`);
+    registra(nome, tipo);
     if (tipo === "plural" || tipo === "selectordinal" || tipo === "select") {
       if (testo[i] !== ",") throw new Error(`atteso «,» dopo ${tipo}`);
       i++;
@@ -100,7 +116,8 @@ function analizza(testo) {
         i++; // la «}» che chiude il ramo
         if (i > testo.length) throw new Error("argomento non chiuso");
       }
-      if (tipo !== "select") plurali.push({ nome, selettori });
+      if (!selettori.includes("other")) throw new Error(`{${nome}, ${tipo}} senza il ramo «other»`);
+      plurali.push({ nome, tipo, selettori });
       return;
     }
     // number/date/time con eventuale stile: si salta fino alla «}» bilanciata.
@@ -160,16 +177,17 @@ if (!master) {
         errori.push(`${l}.json → ${k}: ICU illeggibile (${e.message})`);
         continue;
       }
-      const attesi = argomentiMaster[k] ?? new Set();
-      const diversi =
-        attesi.size !== analisi.argomenti.size || [...attesi].some((a) => !analisi.argomenti.has(a));
-      if (diversi)
-        errori.push(
-          `${l}.json → ${k}: argomenti {${[...analisi.argomenti].join(", ")}} invece di {${[...attesi].join(", ")}}`,
-        );
+      const attesi = argomentiMaster[k] ?? new Map();
+      const firma = (m) =>
+        [...m.entries()]
+          .map(([nome, tipo]) => (tipo ? `${nome}, ${tipo}` : nome))
+          .sort()
+          .join("} {");
+      if (firma(attesi) !== firma(analisi.argomenti))
+        errori.push(`${l}.json → ${k}: argomenti {${firma(analisi.argomenti)}} invece di {${firma(attesi)}}`);
       const forme = PLURALI[l];
       if (forme)
-        for (const p of analisi.plurali) {
+        for (const p of analisi.plurali.filter((x) => x.tipo === "plural")) {
           const assenti = forme.filter((f) => !p.selettori.includes(f));
           if (assenti.length)
             errori.push(`${l}.json → ${k}: il plurale di {${p.nome}} non ha le forme ${assenti.join(", ")}`);

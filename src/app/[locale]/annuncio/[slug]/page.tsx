@@ -553,7 +553,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
             </section>
           )}
 
-          {/* immobileNome resta il titolo ITALIANO in tutti e tre i locali: finisce
+          {/* immobileNome resta il titolo ITALIANO in tutte le lingue: finisce
               nel CRM come identità del record, e un immobile deve avere un nome solo
               qualunque sia la lingua del visitatore (la lingua viaggia già in `lingua`).
               Stessa regola del log visite della Private Collection. */}

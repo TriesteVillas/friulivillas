@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { routing, type Locale } from "@/i18n/routing";
 import { normCity } from "@/lib/citynorm";
 import { splitNomeCerta } from "@/lib/nomesplit";
 import {
@@ -54,19 +55,43 @@ const geoPoint = (lat: unknown, lon: unknown): string =>
 // che sui singoli handler: un modulo nuovo la eredita senza doversene ricordare.
 const IMPORT_SOURCE = "WEB_FORM";
 
-async function airtableCreate(fields: Record<string, unknown>) {
-  // Il chiamante che ha già deciso la provenienza comanda: qui si riempie un vuoto.
-  const withSource = "import_source" in fields ? fields : { ...fields, import_source: [IMPORT_SOURCE] };
-  const res = await fetch(`https://api.airtable.com/v0/${LEADS_BASE_ID}/${LEADS_TABLE}`, {
+function airtablePost(fields: Record<string, unknown>) {
+  return fetch(`https://api.airtable.com/v0/${LEADS_BASE_ID}/${LEADS_TABLE}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${LEADS_TOKEN}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ records: [{ fields: withSource }], typecast: true }),
+    body: JSON.stringify({ records: [{ fields }], typecast: true }),
   });
-  if (!res.ok) throw new Error(`Airtable ${res.status}: ${await res.text()}`);
-  return res.json();
+}
+
+async function airtableCreate(fields: Record<string, unknown>) {
+  // Il chiamante che ha già deciso la provenienza comanda: qui si riempie un vuoto.
+  const withSource = "import_source" in fields ? fields : { ...fields, import_source: [IMPORT_SOURCE] };
+  const res = await airtablePost(withSource);
+  if (res.ok) return res.json();
+  const errore = await res.text();
+  // `lingua` è un single select scritto con typecast: un valore che non è fra
+  // le opzioni (lo sloveno, dal 2026-10-01: LEAD_.lingua non ha l'opzione "sl")
+  // Airtable lo crea da sé SOLO se il token appartiene a chi ha i permessi da
+  // creator sulla base. Se no risponde 422 INVALID_MULTIPLE_CHOICE_OPTIONS e
+  // l'intera richiesta fallisce: niente lead, e il chiamante esce prima della
+  // mail interna. Una lingua non vale un cliente perso: si riprova una volta
+  // SENZA `lingua` (la lingua resta nella mail interna e nei log). Se il 422
+  // veniva da un altro campo, il secondo tentativo fallisce e vale l'errore
+  // originale, come prima.
+  if (res.status === 422 && "lingua" in withSource && /INVALID_MULTIPLE_CHOICE_OPTIONS/.test(errore)) {
+    const { lingua, ...senzaLingua } = withSource;
+    const retry = await airtablePost(senzaLingua);
+    if (retry.ok) {
+      console.error(
+        `[lead] lingua "${String(lingua)}" rifiutata da Airtable (${errore.slice(0, 200)}): lead salvato SENZA lingua — aggiungere l'opzione al campo LEAD_.lingua`,
+      );
+      return retry.json();
+    }
+  }
+  throw new Error(`Airtable ${res.status}: ${errore}`);
 }
 
 // L'invio resta best-effort — il lead su Airtable è la fonte di verità e una
@@ -107,10 +132,12 @@ const esc = (s: string) =>
 // Lingue ammesse su `lingua`. Era la stessa lista copiata in tre handler più
 // il ramo «invia a un amico»: con lo sloveno (2026-10-01) una lingua aggiunta
 // in tre posti su quattro avrebbe fatto cadere il quarto modulo sull'italiano
-// in silenzio. LEAD_.lingua è un single select scritto con typecast: la prima
-// richiesta slovena crea da sé l'opzione "sl" (come su triestevillas.com).
-type Lingua = "it" | "en" | "de" | "sl";
-const LINGUE: readonly Lingua[] = ["it", "en", "de", "sl"];
+// in silenzio. Ora la lista È quella del router: una lingua nuova entra qui da
+// sola. LEAD_.lingua è un single select scritto con typecast: la prima
+// richiesta slovena crea l'opzione "sl" se il token può farlo, altrimenti
+// airtableCreate() salva il lead senza lingua invece di perderlo.
+type Lingua = Locale;
+const LINGUE: readonly Lingua[] = routing.locales;
 const linguaDi = (v: unknown): Lingua => {
   const l = clean(v);
   return (LINGUE as readonly string[]).includes(l) ? (l as Lingua) : "it";
@@ -190,7 +217,10 @@ function recapHtml(
 ) {
   const L = RECAP[lang];
   const received = L.received.charAt(0).toUpperCase() + L.received.slice(1);
-  const body = `<p style="${mailText.title}">${L.hello}${name ? ` ${esc(name)}` : ""},</p>
+  // Lo sloveno vuole la virgola davanti al vocativo («Pozdravljeni, Mario,»):
+  // nel testo di `hello` non può stare, perché senza nome uscirebbe «Pozdravljeni,,».
+  const vocativo = lang === "sl" ? ", " : " ";
+  const body = `<p style="${mailText.title}">${L.hello}${name ? `${vocativo}${esc(name)}` : ""},</p>
     <p style="${mailText.p}">${received}</p>
     ${mailRecapCard(L.recapTitle, rows.map(([label, value]) => [esc(label), esc(value)] as [string, string]))}
     ${extra}

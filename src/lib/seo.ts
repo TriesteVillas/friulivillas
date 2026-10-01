@@ -1,3 +1,5 @@
+import { routing } from "@/i18n/routing";
+
 // SEO helpers — canonical + hreflang for next-intl `localePrefix: "as-needed"`
 // (it at the root, en/de/sl prefixed) and JSON-LD builders. The site is read by
 // many German-speaking buyers, so hreflang is not cosmetic.
@@ -11,7 +13,9 @@
 export const SITE_URL =
   (process.env.NEXT_PUBLIC_SITE_URL || "").trim() || "https://friulivillas.com";
 
-export const LOCALES = ["it", "en", "de", "sl"] as const;
+// La lista delle lingue è quella del router, non una copia: gli hreflang delle
+// pagine (da qui) e la sitemap (da routing.locales) non possono divergere.
+export const LOCALES = routing.locales;
 // hreflang region codes (en-GB: British-leaning copy; de-DE: the key market).
 // Lo sloveno invece è SOLO-LINGUA, `sl` e non `sl-SI`: un codice regionale
 // lascerebbe fuori proprio la minoranza slovena di Trieste e Gorizia (che è in

@@ -136,9 +136,10 @@ export type Property = {
   // Titolo pubblico tradotto; null quando la traduzione non c'è ancora.
   titleEn: string | null;
   titleDe: string | null;
-  // Sloveno: NON viene da Airtable (i campi _SL_ vivono solo nel CRM, su
-  // Postgres). mapRecord lo lascia null; lo riempie getProperties dalla
-  // vetrina del CRM, quando risponde. Vedi getSlovenianTexts() in airtable.ts.
+  // Sloveno: NON si legge da Airtable (i campi _SL_ lì esistono ma sono
+  // vuoti: il CRM scrive lo sloveno solo su Postgres). mapRecord lo lascia
+  // null; lo riempie getProperties dalla vetrina del CRM, quando risponde.
+  // Vedi getSlovenianTexts() in airtable.ts.
   titleSl: string | null;
   inEvidenza: boolean;
   onlineDa: string | null;
