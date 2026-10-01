@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
 import CookiePrefsButton from "./CookiePrefsButton";
+import { telHref } from "@/lib/format";
 
 // FriuliVillas non ha profili social propri: la lista è vuota di proposito, e
 // il blocco "Seguici" si spegne da sé quando non c'è nulla da seguire. Mettere
@@ -55,7 +56,6 @@ export default async function Footer() {
   const tLegal = await getTranslations("group.legal");
   const year = new Date().getFullYear();
   const phone = tContact("phone");
-  const telHref = `tel:+39${phone.replace(/\s+/g, "")}`;
   const groupSites = GROUP_SITES[locale as GroupSiteLocale] ?? GROUP_SITES.it;
 
   return (
@@ -145,7 +145,7 @@ export default async function Footer() {
             <div>
               <dt className="sr-only">{tContact("phoneLabel")}</dt>
               <dd>
-                <a href={telHref} className="transition-colors hover:text-white">
+                <a href={telHref(phone)} className="transition-colors hover:text-white">
                   {phone}
                 </a>
               </dd>

@@ -5,6 +5,7 @@ import SellerCta from "@/components/SellerCta";
 import BuyerCta from "@/components/BuyerCta";
 import AutoVideo from "@/components/AutoVideo";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
+import { telHref } from "@/lib/format";
 
 export async function generateMetadata({
   params,
@@ -30,11 +31,10 @@ export default async function ContactPage({
   setRequestLocale(locale);
   const t = await getTranslations("contact");
   const phone = t("phone");
-  const telHref = `tel:+39${phone.replace(/\s+/g, "")}`;
 
   const rows = [
     { label: t("emailLabel"), value: t("email"), href: `mailto:${t("email")}` },
-    { label: t("phoneLabel"), value: phone, href: telHref },
+    { label: t("phoneLabel"), value: phone, href: telHref(phone) },
     { label: t("officeLabel"), value: t("office"), href: null },
     { label: t("hoursLabel"), value: t("hours"), href: null },
     { label: t("socialLabel"), value: t("social"), href: "https://www.facebook.com/profile.php?id=61576375390569" },
