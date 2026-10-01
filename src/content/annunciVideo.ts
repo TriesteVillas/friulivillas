@@ -44,18 +44,16 @@ export type VideoAnnuncio = {
 };
 
 export const ANNUNCI_VIDEO: Readonly<Record<string, VideoAnnuncio>> = {
-  // Villa con piscina e dependance a Ronchi dei Legionari (cartella
-  // villa-ronchi), 01/10/2026: video generato con l'AI dalle foto
-  // dell'immobile. Finché i file non sono in public/, il player non parte e
-  // la scheda resta sulla copertina. ⚠️ Al 01/10 sera non è nel catalogo
-  // di friulivillas.com (in Airtable è ACTIVE e pubblicata anche su
-  // friulivillas.com): la voce si accende da sola quando entra nel catalogo.
+  // Villa con piscina e dependance a Ronchi dei Legionari, 01/10/2026: 10 clip
+  // Kling 3.0 (solo carrello in avanti) dalle foto della galleria, a loro volta
+  // ritoccate con l'AI; loop senza stacco di 24 s, muto. Hash nel nome.
   "TSV-PROP-0040": {
-    mp4: "/media/annunci/villa-ronchi/hero-1080.mp4",
-    mp4Sm: "/media/annunci/villa-ronchi/hero-720.mp4",
-    poster: "/media/annunci/villa-ronchi/hero-poster.webp",
-    posterSm: "/media/annunci/villa-ronchi/hero-poster-sm.webp",
+    mp4: "/media/annunci/villa-ronchi/hero-626eeb37-1080.mp4",
+    mp4Sm: "/media/annunci/villa-ronchi/hero-626eeb37-720.mp4",
+    poster: "/media/annunci/villa-ronchi/hero-626eeb37-poster.webp",
+    posterSm: "/media/annunci/villa-ronchi/hero-626eeb37-poster-sm.webp",
     ai: true,
+    fotoRitoccate: true,
   },
 };
 
