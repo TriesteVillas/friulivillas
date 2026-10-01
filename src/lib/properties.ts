@@ -1,4 +1,5 @@
 import type { FotoAi, Testi } from "./fotoAi";
+import { videoAnnuncio, type VideoAnnuncio } from "../content/annunciVideo";
 
 // Field-ID map for the Airtable PROPRIETA table (base app1ZDay9vQNU5V2u, table tblwAUWPnX7KF8FhU).
 // We key on field IDs (stable across renames) for both the live REST fetch
@@ -215,6 +216,10 @@ export type Property = {
   // solo quando la vista del CRM ha dati per questo immobile. I conteggi non
   // stanno qui: si contano sulle foto che il sito mostra (fotoAi.contaFotoAi).
   trasparenza?: { nota: Testi | null } | null;
+  // Video di testata mp4 (01/10/2026): dal registro del sito
+  // (content/annunciVideo.ts), chiave = codice di catalogo `id`; null =
+  // l'hero resta sulla copertina, com'era.
+  heroVideo: VideoAnnuncio | null;
 };
 
 type RawAttachment = {
@@ -406,6 +411,7 @@ export function mapRecord(recordId: string, f: Fields): Property {
     iliaAnnua: num(f[F.iliaAnnua]),
     tariAnnua: num(f[F.tariAnnua]),
     pcSince: typeof f[F.pcSince] === "string" ? (f[F.pcSince] as string) : null,
+    heroVideo: videoAnnuncio(id),
   };
 }
 

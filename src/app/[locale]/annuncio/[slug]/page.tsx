@@ -38,6 +38,7 @@ import JsonLd from "@/components/JsonLd";
 import { formatPrice } from "@/lib/format";
 import TaxBox from "@/components/TaxBox";
 import AiTag from "@/components/AiTag";
+import SfondoVideo from "@/components/media/SfondoVideo";
 import {
   contaFotoAi,
   etichettaAi,
@@ -242,6 +243,10 @@ export default async function PropertyPage({ params }: { params: Params }) {
     ? serieCompleta(heroFoto, property.topPhotos, property.photos).length
     : property.photos.length;
   const heroAi = haEtichetta(heroFoto?.ai) ? etichettaAi(heroFoto!.ai!, (k) => tAi(k)) : null;
+  // Video di testata mp4 (registro content/annunciVideo.ts, 01/10/2026): se
+  // l'immobile ne ha uno, sale sulla copertina dell'hero (SfondoVideo); lo
+  // YouTube resta nella sezione #video. Senza, l'hero è quello di sempre.
+  const heroVideo = property.heroVideo ?? null;
 
   // Box costi indicativi (solo vendita), col toggle prima/seconda casa —
   // stesso impianto del gemello TriesteVillas: imposta dallo scenario, fee 4%
@@ -431,15 +436,34 @@ export default async function PropertyPage({ params }: { params: Params }) {
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-ink" />
         )}
+        {/* Video di testata (content/annunciVideo.ts): layer client-only che
+            sale sulla copertina solo quando il filmato suona davvero, con la
+            pausa, il velo sotto il testo e — se `ai` — l'etichetta AI sul
+            video. Fratello del ViewTransition e prima del velo della pagina.
+            Nell'HTML iniziale non c'è nessun <video>. */}
+        {heroVideo && (
+          <SfondoVideo
+            video={heroVideo}
+            locale={locale}
+            title={title}
+            velo
+            linkAi={PAGINA_AI_ONLINE ? "/ai" : undefined}
+            layerClassName="par-zoom"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/10 to-ink/90" />
         {/* Etichetta AI della copertina (SPEC §5.1): forma estesa, come nella
             vista singola, in alto a destra sotto l'header fisso — sulla STESSA
             riga del «← Torna agli immobili» e nella stessa colonna della
             scheda (max-w-5xl), non incollata al bordo della finestra. Senza
             etichetta il blocco resta quello di sempre. */}
+        {/* Con il video di testata la riga del «← Torna» porta a destra i suoi
+            comandi (pausa ed etichetta del video): l'etichetta della copertina
+            scende sotto la riga, nella stessa colonna, e sparisce mentre si
+            vede il video (parla della foto, non del filmato). */}
         <div
           className={`absolute left-0 right-0 top-24 mx-auto max-w-5xl px-6${
-            heroAi ? " z-[3] flex items-center justify-between gap-3" : ""
+            heroAi && !heroVideo ? " z-[3] flex items-center justify-between gap-3" : ""
           }`}
         >
           <Link
@@ -452,8 +476,13 @@ export default async function PropertyPage({ params }: { params: Params }) {
             </span>{" "}
             {t("backToList")}
           </Link>
-          {heroAi && <AiTag testo={heroAi.estesa} aria={heroAi.aria} className="shrink-0" />}
+          {heroAi && !heroVideo && <AiTag testo={heroAi.estesa} aria={heroAi.aria} className="shrink-0" />}
         </div>
+        {heroAi && heroVideo && (
+          <div className="pointer-events-none absolute inset-x-0 top-[9.25rem] z-[3] mx-auto flex max-w-5xl justify-end px-6 [header:has([data-video-visibile])_&]:hidden">
+            <AiTag testo={heroAi.estesa} aria={heroAi.aria} className="shrink-0" />
+          </div>
+        )}
 
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-5xl px-6 pb-12">
           <div className="flex flex-wrap items-center gap-2" data-reveal>
