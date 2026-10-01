@@ -385,12 +385,27 @@
       "originalCaption": "Original photo, before editing. Faces and personal details blurred.",
       "summaryTitle": "How we used AI in these photos",
       "navLabel": "AI in the photos",
-      "summaryEdited": "{ai, plural, one {# photo out of {total} edited with AI} other {# photos out of {total} edited with AI}}",
-      "summaryDefects": "{count, plural, one {# with defects protected} other {# with defects protected}}",
-      "summaryOriginals": "{count, plural, one {original viewable on # photo} other {original viewable on # photos}}",
-      "summaryOriginalsAll": "original viewable on every edited photo",
       "summaryClosing": "The viewing remains the only true point of reference.",
-      "summaryLink": "Read “AI: cards on the table”: how we use artificial intelligence"
+      "summaryLink": "Read “AI: cards on the table”: how we use artificial intelligence",
+      "genericCaption": "This photo has been through a generative image model: the description of the edit is being prepared.",
+      "readMore": "Read more",
+      "readLess": "Show less",
+      "tileOf": "{n} of {total}",
+      "tileAi": "{count, plural, one {photo edited with AI} other {photos edited with AI}}",
+      "tileGeneric": "{count, plural, one {photo marked “AI”, description being prepared} other {photos marked “AI”, description being prepared}}",
+      "tileRendering": "{count, plural, one {design rendering, made without AI} other {design renderings, made without AI}}",
+      "tileDefects": "{count, plural, one {photo with the defect lock} other {photos with the defect lock}}",
+      "tileOriginals": "{count, plural, one {photo with the original to compare} other {photos with the original to compare}}",
+      "tileOriginalsAll": "original to compare on every labelled photo",
+      "legendTitle": "What the labels mean",
+      "legend": {
+        "ai": "The photo has been through a generative model and we are still checking it.",
+        "ai_luce": "Light and colour only, nothing removed or added. We flag it because generative AI doesn't correct a photo, it redraws it, and it can get details wrong.",
+        "ai_pulizia": "We removed what is movable or temporary (belongings, people, cars, building materials), or tidied up a bed or a parched lawn.",
+        "ai_aggiunte": "It shows what isn't in the home, or isn't like that: virtual furniture, plants, a changed sky, a shot widened or recomposed, an unfinished home shown finished.",
+        "ai_rendering": "An image generated entirely with AI.",
+        "rendering": "A design visualisation, made without AI."
+      }
     }
   },
   "group": {

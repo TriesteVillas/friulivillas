@@ -385,12 +385,27 @@
       "originalCaption": "Originalfoto vor der Bearbeitung. Gesichter und persönliche Daten unkenntlich gemacht.",
       "summaryTitle": "Wie wir KI bei diesen Fotos eingesetzt haben",
       "navLabel": "KI in den Fotos",
-      "summaryEdited": "{ai, plural, one {# von {total} Fotos mit KI bearbeitet} other {# von {total} Fotos mit KI bearbeitet}}",
-      "summaryDefects": "{count, plural, one {# mit geschützten Mängeln} other {# mit geschützten Mängeln}}",
-      "summaryOriginals": "{count, plural, one {Original bei # Foto einsehbar} other {Original bei # Fotos einsehbar}}",
-      "summaryOriginalsAll": "Original bei jedem bearbeiteten Foto einsehbar",
       "summaryClosing": "Maßgeblich bleibt allein die Besichtigung.",
-      "summaryLink": "„KI mit offenen Karten“ lesen: wie wir künstliche Intelligenz einsetzen"
+      "summaryLink": "„KI mit offenen Karten“ lesen: wie wir künstliche Intelligenz einsetzen",
+      "genericCaption": "Dieses Foto ist durch ein generatives Bildmodell gegangen: Die Beschreibung der Bearbeitung wird vorbereitet.",
+      "readMore": "Weiterlesen",
+      "readLess": "Weniger anzeigen",
+      "tileOf": "{n} von {total}",
+      "tileAi": "{count, plural, one {Foto mit KI bearbeitet} other {Fotos mit KI bearbeitet}}",
+      "tileGeneric": "{count, plural, one {Foto mit dem Kürzel „AI“, Beschreibung in Vorbereitung} other {Fotos mit dem Kürzel „AI“, Beschreibung in Vorbereitung}}",
+      "tileRendering": "{count, plural, one {Projektvisualisierung, ohne KI erstellt} other {Projektvisualisierungen, ohne KI erstellt}}",
+      "tileDefects": "{count, plural, one {Foto mit Mängelsperre} other {Fotos mit Mängelsperre}}",
+      "tileOriginals": "{count, plural, one {Foto mit dem Original zum Vergleich} other {Fotos mit dem Original zum Vergleich}}",
+      "tileOriginalsAll": "Original zum Vergleich bei jedem gekennzeichneten Foto",
+      "legendTitle": "Was die Kennzeichnungen bedeuten",
+      "legend": {
+        "ai": "Das Foto ist durch ein generatives Modell gegangen, und wir prüfen es noch.",
+        "ai_luce": "Nur Licht und Farbe, nichts entfernt oder hinzugefügt. Wir kennzeichnen es, weil ein generatives Modell ein Foto nicht korrigiert, sondern neu zeichnet, und sich bei Details irren kann.",
+        "ai_pulizia": "Entfernt wurde, was beweglich oder vorübergehend ist (Gegenstände, Personen, Autos, Baumaterial), oder ein Bett, ein vertrockneter Rasen wurde in Ordnung gebracht.",
+        "ai_aggiunte": "Das Foto zeigt, was es im Haus nicht gibt oder was nicht so ist: virtuelle Möbel, Pflanzen, einen veränderten Himmel, einen erweiterten oder neu erzeugten Bildausschnitt, ein unfertiges Haus, das fertig gezeigt wird.",
+        "ai_rendering": "Ein Bild, das vollständig mit KI erzeugt wurde.",
+        "rendering": "Eine Projektvisualisierung, ohne KI erstellt."
+      }
     }
   },
   "group": {

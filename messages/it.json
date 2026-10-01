@@ -380,17 +380,32 @@
         "originale": "Originale"
       },
       "glyph": "AI",
-      "genericAria": "Foto modificata con AI, in ricontrollo",
+      "genericAria": "Foto modificata con l'AI, in ricontrollo",
       "showOriginal": "Vedi l'originale",
       "originalCaption": "Foto originale, prima dell'intervento. Volti e dati personali sfocati.",
       "summaryTitle": "Come abbiamo usato l'AI in queste foto",
       "navLabel": "AI nelle foto",
-      "summaryEdited": "{ai, plural, one {# foto su {total} modificata con l'AI} other {# foto su {total} modificate con l'AI}}",
-      "summaryDefects": "{count, plural, one {# con i difetti protetti} other {# con i difetti protetti}}",
-      "summaryOriginals": "{count, plural, one {originale visibile su # foto} other {originale visibile su # foto}}",
-      "summaryOriginalsAll": "originale visibile su ogni foto modificata",
       "summaryClosing": "La visita resta l'unico riferimento.",
-      "summaryLink": "Leggi «AI a carte scoperte»: come usiamo l'intelligenza artificiale"
+      "summaryLink": "Leggi «AI a carte scoperte»: come usiamo l'intelligenza artificiale",
+      "genericCaption": "Questa foto è passata da un modello generativo di immagini: la descrizione dell'intervento è in preparazione.",
+      "readMore": "Leggi tutto",
+      "readLess": "Mostra meno",
+      "tileOf": "{n} su {total}",
+      "tileAi": "{count, plural, one {foto modificata con l'AI} other {foto modificate con l'AI}}",
+      "tileGeneric": "{count, plural, one {foto con la sigla «AI», descrizione in preparazione} other {foto con la sigla «AI», descrizione in preparazione}}",
+      "tileRendering": "{count, plural, one {rendering di progetto, senza AI} other {rendering di progetto, senza AI}}",
+      "tileDefects": "{count, plural, one {foto con il blocco difetti} other {foto con il blocco difetti}}",
+      "tileOriginals": "{count, plural, one {foto con l'originale da confrontare} other {foto con l'originale da confrontare}}",
+      "tileOriginalsAll": "originale da confrontare su ogni foto con etichetta",
+      "legendTitle": "Che cosa dicono le etichette",
+      "legend": {
+        "ai": "La foto è passata da un modello generativo e la stiamo ancora ricontrollando.",
+        "ai_luce": "Solo luce e colore, niente tolto né aggiunto. La segnaliamo perché il generativo non corregge una foto, la ridisegna, e sui dettagli può sbagliare.",
+        "ai_pulizia": "Tolto ciò che è mobile o di passaggio (oggetti, persone, auto, materiali di cantiere), o rimesso in ordine un letto, un prato secco.",
+        "ai_aggiunte": "Mostra ciò che nella casa non c'è, o non è così: arredi virtuali, piante, un cielo cambiato, un'inquadratura allargata o rifatta, una casa da finire mostrata finita.",
+        "ai_rendering": "Un'immagine generata per intero con l'AI.",
+        "rendering": "Un'immagine di progetto, fatta senza AI."
+      }
     }
   },
   "group": {

@@ -223,7 +223,10 @@ header[data-pill] {
     transform 450ms var(--ease-lux),
     opacity 350ms var(--ease-lux);
 }
-html[data-header-hidden] header[data-pill] {
+html[data-header-hidden] header[data-pill],
+/* Lightbox con la trasparenza AI aperto (Lightbox.tsx): l'header resterebbe
+   SOPRA il lightbox e coprirebbe l'etichetta in alto a destra della foto. */
+html[data-lightbox-open] header[data-pill] {
   transform: translateY(-130%);
   opacity: 0;
   pointer-events: none;

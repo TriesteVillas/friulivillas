@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, ViewTransition } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { photoSrc, photoSrcSet } from "@/lib/photoSrc";
 import { etichettaAi, haEtichetta, serieCompleta, serieHaAi } from "@/lib/fotoAi";
 import PhotoImg from "./PhotoImg";
@@ -28,7 +28,16 @@ export default function PhotoGallery({
   cover: Photo | null;
   topPhotos: Photo[];
   allPhotos: Photo[];
-  labels: { viewAll: string; close: string; photosComing: string; grid?: string };
+  labels: {
+    viewAll: string;
+    close: string;
+    photosComing: string;
+    grid?: string;
+    // Titolo del riepilogo «Come abbiamo usato l'AI in queste foto»: se c'è, sotto
+    // le miniature un link porta alla sezione #foto-ai, dove le etichette si
+    // spiegano. Senza, nulla cambia.
+    aiSummary?: string;
+  };
   // Shared-element identity with the listing card cover (PropertyCard).
   morphName?: string;
   // The 4.0 listing page shows the cover in its cinematic hero, so the
@@ -42,10 +51,9 @@ export default function PhotoGallery({
   // Etichetta AI (SPEC §5.1): sigla «AI» sulle miniature, forma estesa sulla
   // foto grande. Le foto senza `ai` restano esattamente come prima.
   const tAi = useTranslations("property.aiFoto");
-  const locale = useLocale();
   const tag = (p: Photo, compatta: boolean) => {
     if (!haEtichetta(p.ai)) return null;
-    const e = etichettaAi(p.ai, locale, (k) => tAi(k));
+    const e = etichettaAi(p.ai, (k) => tAi(k));
     return (
       <AiTag
         testo={compatta ? e.compatta : e.estesa}
@@ -100,14 +108,43 @@ export default function PhotoGallery({
             ))}
           </div>
         )}
-        {fullSet.length > 1 && (
-          <button
-            type="button"
-            onClick={() => setOpen({ idx: 0, grid: true })}
-            className="btn-press mt-3 rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-brand hover:text-brand"
-          >
-            {labels.viewAll}
-          </button>
+        {labels.aiSummary ? (
+          // Con le etichette AI: «Vedi tutte» e, accanto, il link che le spiega.
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {fullSet.length > 1 && (
+              <button
+                type="button"
+                onClick={() => setOpen({ idx: 0, grid: true })}
+                className="btn-press rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-brand hover:text-brand"
+              >
+                {labels.viewAll}
+              </button>
+            )}
+            <a
+              href="#foto-ai"
+              className="inline-flex items-center gap-2 text-sm font-medium text-brand underline-offset-2 hover:underline"
+            >
+              <span
+                aria-hidden
+                className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/85 px-2 text-[11px] font-semibold leading-4 tracking-[0.06em] text-white ring-1 ring-white/35"
+              >
+                {tAi("glyph")}
+              </span>
+              <span>
+                {labels.aiSummary} <span aria-hidden>→</span>
+              </span>
+            </a>
+          </div>
+        ) : (
+          fullSet.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setOpen({ idx: 0, grid: true })}
+              className="btn-press mt-3 rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:border-brand hover:text-brand"
+            >
+              {labels.viewAll}
+            </button>
+          )
         )}
         {open !== null && fullSet.length > 0 && (
           <Lightbox

@@ -34,8 +34,22 @@
 // butta via. Misurato il 2026-07-30 in produzione: stessa foto, cache key nuova
 // → MISS a 1,01 s; subito dopo → HIT a 0,085 s. Da qui le foto si servono con
 // un <img> nudo (src/components/PhotoImg.tsx), non con next/image.
+//
+// La marcatura IPTC «DigitalSourceType» (SPEC §5.7) viaggia NELL'URL, come
+// sigla: `/foto/<att>/<w>-ai.webp` (composite), `-gen` (trainedAlgorithmicMedia),
+// `-enh` (algorithmicallyEnhanced). La mette photoSrc() quando la foto ha dati
+// di trasparenza dal CRM, o la sigla «AI» del sito. Così il contenuto resta una
+// funzione dell'URL — quindi la cache immutabile resta vera — e il proxy non
+// chiede niente al CRM: prima lo interrogava a ogni mancato colpo di CDN (fino a
+// 5 s di attesa) e scolpiva per un anno la marcatura di quel momento.
+// Senza sigla vale quella che il file stesso dichiara (Foto di Apple «Clean Up»
+// la scrive da sé), come prima.
+//
+// `/foto/<att>/og-<sigla>.jpg`: l'anteprima social (og:image) di una copertina
+// con etichetta AI — 1200×630, sigla «AI» stampata in alto a destra, perché
+// un'anteprima social non mostra le etichette HTML della pagina.
 import { getPhotoSources } from "@/lib/airtable";
-import { getTrasparenza, iptcDi } from "@/lib/trasparenza";
+import { IPTC_PER_SIGLA, type SiglaIptc } from "@/lib/fotoAi";
 
 // sharp gira solo su Node, non su Edge.
 export const runtime = "nodejs";
@@ -66,13 +80,14 @@ export async function GET(
       headers: { "Cache-Control": CACHE_MISS },
     });
   }
-  const width = Number(spec.replace(/\.webp$/, ""));
-  if (!(WIDTHS as readonly number[]).includes(width)) {
-    return new Response(`larghezza non ammessa (${WIDTHS.join(", ")})`, {
+  const richiesta = leggiSpec(spec);
+  if (!richiesta) {
+    return new Response(`larghezza non ammessa (${WIDTHS.join(", ")}, oppure og)`, {
       status: 400,
       headers: { "Cache-Control": CACHE_MISS },
     });
   }
+  const { width, og, sigla } = richiesta;
 
   const photo = (await getPhotoSources()).get(att);
   if (!photo) {
@@ -85,7 +100,7 @@ export async function GET(
   // Sorgente: la rendition `large` di Airtable (917 px) basta per le larghezze
   // piccole ed evita di scaricare l'originale da 12 MB per produrne una miniatura.
   // Sopra i 900 px serve l'originale, altrimenti si scalerebbe in su del già scalato.
-  const source = width > 900 ? photo.url : photo.thumb;
+  const source = og || width > 900 ? photo.url : photo.thumb;
 
   try {
     const upstream = await fetch(source, { cache: "no-store" });
@@ -101,16 +116,18 @@ export async function GET(
 
     const { default: sharp } = await import("sharp");
     const immagine = sharp(input);
-    // La marcatura IPTC «DigitalSourceType» (SPEC §5.7): deve arrivare al
-    // visitatore anche dopo la ricodifica. Prima la dice il CRM (la vista
-    // trasparenza conosce il trattamento di questa foto), poi il file stesso
-    // (Foto di Apple «Clean Up», per esempio, la scrive da sé).
-    const tipo =
-      iptcDi(await getTrasparenza(), photo.rec, photo.filename) ??
-      digitalSourceTypeDi((await immagine.metadata()).xmp);
-    let lavoro = immagine
-      .rotate() // rispetta l'orientamento EXIF prima di ridimensionare
-      .resize({ width, withoutEnlargement: true });
+    const tipo = sigla
+      ? IPTC_PER_SIGLA[sigla]
+      : digitalSourceTypeDi((await immagine.metadata()).xmp);
+    let lavoro = immagine.rotate(); // rispetta l'orientamento EXIF prima di ridimensionare
+    lavoro = og
+      ? lavoro.resize({ width: OG_W, height: OG_H, fit: "cover" })
+      : lavoro.resize({ width, withoutEnlargement: true });
+    // La sigla «AI» stampata sull'anteprima social: solo per le marcature AI
+    // (non per `enh`, il ritocco tecnico, che sulla pagina non ha etichetta).
+    if (og && (sigla === "ai" || sigla === "gen")) {
+      lavoro = lavoro.composite([{ input: Buffer.from(svgSiglaAi(OG_W, OG_H)), top: 0, left: 0 }]);
+    }
     // ⚠️ Non `keepXmp()`, di proposito: l'XMP sorgente non porta solo la
     // marcatura. Misurato il 01/10/2026 sul catalogo: lo scatto da drone di un
     // annuncio (DJI_0211.JPG) ha 8 KB di XMP con modello del drone, date,
@@ -119,11 +136,13 @@ export async function GET(
     // tutto questo, e così deve restare. Si scrive un XMP NUOVO con la sola
     // DigitalSourceType.
     if (tipo) lavoro = lavoro.withXmp(xmpDigitalSourceType(tipo));
-    const out = await lavoro.webp({ quality: 78 }).toBuffer();
+    const out = og
+      ? await lavoro.jpeg({ quality: 82, mozjpeg: true }).toBuffer()
+      : await lavoro.webp({ quality: 78 }).toBuffer();
 
     return new Response(new Uint8Array(out), {
       headers: {
-        "Content-Type": "image/webp",
+        "Content-Type": og ? "image/jpeg" : "image/webp",
         "Content-Length": String(out.byteLength),
         "Cache-Control": CACHE_HIT,
       },
@@ -134,6 +153,57 @@ export async function GET(
       headers: { "Cache-Control": CACHE_MISS },
     });
   }
+}
+
+// ---- Cosa chiede l'URL ---------------------------------------------------------
+
+const OG_W = 1200;
+const OG_H = 630;
+const SPEC_FOTO = /^(\d{3,4})(?:-(ai|gen|enh))?(?:\.webp)?$/;
+const SPEC_OG = /^og(?:-(ai|gen|enh))?\.jpg$/;
+
+function leggiSpec(spec: string): { width: number; og: boolean; sigla: SiglaIptc | null } | null {
+  const og = SPEC_OG.exec(spec);
+  if (og) return { width: OG_W, og: true, sigla: (og[1] as SiglaIptc | undefined) ?? null };
+  const m = SPEC_FOTO.exec(spec);
+  if (!m) return null;
+  const width = Number(m[1]);
+  if (!(WIDTHS as readonly number[]).includes(width)) return null;
+  return { width, og: false, sigla: (m[2] as SiglaIptc | undefined) ?? null };
+}
+
+// ---- La sigla «AI» disegnata sull'anteprima social ------------------------------
+//
+// Stessa forma dell'etichetta della pagina (AiTag): pillola scura dell'inchiostro
+// del sito all'85%, filo chiaro, «AI» bianco. Le lettere sono TRACCIATI, non
+// testo: sul server di Vercel non ci sono font di sistema garantiti, e un <text>
+// SVG potrebbe uscire a quadratini o vuoto.
+function svgSiglaAi(w: number, h: number): string {
+  const k = w / 1200;
+  const ph = 56 * k; // altezza della pillola
+  const pw = 104 * k;
+  const x0 = w - 28 * k - pw;
+  const y0 = 28 * k;
+  const cx = x0 + pw / 2;
+  const alto = y0 + ph / 2 - 13 * k; // lettere alte 26
+  const basso = y0 + ph / 2 + 13 * k;
+  const sw = 5.5 * k;
+  const aSx = cx - 18.5 * k; // gamba sinistra della A
+  const aDx = aSx + 22 * k; // gamba destra
+  const apice = (aSx + aDx) / 2;
+  const yBarra = alto + 26 * k * 0.64;
+  const dBarra = ((basso - yBarra) / (basso - alto)) * (11 * k);
+  const xI = aDx + 12.5 * k;
+  const f = (n: number) => n.toFixed(1);
+  return (
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+    `<rect x="${f(x0)}" y="${f(y0)}" width="${f(pw)}" height="${f(ph)}" rx="${f(ph / 2)}" fill="#0b1512" fill-opacity="0.85" stroke="#ffffff" stroke-opacity="0.35" stroke-width="${f(2 * k)}"/>` +
+    `<g fill="none" stroke="#ffffff" stroke-width="${f(sw)}">` +
+    `<path d="M${f(aSx)} ${f(basso)} L${f(apice)} ${f(alto)} L${f(aDx)} ${f(basso)}" stroke-linejoin="round"/>` +
+    `<path d="M${f(aSx + dBarra)} ${f(yBarra)} L${f(aDx - dBarra)} ${f(yBarra)}"/>` +
+    `<path d="M${f(xI)} ${f(alto)} L${f(xI)} ${f(basso)}"/>` +
+    `</g></svg>`
+  );
 }
 
 // ---- XMP minimo con la sola DigitalSourceType ---------------------------------

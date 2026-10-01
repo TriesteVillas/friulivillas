@@ -64,7 +64,7 @@
     "hero": {
       "eyebrow": "Skupina TriesteVillas v Furlaniji - Julijski krajini",
       "titleLine1": "Izbrane vile in nepremičnine",
-      "titleKinetic": "v Furlaniji\u00a0- Julijski krajini.",
+      "titleKinetic": "v Furlaniji - Julijski krajini.",
       "titleLine2": "Pod istim vodstvom kot v Trstu.",
       "subtitle": "FriuliVillas je blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino na severovzhodu Italije. Ne gre za ponudbo vsega po malem, temveč za projekt, zasnovan zato, da v preostali del regije prinese metodo, specializacijo in izurjeno oko.",
       "videoAlt": "Pogled iz zraka na pokrajino Furlanije - Julijske krajine.",
@@ -383,14 +383,29 @@
       "genericAria": "Fotografija, spremenjena z UI, v ponovnem pregledu",
       "showOriginal": "Poglej izvirnik",
       "originalCaption": "Izvirna fotografija, pred posegom. Obrazi in osebni podatki so zabrisani.",
-      "summaryTitle": "Kako smo pri teh fotografijah uporabili UI",
+      "summaryTitle": "Kako smo pri teh fotografijah uporabili umetno inteligenco",
       "navLabel": "UI na fotografijah",
-      "summaryEdited": "{ai, plural, one {# od {total} fotografij je urejena z UI} two {# od {total} fotografij sta urejeni z UI} few {# od {total} fotografij so urejene z UI} other {# od {total} fotografij je urejenih z UI}}",
-      "summaryDefects": "{count, plural, one {# z zaščitenimi pomanjkljivostmi} two {# z zaščitenimi pomanjkljivostmi} few {# z zaščitenimi pomanjkljivostmi} other {# z zaščitenimi pomanjkljivostmi}}",
-      "summaryOriginals": "{count, plural, one {izvirnik na voljo pri # fotografiji} two {izvirnik na voljo pri # fotografijah} few {izvirnik na voljo pri # fotografijah} other {izvirnik na voljo pri # fotografijah}}",
-      "summaryOriginalsAll": "izvirnik na voljo pri vsaki urejeni fotografiji",
       "summaryClosing": "Edino merilo ostaja ogled.",
-      "summaryLink": "Preberite »UI z odprtimi kartami«: kako uporabljamo umetno inteligenco"
+      "summaryLink": "Preberite »UI z odprtimi kartami«: kako uporabljamo umetno inteligenco",
+      "genericCaption": "Ta fotografija je šla skozi generativni model slik: opis posega pripravljamo.",
+      "readMore": "Preberi več",
+      "readLess": "Prikaži manj",
+      "tileOf": "{n} od {total}",
+      "tileAi": "{count, plural, one {fotografija, urejena z UI} two {fotografiji, urejeni z UI} few {fotografije, urejene z UI} other {fotografij, urejenih z UI}}",
+      "tileGeneric": "{count, plural, one {fotografija z oznako »AI«, opis v pripravi} two {fotografiji z oznako »AI«, opis v pripravi} few {fotografije z oznako »AI«, opis v pripravi} other {fotografij z oznako »AI«, opis v pripravi}}",
+      "tileRendering": "{count, plural, one {projektna vizualizacija, izdelana brez UI} two {projektni vizualizaciji, izdelani brez UI} few {projektne vizualizacije, izdelane brez UI} other {projektnih vizualizacij, izdelanih brez UI}}",
+      "tileDefects": "{count, plural, one {fotografija z zaklepom pomanjkljivosti} two {fotografiji z zaklepom pomanjkljivosti} few {fotografije z zaklepom pomanjkljivosti} other {fotografij z zaklepom pomanjkljivosti}}",
+      "tileOriginals": "{count, plural, one {fotografija z izvirnikom za primerjavo} two {fotografiji z izvirnikom za primerjavo} few {fotografije z izvirnikom za primerjavo} other {fotografij z izvirnikom za primerjavo}}",
+      "tileOriginalsAll": "izvirnik za primerjavo pri vsaki označeni fotografiji",
+      "legendTitle": "Kaj pomenijo oznake",
+      "legend": {
+        "ai": "Fotografija je šla skozi generativni model in jo še preverjamo.",
+        "ai_luce": "Samo svetloba in barva, nič odvzetega ali dodanega. Označimo jo, ker generativni model fotografije ne popravi, ampak jo nariše na novo, in se pri podrobnostih lahko zmoti.",
+        "ai_pulizia": "Odstranili smo, kar je premično ali začasno (predmete, ljudi, avtomobile, gradbeni material), ali uredili posteljo, posušeno trato.",
+        "ai_aggiunte": "Prikazuje, česar v hiši ni ali kar ni takšno: virtualno opremo, rastline, zamenjano nebo, razširjen ali spremenjen kader, nedokončano hišo, prikazano kot dokončano.",
+        "ai_rendering": "Slika, v celoti ustvarjena z UI.",
+        "rendering": "Projektna slika, izdelana brez UI."
+      }
     }
   },
   "group": {

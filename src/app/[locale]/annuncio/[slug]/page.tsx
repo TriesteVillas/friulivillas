@@ -13,7 +13,7 @@ import PropertyCharacteristics, {
 import PropertyMap from "@/components/PropertyMap";
 import PhotoGallery from "@/components/PhotoGallery";
 import PhotoImg from "@/components/PhotoImg";
-import { photoSrc, photoSrcSet } from "@/lib/photoSrc";
+import { photoOgSrc, photoSrc, photoSrcSet } from "@/lib/photoSrc";
 import Planimetrie from "@/components/Planimetrie";
 import PropertyBadge from "@/components/PropertyBadge";
 import PropertyCard from "@/components/PropertyCard";
@@ -49,6 +49,23 @@ import {
 } from "@/lib/fotoAi";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://friulivillas.com";
+
+// La pagina «AI a carte scoperte» (/ai, SPEC §6) su friulivillas.com non c'è
+// ancora, e per la SPEC §9.2 resta in anteprima finché la rilettura legale non
+// chiude: fino ad allora il riepilogo #foto-ai non la linka (sarebbe un 404
+// proprio nella sezione sulla trasparenza). Si accende qui quando la rotta
+// esiste in src/app/[locale]/ai.
+const PAGINA_AI_ONLINE = false;
+
+// Le tessere del riepilogo #foto-ai (da 1 a 5): righe piene, mai una tessera
+// sola a capo. Classi intere, perché Tailwind le trovi nel sorgente.
+const COLONNE_TESSERE: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-2 sm:grid-cols-3",
+  4: "grid-cols-2 lg:grid-cols-4",
+  5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
+};
 
 // Ladder dell'hero a tutto schermo. Il fallback resta 2000 px per i desktop
 // larghi; il ladder esiste perché con sizes="100vw" un telefono ne serve 780 e
@@ -99,7 +116,10 @@ export async function generateMetadata({
       `/annuncio/${slug}`,
       title,
       description,
-      property.coverPhoto?.url,
+      // Copertina con etichetta AI: l'anteprima social è la versione del proxy
+      // con la sigla «AI» stampata sopra (un'anteprima non mostra le etichette
+      // HTML della pagina) e la marcatura IPTC. Le altre restano com'erano.
+      (property.coverPhoto && photoOgSrc(property.coverPhoto)) ?? property.coverPhoto?.url,
     ),
   };
 }
@@ -179,35 +199,49 @@ export default async function PropertyPage({ params }: { params: Params }) {
   const description =
     descrizioneIntera && notaAi ? togliNotaAi(descrizioneIntera) || null : descrizioneIntera;
   // I conteggi del riepilogo si fanno sulle foto che la pagina mostra
-  // (copertina + top 8 + galleria, senza doppioni), etichette generiche comprese.
+  // (copertina + top 8 + galleria, senza doppioni). «Modificate con l'AI» è lo
+  // stesso numero di `conteggi.ai` del CRM; le sigle messe dal sito e i render
+  // senza AI si contano a parte (fotoAi.contaFotoAi).
   const contiAi = contaFotoAi([
     ...(property.coverPhoto ? [property.coverPhoto] : []),
     ...property.topPhotos,
     ...property.photos,
   ]);
-  const riepilogoAi = Boolean(property.trasparenza) && (notaAi !== null || contiAi.ai > 0);
-  const rigaAi =
-    contiAi.ai > 0
-      ? [
-          tAi("summaryEdited", { ai: contiAi.ai, total: contiAi.pubblicate }),
-          contiAi.bloccoDifetti > 0 && tAi("summaryDefects", { count: contiAi.bloccoDifetti }),
-          contiAi.conOriginale > 0 &&
-            (contiAi.aiConOriginale === contiAi.ai
-              ? tAi("summaryOriginalsAll")
-              : tAi("summaryOriginals", { count: contiAi.conOriginale })),
-        ]
-          .filter(Boolean)
-          .join(" · ")
-      : null;
+  const riepilogoAi = notaAi !== null || contiAi.etichettate > 0;
+  const tessereAi = riepilogoAi
+    ? [
+        contiAi.ai > 0 && {
+          valore: tAi("tileOf", { n: contiAi.ai, total: contiAi.pubblicate }),
+          etichetta: tAi("tileAi", { count: contiAi.ai }),
+        },
+        contiAi.generiche > 0 && {
+          valore: tAi("tileOf", { n: contiAi.generiche, total: contiAi.pubblicate }),
+          etichetta: tAi("tileGeneric", { count: contiAi.generiche }),
+        },
+        contiAi.rendering > 0 && {
+          valore: String(contiAi.rendering),
+          etichetta: tAi("tileRendering", { count: contiAi.rendering }),
+        },
+        contiAi.bloccoDifetti > 0 && {
+          valore: String(contiAi.bloccoDifetti),
+          etichetta: tAi("tileDefects", { count: contiAi.bloccoDifetti }),
+        },
+        contiAi.conOriginale > 0 && {
+          valore: String(contiAi.conOriginale),
+          etichetta:
+            contiAi.etichettate > 0 && contiAi.etichettateConOriginale === contiAi.etichettate
+              ? tAi("tileOriginalsAll")
+              : tAi("tileOriginals", { count: contiAi.conOriginale }),
+        },
+      ].filter((x): x is { valore: string; etichetta: string } => Boolean(x))
+    : [];
   const heroFoto = property.coverPhoto ?? property.photos[0] ?? null;
   // «Vedi tutte le N foto»: con dati AI il lightbox scorre anche copertina e
   // top 8 (PhotoGallery → serieCompleta), e N deve contare la stessa serie.
   const fotoNelLightbox = serieHaAi(heroFoto, property.topPhotos, property.photos)
     ? serieCompleta(heroFoto, property.topPhotos, property.photos).length
     : property.photos.length;
-  const heroAi = haEtichetta(heroFoto?.ai)
-    ? etichettaAi(heroFoto!.ai!, locale, (k) => tAi(k))
-    : null;
+  const heroAi = haEtichetta(heroFoto?.ai) ? etichettaAi(heroFoto!.ai!, (k) => tAi(k)) : null;
 
   // Box costi indicativi (solo vendita), col toggle prima/seconda casa —
   // stesso impianto del gemello TriesteVillas: imposta dallo scenario, fee 4%
@@ -398,17 +432,16 @@ export default async function PropertyPage({ params }: { params: Params }) {
           <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-ink" />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/10 to-ink/90" />
-        {/* Etichetta AI della copertina, in alto a destra sotto l'header fisso
-            (SPEC §5.1): forma estesa, come nella vista singola. */}
-        {heroAi && (
-          <AiTag
-            testo={heroAi.estesa}
-            aria={heroAi.aria}
-            className="absolute right-4 top-24 z-[3] sm:right-6"
-          />
-        )}
-
-        <div className="absolute left-0 right-0 top-24 mx-auto max-w-5xl px-6">
+        {/* Etichetta AI della copertina (SPEC §5.1): forma estesa, come nella
+            vista singola, in alto a destra sotto l'header fisso — sulla STESSA
+            riga del «← Torna agli immobili» e nella stessa colonna della
+            scheda (max-w-5xl), non incollata al bordo della finestra. Senza
+            etichetta il blocco resta quello di sempre. */}
+        <div
+          className={`absolute left-0 right-0 top-24 mx-auto max-w-5xl px-6${
+            heroAi ? " z-[3] flex items-center justify-between gap-3" : ""
+          }`}
+        >
           <Link
             href="/immobili"
             transitionTypes={["nav-back"]}
@@ -419,6 +452,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
             </span>{" "}
             {t("backToList")}
           </Link>
+          {heroAi && <AiTag testo={heroAi.estesa} aria={heroAi.aria} className="shrink-0" />}
         </div>
 
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-5xl px-6 pb-12">
@@ -513,6 +547,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
                 close: t("galClose"),
                 photosComing: t("photosComing"),
                 grid: t("galGrid"),
+                ...(riepilogoAi ? { aiSummary: tAi("summaryTitle") } : {}),
               }}
             />
           </div>
@@ -612,10 +647,20 @@ export default async function PropertyPage({ params }: { params: Params }) {
 
           {riepilogoAi && (
             <section id="foto-ai" className="mt-8 scroll-mt-32" data-reveal>
-              <h2 className="text-lg font-semibold">{tAi("summaryTitle")}</h2>
-              <div className="mt-3 space-y-3 rounded-2xl border border-neutral-200 bg-white p-5 leading-relaxed text-neutral-700 sm:p-6">
+              <h2 className="text-balance text-lg font-semibold">{tAi("summaryTitle")}</h2>
+              <div className="mt-3 rounded-xl border border-neutral-200 bg-white p-5 leading-relaxed text-neutral-700 sm:p-6">
+                {tessereAi.length > 0 && (
+                  <ul className={`grid gap-3 ${COLONNE_TESSERE[tessereAi.length] ?? COLONNE_TESSERE[5]}`}>
+                    {tessereAi.map((x) => (
+                      <li key={x.etichetta} className="rounded-xl border border-neutral-200 bg-white p-3 sm:p-4">
+                        <p className="text-lg font-semibold text-neutral-900">{x.valore}</p>
+                        <p className="mt-1 text-sm leading-snug text-neutral-600">{x.etichetta}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 {notaAi && (
-                  <div lang={notaAi.lang} className="space-y-3">
+                  <div lang={notaAi.lang} className={`space-y-3${tessereAi.length ? " mt-5" : ""}`}>
                     {notaAi.testo
                       .split(/\n+/)
                       .map((x) => x.trim())
@@ -625,13 +670,31 @@ export default async function PropertyPage({ params }: { params: Params }) {
                       ))}
                   </div>
                 )}
-                {rigaAi && <p className="text-sm font-medium text-neutral-800">{rigaAi}</p>}
-                <p className="font-medium text-neutral-900">{tAi("summaryClosing")}</p>
-                <p className="text-sm">
-                  <Link href="/ai" className="font-medium text-brand underline-offset-2 hover:underline">
-                    {tAi("summaryLink")}
-                  </Link>
-                </p>
+                {contiAi.trattamenti.length > 0 && (
+                  <div className="mt-5">
+                    <h3 className="text-sm font-semibold text-neutral-900">{tAi("legendTitle")}</h3>
+                    <ul className="mt-3 space-y-3">
+                      {contiAi.trattamenti.map((tr) => (
+                        <li key={tr} className="flex items-start gap-3 text-sm text-neutral-600">
+                          <AiTag
+                            testo={tAi(`tag.${tr}`)}
+                            aria={tr === "ai" ? tAi("genericAria") : tAi(`tag.${tr}`)}
+                            className="mt-px shrink-0"
+                          />
+                          <span>{tAi(`legend.${tr}`)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-neutral-200 pt-4">
+                  <p className="font-medium text-neutral-900">{tAi("summaryClosing")}</p>
+                  {PAGINA_AI_ONLINE && (
+                    <Link href="/ai" className="text-sm font-medium text-brand underline-offset-2 hover:underline">
+                      {tAi("summaryLink")} <span aria-hidden>→</span>
+                    </Link>
+                  )}
+                </div>
               </div>
             </section>
           )}

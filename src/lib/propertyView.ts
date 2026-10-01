@@ -172,7 +172,7 @@ export function buildPropertyView(
   }
 
   const coverAi = haEtichetta(p.coverPhoto?.ai)
-    ? etichettaAi(p.coverPhoto!.ai!, locale, (k) => t(`aiFoto.${k}`))
+    ? etichettaAi(p.coverPhoto!.ai!, (k) => t(`aiFoto.${k}`))
     : null;
 
   return {

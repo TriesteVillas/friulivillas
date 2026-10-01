@@ -3,9 +3,11 @@ import { unstable_cache } from "next/cache";
 import {
   LINGUE_AI,
   firmaDiGeneratore,
+  iptcValido,
   normalizzaTrattamento,
   riordinaSimulazioni,
   eSimulazione,
+  IPTC_PER_TRATTAMENTO,
   type FotoAi,
   type Testi,
 } from "./fotoAi";
@@ -25,19 +27,28 @@ import type { Photo, Property } from "./properties";
 // ── TOLLERANTE, MA SENZA TOGLIERE ETICHETTE ────────────────────────────────
 // Il catalogo non dipende mai da questa lettura: se fallisce, le pagine si
 // costruiscono lo stesso. Ma «fallisce ⇒ nessuna etichetta» non va bene: le
-// foto che l'ultima risposta buona conosceva come AI uscirebbero nude. Quindi
-// tre gradini, dal più al meno informato:
+// foto che l'ultima risposta buona conosceva come AI uscirebbero nude. Quindi,
+// dal più al meno informato:
 //   1. la vista, letta e VALIDATA dentro `unstable_cache` (revalidate 600 e
-//      tag "properties", come il catalogo). Se la rilettura in background
-//      fallisce o risponde male, Next continua a servire l'ultima copia valida
-//      e non la sovrascrive (unstable-cache.js: lo stale resta, l'errore si
-//      logga). Una risposta che dichiara `stato` diverso da «letta» (tabelle
-//      illeggibili ⇒ `trasparenza` null per tutti) è un GUASTO, non «nessuna
-//      foto AI»: si lancia, e la copia buona resta;
+//      tag "properties", come il catalogo). Il tetto d'attesa (5 s) sta DENTRO
+//      la funzione in cache, come `AbortSignal`: una risposta lenta o rotta
+//      LANCIA, e una funzione in cache che lancia non sovrascrive la copia
+//      buona. Next la serve ancora — anche nella rigenerazione ISR, dove la
+//      voce scaduta si rilegge in primo piano: in caso d'errore
+//      unstable-cache.js restituisce la copia vecchia (`return cachedResponse`).
+//      Prima il tetto era una corsa FUORI dalla cache, e su una risposta lenta
+//      vinceva il timer prima che Next potesse ripiegare sulla copia vecchia
+//      (review del 01/10). Una risposta che dichiara `stato` diverso da
+//      «letta» (tabelle illeggibili ⇒ `trasparenza` null per tutti) è un
+//      GUASTO, non «nessuna foto AI»: si lancia anche lì;
 //   2. l'ultima risposta valida vista da QUESTO processo (in memoria), per i
-//      casi in cui la cache non risponde (revalidate on-demand, voce scaduta);
-//   3. nessuna risposta buona, mai: etichetta generica «AI» sulle foto il cui
-//      filename porta la firma di un generatore (fotoAi.ts → GENERATORI).
+//      casi in cui la cache non ha nessuna copia (prima lettura dopo un deploy:
+//      la chiave di unstable_cache contiene il sorgente della funzione);
+//   3. nessuna risposta buona: restano le sole sigle «AI» sui nomi dei
+//      generatori.
+// La sigla sui nomi dei generatori NON è un gradino: vale SEMPRE, su ogni foto
+// senza riga nel CRM (vedi fotoAi.ts → firmaDiGeneratore). Così lo stato più
+// informato non mostra mai meno etichette di quello meno informato.
 //
 // ── OVERRIDE PER IL COLLAUDO ───────────────────────────────────────────────
 // `CRM_TRASPARENZA_URL` (URL completa) sostituisce l'indirizzo della vista,
@@ -49,7 +60,11 @@ import type { Photo, Property } from "./properties";
 
 const SITO = "friulivillas.com";
 const REVALIDATE_SECONDS = 600;
+// Tetto della lettura vera (dentro la cache) e, più largo, di tutta l'attesa:
+// il secondo serve solo se la cache stessa non risponde, e deve lasciare al
+// primo il tempo di scadere e a Next quello di restituire la copia vecchia.
 const TIMEOUT_MS = 5000;
+const TETTO_ATTESA_MS = 8000;
 
 function origineVetrina(): string {
   const configurata = (process.env.CRM_VETRINA_URL || "").trim();
@@ -152,10 +167,11 @@ function leggiRisposta(dati: unknown): Vista {
 }
 
 // La copia valida più recente, nella Data Cache di Next. Una lettura che non
-// passa leggiRisposta LANCIA: così non sovrascrive mai la copia buona.
+// passa leggiRisposta, o che non arriva in TIMEOUT_MS, LANCIA: così non
+// sovrascrive mai la copia buona, e Next ripiega su quella.
 const vistaInCache = unstable_cache(
   async (url: string): Promise<Vista> => {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(TIMEOUT_MS) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return leggiRisposta(await res.json());
   },
@@ -178,11 +194,11 @@ function esitoDa(v: Vista, fonte: Esito["fonte"]): Esito {
 
 async function leggi(): Promise<Esito> {
   let timer: ReturnType<typeof setTimeout> | undefined;
-  // Tetto d'attesa come per lo sloveno (airtable.ts): una corsa contro un
-  // timer, non un `signal`. La lettura rimasta indietro finisce da sola e
-  // popola la cache per il giro dopo.
+  // Il tetto vero è dentro vistaInCache (AbortSignal): questo è solo il
+  // paracadute se la cache stessa non risponde. La lettura rimasta indietro
+  // finisce da sola e popola la cache per il giro dopo.
   const scaduto = new Promise<null>((resolve) => {
-    timer = setTimeout(() => resolve(null), TIMEOUT_MS);
+    timer = setTimeout(() => resolve(null), TETTO_ATTESA_MS);
   });
   // Anche una lettura arrivata DOPO il timer aggiorna la memoria del processo.
   const lettura = vistaInCache(VISTA_URL).then((v) => {
@@ -193,14 +209,14 @@ async function leggi(): Promise<Esito> {
   try {
     const v = await Promise.race([lettura, scaduto]);
     if (v) return esitoDa(v, "vista");
-    console.warn(`[trasparenza] nessuna risposta in ${TIMEOUT_MS} ms`);
+    console.warn(`[trasparenza] nessuna risposta in ${TETTO_ATTESA_MS} ms`);
   } catch (e) {
     console.warn(`[trasparenza] vista non letta: ${e instanceof Error ? e.message : String(e)}`);
   } finally {
     clearTimeout(timer);
   }
   if (ultimaBuona) return esitoDa(ultimaBuona, "memoria");
-  console.warn("[trasparenza] nessuna risposta buona finora: etichetta generica sui nomi dei generatori");
+  console.warn("[trasparenza] nessuna risposta buona finora: restano le sole sigle sui nomi dei generatori");
   return { fonte: "nessuna", per: new Map() };
 }
 
@@ -219,8 +235,11 @@ function urlOriginale(rec: string, id: string, taglia: "m" | "xl"): string {
 }
 
 function fotoAiDa(rec: string, f: FotoVista): FotoAi {
+  const trattamento = normalizzaTrattamento(f.trattamento);
   return {
-    trattamento: normalizzaTrattamento(f.trattamento),
+    trattamento,
+    iptc: iptcValido(f.iptc, trattamento),
+    origine: "crm",
     didascalia: f.didascalia,
     originale: f.originale
       ? {
@@ -234,42 +253,63 @@ function fotoAiDa(rec: string, f: FotoVista): FotoAi {
   };
 }
 
-const GENERICA: FotoAi = { trattamento: "ai", didascalia: null, originale: null, bloccoDifetti: false };
+// La sigla «AI» che il sito mette da sé, senza riga nel CRM.
+const GENERICA: FotoAi = {
+  trattamento: "ai",
+  iptc: IPTC_PER_TRATTAMENTO.ai,
+  origine: "generica",
+  didascalia: null,
+  originale: null,
+  bloccoDifetti: false,
+};
 
 /**
  * L'immobile con la trasparenza applicata: `ai` su ogni foto (non sulle
  * planimetrie, SPEC §5.5), `trasparenza` per il riepilogo, e le simulazioni
  * tolte dalla copertina e dalla testa della galleria (SPEC §9.3).
- * Senza dati per questo immobile restituisce l'oggetto IDENTICO.
+ *
+ * Per ogni foto, dal più al meno certo:
+ *   1. la sua riga nel CRM;
+ *   2. senza riga, ma con righe AI del CRM che non combaciano più con nessun
+ *      file mostrato (`ai_non_abbinate`): non sappiamo quale foto
+ *      descrivessero, quindi la sigla va su tutte quelle senza riga;
+ *   3. senza riga, col nome di un generatore (hf_…, Nano Banana, …): la sigla
+ *      minima, SEMPRE — anche quando il CRM risponde e non sa niente
+ *      dell'immobile.
+ * ⚠️ La SPEC §0 dice «se `conteggi.ai > 0` e una foto non ha riga, etichetta
+ * generica»; qui la regola è `ai_non_abbinate > 0`, come la definisce il CRM
+ * (vetrina-trasparenza.ts: «è il segnale per il sito»). Con la regola letterale,
+ * un immobile con tre righe AI e cinquanta foto vere non registrate avrebbe la
+ * sigla «AI» su tutte e cinquanta. Da ratificare con Martino.
+ *
+ * Senza riga, senza segnale e senza firma la foto resta com'era: un immobile
+ * senza nulla di tutto questo torna IDENTICO (stesso oggetto).
  */
 export function applicaTrasparenza(p: Property, esito: Esito): Property {
-  let assegna: ((ph: Photo) => FotoAi | null) | null = null;
-  let scheda: Property["trasparenza"] = null;
-
-  const t = esito.per.get(p.recId);
-  if (t) {
-    const perNome = new Map(t.foto.map((f) => [f.filename, f]));
-    assegna = (ph) => {
-      const riga = ph.filename !== null ? perNome.get(ph.filename) : undefined;
-      if (riga) return fotoAiDa(p.recId, riga);
-      // Righe AI del CRM che non combaciano più con nessun file mostrato: non
-      // sappiamo quale foto descrivessero, quindi la sigla va su tutte quelle
-      // senza riga (SPEC §0; nel CRM `ai_non_abbinate`).
-      return t.aiNonAbbinate > 0 ? GENERICA : null;
-    };
-    scheda = { nota: t.nota };
-  } else if (esito.fonte === "nessuna") {
-    assegna = (ph) => (firmaDiGeneratore(ph.filename) ? GENERICA : null);
-  }
-  if (!assegna) return p;
-
-  const marca = (ph: Photo): Photo => {
-    const ai = assegna!(ph);
-    return ai ? { ...ph, ai } : ph;
+  const t = esito.per.get(p.recId) ?? null;
+  const perNome = t ? new Map(t.foto.map((f) => [f.filename, f])) : null;
+  const assegna = (ph: Photo): FotoAi | null => {
+    const riga = ph.filename !== null ? perNome?.get(ph.filename) : undefined;
+    if (riga) return fotoAiDa(p.recId, riga);
+    if (t && t.aiNonAbbinate > 0) return GENERICA;
+    return firmaDiGeneratore(ph.filename) ? GENERICA : null;
   };
-  const photos = riordinaSimulazioni(p.photos.map(marca));
-  const topPhotos = riordinaSimulazioni(p.topPhotos.map(marca));
-  let coverPhoto = p.coverPhoto ? marca(p.coverPhoto) : null;
+
+  let toccata = false;
+  const marca = (ph: Photo): Photo => {
+    const ai = assegna(ph);
+    if (!ai) return ph;
+    toccata = true;
+    return { ...ph, ai };
+  };
+  const photos0 = p.photos.map(marca);
+  const topPhotos0 = p.topPhotos.map(marca);
+  const cover0 = p.coverPhoto ? marca(p.coverPhoto) : null;
+  if (!toccata && !t) return p;
+
+  const photos = riordinaSimulazioni(photos0);
+  const topPhotos = riordinaSimulazioni(topPhotos0);
+  let coverPhoto = cover0;
 
   // La copertina simulata cede il posto alla prima foto reale (prima i top 8,
   // poi la galleria). Se non è anche in galleria, ci entra subito dopo la
@@ -290,11 +330,11 @@ export function applicaTrasparenza(p: Property, esito: Esito): Property {
     }
   }
 
-  return { ...p, photos: galleria, topPhotos, coverPhoto, trasparenza: scheda };
-}
-
-/** iptc DigitalSourceType della foto, se la vista la conosce (per il proxy /foto). */
-export function iptcDi(esito: Esito, rec: string, filename: string | null): string | null {
-  if (filename === null) return null;
-  return esito.per.get(rec)?.foto.find((f) => f.filename === filename)?.iptc ?? null;
+  return {
+    ...p,
+    photos: galleria,
+    topPhotos,
+    coverPhoto,
+    trasparenza: t ? { nota: t.nota } : null,
+  };
 }

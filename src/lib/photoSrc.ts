@@ -6,6 +6,7 @@
 // WebP alla larghezza chiesta dietro un URL stabile e cacheabile per sempre.
 // Vedi src/app/foto/[att]/[spec]/route.ts per il perché completo.
 import type { Photo } from "@/lib/properties";
+import { eAi, siglaDiIptc } from "@/lib/fotoAi";
 
 // Le stesse larghezze dell'allowlist della rotta: chiederne un'altra darebbe 400.
 export const PHOTO_WIDTHS = [400, 600, 800, 1200, 1600, 2000] as const;
@@ -20,7 +21,36 @@ export type PhotoWidth = (typeof PHOTO_WIDTHS)[number];
  */
 export function photoSrc(photo: Photo, width: PhotoWidth): string {
   if (!photo.id) return width > 900 ? photo.url : photo.thumb;
-  return `/foto/${photo.id}/${width}.webp`;
+  return `/foto/${photo.id}/${width}${suffissoIptc(photo)}.webp`;
+}
+
+/**
+ * La marcatura IPTC «DigitalSourceType» fa parte dell'URL (SPEC §5.7): il proxy
+ * la scrive nel file, e il file sta in cache immutabile per un anno. Se la
+ * marcatura dipendesse da uno stato letto al momento della richiesta (la vista
+ * del CRM), la prima versione servita — magari senza marcatura, perché il CRM
+ * non conosceva ancora la foto — resterebbe quella per un anno (review del
+ * 01/10). Con la sigla nell'URL, una foto che il CRM classifica o riclassifica
+ * cambia URL, e il file nuovo nasce già marcato. Le foto senza dati AI hanno
+ * l'URL di sempre.
+ */
+function suffissoIptc(photo: Photo): string {
+  const sigla = photo.ai ? siglaDiIptc(photo.ai.iptc) : null;
+  return sigla ? `-${sigla}` : "";
+}
+
+/**
+ * L'immagine per i social (og:image) di una copertina con etichetta AI: 1200×630,
+ * con la sigla «AI» stampata nell'angolo in alto a destra (un'anteprima social
+ * non mostra le etichette HTML della pagina) e la marcatura IPTC nel file.
+ * null se la foto non ha etichetta o non ha un id: lì l'og:image resta com'era.
+ */
+export function photoOgSrc(photo: Photo): string | null {
+  // Solo le foto passate da un modello (eAi, comprese le sigle del sito): il
+  // ritocco tecnico non ha etichetta, e il render di progetto senza AI non deve
+  // uscire sui social con una sigla «AI» stampata sopra.
+  if (!photo.id || !photo.ai || !eAi(photo.ai.trattamento)) return null;
+  return `/foto/${photo.id}/og${suffissoIptc(photo)}.jpg`;
 }
 
 /**
