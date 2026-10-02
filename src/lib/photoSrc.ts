@@ -40,18 +40,32 @@ function suffissoIptc(photo: Photo): string {
 }
 
 /**
- * L'immagine per i social (og:image) di una copertina con etichetta AI: 1200×630,
- * con la sigla «AI» stampata nell'angolo in alto a destra (un'anteprima social
- * non mostra le etichette HTML della pagina) e la marcatura IPTC nel file.
- * null se la foto non ha etichetta o non ha un id: lì l'og:image resta com'era.
+ * L'immagine per i social (og:image) della copertina: 1200×630 dal proxy
+ * /foto, un URL stabile e leggero (~170 KB) invece della url firmata di
+ * Airtable, che pesa quanto il file caricato (2,8 MB misurati su Villa Ronchi)
+ * e scade in un paio d'ore — una pagina rimasta in cache più a lungo dava ai
+ * crawler e a WhatsApp un link già morto. Tre forme:
+ *   · `og-<sigla>.jpg`  — copertina CON etichetta AI (sostanza, haEtichetta):
+ *     la sigla «AI» stampata nell'angolo (un'anteprima social non mostra le
+ *     etichette HTML della pagina) e la marcatura IPTC nel file;
+ *   · `og-<sigla>l.jpg` — copertina passata da un modello SENZA etichetta
+ *     (sola luce, §11.1) o render di progetto senza AI: nessuna sigla
+ *     stampata, la marcatura IPTC sì (§11.1: resta per tutte le foto passate
+ *     da un modello, `ai_luce` compresa). `enh` (ritocco tecnico) non stampa
+ *     mai niente e resta `og-enh.jpg`;
+ *   · `og.jpg`          — copertina senza dati AI: la foto com'è.
+ * Un URL nuovo per ogni forma: `og-ai.jpg` è in cache immutabile per un anno.
+ * null solo se la foto non ha un id (resta la url firmata, come prima).
  */
 export function photoOgSrc(photo: Photo): string | null {
-  // Solo le foto passate da un modello (eAi, comprese le sigle del sito) CHE
-  // portano l'etichetta sulla pagina (haEtichetta): il ritocco tecnico e, dal
-  // 02/10, quello di sola luce e colore (SPEC §11.1) usano la foto normale; il
-  // render di progetto senza AI non deve uscire sui social con una sigla «AI».
-  if (!photo.id || !haEtichetta(photo.ai) || !eAi(photo.ai.trattamento)) return null;
-  return `/foto/${photo.id}/og${suffissoIptc(photo)}.jpg`;
+  if (!photo.id) return null;
+  const sigla = photo.ai ? siglaDiIptc(photo.ai.iptc) : null;
+  if (!sigla) return `/foto/${photo.id}/og.jpg`;
+  // La sigla stampata solo dove la pagina mette l'etichetta E la foto è
+  // passata da un modello: non sullo stile (§11.1), non sul render senza AI.
+  const stampa = haEtichetta(photo.ai) && eAi(photo.ai.trattamento);
+  if (stampa || sigla === "enh") return `/foto/${photo.id}/og-${sigla}.jpg`;
+  return `/foto/${photo.id}/og-${sigla}l.jpg`;
 }
 
 /**

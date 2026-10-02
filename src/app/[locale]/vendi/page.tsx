@@ -6,9 +6,9 @@ import BuyerCta from "@/components/BuyerCta";
 import Timeline from "@/components/Timeline";
 import JsonLd from "@/components/JsonLd";
 import AutoVideo from "@/components/AutoVideo";
-import EtichettaVideo from "@/components/EtichettaVideo";
+import SegnoAiDiscreto from "@/components/SegnoAiDiscreto";
 import { getVideoAi } from "@/lib/trasparenza";
-import { chiaveFile, datiEtichettaVideo, didascaliaVideo } from "@/lib/videoAi";
+import { chiaveFile, segnoVideoHome } from "@/lib/videoAi";
 import { pageAlternates, pageOpenGraph, faqJsonLd } from "@/lib/seo";
 
 // Il video della pagina: il percorso è anche la chiave nel registro dei video
@@ -54,9 +54,11 @@ export default async function SellPage({
   setRequestLocale(locale);
   const t = await getTranslations("sell");
   const tHome = await getTranslations("home");
-  const rigaVideo = (await getVideoAi()).get(chiaveFile(VIDEO_VENDI));
-  const etichettaVideo = datiEtichettaVideo(rigaVideo, locale);
-  const didascalia = didascaliaVideo(rigaVideo, locale);
+  // Pagina di marchio, video d'atmosfera: la regola della home (SPEC §11.1,
+  // review di misura del 02/10), cioè il solo segno discreto sotto il video e
+  // la didascalia del registro ai lettori di schermo (la prima versione del
+  // 02/10 ci metteva la pillola e 3-4 righe di didascalia visibili).
+  const segnoVideo = segnoVideoHome((await getVideoAi()).get(chiaveFile(VIDEO_VENDI)), locale);
 
   // FAQ rich-results — questions localized, answers reuse the recovered blocks.
   const faqBlocks = ["mandatoSemplice", "velocita", "checkup", "materiale", "venditaRiservata"];
@@ -92,8 +94,8 @@ export default async function SellPage({
                 />
               </div>
             </div>
-            <figure className="lg:self-center" data-reveal>
-              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/15 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.45)]">
+            <figure className="relative lg:self-center" data-reveal>
+              <div className="aspect-[5/4] overflow-hidden rounded-3xl border border-white/15 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.45)]">
                 <AutoVideo
                   src={VIDEO_VENDI}
                   poster="/video/soggiorno-terrazza.jpg"
@@ -101,14 +103,10 @@ export default async function SellPage({
                   className="h-full w-full object-cover"
                   lazy={false}
                 />
-                {/* Etichetta del registro dei video (SPEC §10), sul poster e per tutta la riproduzione. */}
-                <div className="pointer-events-none absolute right-3 top-3 z-[1]">
-                  <EtichettaVideo dati={etichettaVideo} />
-                </div>
               </div>
-              {didascalia && (
-                <figcaption lang={didascalia.lang} className="mt-3 text-pretty text-xs leading-relaxed text-white/75">
-                  {didascalia.testo}
+              {segnoVideo && (
+                <figcaption className="mt-2 text-right leading-none">
+                  <SegnoAiDiscreto dati={segnoVideo} tono="scuro" />
                 </figcaption>
               )}
             </figure>

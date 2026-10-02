@@ -15,7 +15,8 @@ import { join } from "node:path";
 const CANCELLO = join(process.cwd(), "scripts/check-etichette-ai.mjs");
 const HERO_TAG = '<AiTag testo={heroAi.estesa} aria={heroAi.aria} className="shrink-0" />';
 const SEGNO_STAGING = '<SegnoAiDiscreto dati={segnoStaging} tono="scuro" />';
-const RIGA_RIEPILOGO = '<span className="font-medium text-neutral-900">{tAi("summaryClosing")}</span>\n              </p>';
+const RIGA_RIEPILOGO = '<span>{tAi("summaryClosing")}</span>\n              </p>';
+const SEGNO_VENDI = '<SegnoAiDiscreto dati={segnoVideo} tono="scuro" />';
 // La cartella di prova in cui sta lavorando una mutazione (per quelle che scrivono un file in più).
 let dirCorrente = "";
 const dirOf = () => dirCorrente;
@@ -124,11 +125,39 @@ export default function NuovaVetrina({ p }: { p: Photo }) {
     nome: "§11.1 · og:image con la sigla stampata su una foto di sola luce",
     file: "src/lib/photoSrc.ts",
     applica: (s) =>
-      conta(s, "if (!photo.id || !haEtichetta(photo.ai) || !eAi(photo.ai.trattamento)) return null;", 1) &&
+      conta(s, "const stampa = haEtichetta(photo.ai) && eAi(photo.ai.trattamento);", 1) &&
+      s.replace("const stampa = haEtichetta(photo.ai) && eAi(photo.ai.trattamento);", "const stampa = eAi(photo.ai.trattamento);"),
+  },
+  {
+    nome: "§11.1 · og:image di sola luce tornata alla url firmata (senza la marcatura IPTC)",
+    file: "src/lib/photoSrc.ts",
+    applica: (s) =>
+      conta(s, "  return `/foto/${photo.id}/og-${sigla}l.jpg`;", 1) &&
+      s.replace("  return `/foto/${photo.id}/og-${sigla}l.jpg`;", "  return null;"),
+  },
+  {
+    nome: "§11.1 · lightbox: torna la frase di servizio «in preparazione» sotto la sola sigla «AI»",
+    file: "src/lib/fotoAi.ts",
+    applica: (s) =>
+      conta(s, "  if (!haEtichetta(ai)) return null;\n  return testoIn(ai.didascalia, locale);", 1) &&
       s.replace(
-        "if (!photo.id || !haEtichetta(photo.ai) || !eAi(photo.ai.trattamento)) return null;",
-        "if (!photo.id || !photo.ai || !eAi(photo.ai.trattamento)) return null;",
+        "  if (!haEtichetta(ai)) return null;\n  return testoIn(ai.didascalia, locale);",
+        '  if (!haEtichetta(ai)) return null;\n  return testoIn(ai.didascalia, locale) ?? (ai.trattamento === "ai" ? { testo: "in preparazione", lang: locale } : null);',
       ),
+  },
+  {
+    nome: "§11.2 · riga: le foto in ricontrollo contate fra le «modificate, indicate sulla foto»",
+    file: "src/lib/fotoAi.ts",
+    applica: (s) =>
+      conta(s, '        if (ai.trattamento === "ai") c.inVerifica++;\n        else c.modificate++;', 1) &&
+      s.replace('        if (ai.trattamento === "ai") c.inVerifica++;\n        else c.modificate++;', "        c.modificate++;"),
+  },
+  {
+    nome: "§11.1 · etichettaAi sotto una condizione rovesciata (!haEtichetta)",
+    file: "src/app/[locale]/annuncio/[slug]/page.tsx",
+    applica: (s) =>
+      conta(s, "const heroAi = haEtichetta(heroFoto?.ai) ? etichettaAi(", 1) &&
+      s.replace("const heroAi = haEtichetta(heroFoto?.ai) ? etichettaAi(", "const heroAi = !haEtichetta(heroFoto?.ai) ? etichettaAi("),
   },
   {
     nome: "§11.1 · regola: il segno discreto della home anche sulle foto di sola luce",
@@ -147,8 +176,7 @@ export default function NuovaVetrina({ p }: { p: Photo }) {
     nome: "§11.1 · didascalia del lightbox letta con testoIn, saltando didascaliaFoto",
     file: "src/components/Lightbox.tsx",
     applica: (s) =>
-      conta(s, 'didascaliaFoto(ai, locale, tAi("genericCaption"))', 1) &&
-      s.replace('didascaliaFoto(ai, locale, tAi("genericCaption"))', "testoIn(ai?.didascalia, locale)"),
+      conta(s, ": didascaliaFoto(ai, locale);", 1) && s.replace(": didascaliaFoto(ai, locale);", ": testoIn(ai?.didascalia, locale);"),
   },
   {
     nome: "§11.2 · tessere coi numeri grandi rimesse nella parte visibile del riepilogo",
@@ -163,6 +191,18 @@ export default function NuovaVetrina({ p }: { p: Photo }) {
     applica: (s) =>
       conta(s, RIGA_RIEPILOGO, 1) &&
       s.replace(RIGA_RIEPILOGO, RIGA_RIEPILOGO + "\n              {notaAi && <div lang={notaAi.lang}>{notaAi.testo}</div>}"),
+  },
+  {
+    nome: "§11.2 · la nota del CRM fuori dal <details>, dentro un <p> (tag ammesso)",
+    file: "src/app/[locale]/annuncio/[slug]/page.tsx",
+    applica: (s) =>
+      conta(s, RIGA_RIEPILOGO, 1) && s.replace(RIGA_RIEPILOGO, RIGA_RIEPILOGO + "\n              <p>{notaAi?.testo}</p>"),
+  },
+  {
+    nome: "§11.2 · numeri scritti a mano nella parte visibile («40 / 40» in un <p>)",
+    file: "src/app/[locale]/annuncio/[slug]/page.tsx",
+    applica: (s) =>
+      conta(s, RIGA_RIEPILOGO, 1) && s.replace(RIGA_RIEPILOGO, RIGA_RIEPILOGO + '\n              <p className="text-2xl">40 / 40</p>'),
   },
   {
     nome: "§11.2 · <details> del riepilogo aperto di default",
@@ -186,10 +226,15 @@ export default function NuovaVetrina({ p }: { p: Photo }) {
       s.replace("<EtichettaVideo dati={etichetta} passante />", ""),
   },
   {
-    nome: "video di /vendi senza etichetta",
+    nome: "video di /vendi senza il suo segno discreto",
+    file: "src/app/[locale]/vendi/page.tsx",
+    applica: (s) => conta(s, SEGNO_VENDI, 1) && s.replace(SEGNO_VENDI, "<span />"),
+  },
+  {
+    nome: "§11.1 · pillola rimessa sul video di /vendi (pagina di marchio, come la home)",
     file: "src/app/[locale]/vendi/page.tsx",
     applica: (s) =>
-      conta(s, "<EtichettaVideo dati={etichettaVideo} />", 1) && s.replace("<EtichettaVideo dati={etichettaVideo} />", ""),
+      conta(s, SEGNO_VENDI, 1) && s.replace(SEGNO_VENDI, SEGNO_VENDI + "\n                  <EtichettaVideo dati={null} />"),
   },
   {
     nome: "og:image della scheda presa dalla foto senza photoOgSrc",

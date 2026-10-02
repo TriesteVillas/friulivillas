@@ -188,7 +188,9 @@ export function buildPropertyView(
   const coverSegno = segno
     ? {
         testo: t(`aiFoto.homeSign.${segno}`),
-        aria: segno === "rendering" ? t("aiFoto.tag.rendering") : t("aiFoto.homeSign.simulazioneAria"),
+        // Per i lettori di schermo la descrizione, non la stessa parola due
+        // volte («Rendering: Rendering», review del 02/10).
+        aria: segno === "rendering" ? t("aiFoto.legend.rendering") : t("aiFoto.homeSign.simulazioneAria"),
       }
     : null;
 

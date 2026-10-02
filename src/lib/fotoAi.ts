@@ -122,17 +122,19 @@ export function haEtichetta(ai: FotoAi | null | undefined): ai is FotoAi {
 
 /**
  * La didascalia della foto nella vista singola, nella lingua del visitatore:
- * mai per lo stile (§11.1), anche se il CRM la tiene (§11.3); sulla sola sigla
- * «AI» senza didascalia, il suo significato in chiaro (`generica`, già tradotta
- * da chi chiama).
+ * mai per lo stile (§11.1), anche se il CRM la tiene (§11.3). Sulla sola sigla
+ * «AI» senza didascalia (foto ancora in ricontrollo) NIENTE: fino al 02/10 sotto
+ * ognuna si leggeva «…la descrizione dell'intervento è in preparazione», fino a
+ * 55 volte nello stesso annuncio (review di misura). È uno stato di lavoro, non
+ * un'informazione sulla foto: lo dice UNA volta la riga del riepilogo, e la
+ * sigla porta già nell'aria-label «Foto modificata con l'AI, in ricontrollo».
  */
 export function didascaliaFoto(
   ai: FotoAi | null | undefined,
   locale: string,
-  generica: string,
 ): { testo: string; lang: string } | null {
   if (!haEtichetta(ai)) return null;
-  return testoIn(ai.didascalia, locale) ?? (ai.trattamento === "ai" ? { testo: generica, lang: locale } : null);
+  return testoIn(ai.didascalia, locale);
 }
 
 // ---- La home: nessuna pillola, un segno discreto solo sulle simulazioni -------
@@ -320,10 +322,16 @@ export function togliNotaAi(testo: string): string {
 // con una riga AI (eAi: non `tecnico`, non `rendering`). Le etichette che il
 // sito aggiunge da sé (`generica`) si contano a parte, e così i render senza AI:
 // un render dell'architetto non è «modificato con l'AI».
-// Dal 02/10 (SPEC §11.2) il riepilogo visibile è UNA riga calcolata da qui:
-// `luce` (solo stile, senza etichetta sulla foto) contro `segnalate` (con
-// l'etichetta sulla foto), `simulazioni`, `bloccoDifetti`; il dettaglio per
-// tipo (`perTipo`) sta dentro il comando che si apre.
+// Dal 02/10 (SPEC §11.2) il riepilogo visibile è UNA riga calcolata da qui, in
+// tre gruppi che non si mescolano (review di misura del 02/10: la prima riga
+// metteva le foto ancora in ricontrollo fra quelle «con modifiche indicate
+// sulla foto», e per quelle non lo sappiamo):
+//   · `modificate` — l'AI ha cambiato la sostanza e la didascalia dice cosa
+//     (ai_pulizia, ai_aggiunte, ai_rendering); `simulazioni` ne è una parte;
+//   · `inVerifica` — la sola sigla «AI» (`ai`, dal CRM o messa dal sito):
+//     passate da un modello, cosa è cambiato non è ancora descritto (§11.4);
+//   · `luce` — solo stile, senza etichetta sulla foto (§11.1).
+// Il dettaglio per tipo (`perTipo`) sta dentro il comando che si apre.
 export type ConteggiAi = {
   pubblicate: number;
   /** foto con riga nel CRM e trattamento AI (= conteggi.ai del CRM) */
@@ -334,7 +342,11 @@ export type ConteggiAi = {
   rendering: number;
   /** foto ritoccate con l'AI solo nella luce e nei colori: nessuna etichetta sulla foto (§11.1) */
   luce: number;
-  /** foto passate da un modello CON l'etichetta sulla foto (ai, ai_pulizia, ai_aggiunte, ai_rendering, generiche) */
+  /** foto in cui l'AI ha cambiato la sostanza, descritta (ai_pulizia, ai_aggiunte, ai_rendering) */
+  modificate: number;
+  /** foto con la sola sigla «AI» (trattamento `ai`, dal CRM o dal sito): cosa è cambiato è in verifica */
+  inVerifica: number;
+  /** foto passate da un modello CON l'etichetta sulla foto (= modificate + inVerifica) */
   segnalate: number;
   /** simulazioni AI: ai_aggiunte + ai_rendering */
   simulazioni: number;
@@ -362,6 +374,8 @@ export function contaFotoAi(
     generiche: 0,
     rendering: 0,
     luce: 0,
+    modificate: 0,
+    inVerifica: 0,
     segnalate: 0,
     simulazioni: 0,
     bloccoDifetti: 0,
@@ -383,7 +397,11 @@ export function contaFotoAi(
     if (ai.origine !== "generica" && ai.trattamento === "ai_luce") c.luce++;
     if (haEtichetta(ai)) {
       c.etichettate++;
-      if (eAi(ai.trattamento)) c.segnalate++;
+      if (eAi(ai.trattamento)) {
+        c.segnalate++;
+        if (ai.trattamento === "ai") c.inVerifica++;
+        else c.modificate++;
+      }
     }
     if (ai.origine !== "generica" && (ai.trattamento === "ai_aggiunte" || ai.trattamento === "ai_rendering"))
       c.simulazioni++;
@@ -396,31 +414,65 @@ export function contaFotoAi(
 
 /**
  * La riga del riepilogo (§11.2), come chiavi di messaggio + valori: la scrive
- * la pagina con `tAi`. Mai scritta a mano: dai soli conteggi.
- *   · solo luce (tutte)      → summaryLineLightAll
- *   · solo luce (alcune)     → summaryLineLight {n, total}
- *   · misto                  → summaryLineMixed {n, total, luce, segnalate}
- *   · nessuna solo-luce      → summaryLineMarked {n, total}
- *   · + simulazioni          → summaryLineSimulations {count}
- *   · + render senza AI      → summaryLineRenderings {count}
- *   · + difetti protetti     → summaryLineDefects
+ * la pagina con `tAi`. Mai scritta a mano: dai soli conteggi. Prima la
+ * sostanza, poi il resto; niente denominatore («40 foto su 40» non aiuta a
+ * decidere niente: review di misura del 02/10, le stesse forme proposte per
+ * TSI). Una frase per gruppo, nell'ordine:
+ *   · modificate (sostanza descritta)
+ *       tutte simulazioni         → summaryLineSimOnly {count}
+ *       alcune simulazioni        → summaryLineChangedSim {count, sim}
+ *       nessuna simulazione       → summaryLineChanged {count}
+ *   · in verifica (sigla «AI»)
+ *       sono tutte le pubblicate  → summaryLineCheckingAll {count}
+ *       dopo le modificate        → summaryLineCheckingMore {count}
+ *       da sole                   → summaryLineChecking {count}
+ *   · solo luce (nessuna etichetta sulla foto)
+ *       sono tutte le pubblicate  → summaryLineLightAll
+ *       dopo un'altra frase       → summaryLineLightMore {count}
+ *       da sole                   → summaryLineLight {count}
+ *   · + render senza AI          → summaryLineRenderings {count}
+ *   · + difetti protetti         → summaryLineDefects
  * La chiusura «La visita resta l'unico riferimento.» la aggiunge la pagina.
  */
 export function rigaRiepilogo(c: ConteggiAi): Array<{ chiave: string; valori?: Record<string, number> }> {
   const out: Array<{ chiave: string; valori?: Record<string, number> }> = [];
-  const n = c.luce + c.segnalate;
-  const total = c.pubblicate;
-  if (n > 0) {
-    if (c.segnalate === 0)
-      out.push(n === total ? { chiave: "summaryLineLightAll" } : { chiave: "summaryLineLight", valori: { n, total } });
-    else if (c.luce > 0)
-      out.push({ chiave: "summaryLineMixed", valori: { n, total, luce: c.luce, segnalate: c.segnalate } });
-    else out.push({ chiave: "summaryLineMarked", valori: { n, total } });
+  const sim = Math.min(c.simulazioni, c.modificate);
+  if (c.modificate > 0) {
+    if (sim === c.modificate) out.push({ chiave: "summaryLineSimOnly", valori: { count: c.modificate } });
+    else if (sim > 0) out.push({ chiave: "summaryLineChangedSim", valori: { count: c.modificate, sim } });
+    else out.push({ chiave: "summaryLineChanged", valori: { count: c.modificate } });
   }
-  if (c.simulazioni > 0) out.push({ chiave: "summaryLineSimulations", valori: { count: c.simulazioni } });
+  if (c.inVerifica > 0) {
+    if (c.inVerifica === c.pubblicate) out.push({ chiave: "summaryLineCheckingAll", valori: { count: c.inVerifica } });
+    else if (out.length) out.push({ chiave: "summaryLineCheckingMore", valori: { count: c.inVerifica } });
+    else out.push({ chiave: "summaryLineChecking", valori: { count: c.inVerifica } });
+  }
+  if (c.luce > 0) {
+    if (c.luce === c.pubblicate) out.push({ chiave: "summaryLineLightAll" });
+    else if (out.length) out.push({ chiave: "summaryLineLightMore", valori: { count: c.luce } });
+    else out.push({ chiave: "summaryLineLight", valori: { count: c.luce } });
+  }
   if (c.rendering > 0) out.push({ chiave: "summaryLineRenderings", valori: { count: c.rendering } });
   if (c.bloccoDifetti > 0) out.push({ chiave: "summaryLineDefects" });
   return out;
+}
+
+// ---- La nota del CRM dentro il riepilogo ---------------------------------------
+//
+// La nota comincia spesso con il suo titolo («Nota sull'uso dell'intelligenza
+// artificiale nelle fotografie.»), che sotto il titolo del riepilogo («Come
+// abbiamo usato l'AI in queste foto») è un doppione. Si toglie SOLO quella
+// prima frase, e solo se è un titolo (l'attacco standard e poche parole senza
+// contenuto); il resto della nota resta identico.
+export function notaSenzaTitolo(testo: string): string {
+  const s = testo.trim();
+  const m = IN_TESTA.exec(s);
+  if (!m) return testo;
+  const dopo = s.slice(m[0].length);
+  const fine = /^([\p{L}'’\s]{0,40})[.:](\s+|$)/u.exec(dopo);
+  if (!fine) return testo;
+  const resto = dopo.slice(fine[0].length).trim();
+  return resto || testo;
 }
 
 // ---- I testi dell'etichetta ---------------------------------------------------

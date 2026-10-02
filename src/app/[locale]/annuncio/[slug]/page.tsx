@@ -48,6 +48,7 @@ import {
   eStile,
   etichettaAi,
   haEtichetta,
+  notaSenzaTitolo,
   rigaRiepilogo,
   serieCompleta,
   serieHaAi,
@@ -212,9 +213,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // scritta a mano) e la chiusura; nota, conteggi per tipo e link dentro il
   // comando che si apre. Lo stile (sola luce) qui resta dichiarato, anche se
   // sulle foto non ha etichetta.
-  const rigaAi = rigaRiepilogo(contiAi)
-    .map((x) => tAi(x.chiave, x.valori))
-    .join(" ");
+  const righeAi = rigaRiepilogo(contiAi).map((x) => tAi(x.chiave, x.valori));
   const heroFoto = property.coverPhoto ?? property.photos[0] ?? null;
   // «Vedi tutte le N foto»: con dati AI il lightbox scorre anche copertina e
   // top 8 (PhotoGallery → serieCompleta), e N deve contare la stessa serie.
@@ -246,6 +245,13 @@ export default async function PropertyPage({ params }: { params: Params }) {
     notaAi !== null ||
     contiAi.luce + contiAi.segnalate + contiAi.rendering > 0 ||
     videoTestataNelRiepilogo;
+  // Senza foto da contare ma col video di testata dichiarato, la riga dice
+  // del video (altrimenti restavano solo titolo e chiusura: review del 02/10).
+  const rigaAi = (righeAi.length ? righeAi : videoTestataNelRiepilogo ? [tAi("summaryLineVideoOnly")] : []).join(" ");
+  // La nota del CRM dentro il comando che si apre: senza la frase-titolo che
+  // ripete il titolo del riepilogo, e a paragrafi anche quando il CRM la manda
+  // in un blocco unico (Villa Ronchi: 2.565 caratteri in un paragrafo).
+  const paragrafiNota = notaAi ? toParagraphs(notaSenzaTitolo(notaAi.testo)) : [];
   // Il link in fondo al riepilogo: la pagina /ai di questo sito quando ci sarà;
   // fino ad allora quella del gruppo su triestevillas.com, se risponde 200.
   const linkAiGruppo = riepilogoAi && !PAGINA_AI_ONLINE ? await paginaAiDelGruppo(locale) : null;
@@ -364,7 +370,9 @@ export default async function PropertyPage({ params }: { params: Params }) {
     ytIds.length && { id: "video", label: t("galVideo") },
     property.matterportUrl && { id: "tour", label: t("galTour") },
     hasLocation && { id: "posizione", label: t("locationTitle") },
-    riepilogoAi && { id: "foto-ai", label: tAi("navLabel") },
+    // Il riepilogo #foto-ai NON sta nella barra (review di misura del 02/10):
+    // era la scritta AI che restava più a lungo sullo schermo, per una sezione
+    // di due righe. Ci porta il link sotto le miniature della galleria.
   ].filter((x): x is { id: string; label: string } => Boolean(x));
 
   // Dati strutturati della scheda. Le dotazioni seguono la stessa lettura che fa
@@ -699,38 +707,36 @@ export default async function PropertyPage({ params }: { params: Params }) {
           {riepilogoAi && (
             <section id="foto-ai" className="mt-8 scroll-mt-32" data-reveal>
               <h2 className="text-balance text-lg font-semibold">{tAi("summaryTitle")}</h2>
+              {/* La chiusura in peso normale, nella stessa frase: in grassetto
+                  suonava come una clausola di esclusione di responsabilità. */}
               <p className="mt-2 text-pretty leading-relaxed text-neutral-700">
                 {rigaAi && <>{rigaAi} </>}
-                <span className="font-medium text-neutral-900">{tAi("summaryClosing")}</span>
+                <span>{tAi("summaryClosing")}</span>
               </p>
               <details className="group mt-3 rounded-xl border border-neutral-200 bg-white">
-                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-brand hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 [&::-webkit-details-marker]:hidden">
-                  {tAi("summaryMore")}
-                  <svg
-                    aria-hidden
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
+                {/* <summary> resta un blocco e il flex sta su uno span
+                    interno: un <summary> con display:flex è il caso che i
+                    WebKit più vecchi gestivano male (review del 02/10, non
+                    provato su iPhone). Il marcatore si toglie con list-none e,
+                    su Safari, con ::-webkit-details-marker. */}
+                <summary className="block min-h-11 cursor-pointer list-none rounded-xl px-4 py-2.5 text-sm font-medium text-brand hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 [&::-webkit-details-marker]:hidden">
+                  <span className="flex min-h-6 items-center justify-between gap-3">
+                    {tAi("summaryMore")}
+                    <svg
+                      aria-hidden
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </span>
                 </summary>
                 <div className="space-y-5 border-t border-neutral-200 px-4 pb-5 pt-4 text-sm leading-relaxed text-neutral-700 sm:px-5">
-                  {notaAi && (
-                    <div lang={notaAi.lang} className="space-y-3">
-                      {notaAi.testo
-                        .split(/\n+/)
-                        .map((x) => x.trim())
-                        .filter(Boolean)
-                        .map((x, i) => (
-                          <p key={i}>{x}</p>
-                        ))}
-                    </div>
-                  )}
                   {contiAi.perTipo.length > 0 && (
                     <div>
                       <h3 className="font-semibold text-neutral-900">{tAi("legendTitle")}</h3>
@@ -756,6 +762,15 @@ export default async function PropertyPage({ params }: { params: Params }) {
                       {contiAi.conOriginale > 0 && (
                         <p className="mt-3 text-neutral-600">{tAi("detailsOriginals", { count: contiAi.conOriginale })}</p>
                       )}
+                    </div>
+                  )}
+                  {/* La nota completa del CRM DOPO i conteggi per tipo: i conteggi
+                      si leggono in un colpo d'occhio, la nota è il racconto. */}
+                  {notaAi && paragrafiNota.length > 0 && (
+                    <div lang={notaAi.lang} className="space-y-3">
+                      {paragrafiNota.map((x, i) => (
+                        <p key={i}>{x}</p>
+                      ))}
                     </div>
                   )}
                   {/* Il video di testata: nell'hero non c'è posto per la sua

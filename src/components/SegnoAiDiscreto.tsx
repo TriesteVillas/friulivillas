@@ -5,12 +5,16 @@
 // AI»), non la pillola. La dichiarazione completa resta nella scheda.
 //
 // Leggibile su qualunque fondo (il testo non deve mai dipendere dallo sfondo):
-//   · `foto`  — sopra una foto o un video: in basso a destra, su una sfumatura
-//     nera al 60% che parte dal bordo. Contro il fotogramma più chiaro (bianco)
-//     il fondo composto sotto il testo è ~#666, contrasto col bianco ~5,7:1;
-//   · `pagina` — fuori dall'immagine, sul fondo chiaro del sito (neutral-500
-//     su carta: ~4,8:1);
-//   · `scuro` — sul fondo pieno brand-dark della sezione (bianco al 75%).
+//   · `foto`  — sopra una foto o un video, in basso a destra, su una piastrina
+//     PIENA nera al 60% (la stessa di triesteimmobiliare.com): sul fotogramma
+//     più chiaro (bianco) il fondo sotto le lettere è #666, contrasto col
+//     bianco 5,7:1. Fino al 02/10 era una sfumatura alta 48 px: sotto le
+//     lettere l'opacità scendeva a 0,30-0,50, e su una foto chiara il testo
+//     stava a 2,2-3,7:1 (review di misura);
+//   · `pagina` — fuori dall'immagine, sul fondo chiaro del sito: neutral-600,
+//     ~7:1 anche sul fondo azzurrino sotto il video d'apertura (neutral-500
+//     lì stava a 4,3:1). La discrezione la dà la misura, non il grigio chiaro;
+//   · `scuro` — sul fondo pieno brand-dark della sezione (bianco al 75%, 8,2:1).
 // Il testo per i lettori di schermo porta anche la descrizione (in `sr-only`:
 // l'aria-label su uno span non lo legge nessuno in modo affidabile).
 // Senza `testo` non disegna niente: il segno sta nel codice di ogni punto della
@@ -51,11 +55,9 @@ export default function SegnoAiDiscreto({
       <span
         lang={dati.lang}
         data-segno-ai=""
-        className={`pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-end bg-gradient-to-t from-black/60 to-transparent px-3 pb-2 pt-6 ${className}`}
+        className={`pointer-events-none absolute bottom-2 right-2 z-[2] rounded-[3px] bg-black/60 px-1.5 py-px text-[11px] font-medium leading-4 tracking-[0.02em] text-white [print-color-adjust:exact] ${className}`}
       >
-        <span className="text-[11px] font-medium leading-4 tracking-[0.02em] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.55)]">
-          {testo}
-        </span>
+        {testo}
       </span>
     );
   return (
@@ -63,7 +65,7 @@ export default function SegnoAiDiscreto({
       lang={dati.lang}
       data-segno-ai=""
       className={`text-[11px] font-medium leading-4 tracking-[0.02em] ${
-        tono === "scuro" ? "text-white/75" : "text-neutral-500"
+        tono === "scuro" ? "text-white/75" : "text-neutral-600"
       } ${className}`}
     >
       {testo}

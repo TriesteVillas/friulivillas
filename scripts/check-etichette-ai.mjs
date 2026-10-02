@@ -46,24 +46,29 @@
 // ── SPEC v1.3 §11 (02/10/2026): «bello, ma spesso troppo» ──────────────────
 // L'etichetta va dove l'AI ha cambiato la SOSTANZA, non lo STILE; la home non
 // porta pillole; il riepilogo è corto. Il cancello lo controlla così:
-//   5. HOME (`HOME`): nessun <AiTag>, <EtichettaVideo> o componente che si
-//      etichetta da sé; ogni punto ha invece un <SegnoAiDiscreto> nel suo
-//      riquadro; ogni `buildPropertyView(` passa `{ superficie: "home" }`; e
-//      nessun componente importato in home disegna una pillola, salvo quelli
-//      in HOME_SICURI col perché (es. PropertyCard: la sua pillola dipende da
-//      `coverAi`, che con `superficie: "home"` è sempre null — regola 7);
-//   6. ogni `etichettaAi(` fuori da lib/fotoAi.ts sta sotto una condizione
-//      che passa da `haEtichetta(` (la regola stile/sostanza), e nessuna
-//      didascalia di foto si legge con `testoIn(…didascalia…)` saltando
-//      `didascaliaFoto()`;
+//   5. HOME (`HOME`: la home e, dal 02/10, le pagine di marchio /vendi e
+//      /contatti, coi loro video d'atmosfera): nessun <AiTag>, <EtichettaVideo>
+//      o componente che si etichetta da sé; ogni punto ha invece un
+//      <SegnoAiDiscreto> nel suo riquadro; ogni `buildPropertyView(` passa
+//      `{ superficie: "home" }`; e nessun componente importato disegna una
+//      pillola, salvo quelli in HOME_SICURI col perché (es. PropertyCard: la
+//      sua pillola dipende da `coverAi`, che con `superficie: "home"` è sempre
+//      null — regola 7);
+//   6. ogni `etichettaAi(` fuori da lib/fotoAi.ts sta nel ramo VERO di una
+//      condizione che passa da `haEtichetta(` (la regola stile/sostanza: una
+//      condizione rovesciata, `!haEtichetta(x) ? etichettaAi(x) : …`, non
+//      vale), e nessuna didascalia di foto si legge con
+//      `testoIn(…didascalia…)` saltando `didascaliaFoto()`;
 //   7. la REGOLA STESSA si esegue: lib/fotoAi.ts e lib/photoSrc.ts, compilati al
 //      volo, devono dire che `ai_luce` e `tecnico` non hanno etichetta, né
 //      didascalia, né og:image con la sigla; che `ai` generica e le sostanze
 //      sì; il segno discreto solo sulle simulazioni; la riga del riepilogo
 //      dai conteggi;
 //   8. il riepilogo `#foto-ai`: fuori dal <details> solo titolo, la riga e la
-//      chiusura (h2, p, span), niente tessere né liste; il <details> c'è ed è
-//      chiuso di default (niente `open`).
+//      chiusura (h2, p, span), niente tessere né liste, nessun testo scritto
+//      lì e nessun'altra espressione che `rigaAi`, `tAi("summaryTitle")` e
+//      `tAi("summaryClosing")` (una nota rimessa fuori come `<p>{notaAi.testo}</p>`
+//      non passa); il <details> c'è ed è chiuso di default (niente `open`).
 //
 // Uso: node scripts/check-etichette-ai.mjs [radice]   (prebuild: radice = .)
 // Prova che sa dire di no: node scripts/check-etichette-ai.prova.mjs
@@ -129,8 +134,13 @@ const ESENZIONI = [
   },
 ];
 
-// La home (SPEC §11.1): nessuna pillola, solo il segno discreto.
-const HOME = new Set(["src/app/[locale]/page.tsx"]);
+// La home (SPEC §11.1): nessuna pillola, solo il segno discreto. Con lei le
+// pagine di marchio, che hanno solo video d'atmosfera (review del 02/10).
+const HOME = new Set([
+  "src/app/[locale]/page.tsx",
+  "src/app/[locale]/vendi/page.tsx",
+  "src/app/[locale]/contatti/page.tsx",
+]);
 // I componenti che la home può usare anche se nel loro sorgente c'è una pillola:
 // uno per uno, col perché.
 const HOME_SICURI = new Map([
@@ -229,14 +239,24 @@ function etichettatori(sf) {
   return nomi;
 }
 
-/** C'è, fra gli antenati di `n` (fino al corpo della funzione), una condizione che passa da haEtichetta? */
+/**
+ * C'è, fra gli antenati di `n` (fino al corpo della funzione), una condizione
+ * che passa da haEtichetta e di cui `n` sta nel ramo VERO? Una condizione che
+ * nomina haEtichetta solo negata (`!haEtichetta(x) ? etichettaAi(x) : …`) non
+ * vale: è la regola rovesciata (review del 02/10).
+ */
 function sottoHaEtichetta(n, sf) {
-  const passa = (x) => x && /\bhaEtichetta\(/.test(x.getText(sf));
+  const passa = (x) => {
+    if (!x) return false;
+    const t = x.getText(sf);
+    // almeno un haEtichetta( NON preceduto da «!»
+    return [...t.matchAll(/(!\s*)?\bhaEtichetta\(/g)].some((m) => !m[1]);
+  };
   for (let p = n.parent, figlio = n; p; figlio = p, p = p.parent) {
-    if (ts.isConditionalExpression(p) && figlio !== p.condition && passa(p.condition)) return true;
+    if (ts.isConditionalExpression(p) && figlio === p.whenTrue && passa(p.condition)) return true;
     if (ts.isBinaryExpression(p) && p.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken && figlio === p.right && passa(p.left))
       return true;
-    if (ts.isIfStatement(p) && figlio !== p.expression && passa(p.expression)) return true;
+    if (ts.isIfStatement(p) && figlio === p.thenStatement && passa(p.expression)) return true;
     // una guardia all'inizio della funzione: `if (!haEtichetta(x)) return …;` prima della chiamata
     if (ts.isBlock(p))
       for (const st of p.statements) {
@@ -323,7 +343,15 @@ for (const p of file(SRC)) {
     if (!id?.initializer || !/^["'{`]*foto-ai["'}`]*$/.test(id.initializer.getText(sf))) return;
     let dettagli = 0;
     const fuori = new Set();
+    const ESPRESSIONI_AMMESSE = /tAi\(\s*["']summary(?:Title|Closing)["']\s*\)|\brigaAi\b/g;
     const giro = (x, dentroDettagli) => {
+      if (!dentroDettagli && ts.isJsxExpression(x) && x.expression) {
+        const resto = x.expression.getText(sf).replace(ESPRESSIONI_AMMESSE, "");
+        if (/[\p{L}\d_$]/u.test(resto.replace(/<\/?>/g, "")))
+          fuori.add(`{${x.expression.getText(sf).slice(0, 50)}} (riga ${riga(sf, x)})`);
+      }
+      if (!dentroDettagli && ts.isJsxText(x) && x.getText(sf).trim())
+        fuori.add(`il testo «${x.getText(sf).trim().slice(0, 40)}» (riga ${riga(sf, x)})`);
       if (eJsxElemento(x) && x !== n) {
         const tag = nomeTag(apertura(x));
         if (tag === "details") {
@@ -340,7 +368,7 @@ for (const p of file(SRC)) {
       errori.push(`${rel}:${riga(sf, n)}: il riepilogo #foto-ai non ha il <details> «Leggi come le abbiamo ritoccate» (SPEC §11.2)`);
     if (fuori.size)
       errori.push(
-        `${rel}:${riga(sf, n)}: nella parte visibile del riepilogo #foto-ai solo titolo, riga e chiusura (h2, p, span): fuori dal <details> ci sono ${[...fuori].join(", ")} (SPEC §11.2)`,
+        `${rel}:${riga(sf, n)}: nella parte visibile del riepilogo #foto-ai solo titolo, riga e chiusura (h2, p, span con rigaAi, summaryTitle, summaryClosing): fuori dal <details> ci sono ${[...fuori].join(", ")} (SPEC §11.2)`,
       );
   });
 
@@ -350,7 +378,7 @@ for (const p of file(SRC)) {
       if (eJsxElemento(n)) {
         const tag = nomeTag(apertura(n));
         if (TAG_ETICHETTA.has(tag) || AUTOETICHETTATI.has(tag))
-          errori.push(`${rel}:${riga(sf, n)}: <${tag}> nella home: in home nessuna pillola AI, solo <${TAG_SEGNO_HOME}> (SPEC §11.1)`);
+          errori.push(`${rel}:${riga(sf, n)}: <${tag}> nella home (o in una pagina di marchio): lì nessuna pillola AI, solo <${TAG_SEGNO_HOME}> (SPEC §11.1)`);
       }
       if (ts.isCallExpression(n) && ts.isIdentifier(n.expression) && n.expression.text === "buildPropertyView") {
         const opz = n.arguments[4]?.getText(sf) ?? "";
@@ -470,7 +498,7 @@ for (const p of file(SRC)) {
       for (const x of qui)
         errori.push(
           inHome
-            ? `${x.dove}: nella home nessun <${TAG_SEGNO_HOME}> nel suo riquadro (riga ${riga(sf, r)}): ogni immagine o video della home porta il segno discreto, che resta vuoto se non serve (SPEC §11.1)`
+            ? `${x.dove}: nella home (o in una pagina di marchio) nessun <${TAG_SEGNO_HOME}> nel suo riquadro (riga ${riga(sf, r)}): ogni immagine o video della home porta il segno discreto, che resta vuoto se non serve (SPEC §11.1)`
             : `${x.dove}: nessuna etichetta AI (AiTag) nel suo riquadro (riga ${riga(sf, r)})`,
         );
     } else if (n < qui.length) {
@@ -512,26 +540,64 @@ async function provaRegola() {
         casi.push(`${cosa}: ${JSON.stringify(ottenuto)} invece di ${JSON.stringify(voluto)}`);
     };
     const ETICHETTA = { tecnico: false, ai_luce: false, ai: true, ai_pulizia: true, ai_aggiunte: true, ai_rendering: true, rendering: true };
+    // L'og:image: la sigla STAMPATA (og-ai / og-gen) solo dove la pagina mette
+    // l'etichetta e la foto è passata da un modello; la sola luce ha la
+    // marcatura senza sigla (og-ail), il ritocco tecnico og-enh, una foto senza
+    // dati og.jpg — mai la url firmata di Airtable quando c'è l'id.
+    const OG = {
+      tecnico: "og-enh.jpg",
+      ai_luce: "og-ail.jpg",
+      ai: "og-ai.jpg",
+      ai_pulizia: "og-ai.jpg",
+      ai_aggiunte: "og-ai.jpg",
+      ai_rendering: "og-gen.jpg",
+      rendering: "og-genl.jpg",
+    };
+    const ogDi = (ai) =>
+      ps.photoOgSrc({ id: "attPROVAprova1234", url: "u", thumb: "t", filename: "x.jpg", alt: "", ai })?.split("/").pop() ?? null;
     for (const [t, v] of Object.entries(ETICHETTA)) {
       atteso(`haEtichetta(${t})`, f.haEtichetta(foto(t)), v);
-      atteso(`didascaliaFoto(${t}) mostrata`, f.didascaliaFoto(foto(t), "it", "generica") !== null, v);
-      const og = ps.photoOgSrc({ id: "attPROVAprova1234", url: "u", thumb: "t", filename: "x.jpg", alt: "", ai: foto(t) });
-      atteso(`photoOgSrc(${t}) con la sigla`, og !== null, v && t !== "rendering");
+      atteso(`didascaliaFoto(${t}) mostrata`, f.didascaliaFoto(foto(t), "it") !== null, v);
+      atteso(`photoOgSrc(${t})`, ogDi(foto(t)), OG[t]);
     }
+    atteso("photoOgSrc(senza dati AI)", ogDi(null), "og.jpg");
     atteso("haEtichetta(sigla del sito)", f.haEtichetta(foto("ai", { origine: "generica", didascalia: null })), true);
+    // La sola sigla «AI» senza didascalia: nessuna frase di servizio sotto la foto (02/10).
+    atteso("didascaliaFoto(ai senza didascalia)", f.didascaliaFoto(foto("ai", { didascalia: null }), "it"), null);
     const SEGNO = { ai: null, ai_luce: null, ai_pulizia: null, tecnico: null, ai_aggiunte: "simulazione", ai_rendering: "simulazione", rendering: "rendering" };
     for (const [t, v] of Object.entries(SEGNO)) atteso(`segnoHome(${t})`, f.segnoHome(foto(t)), v);
     const serie = (spec) =>
       spec.flatMap(([t, n], k) =>
         Array.from({ length: n }, (_, i) => ({ id: `a${k}-${i}`, url: `u${k}-${i}`, filename: `f${k}-${i}.jpg`, ai: t ? foto(t) : null })),
       );
-    const riga = (spec) => f.rigaRiepilogo(f.contaFotoAi(serie(spec))).map((x) => x.chiave);
+    const righe = (spec) => f.rigaRiepilogo(f.contaFotoAi(serie(spec)));
+    const riga = (spec) => righe(spec).map((x) => x.chiave);
     atteso("riga: tutte solo luce", riga([["ai_luce", 39]]), ["summaryLineLightAll"]);
     atteso("riga: alcune solo luce", riga([["ai_luce", 5], [null, 3]]), ["summaryLineLight"]);
-    atteso("riga: misto", riga([["ai_luce", 5], ["ai_pulizia", 35]]), ["summaryLineMixed"]);
-    atteso("riga: solo segnalate, con simulazioni", riga([["ai", 39], ["ai_aggiunte", 1]]), ["summaryLineMarked", "summaryLineSimulations"]);
-    const c = f.contaFotoAi(serie([["ai_luce", 5], ["ai_pulizia", 35], ["tecnico", 2]]));
-    atteso("conteggi del misto", [c.pubblicate, c.luce, c.segnalate, c.etichettate], [42, 5, 35, 35]);
+    atteso("riga: sostanza e luce (Villa Ronchi)", righe([["ai_luce", 5], ["ai_pulizia", 35]]), [
+      { chiave: "summaryLineChanged", valori: { count: 35 } },
+      { chiave: "summaryLineLightMore", valori: { count: 5 } },
+    ]);
+    // La sigla «AI» in ricontrollo NON è «modificata, indicata sulla foto»:
+    // gruppo a sé, anche quando accanto ci sono sostanza e luce (review del 02/10).
+    atteso("riga: simulazione + in verifica (Scodovacca)", righe([["ai", 39], ["ai_aggiunte", 1]]), [
+      { chiave: "summaryLineSimOnly", valori: { count: 1 } },
+      { chiave: "summaryLineCheckingMore", valori: { count: 39 } },
+    ]);
+    atteso("riga: in verifica e luce, a metà classificazione", righe([["ai_luce", 20], ["ai", 20]]), [
+      { chiave: "summaryLineChecking", valori: { count: 20 } },
+      { chiave: "summaryLineLightMore", valori: { count: 20 } },
+    ]);
+    atteso("riga: tutte in verifica", riga([["ai", 43]]), ["summaryLineCheckingAll"]);
+    atteso("riga: sigla del sito = in verifica", riga([["ai_pulizia", 3]]).concat(
+      f.rigaRiepilogo(f.contaFotoAi([{ id: "g", url: "g", filename: "g.jpg", ai: foto("ai", { origine: "generica", didascalia: null }) }])).map((x) => x.chiave),
+    ), ["summaryLineChanged", "summaryLineCheckingAll"]);
+    atteso("riga: simulazioni dentro le modificate", righe([["ai_pulizia", 12], ["ai_aggiunte", 2]])[0], {
+      chiave: "summaryLineChangedSim",
+      valori: { count: 14, sim: 2 },
+    });
+    const c = f.contaFotoAi(serie([["ai_luce", 5], ["ai_pulizia", 35], ["tecnico", 2], ["ai", 3]]));
+    atteso("conteggi", [c.pubblicate, c.luce, c.modificate, c.inVerifica, c.segnalate, c.etichettate], [45, 5, 35, 3, 38, 38]);
     for (const x of casi) errori.push(`regola stile/sostanza (lib/fotoAi.ts, lib/photoSrc.ts): ${x} (SPEC §11)`);
   } catch (e) {
     errori.push(`regola stile/sostanza: non si riesce a eseguirla (${e instanceof Error ? e.message : e}) — il cancello deve poterla provare`);

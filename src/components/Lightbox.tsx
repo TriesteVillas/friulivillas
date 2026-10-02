@@ -57,6 +57,12 @@ export default function Lightbox({
   // (dal 02/10 senza etichetta né didascalia) torna al lightbox di sempre, come
   // le serie senza dati e le planimetrie.
   const conAi = photos.some((p) => Boolean(p.ai?.originale) || haEtichetta(p.ai));
+  // Lo spazio della didascalia si riserva (per non far saltare la foto da una
+  // all'altra) solo se nella serie c'è almeno una didascalia o un originale:
+  // dal 02/10 le foto con la sola sigla «AI» non ne hanno, e una serie fatta
+  // solo di quelle (Scodovacca, Begliano, Sappada…) non lascia tre righe vuote
+  // sotto ogni foto.
+  const riservaDidascalia = photos.some((p) => Boolean(p.ai?.originale) || didascaliaFoto(p.ai, locale) !== null);
   // Originali che la vetrina non serve più (ritirati: 404): il bottone sparisce
   // invece di mostrare un riquadro vuoto con l'etichetta «Originale».
   const [rotti, setRotti] = useState<ReadonlySet<string>>(() => new Set());
@@ -277,6 +283,7 @@ export default function Lightbox({
           totale={photos.length}
           locale={locale}
           tAi={(k) => tAi(k)}
+          riservaDidascalia={riservaDidascalia}
           vediOriginale={vediOriginale}
           onToggle={toggleOriginale}
           onOriginaleRotto={segnaRotto}
@@ -350,6 +357,7 @@ function VistaConAi({
   totale,
   locale,
   tAi,
+  riservaDidascalia,
   vediOriginale,
   onToggle,
   onOriginaleRotto,
@@ -362,6 +370,7 @@ function VistaConAi({
   totale: number;
   locale: string;
   tAi: (k: string) => string;
+  riservaDidascalia: boolean;
   vediOriginale: boolean;
   onToggle: () => void;
   onOriginaleRotto: (url: string) => void;
@@ -391,13 +400,11 @@ function VistaConAi({
 
   const etichetta = ai && (vediOriginale || haEtichetta(ai)) ? etichettaAi(ai, tAi, vediOriginale) : null;
   // La didascalia: quella del CRM nella lingua del visitatore; sull'originale
-  // quella fissa dell'originale; sulla sola sigla «AI» senza didascalia, il suo
-  // significato in chiaro — l'aria-label non si vede, e sul telefono neanche il
-  // tooltip. Mai sullo stile (`ai_luce`, `tecnico`: SPEC §11.1): la regola è
-  // didascaliaFoto() di lib/fotoAi.ts. «Vedi l'originale» resta se c'è.
-  const didascalia = vediOriginale
-    ? { testo: tAi("originalCaption"), lang: locale }
-    : didascaliaFoto(ai, locale, tAi("genericCaption"));
+  // quella fissa dell'originale. Mai sullo stile (`ai_luce`, `tecnico`: SPEC
+  // §11.1), e dal 02/10 niente frase di servizio sotto la sola sigla «AI»
+  // (era «…in preparazione» sotto ogni foto): la regola è didascaliaFoto() di
+  // lib/fotoAi.ts. «Vedi l'originale» resta se c'è.
+  const didascalia = vediOriginale ? { testo: tAi("originalCaption"), lang: locale } : didascaliaFoto(ai, locale);
 
   // srcset dell'originale: `m` ha il lato lungo a 1600, `xl` a 2560 (SPEC §3).
   let srcSetOriginale: string | undefined;
@@ -465,12 +472,14 @@ function VistaConAi({
           )}
         </div>
       </div>
-      <Didascalia
-        testo={didascalia?.testo ?? null}
-        lang={didascalia?.lang ?? locale}
-        aperta={aperta}
-        onTagliata={setTagliata}
-      />
+      {(riservaDidascalia || didascalia) && (
+        <Didascalia
+          testo={didascalia?.testo ?? null}
+          lang={didascalia?.lang ?? locale}
+          aperta={aperta}
+          onTagliata={setTagliata}
+        />
+      )}
       {/* La riga dei comandi c'è sempre, sempre alta quanto il bottone (anche
           sulle foto che non l'hanno) e sempre allo stesso posto: anche «Leggi
           tutto» sta qui, non sotto la didascalia, dove comparendo su una foto

@@ -4,9 +4,9 @@ import { BrandMark } from "@/components/Logo";
 import SellerCta from "@/components/SellerCta";
 import BuyerCta from "@/components/BuyerCta";
 import AutoVideo from "@/components/AutoVideo";
-import EtichettaVideo from "@/components/EtichettaVideo";
+import SegnoAiDiscreto from "@/components/SegnoAiDiscreto";
 import { getVideoAi } from "@/lib/trasparenza";
-import { chiaveFile, datiEtichettaVideo, didascaliaVideo } from "@/lib/videoAi";
+import { chiaveFile, segnoVideoHome } from "@/lib/videoAi";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import { telHref } from "@/lib/format";
 
@@ -37,9 +37,11 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("contact");
-  const rigaVideo = (await getVideoAi()).get(chiaveFile(VIDEO_CONTATTI));
-  const etichettaVideo = datiEtichettaVideo(rigaVideo, locale);
-  const didascalia = didascaliaVideo(rigaVideo, locale);
+  // Pagina di marchio, video d'atmosfera: la regola della home (SPEC §11.1,
+  // review di misura del 02/10), cioè il solo segno discreto sotto il video e
+  // la didascalia del registro ai lettori di schermo (la prima versione del
+  // 02/10 ci metteva la pillola e 3-4 righe di didascalia visibili).
+  const segnoVideo = segnoVideoHome((await getVideoAi()).get(chiaveFile(VIDEO_CONTATTI)), locale);
   const phone = t("phone");
 
   const rows = [
@@ -97,8 +99,8 @@ export default async function ContactPage({
 
             <p className="mt-8 text-sm text-neutral-400">{t("poweredBy")} · P.IVA 01235580329</p>
           </div>
-          <figure className="lg:self-center" data-reveal>
-            <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)]">
+          <figure className="relative lg:self-center" data-reveal>
+            <div className="aspect-[5/4] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)]">
               <AutoVideo
                 src={VIDEO_CONTATTI}
                 poster="/video/angolo-studio.jpg"
@@ -106,14 +108,10 @@ export default async function ContactPage({
                 className="h-full w-full object-cover"
                 lazy={false}
               />
-              {/* Etichetta del registro dei video (SPEC §10), sul poster e per tutta la riproduzione. */}
-              <div className="pointer-events-none absolute right-3 top-3 z-[1]">
-                <EtichettaVideo dati={etichettaVideo} />
-              </div>
             </div>
-            {didascalia && (
-              <figcaption lang={didascalia.lang} className="mt-3 text-pretty text-xs leading-relaxed text-neutral-600">
-                {didascalia.testo}
+            {segnoVideo && (
+              <figcaption className="mt-2 text-right leading-none">
+                <SegnoAiDiscreto dati={segnoVideo} tono="pagina" />
               </figcaption>
             )}
           </figure>

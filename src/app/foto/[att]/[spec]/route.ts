@@ -48,6 +48,8 @@
 // `/foto/<att>/og-<sigla>.jpg`: l'anteprima social (og:image) di una copertina
 // con etichetta AI — 1200×630, sigla «AI» stampata in alto a destra, perché
 // un'anteprima social non mostra le etichette HTML della pagina.
+// `/foto/<att>/og-<sigla>l.jpg`: la stessa marcatura, senza sigla stampata
+// (copertina di sola luce, render senza AI). `/foto/<att>/og.jpg`: senza dati AI.
 import { getPhotoSources } from "@/lib/airtable";
 import { IPTC_PER_SIGLA, type SiglaIptc } from "@/lib/fotoAi";
 
@@ -87,7 +89,7 @@ export async function GET(
       headers: { "Cache-Control": CACHE_MISS },
     });
   }
-  const { width, og, sigla } = richiesta;
+  const { width, og, sigla, stampa } = richiesta;
 
   const photo = (await getPhotoSources()).get(att);
   if (!photo) {
@@ -124,8 +126,9 @@ export async function GET(
       ? lavoro.resize({ width: OG_W, height: OG_H, fit: "cover" })
       : lavoro.resize({ width, withoutEnlargement: true });
     // La sigla «AI» stampata sull'anteprima social: solo per le marcature AI
-    // (non per `enh`, il ritocco tecnico, che sulla pagina non ha etichetta).
-    if (og && (sigla === "ai" || sigla === "gen")) {
+    // (non per `enh`, il ritocco tecnico, che sulla pagina non ha etichetta)
+    // e non per le varianti `…l` (sola luce, render senza AI: §11.1).
+    if (og && stampa) {
       lavoro = lavoro.composite([{ input: Buffer.from(svgSiglaAi(OG_W, OG_H)), top: 0, left: 0 }]);
     }
     // ⚠️ Non `keepXmp()`, di proposito: l'XMP sorgente non porta solo la
@@ -160,16 +163,24 @@ export async function GET(
 const OG_W = 1200;
 const OG_H = 630;
 const SPEC_FOTO = /^(\d{3,4})(?:-(ai|gen|enh))?(?:\.webp)?$/;
-const SPEC_OG = /^og(?:-(ai|gen|enh))?\.jpg$/;
+// `og-ail.jpg` / `og-genl.jpg` (02/10, SPEC §11.1): la stessa marcatura IPTC
+// SENZA la sigla stampata — la copertina di sola luce (o il render senza AI)
+// non porta etichetta sulla pagina, e non la porta neanche sull'anteprima.
+const SPEC_OG = /^og(?:-(?:(ai|gen)(l)?|(enh)))?\.jpg$/;
 
-function leggiSpec(spec: string): { width: number; og: boolean; sigla: SiglaIptc | null } | null {
+function leggiSpec(
+  spec: string,
+): { width: number; og: boolean; sigla: SiglaIptc | null; stampa: boolean } | null {
   const og = SPEC_OG.exec(spec);
-  if (og) return { width: OG_W, og: true, sigla: (og[1] as SiglaIptc | undefined) ?? null };
+  if (og) {
+    const sigla = ((og[1] ?? og[3]) as SiglaIptc | undefined) ?? null;
+    return { width: OG_W, og: true, sigla, stampa: (sigla === "ai" || sigla === "gen") && !og[2] };
+  }
   const m = SPEC_FOTO.exec(spec);
   if (!m) return null;
   const width = Number(m[1]);
   if (!(WIDTHS as readonly number[]).includes(width)) return null;
-  return { width, og: false, sigla: (m[2] as SiglaIptc | undefined) ?? null };
+  return { width, og: false, sigla: (m[2] as SiglaIptc | undefined) ?? null, stampa: false };
 }
 
 // ---- La sigla «AI» disegnata sull'anteprima social ------------------------------

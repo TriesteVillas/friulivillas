@@ -35,27 +35,29 @@ export type VideoAi = {
 };
 
 // ---- La home: il segno discreto (SPEC v1.3 §11.1, 02/10/2026) ----------------
-// Nella home nessuna pillola: un video animato o generato con l'AI
-// (`ai_animato`, `ai_generato`) porta solo un testo piccolo, «video AI», con
-// la didascalia del registro per i lettori di schermo. Il montaggio di foto e
-// la sola voce sintetica, in home, non portano niente: la dichiarazione
-// completa sta nella scheda (e nella pagina /ai del gruppo).
-const SEGNO_VIDEO_HOME: Record<LinguaAi, string> = {
-  it: "video AI",
-  en: "AI video",
-  de: "AI-Video",
-  sl: "AI-video",
+// Nella home nessuna pillola: un video animato con l'AI (`ai_animato`) porta
+// solo un testo piccolo, «video AI»; un video GENERATO (`ai_generato`: lo
+// staging, arredi che nella casa non ci sono) dice la sostanza, «simulazione»,
+// come le foto `ai_aggiunte` (review di misura del 02/10: «video AI» sullo
+// staging aveva perso il fatto che conta). La didascalia del registro va ai
+// lettori di schermo. Il montaggio di foto e la sola voce sintetica, in home,
+// non portano niente: la dichiarazione completa sta nella scheda (e nella
+// pagina /ai del gruppo). Gli stessi segni valgono per le pagine di marchio
+// (/vendi, /contatti): video d'atmosfera, non annunci.
+const SEGNO_VIDEO_HOME: Record<"ai_animato" | "ai_generato", Record<LinguaAi, string>> = {
+  ai_animato: { it: "video AI", en: "AI video", de: "AI-Video", sl: "AI-video" },
+  ai_generato: { it: "simulazione", en: "simulation", de: "Simulation", sl: "simulacija" },
 };
-const TRATTAMENTI_SEGNO_HOME = new Set(["ai_animato", "ai_generato"]);
 
 export function segnoVideoHome(
   riga: VideoAi | null | undefined,
   locale: string,
 ): { testo: string; descrizione: string | null; descrizioneLang: LinguaAi | null; lang: LinguaAi } | null {
-  if (!riga?.trattamento || !TRATTAMENTI_SEGNO_HOME.has(riga.trattamento)) return null;
+  const t = riga?.trattamento;
+  if (t !== "ai_animato" && t !== "ai_generato") return null;
   const lang = ((LINGUE_AI as readonly string[]).includes(locale) ? locale : "en") as LinguaAi;
-  const d = testoIn(riga.didascalia, locale);
-  return { testo: SEGNO_VIDEO_HOME[lang], descrizione: d?.testo ?? null, descrizioneLang: d?.lang ?? null, lang };
+  const d = testoIn(riga?.didascalia, locale);
+  return { testo: SEGNO_VIDEO_HOME[t][lang], descrizione: d?.testo ?? null, descrizioneLang: d?.lang ?? null, lang };
 }
 
 export const chiaveYoutube = (id: string): string => `youtube:${id}`;
