@@ -10,12 +10,28 @@ import FeaturedCarousel from "@/components/FeaturedCarousel";
 import Marquee from "@/components/Marquee";
 import ClosureBanner from "@/components/ClosureBanner";
 import AutoVideo from "@/components/AutoVideo";
-import AiTag from "@/components/AiTag";
+import SegnoAiDiscreto from "@/components/SegnoAiDiscreto";
+import { getVideoAi } from "@/lib/trasparenza";
+import { chiaveFile, segnoVideoHome } from "@/lib/videoAi";
 import { BrandMark } from "@/components/Logo";
 import BuyerCta from "@/components/BuyerCta";
 import SellerCta from "@/components/SellerCta";
 
 const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
+
+// I due video della home. Il percorso è anche la chiave nel registro dei video
+// del CRM (`fv:<percorso>`, SPEC trasparenza §10).
+//
+// LA HOME NON PORTA PILLOLE AI (SPEC v1.3 §11.1, 02/10/2026: «bello, ma spesso
+// troppo»): né sulle card né sui video. Un video animato o generato con l'AI
+// (`ai_animato`, `ai_generato` nel registro) porta solo un segno DISCRETO,
+// «video AI» in piccolo, con la didascalia del registro per i lettori di
+// schermo; una copertina che mostra cose che non esistono, «simulazione» (lo
+// decide buildPropertyView con `superficie: "home"`). La dichiarazione completa
+// resta nella scheda. Il prebuild (check-etichette-ai.mjs) ferma una pillola
+// che rientrasse qui.
+const VIDEO_HERO = "/video/hero.mp4";
+const VIDEO_STAGING = "/video/staging-mansarda.mp4";
 const ROUTING = ["luxury", "fvg", "rent", "business"] as const;
 
 export async function generateMetadata({
@@ -42,16 +58,22 @@ export default async function Home({
   setRequestLocale(locale);
   const t = await getTranslations("home");
   const tProp = await getTranslations("property");
-  const tAi = await getTranslations("property.aiFoto");
   const tZones = await getTranslations("zones");
 
-  const properties = await getProperties();
+  const [properties, videoAi] = await Promise.all([getProperties(), getVideoAi()]);
+  // Il segno discreto dei video, dal registro del CRM. Lo staging il sito lo
+  // sapeva già generato con l'AI (cab0265): senza la sua riga, il segno resta.
+  const segnoHero = segnoVideoHome(videoAi.get(chiaveFile(VIDEO_HERO)), locale);
+  const segnoStaging = segnoVideoHome(
+    videoAi.get(chiaveFile(VIDEO_STAGING)) ?? { trattamento: "ai_generato", etichetta: null, didascalia: null },
+    locale,
+  );
 
   // La strip conserva l'ordine di vetrina deciso nel CRM.
   const reelItems = properties
     .filter((p) => p.coverPhoto)
     .slice(0, 8)
-    .map((p) => buildPropertyView(p, locale, tProp, tZones(zoneKey(p))));
+    .map((p) => buildPropertyView(p, locale, tProp, tZones(zoneKey(p)), { superficie: "home" }));
 
   const heroWords = t("hero.titleKinetic").split(" ");
 
@@ -98,17 +120,23 @@ export default async function Home({
               {t("hero.ctaSecondary")}
             </Link>
           </div>
-          <div
-            className="mt-14 aspect-[16/9] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)] sm:mt-16"
-            data-reveal
-          >
-            <AutoVideo
-              src="/video/hero.mp4"
-              poster="/video/hero-poster.jpg"
-              ariaLabel={t("hero.videoAlt")}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          <figure className="relative mt-14 sm:mt-16" data-reveal>
+            <div className="aspect-[16/9] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)]">
+              <AutoVideo
+                src={VIDEO_HERO}
+                poster="/video/hero-poster.jpg"
+                ariaLabel={t("hero.videoAlt")}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            {/* Il segno discreto (§11.1), sotto il video e a destra, sul fondo
+                chiaro della pagina: niente sopra il film. */}
+            {segnoHero && (
+              <figcaption className="mt-2 text-right leading-none">
+                <SegnoAiDiscreto dati={segnoHero} tono="pagina" />
+              </figcaption>
+            )}
+          </figure>
         </div>
 
         {/* Promise strip — the four numbers */}
@@ -198,22 +226,22 @@ export default async function Home({
       {/* ── Marketing video break ─────────────────────────────────── */}
       <section className="relative h-[62vh] min-h-[420px] max-h-[680px] overflow-hidden bg-brand-dark">
         <AutoVideo
-          src="/video/staging-mansarda.mp4"
+          src={VIDEO_STAGING}
           poster="/video/staging-mansarda.jpg"
           ariaLabel={t("videoBreak.alt")}
           className="h-full w-full object-cover object-[center_58%]"
           lazy
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark from-8% via-brand-dark/85 via-25% to-transparent to-46% sm:from-10% sm:via-20% sm:to-36%" />
-        {/* L'arredo di questo video è generato con l'AI (home staging virtuale:
-            lo stesso file della home di triesteimmobiliare.com, che lo etichetta
-            «AI · simulazione»): l'etichetta resta VISIBILE per tutta la durata
-            e sul poster, in alto a destra nella colonna del sito — non basta che
-            lo dica l'aria-label (SPEC trasparenza §0 e §5.1, review del 01/10).
-            Sopra il velo, fuori dal flusso del testo in basso. */}
-        <div className="pointer-events-none absolute inset-x-0 top-4 z-[1] sm:top-6">
-          <div className="mx-auto flex max-w-6xl justify-end px-4 sm:px-6">
-            <AiTag testo={tAi("tag.ai_aggiunte")} aria={tAi("tag.ai_aggiunte")} />
+        {/* L'arredo di questo video è generato con l'AI (home staging virtuale,
+            lo stesso file della home di triesteimmobiliare.com): in home basta
+            il segno discreto «video AI» (§11.1), visibile sul poster e per tutta
+            la durata — in basso a destra, nella fascia piena brand-dark sotto
+            il titolo, dove si legge su qualunque fotogramma. Il resto lo dicono
+            l'alt del video e, ai lettori di schermo, la didascalia del registro. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 z-[1] sm:bottom-5">
+          <div className="mx-auto flex max-w-6xl justify-end px-6">
+            <SegnoAiDiscreto dati={segnoStaging} tono="scuro" />
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0">

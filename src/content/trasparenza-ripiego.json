@@ -1,8 +1,8 @@
 {
-  "_leggimi": "Ripiego della trasparenza AI quando la vista del CRM non risponde. Generato da scripts/trasparenza-ripiego.mjs: non si scrive a mano. Chiave = sha256(nome del file) troncato a 16 caratteri, per immobile (id record Airtable).",
-  "versione": 1,
+  "_leggimi": "Ripiego della trasparenza AI quando la vista del CRM non risponde. Generato da scripts/trasparenza-ripiego.mjs: non si scrive a mano. Foto: chiave = sha256(nome del file) troncato a 16 caratteri, per immobile (id record Airtable). Video: chiave del registro video_trasparenza → trattamento, etichetta e didascalia.",
+  "versione": 2,
   "sito": "friulivillas.com",
-  "generato_il": "2026-10-01T18:31:41.341Z",
+  "generato_il": "2026-10-02T09:33:41.705Z",
   "foto": 239,
   "immobili": {
     "recCM5sqzxSlqkiX7": {
@@ -278,6 +278,103 @@
         "f57ff7819e7237b0": "ai",
         "fd1a284263d1ae18": "ai"
       }
+    }
+  },
+  "video": {
+    "fv:/media/annunci/villa-ronchi/hero-626eeb37-1080.mp4": {
+      "trattamento": "ai_animato",
+      "etichetta": {
+        "it": "AI · video animato",
+        "en": "AI · animated video",
+        "de": "AI · animiertes Video",
+        "sl": "AI · animiran video"
+      },
+      "didascalia": {
+        "it": "Video generato con l'AI (modello Kling, tramite Higgsfield) a partire da fotografie della galleria di questa casa, con le modifiche fatte con l'AI che le loro didascalie descrivono: i movimenti di camera sono sintetici, non una ripresa. Il video è muto.",
+        "en": "Video generated with AI (Kling model, via Higgsfield) from photographs in this property's gallery, with the AI edits described in their captions: the camera movements are synthetic, not real footage. The video has no sound.",
+        "de": "Mit KI (Modell Kling, über Higgsfield) aus Fotos der Galerie dieser Immobilie erzeugtes Video, mit den KI-Bearbeitungen, die ihre Bildunterschriften beschreiben: Die Kamerabewegungen sind synthetisch, keine echte Aufnahme. Das Video hat keinen Ton.",
+        "sl": "Video, ustvarjen z umetno inteligenco (model Kling prek platforme Higgsfield) iz fotografij v galeriji te nepremičnine, s spremembami z umetno inteligenco, ki jih opisujejo njihovi napisi: gibanje kamere je sintetično, to ni pravi posnetek. Video je brez zvoka."
+      }
+    },
+    "fv:/video/angolo-studio.mp4": {
+      "trattamento": "ai_animato",
+      "etichetta": {
+        "it": "AI · video animato",
+        "en": "AI · animated video",
+        "de": "AI · animiertes Video",
+        "sl": "AI · animiran video"
+      },
+      "didascalia": {
+        "it": "Video realizzato con un generatore video AI: il movimento l'ha creato il modello, non è una ripresa, e dettagli della scena possono essere stati inventati.",
+        "en": "Video made with an AI video generator: the movement was created by the model, it is not real footage, and details of the scene may have been invented.",
+        "de": "Mit einem KI-Videogenerator erstelltes Video: Die Bewegung hat das Modell erzeugt, es ist keine echte Aufnahme, und Details der Szene können erfunden sein.",
+        "sl": "Video, ustvarjen z generatorjem videa z umetno inteligenco: gibanje je ustvaril model, to ni pravi posnetek, podrobnosti prizora pa so lahko izmišljene."
+      }
+    },
+    "fv:/video/hero.mp4": {
+      "trattamento": "ai_animato",
+      "etichetta": {
+        "it": "AI · video animato",
+        "en": "AI · animated video",
+        "de": "AI · animiertes Video",
+        "sl": "AI · animiran video"
+      },
+      "didascalia": {
+        "it": "Video realizzato con un generatore video AI: il movimento l'ha creato il modello, non è una ripresa, e dettagli della scena possono essere stati inventati.",
+        "en": "Video made with an AI video generator: the movement was created by the model, it is not real footage, and details of the scene may have been invented.",
+        "de": "Mit einem KI-Videogenerator erstelltes Video: Die Bewegung hat das Modell erzeugt, es ist keine echte Aufnahme, und Details der Szene können erfunden sein.",
+        "sl": "Video, ustvarjen z generatorjem videa z umetno inteligenco: gibanje je ustvaril model, to ni pravi posnetek, podrobnosti prizora pa so lahko izmišljene."
+      }
+    },
+    "fv:/video/soggiorno-terrazza.mp4": {
+      "trattamento": "ai_animato",
+      "etichetta": {
+        "it": "AI · video animato",
+        "en": "AI · animated video",
+        "de": "AI · animiertes Video",
+        "sl": "AI · animiran video"
+      },
+      "didascalia": {
+        "it": "Video realizzato con un generatore video AI: il movimento l'ha creato il modello, non è una ripresa, e dettagli della scena possono essere stati inventati. Qui, mentre l'inquadratura avanza, cambiano i gradini verso la porta finestra e i cuscini sul divano.",
+        "en": "Video made with an AI video generator: the movement was created by the model, it is not real footage, and details of the scene may have been invented. Here, as the shot moves forward, the steps to the French window and the cushions on the sofa change.",
+        "de": "Mit einem KI-Videogenerator erstelltes Video: Die Bewegung hat das Modell erzeugt, es ist keine echte Aufnahme, und Details der Szene können erfunden sein. Hier verändern sich, während die Kamera vorfährt, die Stufen zur Terrassentür und die Kissen auf dem Sofa.",
+        "sl": "Video, ustvarjen z generatorjem videa z umetno inteligenco: gibanje je ustvaril model, to ni pravi posnetek, podrobnosti prizora pa so lahko izmišljene. Med premikom kadra se tu spremenijo stopnice do balkonskih vrat in blazine na kavču."
+      }
+    },
+    "fv:/video/staging-mansarda.mp4": {
+      "trattamento": "ai_generato",
+      "etichetta": {
+        "it": "AI · video generato",
+        "en": "AI · generated video",
+        "de": "AI · generiertes Video",
+        "sl": "AI · generiran video"
+      },
+      "didascalia": {
+        "it": "Simulazione di home staging generata con l'AI: una mansarda vuota si arreda da sola. Divano, poltrone, tavolini, tappeto, lampade, mensole e oggetti li ha inventati il modello: non è un arredamento reale.",
+        "en": "Virtual home-staging simulation generated with AI: an empty attic furnishes itself. The sofa, armchairs, tables, rug, lamps, shelves and objects were invented by the model: it is not a real interior.",
+        "de": "Mit KI erzeugte Home-Staging-Simulation: Ein leeres Dachgeschoss richtet sich von selbst ein. Sofa, Sessel, Tische, Teppich, Lampen, Regale und Gegenstände hat das Modell erfunden: Es ist keine echte Einrichtung.",
+        "sl": "Simulacija virtualnega opremljanja, ustvarjena z umetno inteligenco: prazna mansarda se opremi sama. Kavč, fotelje, mizice, preprogo, svetilke, police in predmete si je izmislil model: to ni resnična oprema."
+      }
+    },
+    "youtube:1ggDOrx_d1o": {
+      "trattamento": "ai_montaggio",
+      "etichetta": {
+        "it": "Video · foto AI · voce AI",
+        "en": "Video · AI photos · AI voice",
+        "de": "Video · AI-Fotos · AI-Stimme",
+        "sl": "Video · AI-fotografije · AI-glas"
+      },
+      "didascalia": {
+        "it": "Video montato a partire da fotografie di questa casa, in parte modificate con l'AI (i dettagli di ogni foto sono nelle didascalie della galleria). La voce fuori campo è generata con l'AI.",
+        "en": "Video edited from photographs of this property, some of them modified with AI (the details of each photo are in the gallery captions). The voice-over is AI-generated.",
+        "de": "Aus Fotos dieser Immobilie geschnittenes Video, teilweise mit KI bearbeitet (die Einzelheiten jedes Fotos stehen in den Bildunterschriften der Galerie). Die Sprecherstimme ist mit KI erzeugt.",
+        "sl": "Video, zmontiran iz fotografij te nepremičnine, deloma obdelanih z umetno inteligenco (podrobnosti vsake fotografije so v napisih galerije). Glas pripovedovalca je ustvarjen z umetno inteligenco."
+      }
+    },
+    "youtube:7lFbnraqybM": {
+      "trattamento": "reale",
+      "etichetta": null,
+      "didascalia": null
     }
   }
 }

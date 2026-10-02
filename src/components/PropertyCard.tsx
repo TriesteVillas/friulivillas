@@ -4,6 +4,7 @@ import type { PropertyView } from "@/lib/propertyView";
 import PropertyBadge from "./PropertyBadge";
 import PhotoImg from "./PhotoImg";
 import AiTag from "./AiTag";
+import SegnoAiDiscreto from "./SegnoAiDiscreto";
 import Tilt from "./motion/Tilt";
 
 export default function PropertyCard({
@@ -44,6 +45,12 @@ export default function PropertyCard({
             </div>
           )}
           <span className="card-sheen" aria-hidden />
+          {/* Solo nella home (SPEC §11.1): niente pillola, e sulla copertina
+              che mostra cose che non esistono un testo piccolo in basso a
+              destra. Altrove `coverSegno` è sempre null. */}
+          <SegnoAiDiscreto
+            dati={view.coverSegno ? { testo: view.coverSegno.testo, descrizione: view.coverSegno.aria } : null}
+          />
           {view.coverAi ? (
             // La sigla AI prende l'angolo in alto a destra (SPEC §5.1); l'altra
             // bolla di destra, se c'è, le si mette accanto sulla stessa riga.

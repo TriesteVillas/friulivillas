@@ -34,12 +34,27 @@
 // calcola la stessa impronta sul nome della foto che mostra
 // (trasparenza.ts → improntaNome). Le due funzioni vanno tenute identiche.
 //
+// ── I VIDEO (01/10 sera, SPEC §10) ─────────────────────────────────────────
+// La vista porta anche il registro dei video (`video`). L'elenco li tiene in
+// chiaro, per chiave (`youtube:<id>`, `fv:<percorso>`) → trattamento (per il
+// segno discreto della home, SPEC §11.1), etichetta e didascalia nelle quattro
+// lingue: chiavi e testi sono già pubblici sul sito.
+// Ci stanno TUTTE le righe, anche quelle senza etichetta (una ripresa vera):
+// la riga che dice «niente etichetta» deve vincere anche dal ripiego sulla
+// frase scritta a mano (videoAi.ts → etichettaVideoOManuale). Con `video: null`
+// (registro illeggibile, vista comunque «letta») la sezione del file NON si
+// riscrive: resta l'ultima buona.
+// Il cancello poi ELENCA, come avviso e senza fermare la build, i video che il
+// sito mostra e che nel registro non hanno riga (e quindi escono senza
+// etichetta): gli YouTube delle schede del catalogo (dal catalogo della
+// vetrina, `youtube_urls`) e i file video del sito citati nel sorgente.
+//
 // L'indirizzo della vista è lo stesso del sito: `CRM_TRASPARENZA_URL` (URL
 // completa, per i collaudi con una vista di prova) oppure l'origine di
 // `CRM_VETRINA_URL`, di default https://tsv-pg.vercel.app.
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { join, relative } from "node:path";
 
 const SITO = "friulivillas.com";
 const FILE = join(process.cwd(), "src/content/trasparenza-ripiego.json");
@@ -61,6 +76,32 @@ const VISTA_URL =
   `${origineVetrina()}/api/vetrina?sito=${SITO}&vista=trasparenza`;
 
 const REC_ID = /^rec[A-Za-z0-9]{14}$/;
+const LINGUE = ["it", "en", "de", "sl"];
+// Identica a chiaveValida() di src/lib/videoAi.ts.
+const RE_CHIAVE_VIDEO = /^(?:youtube:[\w-]{11}|fv:\/[^\s?#]+\.(?:mp4|webm|mov|m4v))$/;
+// Identica a youtubeIds() della scheda (src/app/[locale]/annuncio/[slug]/page.tsx).
+const RE_YOUTUBE = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/))([\w-]{11})/;
+
+function testi(v) {
+  if (!v || typeof v !== "object") return null;
+  const t = Object.fromEntries(LINGUE.map((l) => [l, typeof v[l] === "string" && v[l].trim() ? v[l].trim() : null]));
+  return LINGUE.some((l) => t[l] !== null) ? t : null;
+}
+
+/** Il registro dei video della vista, per chiave; null se illeggibile. Come leggiVideo() del sito. */
+function videoDa(v) {
+  if (!Array.isArray(v)) return null;
+  const out = {};
+  for (const r of v) {
+    if (!r || typeof r.chiave !== "string" || !RE_CHIAVE_VIDEO.test(r.chiave)) continue;
+    out[r.chiave] = {
+      trattamento: typeof r.trattamento === "string" ? r.trattamento : null,
+      etichetta: testi(r.etichetta),
+      didascalia: testi(r.didascalia),
+    };
+  }
+  return Object.fromEntries(Object.keys(out).sort().map((k) => [k, out[k]]));
+}
 
 /** Identica a improntaNome() in src/lib/trasparenza.ts. */
 export function improntaNome(filename) {
@@ -99,7 +140,7 @@ function elencoDa(dati) {
     };
   }
   const ordinati = Object.fromEntries(Object.keys(immobili).sort().map((k) => [k, immobili[k]]));
-  return { immobili: ordinati, foto };
+  return { immobili: ordinati, foto, video: videoDa(dati.video) };
 }
 
 const dorme = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -128,15 +169,19 @@ function leggiFile() {
   }
 }
 
-function scriviFile(elenco) {
+/** Il registro dei video da scrivere: quello della vista, o (se illeggibile) l'ultimo del file. */
+const videoDaScrivere = (vista, file) => vista.video ?? file?.video ?? {};
+
+function scriviFile(elenco, file) {
   const contenuto = {
     _leggimi:
-      "Ripiego della trasparenza AI quando la vista del CRM non risponde. Generato da scripts/trasparenza-ripiego.mjs: non si scrive a mano. Chiave = sha256(nome del file) troncato a 16 caratteri, per immobile (id record Airtable).",
-    versione: 1,
+      "Ripiego della trasparenza AI quando la vista del CRM non risponde. Generato da scripts/trasparenza-ripiego.mjs: non si scrive a mano. Foto: chiave = sha256(nome del file) troncato a 16 caratteri, per immobile (id record Airtable). Video: chiave del registro video_trasparenza → trattamento, etichetta e didascalia.",
+    versione: 2,
     sito: SITO,
     generato_il: new Date().toISOString(),
     foto: elenco.foto,
     immobili: elenco.immobili,
+    video: videoDaScrivere(elenco, file),
   };
   writeFileSync(FILE, JSON.stringify(contenuto, null, 2) + "\n");
 }
@@ -153,6 +198,9 @@ function differenze(file, vista) {
   };
   const a = piatto(file?.immobili);
   const b = piatto(vista.immobili);
+  // i video: una voce per chiave, confrontata per intero
+  for (const [k, v] of Object.entries(file?.video ?? {})) a.set(`video/${k}`, JSON.stringify(v));
+  for (const [k, v] of Object.entries(videoDaScrivere(vista, file))) b.set(`video/${k}`, JSON.stringify(v));
   let n = 0;
   for (const [k, v] of b) if (a.get(k) !== v) n++;
   for (const k of a.keys()) if (!b.has(k)) n++;
@@ -180,17 +228,25 @@ try {
 
 const file = leggiFile();
 const diff = differenze(file, vista);
-const quanti = `${Object.keys(vista.immobili).length} immobili, ${vista.foto} foto`;
+const quanti = `${Object.keys(vista.immobili).length} immobili, ${vista.foto} foto, ${
+  vista.video ? `${Object.keys(vista.video).length} video` : "registro dei video ILLEGGIBILE"
+}`;
+if (!vista.video)
+  console.warn(
+    `  ⚠ la vista non porta il registro dei video (\`video: null\`): il sito userà l'ultimo registro buono (${
+      Object.keys(file?.video ?? {}).length
+    } video nell'elenco di ripiego)`,
+  );
 
 if (modo === "--scrivi") {
   if (diff === 0 && file) {
     console.log(`✓ trasparenza-ripiego: l'elenco è già allineato alla vista (${quanti})`);
   } else {
-    scriviFile(vista);
+    scriviFile(vista, file);
     console.log(`✓ trasparenza-ripiego: elenco riscritto (${quanti}; ${diff} voci cambiate) → committare src/content/trasparenza-ripiego.json`);
   }
 } else if (process.env.VERCEL === "1") {
-  if (diff > 0 || !file) scriviFile(vista);
+  if (diff > 0 || !file) scriviFile(vista, file);
   console.log(`✓ trasparenza-ripiego: vista letta (${quanti}); ripiego del deploy ${diff ? `aggiornato (${diff} voci più fresche del repo)` : "uguale al repo"}`);
 } else {
   console.log(`✓ trasparenza-ripiego: vista letta (${quanti})`);
@@ -198,4 +254,66 @@ if (modo === "--scrivi") {
     console.warn(
       `  ⚠ l'elenco nel repo è indietro di ${diff} voci: node scripts/trasparenza-ripiego.mjs --scrivi, poi committare (su Vercel si aggiorna da sé nel deploy)`,
     );
+}
+
+// ---- L'avviso: i video del sito senza riga nel registro ----------------------
+
+/** I file video del sito citati nel sorgente (src/), come chiavi `fv:`. Il 720p del video di testata (`mp4Sm`) è lo stesso filmato del 1080. */
+function fileVideoDelSito() {
+  const out = new Map();
+  const giro = (dir) => {
+    for (const nome of readdirSync(dir)) {
+      const p = join(dir, nome);
+      if (statSync(p).isDirectory()) giro(p);
+      else if (/\.(ts|tsx|mts)$/.test(nome)) {
+        const testo = readFileSync(p, "utf8");
+        for (const m of testo.matchAll(/(mp4Sm\s*:\s*)?(["'`])(\/(?:video|media)\/[^"'`\s]+\.(?:mp4|webm|mov|m4v))\2/g)) {
+          if (m[1]) continue;
+          const chiave = `fv:${m[3]}`;
+          if (!out.has(chiave)) out.set(chiave, relative(process.cwd(), p));
+        }
+      }
+    }
+  };
+  giro(join(process.cwd(), "src"));
+  return out;
+}
+
+/** Gli YouTube delle schede del catalogo (dal catalogo della vetrina). Null se il catalogo non si legge. */
+async function youtubeDelCatalogo() {
+  const url = VISTA_URL.replace(/([?&])vista=trasparenza&?/, "$1").replace(/[?&]$/, "");
+  try {
+    const res = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(TIMEOUT_MS) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const dati = await res.json();
+    if (!Array.isArray(dati?.immobili)) throw new Error("risposta senza `immobili`");
+    const out = new Map();
+    for (const r of dati.immobili) {
+      const righe = typeof r?.youtube_urls === "string" ? r.youtube_urls.split(/\r?\n/) : [];
+      for (const u of righe) {
+        const id = u.trim().match(RE_YOUTUBE)?.[1];
+        // Il nome PUBBLICO della scheda, mai il nome interno o il codice (che
+        // può portare il cognome di chi vende): regola ferrea del KB.
+        if (id && !out.has(`youtube:${id}`)) out.set(`youtube:${id}`, typeof r.public_name === "string" ? r.public_name : r.airtable_id);
+      }
+    }
+    return out;
+  } catch (e) {
+    console.warn(`  ⚠ catalogo della vetrina non letto (${e instanceof Error ? e.message : e}): gli YouTube delle schede non sono stati confrontati col registro`);
+    return null;
+  }
+}
+
+{
+  const registro = vista.video ?? file?.video ?? {};
+  const daControllare = new Map([...fileVideoDelSito(), ...((await youtubeDelCatalogo()) ?? new Map())]);
+  const senzaRiga = [...daControllare].filter(([k]) => !Object.prototype.hasOwnProperty.call(registro, k));
+  if (senzaRiga.length) {
+    console.warn(`  ⚠ ${senzaRiga.length} video del sito SENZA riga nel registro dei video del CRM: escono senza etichetta finché non si registrano (SPEC §10, trasparenza-video-carica.mjs)`);
+    for (const [k, dove] of senzaRiga) console.warn(`    · ${k}  (${dove})`);
+  } else {
+    console.log(
+      `✓ trasparenza-ripiego: i ${daControllare.size} video del sito hanno tutti la loro riga nel registro${vista.video ? "" : " (l'ultimo buono, dall'elenco di ripiego)"}`,
+    );
+  }
 }

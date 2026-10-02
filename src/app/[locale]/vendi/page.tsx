@@ -6,7 +6,14 @@ import BuyerCta from "@/components/BuyerCta";
 import Timeline from "@/components/Timeline";
 import JsonLd from "@/components/JsonLd";
 import AutoVideo from "@/components/AutoVideo";
+import EtichettaVideo from "@/components/EtichettaVideo";
+import { getVideoAi } from "@/lib/trasparenza";
+import { chiaveFile, datiEtichettaVideo, didascaliaVideo } from "@/lib/videoAi";
 import { pageAlternates, pageOpenGraph, faqJsonLd } from "@/lib/seo";
+
+// Il video della pagina: il percorso è anche la chiave nel registro dei video
+// del CRM (`fv:<percorso>`, SPEC trasparenza §10), da cui etichetta e didascalia.
+const VIDEO_VENDI = "/video/soggiorno-terrazza.mp4";
 
 export async function generateMetadata({
   params,
@@ -47,6 +54,9 @@ export default async function SellPage({
   setRequestLocale(locale);
   const t = await getTranslations("sell");
   const tHome = await getTranslations("home");
+  const rigaVideo = (await getVideoAi()).get(chiaveFile(VIDEO_VENDI));
+  const etichettaVideo = datiEtichettaVideo(rigaVideo, locale);
+  const didascalia = didascaliaVideo(rigaVideo, locale);
 
   // FAQ rich-results — questions localized, answers reuse the recovered blocks.
   const faqBlocks = ["mandatoSemplice", "velocita", "checkup", "materiale", "venditaRiservata"];
@@ -82,18 +92,26 @@ export default async function SellPage({
                 />
               </div>
             </div>
-            <div
-              className="aspect-[5/4] overflow-hidden rounded-3xl border border-white/15 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.45)] lg:self-center"
-              data-reveal
-            >
-              <AutoVideo
-                src="/video/soggiorno-terrazza.mp4"
-                poster="/video/soggiorno-terrazza.jpg"
-                ariaLabel={t("hero.videoAlt")}
-                className="h-full w-full object-cover"
-                lazy={false}
-              />
-            </div>
+            <figure className="lg:self-center" data-reveal>
+              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-white/15 shadow-[0_24px_70px_-30px_rgba(0,0,0,0.45)]">
+                <AutoVideo
+                  src={VIDEO_VENDI}
+                  poster="/video/soggiorno-terrazza.jpg"
+                  ariaLabel={t("hero.videoAlt")}
+                  className="h-full w-full object-cover"
+                  lazy={false}
+                />
+                {/* Etichetta del registro dei video (SPEC §10), sul poster e per tutta la riproduzione. */}
+                <div className="pointer-events-none absolute right-3 top-3 z-[1]">
+                  <EtichettaVideo dati={etichettaVideo} />
+                </div>
+              </div>
+              {didascalia && (
+                <figcaption lang={didascalia.lang} className="mt-3 text-pretty text-xs leading-relaxed text-white/75">
+                  {didascalia.testo}
+                </figcaption>
+              )}
+            </figure>
           </div>
         </div>
       </section>

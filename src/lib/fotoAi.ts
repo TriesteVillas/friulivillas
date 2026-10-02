@@ -98,9 +98,56 @@ export type FotoAi = {
   bloccoDifetti: boolean;
 };
 
-/** L'etichetta visibile: `tecnico` non ne ha (SPEC §5.1). */
+// ---- STILE o SOSTANZA (SPEC v1.3 §11, 02/10/2026) ---------------------------
+//
+// «L'etichetta sulla foto si mette dove l'AI ha cambiato la SOSTANZA (cosa si
+// vede), non lo STILE (luce, colore, inquadratura).» `tecnico` e `ai_luce` sono
+// stile: nessuna etichetta e nessuna didascalia, OVUNQUE (scheda, miniature,
+// griglia, lightbox, card, og:image). Lo stile resta dichiarato nel riepilogo
+// #foto-ai dell'annuncio, e la marcatura IPTC dentro il file resta (photoSrc):
+// è invisibile e vera. `ai` generica resta etichettata: finché la foto non è
+// classificata non sappiamo se è solo luce (§11.4).
+// Questa è LA regola: ogni superficie passa da qui (haEtichetta,
+// didascaliaFoto, photoOgSrc) e il prebuild lo controlla eseguendola
+// (scripts/check-etichette-ai.mjs, §11).
+const TRATTAMENTI_STILE: readonly Trattamento[] = ["tecnico", "ai_luce"];
+export function eStile(t: Trattamento | null | undefined): boolean {
+  return Boolean(t && TRATTAMENTI_STILE.includes(t));
+}
+
+/** L'etichetta visibile sulla foto: solo dove l'AI ha toccato la sostanza (§11.1). */
 export function haEtichetta(ai: FotoAi | null | undefined): ai is FotoAi {
-  return Boolean(ai && ai.trattamento !== "tecnico");
+  return Boolean(ai && !eStile(ai.trattamento));
+}
+
+/**
+ * La didascalia della foto nella vista singola, nella lingua del visitatore:
+ * mai per lo stile (§11.1), anche se il CRM la tiene (§11.3); sulla sola sigla
+ * «AI» senza didascalia, il suo significato in chiaro (`generica`, già tradotta
+ * da chi chiama).
+ */
+export function didascaliaFoto(
+  ai: FotoAi | null | undefined,
+  locale: string,
+  generica: string,
+): { testo: string; lang: string } | null {
+  if (!haEtichetta(ai)) return null;
+  return testoIn(ai.didascalia, locale) ?? (ai.trattamento === "ai" ? { testo: generica, lang: locale } : null);
+}
+
+// ---- La home: nessuna pillola, un segno discreto solo sulle simulazioni -------
+//
+// SPEC §11.1: nella home di ogni sito nessuna pillola AI. Unica eccezione:
+// un'immagine che mostra cose che non esistono — lì un segno DISCRETO (testo
+// piccolo «simulazione», non la pillola). Il render di progetto fatto senza AI
+// mostra anche lui cose che non ci sono ancora: il suo segno discreto è la sua
+// parola, «Rendering». La dichiarazione completa resta nella scheda.
+export type SegnoHome = "simulazione" | "rendering";
+export function segnoHome(ai: FotoAi | null | undefined): SegnoHome | null {
+  if (!ai) return null;
+  if (ai.trattamento === "ai_aggiunte" || ai.trattamento === "ai_rendering") return "simulazione";
+  if (ai.trattamento === "rendering") return "rendering";
+  return null;
 }
 
 // Simulazioni: arredi o parti che nella casa non ci sono, o immagini generate
@@ -272,8 +319,11 @@ export function togliNotaAi(testo: string): string {
 // `galleriaDelSito`). `ai` è LO STESSO numero di `conteggi.ai` del CRM: le foto
 // con una riga AI (eAi: non `tecnico`, non `rendering`). Le etichette che il
 // sito aggiunge da sé (`generica`) si contano a parte, e così i render senza AI:
-// «55 foto su 55 modificate con l'AI» perché una riga non combacia più sarebbe
-// falso, e un render dell'architetto non è «modificato con l'AI».
+// un render dell'architetto non è «modificato con l'AI».
+// Dal 02/10 (SPEC §11.2) il riepilogo visibile è UNA riga calcolata da qui:
+// `luce` (solo stile, senza etichetta sulla foto) contro `segnalate` (con
+// l'etichetta sulla foto), `simulazioni`, `bloccoDifetti`; il dettaglio per
+// tipo (`perTipo`) sta dentro il comando che si apre.
 export type ConteggiAi = {
   pubblicate: number;
   /** foto con riga nel CRM e trattamento AI (= conteggi.ai del CRM) */
@@ -282,32 +332,42 @@ export type ConteggiAi = {
   generiche: number;
   /** render di progetto senza AI (etichetta «Rendering») */
   rendering: number;
+  /** foto ritoccate con l'AI solo nella luce e nei colori: nessuna etichetta sulla foto (§11.1) */
+  luce: number;
+  /** foto passate da un modello CON l'etichetta sulla foto (ai, ai_pulizia, ai_aggiunte, ai_rendering, generiche) */
+  segnalate: number;
+  /** simulazioni AI: ai_aggiunte + ai_rendering */
+  simulazioni: number;
   bloccoDifetti: number;
   /** foto con l'originale da confrontare, comprese le `tecnico` (= con_originale del CRM) */
   conOriginale: number;
-  /** foto con un'etichetta (ai + generiche + rendering) */
+  /** foto con un'etichetta visibile sulla foto (segnalate + rendering) */
   etichettate: number;
-  /** delle etichettate, quante hanno l'originale: decide «su ogni foto con etichetta» */
-  etichettateConOriginale: number;
-  /** i trattamenti presenti, per la legenda (nell'ordine di TRATTAMENTI) */
-  trattamenti: Trattamento[];
+  /**
+   * quante foto per tipo, nell'ordine di TRATTAMENTI, solo i tipi presenti (non
+   * `tecnico`). Le sigle «AI» messe dal sito stanno con `ai`: per chi legge sono
+   * la stessa cosa, una foto passata da un modello e ancora da descrivere.
+   */
+  perTipo: Array<{ tipo: Trattamento; n: number }>;
 };
 
 export function contaFotoAi(
   fotoMostrate: Array<{ id: string | null; url: string; filename: string | null; ai?: FotoAi | null }>,
 ): ConteggiAi {
   const viste = new Set<string>();
-  const presenti = new Set<Trattamento>();
+  const perTipo = new Map<Trattamento, number>();
   const c: ConteggiAi = {
     pubblicate: 0,
     ai: 0,
     generiche: 0,
     rendering: 0,
+    luce: 0,
+    segnalate: 0,
+    simulazioni: 0,
     bloccoDifetti: 0,
     conOriginale: 0,
     etichettate: 0,
-    etichettateConOriginale: 0,
-    trattamenti: [],
+    perTipo: [],
   };
   for (const p of fotoMostrate) {
     const chiave = p.filename ?? `\u0000${p.id ?? p.url}`;
@@ -316,19 +376,51 @@ export function contaFotoAi(
     c.pubblicate++;
     const ai = p.ai ?? null;
     if (!ai) continue;
+    if (ai.trattamento !== "tecnico") perTipo.set(ai.trattamento, (perTipo.get(ai.trattamento) ?? 0) + 1);
     if (ai.origine === "generica") c.generiche++;
     else if (eAi(ai.trattamento)) c.ai++;
     else if (ai.trattamento === "rendering") c.rendering++;
+    if (ai.origine !== "generica" && ai.trattamento === "ai_luce") c.luce++;
     if (haEtichetta(ai)) {
-      presenti.add(ai.trattamento);
       c.etichettate++;
-      if (ai.originale) c.etichettateConOriginale++;
+      if (eAi(ai.trattamento)) c.segnalate++;
     }
+    if (ai.origine !== "generica" && (ai.trattamento === "ai_aggiunte" || ai.trattamento === "ai_rendering"))
+      c.simulazioni++;
     if (ai.bloccoDifetti) c.bloccoDifetti++;
     if (ai.originale) c.conOriginale++;
   }
-  c.trattamenti = TRATTAMENTI.filter((t) => presenti.has(t));
+  c.perTipo = TRATTAMENTI.filter((t) => perTipo.has(t)).map((t) => ({ tipo: t, n: perTipo.get(t)! }));
   return c;
+}
+
+/**
+ * La riga del riepilogo (§11.2), come chiavi di messaggio + valori: la scrive
+ * la pagina con `tAi`. Mai scritta a mano: dai soli conteggi.
+ *   · solo luce (tutte)      → summaryLineLightAll
+ *   · solo luce (alcune)     → summaryLineLight {n, total}
+ *   · misto                  → summaryLineMixed {n, total, luce, segnalate}
+ *   · nessuna solo-luce      → summaryLineMarked {n, total}
+ *   · + simulazioni          → summaryLineSimulations {count}
+ *   · + render senza AI      → summaryLineRenderings {count}
+ *   · + difetti protetti     → summaryLineDefects
+ * La chiusura «La visita resta l'unico riferimento.» la aggiunge la pagina.
+ */
+export function rigaRiepilogo(c: ConteggiAi): Array<{ chiave: string; valori?: Record<string, number> }> {
+  const out: Array<{ chiave: string; valori?: Record<string, number> }> = [];
+  const n = c.luce + c.segnalate;
+  const total = c.pubblicate;
+  if (n > 0) {
+    if (c.segnalate === 0)
+      out.push(n === total ? { chiave: "summaryLineLightAll" } : { chiave: "summaryLineLight", valori: { n, total } });
+    else if (c.luce > 0)
+      out.push({ chiave: "summaryLineMixed", valori: { n, total, luce: c.luce, segnalate: c.segnalate } });
+    else out.push({ chiave: "summaryLineMarked", valori: { n, total } });
+  }
+  if (c.simulazioni > 0) out.push({ chiave: "summaryLineSimulations", valori: { count: c.simulazioni } });
+  if (c.rendering > 0) out.push({ chiave: "summaryLineRenderings", valori: { count: c.rendering } });
+  if (c.bloccoDifetti > 0) out.push({ chiave: "summaryLineDefects" });
+  return out;
 }
 
 // ---- I testi dell'etichetta ---------------------------------------------------

@@ -20,12 +20,17 @@
 // RIQUADRO del punto = il primo antenato JSX posizionato (classe `relative`,
 // `absolute`, `fixed` o `sticky`): è il box rispetto a cui l'etichetta, in
 // alto a destra, si posiziona sulla foto.
-// ETICHETTA = un <AiTag>, o la chiamata a una funzione dello stesso file che
-// restituisce un <AiTag> (es. `tag(p, true)` in PhotoGallery). Appartiene al
-// riquadro-di-un-punto più vicino fra i suoi antenati.
+// ETICHETTA = un <AiTag> o un <EtichettaVideo>, o la chiamata a una funzione
+// dello stesso file che restituisce un <AiTag> (es. `tag(p, true)` in
+// PhotoGallery). Appartiene al riquadro-di-un-punto più vicino fra i suoi
+// antenati.
 //   1. ogni punto ha un riquadro;
 //   2. in ogni riquadro, le etichette sono ALMENO quanti i punti: un'immagine
 //      nuova messa accanto a una già etichettata non passa;
+//   2b. i VIDEO (<video>, <AutoVideo>, <iframe>) si etichettano col registro dei
+//      video del CRM (SPEC §10): nel loro riquadro ci vogliono almeno tanti
+//      <EtichettaVideo> quanti video. Un <AiTag> scritto a mano su un video
+//      non basta più (01/10 sera): non sa che cosa dice il registro;
 //   3. i punti che non vogliono etichetta stanno in ESENZIONI (file + un pezzo
 //      del sorgente del punto + motivo). Un'esenzione che non trova più il suo
 //      punto è un errore: chi rimettesse lì un'immagine passerebbe senza
@@ -38,10 +43,34 @@
 // abbia PENSATO, lì. Non si spegne per «sbloccare» la build: si mette
 // l'etichetta, o si scrive l'esenzione col motivo vero.
 //
+// ── SPEC v1.3 §11 (02/10/2026): «bello, ma spesso troppo» ──────────────────
+// L'etichetta va dove l'AI ha cambiato la SOSTANZA, non lo STILE; la home non
+// porta pillole; il riepilogo è corto. Il cancello lo controlla così:
+//   5. HOME (`HOME`): nessun <AiTag>, <EtichettaVideo> o componente che si
+//      etichetta da sé; ogni punto ha invece un <SegnoAiDiscreto> nel suo
+//      riquadro; ogni `buildPropertyView(` passa `{ superficie: "home" }`; e
+//      nessun componente importato in home disegna una pillola, salvo quelli
+//      in HOME_SICURI col perché (es. PropertyCard: la sua pillola dipende da
+//      `coverAi`, che con `superficie: "home"` è sempre null — regola 7);
+//   6. ogni `etichettaAi(` fuori da lib/fotoAi.ts sta sotto una condizione
+//      che passa da `haEtichetta(` (la regola stile/sostanza), e nessuna
+//      didascalia di foto si legge con `testoIn(…didascalia…)` saltando
+//      `didascaliaFoto()`;
+//   7. la REGOLA STESSA si esegue: lib/fotoAi.ts e lib/photoSrc.ts, compilati al
+//      volo, devono dire che `ai_luce` e `tecnico` non hanno etichetta, né
+//      didascalia, né og:image con la sigla; che `ai` generica e le sostanze
+//      sì; il segno discreto solo sulle simulazioni; la riga del riepilogo
+//      dai conteggi;
+//   8. il riepilogo `#foto-ai`: fuori dal <details> solo titolo, la riga e la
+//      chiusura (h2, p, span), niente tessere né liste; il <details> c'è ed è
+//      chiuso di default (niente `open`).
+//
 // Uso: node scripts/check-etichette-ai.mjs [radice]   (prebuild: radice = .)
 // Prova che sa dire di no: node scripts/check-etichette-ai.prova.mjs
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join, relative } from "node:path";
+import { pathToFileURL } from "node:url";
 import ts from "typescript";
 
 const RADICE = process.argv[2] ?? ".";
@@ -69,7 +98,7 @@ const STRUMENTI = new Map([
 const AUTOETICHETTATI = new Map([
   [
     "SfondoVideo",
-    "etichetta AI dal registro content/annunciVideo.ts (`ai: true`), visibile sul video per tutta la durata",
+    "etichetta dal registro dei video del CRM (riga `fv:<mp4>`, SPEC §10) o, senza riga, da content/annunciVideo.ts (`ai: true`); visibile sul video per tutta la durata",
   ],
 ]);
 
@@ -80,7 +109,7 @@ const ESENZIONI = [
     file: "src/components/Lightbox.tsx",
     ancora: "key={photos[i].url}",
     motivo:
-      "vista singola del lightbox SENZA dati AI: il ramo si sceglie solo se nessuna foto della serie ha `ai` (conAi = photos.some(p => p.ai)); con dati AI la vista è VistaConAi, etichettata",
+      "vista singola del lightbox senza niente da mostrare: il ramo si sceglie solo se nessuna foto della serie ha un'etichetta (haEtichetta: sostanza, SPEC §11.1) né un originale; altrimenti la vista è VistaConAi, etichettata. Le foto di sola luce e le `tecnico` stanno qui per scelta: non portano etichetta",
   },
   {
     file: "src/components/Lightbox.tsx",
@@ -88,35 +117,30 @@ const ESENZIONI = [
     motivo:
       "l'ORIGINALE (foto prima dell'AI) nella stessa cornice della pubblicata: l'etichetta della cornice passa a «Originale» (variante) quando è visibile",
   },
-  {
-    file: "src/app/[locale]/page.tsx",
-    ancora: 'src="/video/hero.mp4"',
-    motivo: "ripresa da drone vera (la piscina della villa), montata a palindromo con ffmpeg: nessun modello generativo",
-  },
-  {
-    file: "src/app/[locale]/vendi/page.tsx",
-    ancora: 'src="/video/soggiorno-terrazza.mp4"',
-    motivo:
-      "⚠️ DA VERIFICARE: lotto di video del 30/07 copiato da triesteimmobiliare.com, provenienza non registrata (sorgenti 1604×1292: forse foto animate con l'AI). Se lo è, va etichettato come lo staging della home",
-  },
-  {
-    file: "src/app/[locale]/contatti/page.tsx",
-    ancora: 'src="/video/angolo-studio.mp4"',
-    motivo:
-      "⚠️ DA VERIFICARE: stesso lotto del 30/07 di soggiorno-terrazza.mp4, provenienza non registrata",
-  },
-  {
-    file: "src/app/[locale]/annuncio/[slug]/page.tsx",
-    ancora: "youtube-nocookie.com/embed",
-    motivo:
-      "⚠️ video YouTube dal record (oggi due: Sappada e la 0162, riprese vere con un presentatore — verifica finale del 01/10). L'etichetta per video arriva col registro video_trasparenza del CRM (SPEC §10), non ancora in produzione: fino ad allora un video AI nuovo passerebbe da qui",
-  },
+  // Dal 01/10 sera i video della home, di /vendi, di /contatti e gli YouTube
+  // della scheda NON sono più esenti: portano <EtichettaVideo> dal registro dei
+  // video del CRM (SPEC §10). Le vecchie esenzioni dicevano «ripresa da drone
+  // vera» per /video/hero.mp4 e «DA VERIFICARE» per gli altri due: il
+  // censimento dei video del 01/10 li ha registrati tutti e tre `ai_animato`.
   {
     file: "src/app/[locale]/annuncio/[slug]/page.tsx",
     ancora: "<TourFrame",
     motivo: "tour 3D Matterport: scansione dell'immobile, nessun modello generativo",
   },
 ];
+
+// La home (SPEC §11.1): nessuna pillola, solo il segno discreto.
+const HOME = new Set(["src/app/[locale]/page.tsx"]);
+// I componenti che la home può usare anche se nel loro sorgente c'è una pillola:
+// uno per uno, col perché.
+const HOME_SICURI = new Map([
+  [
+    "PropertyCard",
+    "la pillola della card dipende da `view.coverAi`, che buildPropertyView con `superficie: \"home\"` lascia null (regole 5 e 7)",
+  ],
+]);
+// Dove si decidono le regole (non si controllano qui le loro definizioni).
+const FILE_REGOLE = new Set(["src/lib/fotoAi.ts", "src/lib/videoAi.ts"]);
 
 // ---- Lettura ----------------------------------------------------------------
 
@@ -132,7 +156,9 @@ const TAG_PUNTO = new Set([
   "source",
   ...AUTOETICHETTATI.keys(),
 ]);
-const TAG_ETICHETTA = new Set(["AiTag"]);
+const TAG_ETICHETTA = new Set(["AiTag", "EtichettaVideo"]);
+const TAG_SEGNO_HOME = "SegnoAiDiscreto";
+const TAG_VIDEO = new Set(["video", "AutoVideo", "iframe"]);
 const POSIZIONATO = /(?:^|[\s"'`{(])(?:[\w[\]-]+:)*(?:relative|absolute|fixed|sticky)(?=$|[\s"'`})])/;
 const FOTO_NEL_TESTO = /coverPhoto|topPhotos|\bphotos\b|photoSrc\(|\.url\b|\.thumb\b|\bcover\b/;
 
@@ -203,11 +229,68 @@ function etichettatori(sf) {
   return nomi;
 }
 
+/** C'è, fra gli antenati di `n` (fino al corpo della funzione), una condizione che passa da haEtichetta? */
+function sottoHaEtichetta(n, sf) {
+  const passa = (x) => x && /\bhaEtichetta\(/.test(x.getText(sf));
+  for (let p = n.parent, figlio = n; p; figlio = p, p = p.parent) {
+    if (ts.isConditionalExpression(p) && figlio !== p.condition && passa(p.condition)) return true;
+    if (ts.isBinaryExpression(p) && p.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken && figlio === p.right && passa(p.left))
+      return true;
+    if (ts.isIfStatement(p) && figlio !== p.expression && passa(p.expression)) return true;
+    // una guardia all'inizio della funzione: `if (!haEtichetta(x)) return …;` prima della chiamata
+    if (ts.isBlock(p))
+      for (const st of p.statements) {
+        if (st.pos >= n.pos) break;
+        if (!ts.isIfStatement(st) || !/^!\s*haEtichetta\(/.test(st.expression.getText(sf).trim())) continue;
+        const allora = ts.isBlock(st.thenStatement) ? st.thenStatement.statements[0] : st.thenStatement;
+        if (allora && ts.isReturnStatement(allora)) return true;
+      }
+    if (ts.isSourceFile(p)) break;
+  }
+  return false;
+}
+
+/** I moduli locali importati da un file (`@/…` o relativi), risolti su disco. */
+function importati(sf, rel) {
+  const out = new Map(); // nome locale → percorso del file
+  for (const st of sf.statements) {
+    if (!ts.isImportDeclaration(st) || !st.importClause) continue;
+    const da = st.moduleSpecifier.text;
+    let base = null;
+    if (da.startsWith("@/")) base = join(SRC, da.slice(2));
+    else if (da.startsWith(".")) base = join(RADICE, rel, "..", da);
+    if (!base) continue;
+    const trovato = [".tsx", ".ts", "/index.tsx", "/index.ts"].map((e) => base + e).find((f) => existsSync(f));
+    if (!trovato) continue;
+    const c = st.importClause;
+    if (c.name) out.set(c.name.text, trovato);
+    if (c.namedBindings && ts.isNamedImports(c.namedBindings))
+      for (const el of c.namedBindings.elements) out.set(el.name.text, trovato);
+  }
+  return out;
+}
+
+const PILLOLA_NEL_SORGENTE = /<(?:AiTag|EtichettaVideo|SfondoVideo)\b/;
+/** Il componente (o uno dei suoi import locali) disegna una pillola? Restituisce la catena, o null. */
+function disegnaPillola(percorso, visti = new Set()) {
+  if (visti.has(percorso)) return null;
+  visti.add(percorso);
+  const testo = readFileSync(percorso, "utf8");
+  const r = relative(RADICE, percorso).split("\\").join("/");
+  if (PILLOLA_NEL_SORGENTE.test(testo)) return [r];
+  const sf = ts.createSourceFile(percorso, testo, ts.ScriptTarget.Latest, true, percorso.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+  for (const dest of new Set(importati(sf, r).values())) {
+    const sotto = disegnaPillola(dest, visti);
+    if (sotto) return [r, ...sotto];
+  }
+  return null;
+}
+
 // ---- Controllo ----------------------------------------------------------------
 
 const errori = [];
 const esenzioniUsate = new Map(ESENZIONI.map((e) => [e, 0]));
-const riepilogo = { punti: 0, etichettati: 0, autoetichettati: 0, esenti: 0, file: 0 };
+const riepilogo = { punti: 0, etichettati: 0, autoetichettati: 0, esenti: 0, file: 0, video: 0 };
 
 for (const p of file(SRC)) {
   const rel = relative(RADICE, p).split("\\").join("/");
@@ -216,6 +299,82 @@ for (const p of file(SRC)) {
   const sf = ts.createSourceFile(p, testo, ts.ScriptTarget.Latest, true, p.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
   const strumento = STRUMENTI.has(rel);
   const etich = etichettatori(sf);
+  const inHome = HOME.has(rel);
+
+  // 6. la regola stile/sostanza non si salta
+  if (!FILE_REGOLE.has(rel))
+    visita(sf, (n) => {
+      if (!ts.isCallExpression(n) || !ts.isIdentifier(n.expression)) return;
+      const nome = n.expression.text;
+      if (nome === "etichettaAi" && !sottoHaEtichetta(n, sf))
+        errori.push(
+          `${rel}:${riga(sf, n)}: etichettaAi() senza una condizione che passi da haEtichetta(): così una foto di sola luce (\`ai_luce\`) o \`tecnico\` riavrebbe l'etichetta (SPEC §11.1)`,
+        );
+      if (nome === "testoIn" && n.arguments[0] && /didascalia/.test(n.arguments[0].getText(sf)))
+        errori.push(
+          `${rel}:${riga(sf, n)}: didascalia di una foto letta con testoIn(): passa da didascaliaFoto() di lib/fotoAi.ts, che non la mostra sullo stile (SPEC §11.1)`,
+        );
+    });
+
+  // 8. il riepilogo #foto-ai: corto, il resto nel <details> chiuso
+  visita(sf, (n) => {
+    if (!eJsxElemento(n)) return;
+    const id = attributo(n, "id");
+    if (!id?.initializer || !/^["'{`]*foto-ai["'}`]*$/.test(id.initializer.getText(sf))) return;
+    let dettagli = 0;
+    const fuori = new Set();
+    const giro = (x, dentroDettagli) => {
+      if (eJsxElemento(x) && x !== n) {
+        const tag = nomeTag(apertura(x));
+        if (tag === "details") {
+          dettagli++;
+          if (attributo(x, "open"))
+            errori.push(`${rel}:${riga(sf, x)}: il <details> del riepilogo #foto-ai è aperto di default (\`open\`): deve partire chiuso (SPEC §11.2)`);
+          dentroDettagli = true;
+        } else if (!dentroDettagli && !["h2", "p", "span"].includes(tag)) fuori.add(`<${tag}> (riga ${riga(sf, x)})`);
+      }
+      ts.forEachChild(x, (c) => giro(c, dentroDettagli));
+    };
+    giro(n, false);
+    if (!dettagli)
+      errori.push(`${rel}:${riga(sf, n)}: il riepilogo #foto-ai non ha il <details> «Leggi come le abbiamo ritoccate» (SPEC §11.2)`);
+    if (fuori.size)
+      errori.push(
+        `${rel}:${riga(sf, n)}: nella parte visibile del riepilogo #foto-ai solo titolo, riga e chiusura (h2, p, span): fuori dal <details> ci sono ${[...fuori].join(", ")} (SPEC §11.2)`,
+      );
+  });
+
+  // 5. la home: nessuna pillola
+  if (inHome) {
+    visita(sf, (n) => {
+      if (eJsxElemento(n)) {
+        const tag = nomeTag(apertura(n));
+        if (TAG_ETICHETTA.has(tag) || AUTOETICHETTATI.has(tag))
+          errori.push(`${rel}:${riga(sf, n)}: <${tag}> nella home: in home nessuna pillola AI, solo <${TAG_SEGNO_HOME}> (SPEC §11.1)`);
+      }
+      if (ts.isCallExpression(n) && ts.isIdentifier(n.expression) && n.expression.text === "buildPropertyView") {
+        const opz = n.arguments[4]?.getText(sf) ?? "";
+        if (!/superficie\s*:\s*["']home["']/.test(opz))
+          errori.push(
+            `${rel}:${riga(sf, n)}: buildPropertyView() nella home senza \`{ superficie: "home" }\`: la card disegnerebbe la pillola AI (SPEC §11.1)`,
+          );
+      }
+    });
+    const imp = importati(sf, rel);
+    const usati = new Set();
+    visita(sf, (n) => {
+      if (eJsxElemento(n)) usati.add(nomeTag(apertura(n)));
+    });
+    for (const nome of usati) {
+      const dove = imp.get(nome);
+      if (!dove || HOME_SICURI.has(nome)) continue;
+      const catena = disegnaPillola(dove);
+      if (catena)
+        errori.push(
+          `${rel}: <${nome}> nella home disegna una pillola AI (${catena.join(" → ")}): in home solo il segno discreto (SPEC §11.1), o una voce in HOME_SICURI col perché`,
+        );
+    }
+  }
 
   // 4. superfici fuori dal JSX
   visita(sf, (n) => {
@@ -277,22 +436,43 @@ for (const p of file(SRC)) {
   // le etichette, assegnate al riquadro-di-un-punto più vicino
   const riquadri = new Set(daContare.map((x) => x.riquadro));
   const etichettePer = new Map([...riquadri].map((r) => [r, 0]));
+  const etichetteVideoPer = new Map([...riquadri].map((r) => [r, 0]));
   visita(sf, (n) => {
-    const eEtichetta =
-      (eJsxElemento(n) && TAG_ETICHETTA.has(nomeTag(apertura(n)))) ||
-      (ts.isCallExpression(n) && ts.isIdentifier(n.expression) && etich.has(n.expression.text));
+    const eVideo = eJsxElemento(n) && nomeTag(apertura(n)) === "EtichettaVideo";
+    // In home l'etichetta di un punto è il segno discreto (regola 5); altrove la pillola.
+    const eEtichetta = inHome
+      ? eJsxElemento(n) && nomeTag(apertura(n)) === TAG_SEGNO_HOME
+      : (eJsxElemento(n) && TAG_ETICHETTA.has(nomeTag(apertura(n)))) ||
+        (ts.isCallExpression(n) && ts.isIdentifier(n.expression) && etich.has(n.expression.text));
     if (!eEtichetta) return;
     for (let p = n.parent; p; p = p.parent)
       if (riquadri.has(p)) {
         etichettePer.set(p, etichettePer.get(p) + 1);
+        if (eVideo) etichetteVideoPer.set(p, etichetteVideoPer.get(p) + 1);
         break;
       }
   });
+  // 2b. i video vogliono l'etichetta del registro (in home: il segno discreto, regola 5)
+  for (const r of inHome ? [] : riquadri) {
+    const video = daContare.filter((x) => x.riquadro === r && TAG_VIDEO.has(x.tag));
+    if (!video.length) continue;
+    riepilogo.video += video.length;
+    if (etichetteVideoPer.get(r) < video.length)
+      for (const x of video)
+        errori.push(
+          `${x.dove}: video senza <EtichettaVideo> nel suo riquadro (riga ${riga(sf, r)}): l'etichetta di un video viene dal registro dei video del CRM (SPEC §10)`,
+        );
+  }
   for (const r of riquadri) {
     const qui = daContare.filter((x) => x.riquadro === r);
     const n = etichettePer.get(r);
     if (n === 0) {
-      for (const x of qui) errori.push(`${x.dove}: nessuna etichetta AI (AiTag) nel suo riquadro (riga ${riga(sf, r)})`);
+      for (const x of qui)
+        errori.push(
+          inHome
+            ? `${x.dove}: nella home nessun <${TAG_SEGNO_HOME}> nel suo riquadro (riga ${riga(sf, r)}): ogni immagine o video della home porta il segno discreto, che resta vuoto se non serve (SPEC §11.1)`
+            : `${x.dove}: nessuna etichetta AI (AiTag) nel suo riquadro (riga ${riga(sf, r)})`,
+        );
     } else if (n < qui.length) {
       errori.push(
         `${rel}:${riga(sf, r)}: ${qui.length} immagini nello stesso riquadro e ${n} etichette (${qui.map((x) => x.dove.split(" ")[0]).join(", ")})`,
@@ -300,6 +480,66 @@ for (const p of file(SRC)) {
     } else riepilogo.etichettati += qui.length;
   }
 }
+
+// 7. la regola stile/sostanza ESEGUITA: si compilano al volo lib/fotoAi.ts e
+// lib/photoSrc.ts (solo i tipi tolti, nessun bundler) e si interrogano.
+async function provaRegola() {
+  const dir = mkdtempSync(join(tmpdir(), "regola-ai-"));
+  try {
+    const compila = (da, a, sostituisci = (x) => x) => {
+      const sorgente = readFileSync(join(SRC, da), "utf8");
+      const js = ts.transpileModule(sorgente, {
+        compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
+      }).outputText;
+      writeFileSync(join(dir, a), sostituisci(js));
+    };
+    compila("lib/fotoAi.ts", "fotoAi.mjs");
+    compila("lib/photoSrc.ts", "photoSrc.mjs", (js) => js.replace(/(["'])@\/lib\/fotoAi\1/g, '"./fotoAi.mjs"'));
+    const f = await import(pathToFileURL(join(dir, "fotoAi.mjs")).href);
+    const ps = await import(pathToFileURL(join(dir, "photoSrc.mjs")).href);
+    const foto = (trattamento, extra = {}) => ({
+      trattamento,
+      iptc: f.IPTC_PER_TRATTAMENTO[trattamento],
+      origine: "crm",
+      didascalia: { it: "didascalia di prova", en: null, de: null, sl: null },
+      originale: null,
+      bloccoDifetti: false,
+      ...extra,
+    });
+    const casi = [];
+    const atteso = (cosa, ottenuto, voluto) => {
+      if (JSON.stringify(ottenuto) !== JSON.stringify(voluto))
+        casi.push(`${cosa}: ${JSON.stringify(ottenuto)} invece di ${JSON.stringify(voluto)}`);
+    };
+    const ETICHETTA = { tecnico: false, ai_luce: false, ai: true, ai_pulizia: true, ai_aggiunte: true, ai_rendering: true, rendering: true };
+    for (const [t, v] of Object.entries(ETICHETTA)) {
+      atteso(`haEtichetta(${t})`, f.haEtichetta(foto(t)), v);
+      atteso(`didascaliaFoto(${t}) mostrata`, f.didascaliaFoto(foto(t), "it", "generica") !== null, v);
+      const og = ps.photoOgSrc({ id: "attPROVAprova1234", url: "u", thumb: "t", filename: "x.jpg", alt: "", ai: foto(t) });
+      atteso(`photoOgSrc(${t}) con la sigla`, og !== null, v && t !== "rendering");
+    }
+    atteso("haEtichetta(sigla del sito)", f.haEtichetta(foto("ai", { origine: "generica", didascalia: null })), true);
+    const SEGNO = { ai: null, ai_luce: null, ai_pulizia: null, tecnico: null, ai_aggiunte: "simulazione", ai_rendering: "simulazione", rendering: "rendering" };
+    for (const [t, v] of Object.entries(SEGNO)) atteso(`segnoHome(${t})`, f.segnoHome(foto(t)), v);
+    const serie = (spec) =>
+      spec.flatMap(([t, n], k) =>
+        Array.from({ length: n }, (_, i) => ({ id: `a${k}-${i}`, url: `u${k}-${i}`, filename: `f${k}-${i}.jpg`, ai: t ? foto(t) : null })),
+      );
+    const riga = (spec) => f.rigaRiepilogo(f.contaFotoAi(serie(spec))).map((x) => x.chiave);
+    atteso("riga: tutte solo luce", riga([["ai_luce", 39]]), ["summaryLineLightAll"]);
+    atteso("riga: alcune solo luce", riga([["ai_luce", 5], [null, 3]]), ["summaryLineLight"]);
+    atteso("riga: misto", riga([["ai_luce", 5], ["ai_pulizia", 35]]), ["summaryLineMixed"]);
+    atteso("riga: solo segnalate, con simulazioni", riga([["ai", 39], ["ai_aggiunte", 1]]), ["summaryLineMarked", "summaryLineSimulations"]);
+    const c = f.contaFotoAi(serie([["ai_luce", 5], ["ai_pulizia", 35], ["tecnico", 2]]));
+    atteso("conteggi del misto", [c.pubblicate, c.luce, c.segnalate, c.etichettate], [42, 5, 35, 35]);
+    for (const x of casi) errori.push(`regola stile/sostanza (lib/fotoAi.ts, lib/photoSrc.ts): ${x} (SPEC §11)`);
+  } catch (e) {
+    errori.push(`regola stile/sostanza: non si riesce a eseguirla (${e instanceof Error ? e.message : e}) — il cancello deve poterla provare`);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+}
+await provaRegola();
 
 for (const [e, n] of esenzioniUsate) {
   if (n === 0) errori.push(`esenzione senza più il suo punto: ${e.file} «${e.ancora}» — toglierla da ESENZIONI`);
@@ -313,5 +553,5 @@ if (errori.length) {
   process.exit(1);
 }
 console.log(
-  `✓ check-etichette-ai: ${riepilogo.punti} punti con immagini in ${riepilogo.file} file — ${riepilogo.etichettati} con l'etichetta nel riquadro, ${riepilogo.autoetichettati} che si etichettano da sé, ${riepilogo.esenti} esenti col motivo`,
+  `✓ check-etichette-ai: ${riepilogo.punti} punti con immagini in ${riepilogo.file} file — ${riepilogo.etichettati} con l'etichetta nel riquadro (${riepilogo.video} video col registro; in home il segno discreto), ${riepilogo.autoetichettati} che si etichettano da sé, ${riepilogo.esenti} esenti col motivo; regola stile/sostanza eseguita e verde (SPEC §11)`,
 );

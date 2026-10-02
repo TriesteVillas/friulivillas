@@ -13,7 +13,7 @@ const FULL_WIDTHS = [800, 1200, 1600, 2000] as const;
 import { useLocale, useTranslations } from "next-intl";
 import type { Photo } from "@/lib/properties";
 import { useFocusTrap } from "@/lib/useFocusTrap";
-import { etichettaAi, haEtichetta, testoIn } from "@/lib/fotoAi";
+import { didascaliaFoto, etichettaAi, haEtichetta } from "@/lib/fotoAi";
 import AiTag from "./AiTag";
 
 export default function Lightbox({
@@ -52,9 +52,11 @@ export default function Lightbox({
   );
   // Trasparenza AI (SPEC §5.2): la vista singola cambia impianto — foto,
   // etichetta, didascalia, bottone — SOLO se almeno una foto della serie ha
-  // dati AI. Le serie senza (e le planimetrie, che non ne hanno mai) restano
-  // identiche a prima.
-  const conAi = photos.some((p) => p.ai);
+  // qualcosa da MOSTRARE: un'etichetta (sostanza, §11.1) o un originale da
+  // confrontare. Una serie di sole foto ritoccate nella luce senza originali
+  // (dal 02/10 senza etichetta né didascalia) torna al lightbox di sempre, come
+  // le serie senza dati e le planimetrie.
+  const conAi = photos.some((p) => Boolean(p.ai?.originale) || haEtichetta(p.ai));
   // Originali che la vetrina non serve più (ritirati: 404): il bottone sparisce
   // invece di mostrare un riquadro vuoto con l'etichetta «Originale».
   const [rotti, setRotti] = useState<ReadonlySet<string>>(() => new Set());
@@ -391,11 +393,11 @@ function VistaConAi({
   // La didascalia: quella del CRM nella lingua del visitatore; sull'originale
   // quella fissa dell'originale; sulla sola sigla «AI» senza didascalia, il suo
   // significato in chiaro — l'aria-label non si vede, e sul telefono neanche il
-  // tooltip.
+  // tooltip. Mai sullo stile (`ai_luce`, `tecnico`: SPEC §11.1): la regola è
+  // didascaliaFoto() di lib/fotoAi.ts. «Vedi l'originale» resta se c'è.
   const didascalia = vediOriginale
     ? { testo: tAi("originalCaption"), lang: locale }
-    : (testoIn(ai?.didascalia, locale) ??
-      (ai?.trattamento === "ai" ? { testo: tAi("genericCaption"), lang: locale } : null));
+    : didascaliaFoto(ai, locale, tAi("genericCaption"));
 
   // srcset dell'originale: `m` ha il lato lungo a 1600, `xl` a 2560 (SPEC §3).
   let srcSetOriginale: string | undefined;

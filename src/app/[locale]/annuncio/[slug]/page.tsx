@@ -40,10 +40,15 @@ import { formatPrice } from "@/lib/format";
 import TaxBox from "@/components/TaxBox";
 import AiTag from "@/components/AiTag";
 import SfondoVideo from "@/components/media/SfondoVideo";
+import EtichettaVideo from "@/components/EtichettaVideo";
+import { getVideoAi } from "@/lib/trasparenza";
+import { chiaveFile, chiaveYoutube, datiEtichettaVideo, didascaliaVideo } from "@/lib/videoAi";
 import {
   contaFotoAi,
+  eStile,
   etichettaAi,
   haEtichetta,
+  rigaRiepilogo,
   serieCompleta,
   serieHaAi,
   testoIn,
@@ -60,16 +65,6 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://friulivillas.com";
 // esiste in src/app/[locale]/ai. Nel frattempo il riepilogo linka la pagina
 // del gruppo su triestevillas.com, solo se risponde 200 (lib/paginaAiGruppo.ts).
 const PAGINA_AI_ONLINE = false;
-
-// Le tessere del riepilogo #foto-ai (da 1 a 5): righe piene, mai una tessera
-// sola a capo. Classi intere, perché Tailwind le trovi nel sorgente.
-const COLONNE_TESSERE: Record<number, string> = {
-  1: "grid-cols-1",
-  2: "grid-cols-2",
-  3: "grid-cols-2 sm:grid-cols-3",
-  4: "grid-cols-2 lg:grid-cols-4",
-  5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
-};
 
 // Ladder dell'hero a tutto schermo. Il fallback resta 2000 px per i desktop
 // larghi; il ladder esiste perché con sizes="100vw" un telefono ne serve 780 e
@@ -205,45 +200,21 @@ export default async function PropertyPage({ params }: { params: Params }) {
   const description =
     descrizioneIntera && notaAi ? togliNotaAi(descrizioneIntera) || null : descrizioneIntera;
   // I conteggi del riepilogo si fanno sulle foto che la pagina mostra
-  // (copertina + top 8 + galleria, senza doppioni). «Modificate con l'AI» è lo
-  // stesso numero di `conteggi.ai` del CRM; le sigle messe dal sito e i render
-  // senza AI si contano a parte (fotoAi.contaFotoAi).
+  // (copertina + top 8 + galleria, senza doppioni). «Ritoccate con l'AI» sono le
+  // foto con una riga AI del CRM più le sigle messe dal sito; i render senza AI
+  // si contano a parte (fotoAi.contaFotoAi).
   const contiAi = contaFotoAi([
     ...(property.coverPhoto ? [property.coverPhoto] : []),
     ...property.topPhotos,
     ...property.photos,
   ]);
-  const riepilogoAi = notaAi !== null || contiAi.etichettate > 0;
-  // Il link in fondo al riepilogo: la pagina /ai di questo sito quando ci sarà;
-  // fino ad allora quella del gruppo su triestevillas.com, se risponde 200.
-  const linkAiGruppo = riepilogoAi && !PAGINA_AI_ONLINE ? await paginaAiDelGruppo(locale) : null;
-  const tessereAi = riepilogoAi
-    ? [
-        contiAi.ai > 0 && {
-          valore: tAi("tileOf", { n: contiAi.ai, total: contiAi.pubblicate }),
-          etichetta: tAi("tileAi", { count: contiAi.ai }),
-        },
-        contiAi.generiche > 0 && {
-          valore: tAi("tileOf", { n: contiAi.generiche, total: contiAi.pubblicate }),
-          etichetta: tAi("tileGeneric", { count: contiAi.generiche }),
-        },
-        contiAi.rendering > 0 && {
-          valore: String(contiAi.rendering),
-          etichetta: tAi("tileRendering", { count: contiAi.rendering }),
-        },
-        contiAi.bloccoDifetti > 0 && {
-          valore: String(contiAi.bloccoDifetti),
-          etichetta: tAi("tileDefects", { count: contiAi.bloccoDifetti }),
-        },
-        contiAi.conOriginale > 0 && {
-          valore: String(contiAi.conOriginale),
-          etichetta:
-            contiAi.etichettate > 0 && contiAi.etichettateConOriginale === contiAi.etichettate
-              ? tAi("tileOriginalsAll")
-              : tAi("tileOriginals", { count: contiAi.conOriginale }),
-        },
-      ].filter((x): x is { valore: string; etichetta: string } => Boolean(x))
-    : [];
+  // Il riepilogo §11.2: visibile solo la riga calcolata dai conteggi (mai
+  // scritta a mano) e la chiusura; nota, conteggi per tipo e link dentro il
+  // comando che si apre. Lo stile (sola luce) qui resta dichiarato, anche se
+  // sulle foto non ha etichetta.
+  const rigaAi = rigaRiepilogo(contiAi)
+    .map((x) => tAi(x.chiave, x.valori))
+    .join(" ");
   const heroFoto = property.coverPhoto ?? property.photos[0] ?? null;
   // «Vedi tutte le N foto»: con dati AI il lightbox scorre anche copertina e
   // top 8 (PhotoGallery → serieCompleta), e N deve contare la stessa serie.
@@ -255,6 +226,29 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // l'immobile ne ha uno, sale sulla copertina dell'hero (SfondoVideo); lo
   // YouTube resta nella sezione #video. Senza, l'hero è quello di sempre.
   const heroVideo = property.heroVideo ?? null;
+  // Etichette e didascalie dei video dal registro del CRM (SPEC trasparenza
+  // §10), per chiave: `fv:<percorso del file 1080>` per il video di testata (il
+  // 720p è lo stesso filmato), `youtube:<id>` per la sezione #video. Video senza
+  // riga: nessuna etichetta — tranne il video di testata già marcato `ai` nel
+  // registro del sito, che tiene la sua frase (SfondoVideo).
+  const videoAi = await getVideoAi();
+  const rigaTestata = heroVideo ? (videoAi.get(chiaveFile(heroVideo.mp4)) ?? null) : null;
+  const etichettaTestata = datiEtichettaVideo(rigaTestata, locale);
+  const didascaliaTestata = didascaliaVideo(rigaTestata, locale);
+  const ytVideo = ytIds.map((id) => {
+    const riga = videoAi.get(chiaveYoutube(id));
+    return { id, etichetta: datiEtichettaVideo(riga, locale), didascalia: didascaliaVideo(riga, locale) };
+  });
+  // Il video di testata dichiarato nel riepilogo (dentro il comando che si
+  // apre): nell'hero c'è posto per la sua etichetta, non per la didascalia.
+  const videoTestataNelRiepilogo = Boolean(etichettaTestata && didascaliaTestata);
+  const riepilogoAi =
+    notaAi !== null ||
+    contiAi.luce + contiAi.segnalate + contiAi.rendering > 0 ||
+    videoTestataNelRiepilogo;
+  // Il link in fondo al riepilogo: la pagina /ai di questo sito quando ci sarà;
+  // fino ad allora quella del gruppo su triestevillas.com, se risponde 200.
+  const linkAiGruppo = riepilogoAi && !PAGINA_AI_ONLINE ? await paginaAiDelGruppo(locale) : null;
 
   // Box costi indicativi (solo vendita), col toggle prima/seconda casa —
   // stesso impianto del gemello TriesteVillas: imposta dallo scenario, fee 4%
@@ -452,6 +446,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
         {heroVideo && (
           <SfondoVideo
             video={heroVideo}
+            registro={rigaTestata ? { dati: etichettaTestata } : null}
             locale={locale}
             title={title}
             velo
@@ -626,20 +621,34 @@ export default async function PropertyPage({ params }: { params: Params }) {
             <section id="video" className="mt-8 scroll-mt-32">
               <h2 className="text-lg font-semibold">{t("galVideo")}</h2>
               <div className="mt-3 space-y-4">
-                {ytIds.map((id) => (
-                  <div
-                    key={id}
-                    className="relative aspect-video overflow-hidden rounded-xl bg-neutral-900"
-                  >
-                    <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${id}`}
-                      title={title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full border-0"
-                    />
-                  </div>
+                {ytVideo.map(({ id, etichetta, didascalia }) => (
+                  <figure key={id}>
+                    <div className="relative aspect-video overflow-hidden rounded-xl bg-neutral-900">
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${id}`}
+                        title={title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full border-0"
+                      />
+                      {/* Etichetta del registro dei video (SPEC §10) SOPRA il
+                          player, in alto a destra come sulle foto, sulla
+                          miniatura e per tutta la riproduzione: `passante`, non
+                          prende i clic, e i comandi di YouTube sotto di lei
+                          restano usabili. In alto a destra il player di YouTube
+                          oggi non ha tasti (solo la coda del titolo): più in
+                          basso, al telefono, toccava il tasto play. */}
+                      <div className="pointer-events-none absolute right-3 top-3 z-[1]">
+                        <EtichettaVideo dati={etichetta} passante />
+                      </div>
+                    </div>
+                    {didascalia && (
+                      <figcaption lang={didascalia.lang} className="mt-2 text-pretty text-sm leading-relaxed text-neutral-600">
+                        {didascalia.testo}
+                      </figcaption>
+                    )}
+                  </figure>
                 ))}
               </div>
             </section>
@@ -682,52 +691,86 @@ export default async function PropertyPage({ params }: { params: Params }) {
             </section>
           )}
 
+          {/* Il riepilogo (SPEC v1.3 §11.2, 02/10/2026: «bello, ma spesso
+              troppo»): visibili il titolo, UNA riga calcolata dai conteggi e la
+              chiusura; la nota del CRM, le foto per tipo e il link a /ai stanno
+              dentro un <details> chiuso. Niente tessere coi numeri grandi. Il
+              prebuild ferma una nota rimessa fuori dal <details>. */}
           {riepilogoAi && (
             <section id="foto-ai" className="mt-8 scroll-mt-32" data-reveal>
               <h2 className="text-balance text-lg font-semibold">{tAi("summaryTitle")}</h2>
-              <div className="mt-3 rounded-xl border border-neutral-200 bg-white p-5 leading-relaxed text-neutral-700 sm:p-6">
-                {tessereAi.length > 0 && (
-                  <ul className={`grid gap-3 ${COLONNE_TESSERE[tessereAi.length] ?? COLONNE_TESSERE[5]}`}>
-                    {tessereAi.map((x) => (
-                      <li key={x.etichetta} className="rounded-xl border border-neutral-200 bg-white p-3 sm:p-4">
-                        <p className="text-lg font-semibold text-neutral-900">{x.valore}</p>
-                        <p className="mt-1 text-sm leading-snug text-neutral-600">{x.etichetta}</p>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                {notaAi && (
-                  <div lang={notaAi.lang} className={`space-y-3${tessereAi.length ? " mt-5" : ""}`}>
-                    {notaAi.testo
-                      .split(/\n+/)
-                      .map((x) => x.trim())
-                      .filter(Boolean)
-                      .map((x, i) => (
-                        <p key={i}>{x}</p>
-                      ))}
-                  </div>
-                )}
-                {contiAi.trattamenti.length > 0 && (
-                  <div className="mt-5">
-                    <h3 className="text-sm font-semibold text-neutral-900">{tAi("legendTitle")}</h3>
-                    <ul className="mt-3 space-y-3">
-                      {contiAi.trattamenti.map((tr) => (
-                        <li key={tr} className="flex items-start gap-3 text-sm text-neutral-600">
-                          <AiTag
-                            testo={tAi(`tag.${tr}`)}
-                            aria={tr === "ai" ? tAi("genericAria") : tAi(`tag.${tr}`)}
-                            className="mt-px shrink-0"
-                          />
-                          <span>{tAi(`legend.${tr}`)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-neutral-200 pt-4">
-                  <p className="font-medium text-neutral-900">{tAi("summaryClosing")}</p>
+              <p className="mt-2 text-pretty leading-relaxed text-neutral-700">
+                {rigaAi && <>{rigaAi} </>}
+                <span className="font-medium text-neutral-900">{tAi("summaryClosing")}</span>
+              </p>
+              <details className="group mt-3 rounded-xl border border-neutral-200 bg-white">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-xl px-4 py-2.5 text-sm font-medium text-brand hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 [&::-webkit-details-marker]:hidden">
+                  {tAi("summaryMore")}
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className="space-y-5 border-t border-neutral-200 px-4 pb-5 pt-4 text-sm leading-relaxed text-neutral-700 sm:px-5">
+                  {notaAi && (
+                    <div lang={notaAi.lang} className="space-y-3">
+                      {notaAi.testo
+                        .split(/\n+/)
+                        .map((x) => x.trim())
+                        .filter(Boolean)
+                        .map((x, i) => (
+                          <p key={i}>{x}</p>
+                        ))}
+                    </div>
+                  )}
+                  {contiAi.perTipo.length > 0 && (
+                    <div>
+                      <h3 className="font-semibold text-neutral-900">{tAi("legendTitle")}</h3>
+                      <ul className="mt-3 space-y-3">
+                        {contiAi.perTipo.map(({ tipo, n }) => (
+                          <li key={tipo} className="flex items-start gap-3 text-neutral-600">
+                            <span className="w-7 shrink-0 text-right font-semibold tabular-nums text-neutral-900">
+                              {n}
+                            </span>
+                            {/* La pillola solo per i tipi che la portano sulla foto:
+                                la sola luce non ce l'ha (§11.1). */}
+                            {!eStile(tipo) && (
+                              <AiTag
+                                testo={tAi(`tag.${tipo}`)}
+                                aria={tipo === "ai" ? tAi("genericAria") : tAi(`tag.${tipo}`)}
+                                className="mt-px shrink-0"
+                              />
+                            )}
+                            <span>{tAi(`legend.${tipo}`)}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {contiAi.conOriginale > 0 && (
+                        <p className="mt-3 text-neutral-600">{tAi("detailsOriginals", { count: contiAi.conOriginale })}</p>
+                      )}
+                    </div>
+                  )}
+                  {/* Il video di testata: nell'hero non c'è posto per la sua
+                      didascalia (sta nell'aria-label dell'etichetta), qui sì. */}
+                  {videoTestataNelRiepilogo && etichettaTestata && didascaliaTestata && (
+                    <div>
+                      <h3 className="font-semibold text-neutral-900">{t("galVideo")}</h3>
+                      <p className="mt-3 flex items-start gap-3 text-neutral-600">
+                        <AiTag testo={etichettaTestata.testo} aria={etichettaTestata.testo} className="mt-px shrink-0" />
+                        <span lang={didascaliaTestata.lang}>{didascaliaTestata.testo}</span>
+                      </p>
+                    </div>
+                  )}
                   {PAGINA_AI_ONLINE ? (
-                    <Link href="/ai" className="text-sm font-medium text-brand underline-offset-2 hover:underline">
+                    <Link href="/ai" className="inline-block font-medium text-brand underline-offset-2 hover:underline">
                       {tAi("summaryLink")} <span aria-hidden>→</span>
                     </Link>
                   ) : (
@@ -735,14 +778,14 @@ export default async function PropertyPage({ params }: { params: Params }) {
                       <a
                         href={linkAiGruppo}
                         hrefLang={locale}
-                        className="text-sm font-medium text-brand underline-offset-2 hover:underline"
+                        className="inline-block font-medium text-brand underline-offset-2 hover:underline"
                       >
                         {tAi("summaryLinkGruppo")} <span aria-hidden>→</span>
                       </a>
                     )
                   )}
                 </div>
-              </div>
+              </details>
             </section>
           )}
 

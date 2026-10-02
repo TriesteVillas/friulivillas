@@ -49,7 +49,9 @@ export default function PhotoGallery({
   // lo scroll dalla foto 1).
   const [open, setOpen] = useState<{ idx: number; grid: boolean } | null>(null);
   // Etichetta AI (SPEC §5.1): sigla «AI» sulle miniature, forma estesa sulla
-  // foto grande. Le foto senza `ai` restano esattamente come prima.
+  // foto grande — solo dove l'AI ha toccato la sostanza (haEtichetta, SPEC
+  // §11.1: niente su `ai_luce` e `tecnico`). Le foto senza `ai` restano
+  // esattamente come prima.
   const tAi = useTranslations("property.aiFoto");
   const tag = (p: Photo, compatta: boolean) => {
     if (!haEtichetta(p.ai)) return null;
@@ -120,19 +122,14 @@ export default function PhotoGallery({
                 {labels.viewAll}
               </button>
             )}
+            {/* Il rimando al riepilogo, in testo semplice: dal 02/10 (SPEC
+                §11) niente pillola «AI» decorativa anche qui — una pillola in
+                più che non sta su nessuna foto era rumore. */}
             <a
               href="#foto-ai"
-              className="inline-flex items-center gap-2 text-sm font-medium text-brand underline-offset-2 hover:underline"
+              className="text-sm font-medium text-brand underline-offset-2 hover:underline"
             >
-              <span
-                aria-hidden
-                className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/85 px-2 text-[11px] font-semibold leading-4 tracking-[0.06em] text-white ring-1 ring-white/35"
-              >
-                {tAi("glyph")}
-              </span>
-              <span>
-                {labels.aiSummary} <span aria-hidden>→</span>
-              </span>
+              {labels.aiSummary} <span aria-hidden>→</span>
             </a>
           </div>
         ) : (

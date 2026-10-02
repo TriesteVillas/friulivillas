@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { Link } from "@/i18n/navigation";
 import type { VideoAnnuncio } from "@/content/annunciVideo";
+import EtichettaVideo from "@/components/EtichettaVideo";
+import type { EtichettaVideoDati } from "@/lib/videoAi";
 import { tSfondoVideo } from "./sfondoVideoStrings";
 
 // IL VIDEO DI TESTATA DELLA SCHEDA (01/10/2026) — filmato muto in loop servito
@@ -33,10 +35,17 @@ import { tSfondoVideo } from "./sfondoVideoStrings";
 // 6. Pausa/Riprendi (WCAG 2.2.2: moto oltre 5 s), alto 44 px; la pausa
 //    abbassa il layer e torna la FOTO vera. Fuori vista e a scheda del browser
 //    nascosta il video si ferma da sé.
-// 7. `ai: true` → l'etichetta di trasparenza sta SUL video, leggibile, nelle
-//    quattro lingue (AI Act art. 50 §4), finché si vede il video; col link a
-//    /ai solo quando la pagina esiste (`linkAi`). Un video girato davvero
-//    (`ai: false`) non la porta.
+// 7. L'etichetta di trasparenza sta SUL video, leggibile, nelle quattro lingue
+//    (AI Act art. 50 §4), finché si vede il video; col link a /ai solo quando
+//    la pagina esiste (`linkAi`). Da dove viene il testo (01/10 sera):
+//    · `registro` = la riga del video nel registro `video_trasparenza` del CRM
+//      (SPEC §10): vince SEMPRE, anche quando dice «nessuna etichetta» (ripresa
+//      vera). La pillola è quella delle foto (EtichettaVideo), con la
+//      didascalia nell'aria-label; la didascalia per intero sta nel riepilogo
+//      #foto-ai della scheda, dentro «Leggi come le abbiamo ritoccate» (§11.2);
+//    · senza riga, il registro del sito (content/annunciVideo.ts): `ai: true`
+//      → la frase scritta a mano (sfondoVideoStrings.ts), come prima; un video
+//      girato davvero (`ai: false`) non la porta.
 // 8. L'etichetta AI della COPERTINA (AiTag in page.tsx) sparisce mentre si
 //    vede il video: il root porta `data-video-visibile` e la pagina la nasconde
 //    con `[header:has([data-video-visibile])_&]:hidden`. Mai un'etichetta che
@@ -116,8 +125,15 @@ export default function SfondoVideo({
   velo = false,
   linkAi,
   layerClassName = "",
+  registro = null,
 }: {
   video: VideoAnnuncio;
+  /**
+   * La riga del video nel registro del CRM (SPEC §10), se c'è: `dati` è
+   * l'etichetta pronta, o null se la riga non ne prevede una. `null` = nessuna
+   * riga: vale l'`ai` di content/annunciVideo.ts.
+   */
+  registro?: { dati: EtichettaVideoDati | null } | null;
   locale: string;
   /** Il nome dell'immobile, per il gruppo dei comandi («Video: …»). */
   title: string;
@@ -322,8 +338,18 @@ export default function SfondoVideo({
 
   const primoPlay = suonata !== "" && suonata === sorgente;
   const visibile = primoPlay && !pausa;
-  const etichettaAi = video.ai && visibile;
+  // Il registro del CRM vince sulla voce del sito (punto 7).
+  const etichettaRegistro = registro ? registro.dati : null;
+  const etichettaAi = visibile && (registro ? etichettaRegistro !== null : video.ai);
   const testoAi = video.fotoRitoccate ? S.aiLabelRitoccate : S.aiLabel;
+  const linkPagina = linkAi && (
+    <Link
+      href={linkAi}
+      className="font-medium text-sand underline-offset-2 hover:underline focus-visible:underline"
+    >
+      {S.aiLink} →
+    </Link>
+  );
   const VIDEO = "absolute inset-0 h-full w-full object-cover";
 
   const videos = avviato && (
@@ -382,22 +408,23 @@ export default function SfondoVideo({
           riga accanto al «← Torna». */}
       {primoPlay && (
         <div role="group" aria-label={`${S.group}: ${title}`} className={COMANDI}>
-          {etichettaAi && (
-            <p className={ETICHETTA}>
-              {testoAi}
-              {linkAi && (
-                <>
-                  {" · "}
-                  <Link
-                    href={linkAi}
-                    className="font-medium text-sand underline-offset-2 hover:underline focus-visible:underline"
-                  >
-                    {S.aiLink} →
-                  </Link>
-                </>
-              )}
-            </p>
-          )}
+          {etichettaAi &&
+            (etichettaRegistro ? (
+              <p className="pointer-events-auto flex flex-wrap items-center justify-end gap-x-2 gap-y-1 text-xs">
+                <EtichettaVideo dati={etichettaRegistro} />
+                {linkPagina && <span className="rounded-full bg-ink/85 px-2.5 py-1 ring-1 ring-white/35">{linkPagina}</span>}
+              </p>
+            ) : (
+              <p className={ETICHETTA}>
+                {testoAi}
+                {linkPagina && (
+                  <>
+                    {" · "}
+                    {linkPagina}
+                  </>
+                )}
+              </p>
+            ))}
           <button type="button" onClick={() => setPausa((p) => !p)} className={PILL}>
             <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4" fill="currentColor">
               {pausa ? (

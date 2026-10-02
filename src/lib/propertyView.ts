@@ -1,6 +1,6 @@
 import { formatPrice } from "./format";
 import { photoSrc } from "./photoSrc";
-import { etichettaAi, haEtichetta } from "./fotoAi";
+import { etichettaAi, haEtichetta, segnoHome } from "./fotoAi";
 import type { Property } from "./properties";
 
 export type BadgeVariant = "default" | "private" | "cantiere" | "recent" | "featured";
@@ -21,8 +21,14 @@ export type PropertyView = {
   meta: string;
   cover: { url: string; alt: string } | null;
   // Sigla «AI» sulla copertina della card (SPEC §5.1): null se la copertina non
-  // è passata da un modello generativo, o se non lo sappiamo.
+  // è passata da un modello generativo, se lo è solo nella luce e nei colori
+  // (SPEC §11.1), se non lo sappiamo — e sempre nella HOME (§11.1: nessuna
+  // pillola AI in home).
   coverAi: { testo: string; aria: string } | null;
+  // Solo nella home: il segno DISCRETO (testo piccolo, non la pillola) sulla
+  // copertina che mostra cose che non esistono — «simulazione», o «Rendering»
+  // per il render di progetto (SPEC §11.1). null altrove e su ogni altra foto.
+  coverSegno: { testo: string; aria: string } | null;
   // Cover + up to 8 top photos (9 total), for the in-card photo slider.
   gallery: { url: string; alt: string }[];
 };
@@ -140,6 +146,10 @@ export function buildPropertyView(
   locale: string,
   t: Translate,
   zonaLabel: string | null,
+  // `superficie: "home"` per le card della home (SPEC §11.1): niente pillola,
+  // solo il segno discreto sulle simulazioni. Il prebuild controlla che la
+  // home lo passi sempre (scripts/check-etichette-ai.mjs).
+  opzioni: { superficie?: "home" } = {},
 ): PropertyView {
   const onlineDays = p.onlineDa
     ? Math.max(0, Math.floor((Date.now() - Date.parse(p.onlineDa)) / 86400000))
@@ -171,8 +181,15 @@ export function buildPropertyView(
     if (gallery.length >= 9) break;
   }
 
-  const coverAi = haEtichetta(p.coverPhoto?.ai)
-    ? etichettaAi(p.coverPhoto!.ai!, (k) => t(`aiFoto.${k}`))
+  const inHome = opzioni.superficie === "home";
+  const coverAi =
+    !inHome && haEtichetta(p.coverPhoto?.ai) ? etichettaAi(p.coverPhoto!.ai!, (k) => t(`aiFoto.${k}`)) : null;
+  const segno = inHome ? segnoHome(p.coverPhoto?.ai) : null;
+  const coverSegno = segno
+    ? {
+        testo: t(`aiFoto.homeSign.${segno}`),
+        aria: segno === "rendering" ? t("aiFoto.tag.rendering") : t("aiFoto.homeSign.simulazioneAria"),
+      }
     : null;
 
   return {
@@ -180,6 +197,7 @@ export function buildPropertyView(
     title: localizedTitle(p, locale),
     gallery,
     coverAi: coverAi ? { testo: coverAi.compatta, aria: coverAi.aria } : null,
+    coverSegno,
     zona: p.zona,
     place: [zonaLabel, p.comune].filter(Boolean).join(" · "),
     priceLabel: priceLabel(p, locale, t),

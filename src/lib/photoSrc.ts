@@ -6,7 +6,7 @@
 // WebP alla larghezza chiesta dietro un URL stabile e cacheabile per sempre.
 // Vedi src/app/foto/[att]/[spec]/route.ts per il perché completo.
 import type { Photo } from "@/lib/properties";
-import { eAi, siglaDiIptc } from "@/lib/fotoAi";
+import { eAi, haEtichetta, siglaDiIptc } from "@/lib/fotoAi";
 
 // Le stesse larghezze dell'allowlist della rotta: chiederne un'altra darebbe 400.
 export const PHOTO_WIDTHS = [400, 600, 800, 1200, 1600, 2000] as const;
@@ -46,10 +46,11 @@ function suffissoIptc(photo: Photo): string {
  * null se la foto non ha etichetta o non ha un id: lì l'og:image resta com'era.
  */
 export function photoOgSrc(photo: Photo): string | null {
-  // Solo le foto passate da un modello (eAi, comprese le sigle del sito): il
-  // ritocco tecnico non ha etichetta, e il render di progetto senza AI non deve
-  // uscire sui social con una sigla «AI» stampata sopra.
-  if (!photo.id || !photo.ai || !eAi(photo.ai.trattamento)) return null;
+  // Solo le foto passate da un modello (eAi, comprese le sigle del sito) CHE
+  // portano l'etichetta sulla pagina (haEtichetta): il ritocco tecnico e, dal
+  // 02/10, quello di sola luce e colore (SPEC §11.1) usano la foto normale; il
+  // render di progetto senza AI non deve uscire sui social con una sigla «AI».
+  if (!photo.id || !haEtichetta(photo.ai) || !eAi(photo.ai.trattamento)) return null;
   return `/foto/${photo.id}/og${suffissoIptc(photo)}.jpg`;
 }
 

@@ -14,6 +14,7 @@ import {
   type Testi,
 } from "./fotoAi";
 import type { Photo, Property } from "./properties";
+import { chiaveValida, testiVideo, type VideoAi } from "./videoAi";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // LA TRASPARENZA AI SULLE FOTO, DAL CRM (SPEC 01/10/2026 §5.8 e §9.1).
@@ -71,6 +72,18 @@ import type { Photo, Property } from "./properties";
 // da cui si caricano gli ORIGINALI (`/api/vetrina/foto/<rec>/<id>/<m|xl>`).
 // Senza override, l'origine è quella di `CRM_VETRINA_URL` (la vetrina già
 // usata per lo sloveno), di default https://tsv-pg.vercel.app.
+//
+// ── I VIDEO (SPEC §10, dal 01/10/2026 sera) ────────────────────────────────
+// La stessa vista porta la chiave `video`: il registro `video_trasparenza` del
+// CRM, una riga per video, con l'etichetta pronta nelle quattro lingue e la
+// didascalia (vedi videoAi.ts). Viaggia nella stessa lettura e nella stessa
+// copia in cache delle foto, con un caso in più: `video: null` vuol dire
+// REGISTRO illeggibile con la vista comunque «letta» (le foto valgono). Lì i
+// video non restano nudi: si tiene l'ultimo registro buono di questo processo,
+// e senza quello l'elenco di ripiego versionato, che dal 01/10 sera porta
+// anche i video (chiave → etichetta e didascalia: chiavi e testi sono già
+// pubblici, a differenza dei nomi dei file delle foto). In build `video: null`
+// NON ferma la build: si usa il ripiego, e il prebuild lo dice.
 // ═══════════════════════════════════════════════════════════════════════════
 
 const SITO = "friulivillas.com";
@@ -123,7 +136,8 @@ export type TrasparenzaImmobile = {
   aiNonAbbinate: number;
 };
 
-type Vista = { immobili: Record<string, TrasparenzaImmobile> };
+/** `video: null` = registro dei video illeggibile (la vista resta buona per le foto). */
+type Vista = { immobili: Record<string, TrasparenzaImmobile>; video: Record<string, VideoAi> | null };
 
 const ATT_ID = /^att[A-Za-z0-9]{14}$/;
 const REC_ID = /^rec[A-Za-z0-9]{14}$/;
@@ -157,6 +171,26 @@ function pulisciFoto(v: unknown): FotoVista | null {
   };
 }
 
+/**
+ * Il registro dei video della vista, ripulito: per chiave, solo le chiavi che
+ * questo sito sa mostrare (YouTube e i propri file `fv:`), solo trattamento, etichetta e
+ * didascalia. `null` se la vista dice che il registro non si è letto (o, da
+ * un CRM più vecchio, non lo manda affatto).
+ */
+export function leggiVideo(v: unknown): Record<string, VideoAi> | null {
+  if (!Array.isArray(v)) return null;
+  const out: Record<string, VideoAi> = {};
+  for (const r of v as Array<Record<string, unknown> | null>) {
+    if (!r || !chiaveValida(r.chiave)) continue;
+    out[r.chiave] = {
+      trattamento: typeof r.trattamento === "string" ? r.trattamento : null,
+      etichetta: testiVideo(r.etichetta),
+      didascalia: testiVideo(r.didascalia),
+    };
+  }
+  return out;
+}
+
 /** Valida e ripulisce la risposta. Lancia se la risposta non è una vista buona. */
 function leggiRisposta(dati: unknown): Vista {
   if (!dati || typeof dati !== "object") throw new Error("risposta non JSON");
@@ -178,7 +212,7 @@ function leggiRisposta(dati: unknown): Vista {
       aiNonAbbinate: numero(conteggi.ai_non_abbinate) ?? 0,
     };
   }
-  return { immobili };
+  return { immobili, video: leggiVideo(d.video) };
 }
 
 // La copia valida più recente, nella Data Cache di Next. Una lettura che non
@@ -190,11 +224,15 @@ const vistaInCache = unstable_cache(
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return leggiRisposta(await res.json());
   },
-  ["trasparenza-vista-v1"],
+  ["trasparenza-vista-v2"],
   { revalidate: REVALIDATE_SECONDS, tags: ["properties"] },
 );
 
 let ultimaBuona: Vista | null = null;
+// L'ultimo registro dei video letto davvero (una vista «letta» può avere
+// `video: null`: lì non si butta quello di prima).
+let ultimoVideoBuono: Record<string, VideoAi> | null = null;
+let avvisatoVideoNull = false;
 let inVolo: Promise<Esito> | null = null;
 
 // ---- L'elenco di ripiego (gradino 3, solo a runtime) ------------------------
@@ -227,6 +265,13 @@ function leggiRipiego(dati: unknown): Map<string, RipiegoImmobile> {
 }
 
 const RIPIEGO = leggiRipiego(ripiegoVersionato);
+// I video dell'elenco di ripiego (chiave → etichetta e didascalia), dal 01/10
+// sera. Un file senza la sezione `video` (versione 1) dà un registro vuoto.
+const RIPIEGO_VIDEO: Record<string, VideoAi> = (() => {
+  const v = (ripiegoVersionato as unknown as { video?: unknown }).video;
+  if (!v || typeof v !== "object") return {};
+  return leggiVideo(Object.entries(v as Record<string, unknown>).map(([chiave, r]) => ({ ...(r as object), chiave }))) ?? {};
+})();
 
 const IN_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 
@@ -239,10 +284,20 @@ export type Esito = {
   per: Map<string, TrasparenzaImmobile>;
   /** solo con `fonte: "ripiego"`: impronta del nome → trattamento, per immobile */
   ripiego: Map<string, RipiegoImmobile> | null;
+  /** il registro dei video, per chiave (videoAi.ts) */
+  video: Map<string, VideoAi>;
+  /** da dove viene il registro dei video: può essere più vecchio delle foto */
+  videoFonte: "vista" | "memoria" | "ripiego";
 };
 
+function registroVideo(v: Vista | null): Pick<Esito, "video" | "videoFonte"> {
+  if (v?.video) return { video: new Map(Object.entries(v.video)), videoFonte: "vista" };
+  if (ultimoVideoBuono) return { video: new Map(Object.entries(ultimoVideoBuono)), videoFonte: "memoria" };
+  return { video: new Map(Object.entries(RIPIEGO_VIDEO)), videoFonte: "ripiego" };
+}
+
 function esitoDa(v: Vista, fonte: Esito["fonte"]): Esito {
-  return { fonte, per: new Map(Object.entries(v.immobili)), ripiego: null };
+  return { fonte, per: new Map(Object.entries(v.immobili)), ripiego: null, ...registroVideo(v) };
 }
 
 async function leggi(): Promise<Esito> {
@@ -256,12 +311,20 @@ async function leggi(): Promise<Esito> {
   // Anche una lettura arrivata DOPO il timer aggiorna la memoria del processo.
   const lettura = vistaInCache(VISTA_URL).then((v) => {
     ultimaBuona = v;
+    if (v.video) ultimoVideoBuono = v.video;
     return v;
   });
   lettura.catch(() => {}); // se vince il timer, il rifiuto tardivo non resta orfano
   try {
     const v = await Promise.race([lettura, scaduto]);
-    if (v) return esitoDa(v, "vista");
+    if (v) {
+      // Una volta per processo, non una per pagina (in build sono decine).
+      if (!v.video && !avvisatoVideoNull) {
+        avvisatoVideoNull = true;
+        console.warn(`[trasparenza] registro dei video illeggibile: video dal ${ultimoVideoBuono ? "registro in memoria" : "ripiego versionato"}`);
+      }
+      return esitoDa(v, "vista");
+    }
     console.warn(`[trasparenza] nessuna risposta in ${TETTO_ATTESA_MS} ms`);
   } catch (e) {
     console.warn(`[trasparenza] vista non letta: ${e instanceof Error ? e.message : String(e)}`);
@@ -274,7 +337,7 @@ async function leggi(): Promise<Esito> {
       "[trasparenza] la vista del CRM non è leggibile: la build si ferma (resta online il deploy precedente, che le etichette AI le ha)",
     );
   console.warn(`[trasparenza] nessuna risposta buona finora: elenco di ripiego versionato (${RIPIEGO.size} immobili)`);
-  return { fonte: "ripiego", per: new Map(), ripiego: RIPIEGO };
+  return { fonte: "ripiego", per: new Map(), ripiego: RIPIEGO, ...registroVideo(null) };
 }
 
 /**
@@ -286,6 +349,14 @@ export function getTrasparenza(): Promise<Esito> {
   // aspettano la stessa lettura.
   if (!inVolo) inVolo = leggi().finally(() => (inVolo = null));
   return inVolo;
+}
+
+/**
+ * Il registro dei video del sito, per chiave (`youtube:<id>`, `fv:<percorso>`).
+ * A runtime non lancia mai; in build lancia come getTrasparenza.
+ */
+export async function getVideoAi(): Promise<Map<string, VideoAi>> {
+  return (await getTrasparenza()).video;
 }
 
 // ---- Dalla vista alle foto del sito ------------------------------------------

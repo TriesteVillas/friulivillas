@@ -4,8 +4,15 @@ import { BrandMark } from "@/components/Logo";
 import SellerCta from "@/components/SellerCta";
 import BuyerCta from "@/components/BuyerCta";
 import AutoVideo from "@/components/AutoVideo";
+import EtichettaVideo from "@/components/EtichettaVideo";
+import { getVideoAi } from "@/lib/trasparenza";
+import { chiaveFile, datiEtichettaVideo, didascaliaVideo } from "@/lib/videoAi";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import { telHref } from "@/lib/format";
+
+// Il video della pagina: il percorso è anche la chiave nel registro dei video
+// del CRM (`fv:<percorso>`, SPEC trasparenza §10), da cui etichetta e didascalia.
+const VIDEO_CONTATTI = "/video/angolo-studio.mp4";
 
 export async function generateMetadata({
   params,
@@ -30,6 +37,9 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("contact");
+  const rigaVideo = (await getVideoAi()).get(chiaveFile(VIDEO_CONTATTI));
+  const etichettaVideo = datiEtichettaVideo(rigaVideo, locale);
+  const didascalia = didascaliaVideo(rigaVideo, locale);
   const phone = t("phone");
 
   const rows = [
@@ -87,18 +97,26 @@ export default async function ContactPage({
 
             <p className="mt-8 text-sm text-neutral-400">{t("poweredBy")} · P.IVA 01235580329</p>
           </div>
-          <div
-            className="aspect-[5/4] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)] lg:self-center"
-            data-reveal
-          >
-            <AutoVideo
-              src="/video/angolo-studio.mp4"
-              poster="/video/angolo-studio.jpg"
-              ariaLabel={t("videoAlt")}
-              className="h-full w-full object-cover"
-              lazy={false}
-            />
-          </div>
+          <figure className="lg:self-center" data-reveal>
+            <div className="relative aspect-[5/4] overflow-hidden rounded-3xl border border-brand/15 shadow-[0_24px_70px_-30px_rgba(28,74,107,0.45)]">
+              <AutoVideo
+                src={VIDEO_CONTATTI}
+                poster="/video/angolo-studio.jpg"
+                ariaLabel={t("videoAlt")}
+                className="h-full w-full object-cover"
+                lazy={false}
+              />
+              {/* Etichetta del registro dei video (SPEC §10), sul poster e per tutta la riproduzione. */}
+              <div className="pointer-events-none absolute right-3 top-3 z-[1]">
+                <EtichettaVideo dati={etichettaVideo} />
+              </div>
+            </div>
+            {didascalia && (
+              <figcaption lang={didascalia.lang} className="mt-3 text-pretty text-xs leading-relaxed text-neutral-600">
+                {didascalia.testo}
+              </figcaption>
+            )}
+          </figure>
         </div>
       </div>
     </section>
