@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
 import { getProperties } from "@/lib/airtable";
-import { zoneKey } from "@/lib/properties";
+import { isSold, zoneKey } from "@/lib/properties";
 import { buildPropertyView } from "@/lib/propertyView";
 import PropertyCard from "@/components/PropertyCard";
 import FeaturedCarousel from "@/components/FeaturedCarousel";
@@ -69,9 +69,12 @@ export default async function Home({
     locale,
   );
 
-  // La strip conserva l'ordine di vetrina deciso nel CRM.
+  // La strip conserva l'ordine di vetrina deciso nel CRM. Il venduto non ci
+  // sta: la sezione si chiama «In vendita ora» (e su triestevillas.com vale la
+  // stessa regola del 08/09, «il venduto non sta in prima fila»). Resta in
+  // /immobili col badge «Venduto».
   const reelItems = properties
-    .filter((p) => p.coverPhoto)
+    .filter((p) => p.coverPhoto && !isSold(p))
     .slice(0, 8)
     .map((p) => buildPropertyView(p, locale, tProp, tZones(zoneKey(p)), { superficie: "home" }));
 

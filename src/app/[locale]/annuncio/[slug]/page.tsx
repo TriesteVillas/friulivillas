@@ -6,7 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getProperties, getProperty } from "@/lib/airtable";
-import { zoneKey } from "@/lib/properties";
+import { isSold, zoneKey } from "@/lib/properties";
 import { scegliSimili } from "@/lib/simili";
 import PropertyCharacteristics, {
   type Characteristic,
@@ -32,6 +32,7 @@ import {
   localizedTitle,
   metaClamp,
   priceLabel,
+  soldBadge,
   translatedDescription,
 } from "@/lib/propertyView";
 import { pageAlternates, pageOpenGraph, listingJsonLd, breadcrumbJsonLd } from "@/lib/seo";
@@ -411,6 +412,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
             priceSale: property.priceSale,
             priceRent: property.priceRent,
             trattativaRiservata: property.trattativaRiservata,
+            venduto: isSold(property),
             onlineDa: property.onlineDa,
             amenities,
           }),
@@ -497,7 +499,8 @@ export default async function PropertyPage({ params }: { params: Params }) {
 
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-5xl px-6 pb-12">
           <div className="flex flex-wrap items-center gap-2" data-reveal>
-            <PropertyBadge {...contractBadge(property, t)} />
+            {/* «Venduto» al posto di «In vendita», non accanto: si smentirebbero. */}
+            <PropertyBadge {...(soldBadge(property, t) ?? contractBadge(property, t))} />
             {clusterBadge(property, t) && (
               <PropertyBadge {...clusterBadge(property, t)!} />
             )}

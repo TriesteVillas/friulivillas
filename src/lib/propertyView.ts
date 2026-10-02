@@ -1,9 +1,9 @@
 import { formatPrice } from "./format";
 import { photoSrc } from "./photoSrc";
 import { etichettaAi, haEtichetta, segnoHome } from "./fotoAi";
-import type { Property } from "./properties";
+import { isSold, type Property } from "./properties";
 
-export type BadgeVariant = "default" | "private" | "cantiere" | "recent" | "featured";
+export type BadgeVariant = "default" | "private" | "cantiere" | "recent" | "featured" | "sold";
 export type Badge = { label: string; variant: BadgeVariant };
 
 // Plain, serializable display model for a property card. Built on the server
@@ -16,6 +16,10 @@ export type PropertyView = {
   priceLabel: string;
   badge: Badge;
   clusterBadge: Badge | null;
+  // «Venduto» — solo quando lo stato commerciale è SOLD. Prende lo slot in alto
+  // a sinistra AL POSTO di «In vendita» / «Online da N giorni»: qui il badge del
+  // contratto c'è sempre, e «In vendita» accanto a «Venduto» si smentirebbero.
+  soldBadge: Badge | null;
   recentBadge?: Badge | null;
   featuredBadge?: Badge | null;
   meta: string;
@@ -117,6 +121,13 @@ export function clusterBadge(p: Property, t: Translate): Badge | null {
   return null;
 }
 
+// «Venduto»: stato commerciale SOLD. L'immobile resta in catalogo col suo
+// prezzo (regola di Martino del 2026-09-08 su triestevillas.com): il badge dice
+// solo che non è più trattabile.
+export function soldBadge(p: Property, t: Translate): Badge | null {
+  return isSold(p) ? { label: t("badgeSold"), variant: "sold" } : null;
+}
+
 // Price label: a reserved-negotiation listing hides the figure.
 export function priceLabel(p: Property, locale: string, t: Translate): string {
   if (p.trattativaRiservata) return t("priceReserved");
@@ -205,6 +216,7 @@ export function buildPropertyView(
     priceLabel: priceLabel(p, locale, t),
     badge: contractBadge(p, t),
     clusterBadge: clusterBadge(p, t),
+    soldBadge: soldBadge(p, t),
     recentBadge:
       onlineDays !== null && onlineDays <= 30
         ? { label: t("onlineDays", { count: onlineDays }), variant: "recent" }
