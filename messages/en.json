@@ -288,6 +288,7 @@
     "forRent": "To let",
     "badgePrivate": "Discreet sale",
     "badgeNewBuild": "New build",
+    "badgeSold": "Sold",
     "onlineDays": "{count, plural, =0 {ONLINE TODAY} one {ONLINE FOR # DAY} other {ONLINE FOR # DAYS}}",
     "badgeFeatured": "FEATURED",
     "priceOnRequest": "Price on request",

@@ -17,7 +17,9 @@ export default function PropertyCard({
   // pagina, quindi non va rimandata al primo scroll.
   priority?: boolean;
 }) {
-  const leftBadge = view.recentBadge ?? view.badge;
+  // «Venduto» vince su tutto: «In vendita» o «Online da N giorni» accanto a una
+  // casa venduta direbbero il contrario.
+  const leftBadge = view.soldBadge ?? view.recentBadge ?? view.badge;
   const rightBadge = view.clusterBadge ?? view.featuredBadge;
 
   return (

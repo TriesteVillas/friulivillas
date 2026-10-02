@@ -79,6 +79,13 @@ export const F = {
   tipoProprieta: "fldZiREblKauVYoWM", // imm_tipo_proprieta_# (singleSelect → string)
   classeImmobile: "fldqxd7FwkFMgFfPS", // imm_classe_immobile_# (singleSelect → string)
   trattativaRiservata: "fld6JmapDP4Qi8RT6",
+  // 2026-10-02: stato COMMERCIALE (`status`: ACTIVE / UNDER_OFFER / RESERVED /
+  // SOLD / …), lo stesso campo di triestevillas.com (verificato sullo schema il
+  // 08/09 e sui 7 record del catalogo FV il 02/10: Airtable e vetrina del CRM
+  // dicono la stessa cosa). Da non confondere con `stato` qui sopra, che è la
+  // condizione FISICA dell'immobile. Il filtro di pubblicazione non lo legge:
+  // un venduto resta in catalogo finché è online, col badge «Venduto».
+  statusCommerciale: "fldwoixrfkBqOClHV", // status (singleSelect → string)
   // 2026-07-23: tax box + tabella costi area riservata (stessi campi del gemello TSV).
   impostePrima: "fld8SMr41gceLNOiN", // imposte_prima (currency)
   imposteSeconda: "fldFQIfYqL0m48QWu", // imposte_seconda (currency)
@@ -202,6 +209,10 @@ export type Property = {
   tipoProprieta: string | null;
   classeImmobile: string | null;
   trattativaRiservata: boolean;
+  // Stato commerciale grezzo (ACTIVE / UNDER_OFFER / RESERVED / SOLD / …).
+  // "SOLD" accende il badge «Venduto» su card e scheda (isSold), toglie la casa
+  // dalla striscia «In vendita ora» della home e dai simili (lib/simili.ts).
+  statusCommerciale: string | null;
   impostePrima: number | null;
   imposteSeconda: number | null;
   noteImposte: string | null;
@@ -404,6 +415,7 @@ export function mapRecord(recordId: string, f: Fields): Property {
     tipoProprieta: str(f[F.tipoProprieta]),
     classeImmobile: str(f[F.classeImmobile]),
     trattativaRiservata: f[F.trattativaRiservata] === true,
+    statusCommerciale: str(f[F.statusCommerciale]),
     impostePrima: num(f[F.impostePrima]),
     imposteSeconda: num(f[F.imposteSeconda]),
     noteImposte: str(f[F.noteImposte]),
@@ -417,6 +429,11 @@ export function mapRecord(recordId: string, f: Fields): Property {
 }
 
 // Gli «immobili simili» della scheda vivono in lib/simili.ts (dal 02/10/2026).
+
+// Venduto: stato commerciale SOLD (stessa lettura di triestevillas.com).
+export function isSold(p: Pick<Property, "statusCommerciale">): boolean {
+  return p.statusCommerciale?.toUpperCase().trim() === "SOLD";
+}
 
 // Normalize a property's zona to a known ZONE_ORDER code, or the "other" bucket.
 export function zoneKey(p: Property): string {

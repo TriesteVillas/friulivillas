@@ -288,6 +288,7 @@
     "forRent": "V najem",
     "badgePrivate": "Zaupna prodaja",
     "badgeNewBuild": "Novogradnja",
+    "badgeSold": "Prodano",
     "onlineDays": "{count, plural, =0 {ONLINE OD DANES} one {ONLINE # DAN} two {ONLINE # DNEVA} few {ONLINE # DNI} other {ONLINE # DNI}}",
     "badgeFeatured": "IZPOSTAVLJENO",
     "priceOnRequest": "Cena na povpraševanje",

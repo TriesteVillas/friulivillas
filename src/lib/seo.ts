@@ -183,6 +183,9 @@ type ListingSchemaInput = {
   priceSale: number | null;
   priceRent: number | null;
   trattativaRiservata: boolean;
+  // Stato commerciale SOLD: l'offerta resta (il prezzo si vede ancora in
+  // pagina) ma non si dichiara disponibile a un motore di ricerca.
+  venduto: boolean;
   onlineDa: string | null;
   amenities: string[];
 };
@@ -254,7 +257,7 @@ export function listingJsonLd(p: ListingSchemaInput) {
             "@type": "Offer",
             price,
             priceCurrency: "EUR",
-            availability: "https://schema.org/InStock",
+            availability: p.venduto ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
             businessFunction: isRent
               ? "http://purl.org/goodrelations/v1#LeaseOut"
               : "http://purl.org/goodrelations/v1#Sell",
