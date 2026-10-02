@@ -25,7 +25,7 @@ import { tSfondoVideo } from "./sfondoVideoStrings";
 // 3. CLIENT-ONLY e dopo tutto il resto: null sul server e al primo render; i
 //    <video> entrano dopo `load` + 200 ms, fuori dal prerender, solo quando
 //    l'hero è VICINO allo schermo (250 px) e girano solo quando ne è in vista
-//    almeno il 20%. Mai con prefers-reduced-motion, Save-Data o rete 2g/3g:
+//    almeno il 20%. Mai con prefers-reduced-motion, Save-Data o rete 2g:
 //    per loro la foto.
 // 4. Loop senza stacco: due copie; nell'ultimo secondo la riserva riparte da
 //    zero e si dissolve SOPRA quella in scena (z-index scambiato a ogni giro).
@@ -63,11 +63,15 @@ const MARGINE_CARICO = "250px 0px";
 const TIMEOUT_MS = 10_000;
 
 // Le stesse guardie di HeroVideo e LoopVideo.
+// La rete: bloccano Save-Data e il 2g, NON più il «3g» (02/10/2026, come su
+// triesteaffitti.com 2c658a0 e triestevillas.com af7bb64). Il browser integrato
+// dell'app desktop (e Chrome con latenza alta) stima «3g» su una rete normale e
+// il video di testata non partiva mai. Il player resta fail-safe.
 function bloccato(): boolean {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return true;
   const rete = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
   if (rete?.saveData) return true;
-  return typeof rete?.effectiveType === "string" && /^(slow-)?2g$|^3g$/.test(rete.effectiveType);
+  return typeof rete?.effectiveType === "string" && /^(slow-)?2g$/.test(rete.effectiveType);
 }
 
 // Vero solo sul client dopo l'idratazione: niente che dipenda da matchMedia o
