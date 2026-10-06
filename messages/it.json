@@ -44,8 +44,8 @@
       "ogDescription": "Il portfolio FriuliVillas, zona per zona."
     },
     "group": {
-      "title": "Il Gruppo TriesteVillas — sei brand",
-      "description": "FriuliVillas nell'ecosistema TriesteVillas: sei marchi per luxury, residenziale, affitti, commerciale e il resto del Friuli Venezia Giulia.",
+      "title": "Il Gruppo TriesteVillas — sette brand",
+      "description": "FriuliVillas nell'ecosistema TriesteVillas: sette marchi per luxury, residenziale, affitti, commerciale, il resto del Friuli Venezia Giulia e un atlante della costa slovena e del Carso.",
       "ogTitle": "Il Gruppo TriesteVillas: brand diversi, una regia sola",
       "ogDescription": "Un ecosistema immobiliare costruito per specializzazione, non un contenitore generico."
     },
@@ -74,7 +74,7 @@
     },
     "promiseStrip": {
       "valuation": "Tutta la regione",
-      "online": "Sei marchi, una regia",
+      "online": "Sette marchi, una regia",
       "mandate": "Valutazione riservata",
       "fee": "Italiano · English · Deutsch",
       "promoNote": "Grado, Udine, Tarvisio, Lignano, Sappada — e tutto ciò che sta in mezzo."
@@ -128,13 +128,14 @@
     },
     "groupRouting": {
       "eyebrow": "Brand diversi, una regia sola",
-      "title": "Sei brand, un'unica struttura.",
+      "title": "Sette brand, un'unica struttura.",
       "body": "FriuliVillas fa parte dell'ecosistema TriesteVillas. Ogni marchio presidia il suo segmento, e la richiesta arriva a chi la sa trattare.",
       "luxury": "Immobile di lusso a Trieste → TriesteVillas",
       "fvg": "Trieste e Provincia → TriesteImmobiliare",
       "rent": "Affitti → TriesteAffitti",
       "business": "Lignano → LignanoVillas",
-      "cta": "Scopri il Gruppo"
+      "cta": "Scopri il Gruppo",
+      "slovenia": "Costa slovena e Carso → SloveniaVillas (atlante e guide)"
     },
     "valuationCta": {
       "eyebrow": "Senza impegno",
@@ -430,7 +431,7 @@
       "body": "Non tutti gli immobili si vendono, si affittano o si gestiscono allo stesso modo. Una villa di pregio, un bilocale da mettere a reddito e una casa vacanze sul mare chiedono linguaggi, canali e interlocutori diversi. Per questo il gruppo è fatto di marchi separati invece che di un'insegna sola che dice di saper fare tutto.",
       "tagline": "Non una grafica uguale, non un nome ripetuto. La stessa cultura del lavoro, applicata dove serve."
     },
-    "brandsTitle": "Sei brand, un'unica regia",
+    "brandsTitle": "Sette brand, un'unica regia",
     "brandsSubtitle": "Una sola struttura per coprire ogni esigenza immobiliare fra Trieste e il resto del Friuli Venezia Giulia.",
     "story": {
       "eyebrow": "Cos'eravamo, cosa siamo",
@@ -521,6 +522,11 @@
         "name": "LignanoVillas",
         "tag": "Premium a Lignano",
         "desc": "Compravendite premium a Lignano, lette con una lente più internazionale. Per compratori e proprietari esteri che cercano struttura, contesto e qualità nella gestione."
+      },
+      "slovenia": {
+        "name": "SloveniaVillas",
+        "tag": "Atlante · Costa slovena e Carso",
+        "desc": "L'atlante della costa slovena e del Carso, misurato da Trieste: undici luoghi in quattro mondi, guide per chi compra e per chi vende, sette strumenti costruiti sui dati pubblici sloveni. Oggi in Slovenia non facciamo intermediazione: l'attività parte nel corso del 2027."
       }
     },
     "legalTitle": "Dati societari",

@@ -16,6 +16,7 @@ import { chiaveFile, segnoVideoHome } from "@/lib/videoAi";
 import { BrandMark } from "@/components/Logo";
 import BuyerCta from "@/components/BuyerCta";
 import SellerCta from "@/components/SellerCta";
+import { sloveniaVillasStrings } from "@/content/sloveniaVillasStrings";
 
 const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
 
@@ -32,7 +33,7 @@ const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
 // che rientrasse qui.
 const VIDEO_HERO = "/video/hero.mp4";
 const VIDEO_STAGING = "/video/staging-mansarda.mp4";
-const ROUTING = ["luxury", "fvg", "rent", "business"] as const;
+const ROUTING = ["luxury", "fvg", "rent", "business", "slovenia"] as const;
 
 export async function generateMetadata({
   params,
@@ -56,6 +57,7 @@ export default async function Home({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const sv = sloveniaVillasStrings(locale);
   const t = await getTranslations("home");
   const tProp = await getTranslations("property");
   const tZones = await getTranslations("zones");
@@ -316,6 +318,54 @@ export default async function Home({
           >
             {t("groupRouting.cta")} →
           </Link>
+        </div>
+      </section>
+
+      {/* ── SloveniaVillas (06/10/2026) ───────────────────────────── */}
+      {/* Dello stesso gruppo, oltre il confine. Sobria in tutte le lingue; in
+          sloveno parla anche ai proprietari. Il limite (oggi in Slovenia non
+          mediamo) è scritto nella sezione, non in una nota a parte. */}
+      <section id="sloveniavillas" className="mx-auto max-w-5xl px-6 pt-20">
+        <div className="grid gap-8 rounded-3xl border border-neutral-200 bg-white px-7 py-10 sm:px-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
+          <div data-reveal="left">
+            <p className="eyebrow">{sv.eyebrow}</p>
+            <h2 className="display-chapter mt-2 text-brand-dark">{sv.title}</h2>
+            <p className="mt-4 max-w-2xl text-neutral-600">{sv.lead}</p>
+            {sv.owners ? <p className="mt-4 max-w-2xl text-neutral-600">{sv.owners.text}</p> : null}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={sv.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hero inline-block rounded-full bg-brand px-7 py-3 text-sm font-semibold text-white"
+              >
+                {sv.cta} ↗
+              </a>
+              {sv.owners ? (
+                <a
+                  href={sv.owners.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-press inline-block rounded-full border border-brand/40 px-7 py-3 text-sm font-semibold text-brand hover:border-brand hover:bg-brand/5"
+                >
+                  {sv.owners.cta} ↗
+                </a>
+              ) : null}
+            </div>
+          </div>
+          <div className="rounded-2xl bg-paper p-6">
+            <p className="text-sm text-neutral-500">{sv.from}</p>
+            <ul className="mt-3 divide-y divide-neutral-200">
+              {sv.times.map((row) => (
+                <li key={row.to} className="flex items-baseline justify-between gap-6 py-3">
+                  <span className="text-brand-dark">{row.to}</span>
+                  <span className="text-xl font-semibold tabular-nums text-brand">{row.min} min</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-neutral-500">{sv.timeNote}</p>
+            <p className="mt-2 text-xs text-neutral-500">{sv.limit}</p>
+          </div>
         </div>
       </section>
 

@@ -44,8 +44,8 @@
       "ogDescription": "Ponudba FriuliVillas, območje za območjem."
     },
     "group": {
-      "title": "Skupina TriesteVillas – šest blagovnih znamk",
-      "description": "FriuliVillas v ekosistemu TriesteVillas: šest blagovnih znamk za prestižne in stanovanjske nepremičnine, najeme, poslovne nepremičnine in preostali del Furlanije - Julijske krajine.",
+      "title": "Skupina TriesteVillas – sedem blagovnih znamk",
+      "description": "FriuliVillas v ekosistemu TriesteVillas: sedem blagovnih znamk za prestižne in stanovanjske nepremičnine, najeme, poslovne nepremičnine, preostali del Furlanije - Julijske krajine in atlas slovenske obale in Krasa.",
       "ogTitle": "Skupina TriesteVillas: različne blagovne znamke, ena usmeritev",
       "ogDescription": "Nepremičninski ekosistem, zgrajen na specializaciji, ne vse na enem kupu."
     },
@@ -74,7 +74,7 @@
     },
     "promiseStrip": {
       "valuation": "Vsa regija",
-      "online": "Šest znamk, ena usmeritev",
+      "online": "Sedem znamk, ena usmeritev",
       "mandate": "Zaupna cenitev",
       "fee": "Italiano · English · Deutsch",
       "promoNote": "Gradež, Videm, Trbiž, Lignano, Sappada – in vse, kar je vmes."
@@ -128,13 +128,14 @@
     },
     "groupRouting": {
       "eyebrow": "Različne znamke, ena usmeritev",
-      "title": "Šest znamk, ena struktura.",
+      "title": "Sedem znamk, ena struktura.",
       "body": "FriuliVillas je del ekosistema TriesteVillas. Vsaka znamka pokriva svoj segment, zato povpraševanje pride do ljudi, ki ga znajo obravnavati.",
       "luxury": "Prestižne nepremičnine v Trstu → TriesteVillas",
       "fvg": "Trst in Tržaška pokrajina → TriesteImmobiliare",
       "rent": "Najemi → TriesteAffitti",
       "business": "Lignano → LignanoVillas",
-      "cta": "Spoznajte skupino"
+      "cta": "Spoznajte skupino",
+      "slovenia": "Slovenska obala in Kras → SloveniaVillas (atlas in vodniki)"
     },
     "valuationCta": {
       "eyebrow": "Brez obveznosti",
@@ -430,7 +431,7 @@
       "body": "Ne prodajamo, ne oddajamo in ne upravljamo vseh nepremičnin na enak način. Prestižna vila, manjše stanovanje, kupljeno za donos, in počitniška hiša ob morju zahtevajo drugačen jezik, drugačne kanale in drugačne stike. Zato skupino sestavljajo ločene blagovne znamke, ne eno samo ime, ki trdi, da zna vse.",
       "tagline": "Ne enaka grafična podoba, ne ponavljajoče se ime. Ista delovna kultura, uporabljena tam, kjer je potrebna."
     },
-    "brandsTitle": "Šest blagovnih znamk, ena usmeritev",
+    "brandsTitle": "Sedem blagovnih znamk, ena usmeritev",
     "brandsSubtitle": "Enotna struktura za vse nepremičninske potrebe med Trstom in preostalim delom Furlanije - Julijske krajine.",
     "story": {
       "eyebrow": "Kaj smo bili, kaj smo",
@@ -521,6 +522,11 @@
         "name": "LignanoVillas",
         "tag": "Prestižno v Lignanu",
         "desc": "Prestižni posli v Lignanu, z bolj mednarodnim pogledom. Za tuje kupce in lastnike, ki pri upravljanju svojega premoženja želijo strukturo, kontekst in kakovost."
+      },
+      "slovenia": {
+        "name": "SloveniaVillas",
+        "tag": "Atlas · Slovenska obala in Kras",
+        "desc": "Atlas slovenske obale in Krasa, izmerjen iz Trsta: enajst krajev v štirih svetovih, vodniki za kupce in za lastnike ter sedem orodij, zgrajenih na javnih slovenskih podatkih. V Sloveniji danes ne opravljamo posredovanja; dejavnost bomo začeli v letu 2027."
       }
     },
     "legalTitle": "Podatki o družbi",

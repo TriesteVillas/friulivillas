@@ -23,7 +23,7 @@ export async function generateMetadata({
   };
 }
 
-const BRANDS = ["tsv", "tsi", "affitti", "friuli", "business", "lignano"] as const;
+const BRANDS = ["tsv", "tsi", "affitti", "friuli", "business", "lignano", "slovenia"] as const;
 type BrandSiteLocale = "it" | "en" | "de" | "sl";
 type BrandSites = Partial<Record<(typeof BRANDS)[number], string>>;
 // URLs verified live on 2026-07-23. TriesteBusiness stays unlinked because it has
@@ -32,35 +32,41 @@ type BrandSites = Partial<Record<(typeof BRANDS)[number], string>>;
 // `tsi`, che su TriesteImmobiliare era il self, qui è un link vero.
 // ⚠️ LignanoVillas ha l'inglese sulla radice e l'italiano su /it/ — è l'inverso
 // degli altri siti del gruppo, non un refuso.
+// URL rifatti il 06/10/2026 (aggiunta SloveniaVillas): ognuno risponde 200
+// senza rimandi. triestevillas.com è canonico senza www (www → 308), e
+// lignanovillas.com risponde a /it e /de senza barra finale (con barra → 308);
+// TriesteAffitti ha /en, /de e /sl veri.
 const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
   it: {
-    tsv: "https://www.triestevillas.com/",
+    tsv: "https://triestevillas.com/",
     tsi: "https://www.triesteimmobiliare.com/",
     affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/it/",
+    lignano: "https://www.lignanovillas.com/it",
+    slovenia: "https://sloveniavillas.com/it",
   },
   en: {
-    tsv: "https://www.triestevillas.com/en",
+    tsv: "https://triestevillas.com/en",
     tsi: "https://www.triesteimmobiliare.com/en",
-    affitti: "https://www.triesteaffitti.com/",
+    affitti: "https://www.triesteaffitti.com/en",
     lignano: "https://www.lignanovillas.com/",
+    slovenia: "https://sloveniavillas.com/",
   },
   de: {
-    tsv: "https://www.triestevillas.com/de",
+    tsv: "https://triestevillas.com/de",
     tsi: "https://www.triesteimmobiliare.com/de",
-    affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/de/",
+    affitti: "https://www.triesteaffitti.com/de",
+    lignano: "https://www.lignanovillas.com/de",
+    slovenia: "https://sloveniavillas.com/de",
   },
-  // Sloveno (2026-10-01): verso la versione slovena dove esiste — oggi solo
-  // triestevillas.com/sl —, altrimenti verso quella inglese (decisione D7 del
-  // progetto sloveno, tsv-kb/progetti/sloveno-tsv/RIPRESA.md).
-  // TriesteImmobiliare, TriesteAffitti e LignanoVillas non hanno ancora /sl
-  // (404, verificato il 2026-10-01): quando lo pubblicano, si aggiorna qui.
+  // Sloveno: dal 06/10/2026 tutti i siti del gruppo hanno /sl (verificato 200
+  // uno per uno quel giorno); fino ad allora TSI, TA e LV ripiegavano
+  // sull'inglese (decisione D7 del progetto sloveno).
   sl: {
-    tsv: "https://www.triestevillas.com/sl",
-    tsi: "https://www.triesteimmobiliare.com/en",
-    affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/",
+    tsv: "https://triestevillas.com/sl",
+    tsi: "https://www.triesteimmobiliare.com/sl",
+    affitti: "https://www.triesteaffitti.com/sl",
+    lignano: "https://www.lignanovillas.com/sl",
+    slovenia: "https://sloveniavillas.com/sl",
   },
 };
 const STORY = [
@@ -114,7 +120,7 @@ export default async function GroupPage({
         </p>
       </section>
 
-      {/* The 6 brands */}
+      {/* The 7 brands (SloveniaVillas dal 06/10/2026) */}
       <section className="border-y border-neutral-200 bg-paper">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="display-chapter text-brand-dark">{t("brandsTitle")}</h2>

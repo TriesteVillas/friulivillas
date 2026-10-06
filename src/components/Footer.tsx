@@ -18,36 +18,41 @@ const NAV = [
 ] as const;
 
 type GroupSiteLocale = "it" | "en" | "de" | "sl";
+// URL rifatti il 06/10/2026 (aggiunta SloveniaVillas): ognuno risponde 200
+// senza rimandi. triestevillas.com è canonico senza www (www → 308), e
+// lignanovillas.com risponde a /it e /de senza barra finale (con barra → 308);
+// TriesteAffitti ha /en, /de e /sl veri.
 const GROUP_SITES = {
   it: {
-    tsv: "https://www.triestevillas.com/",
+    tsv: "https://triestevillas.com/",
     tsi: "https://www.triesteimmobiliare.com/",
     affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/it/",
+    lignano: "https://www.lignanovillas.com/it",
+    slovenia: "https://sloveniavillas.com/it",
   },
   en: {
-    tsv: "https://www.triestevillas.com/en",
+    tsv: "https://triestevillas.com/en",
     tsi: "https://www.triesteimmobiliare.com/en",
-    affitti: "https://www.triesteaffitti.com/",
+    affitti: "https://www.triesteaffitti.com/en",
     lignano: "https://www.lignanovillas.com/",
+    slovenia: "https://sloveniavillas.com/",
   },
   de: {
-    tsv: "https://www.triestevillas.com/de",
+    tsv: "https://triestevillas.com/de",
     tsi: "https://www.triesteimmobiliare.com/de",
-    affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/de/",
+    affitti: "https://www.triesteaffitti.com/de",
+    lignano: "https://www.lignanovillas.com/de",
+    slovenia: "https://sloveniavillas.com/de",
   },
-  // Sloveno (2026-10-01), come in gruppo/page.tsx: verso la versione slovena
-  // dove esiste — oggi solo triestevillas.com/sl —, altrimenti verso quella
-  // inglese (decisione D7 del progetto sloveno,
-  // tsv-kb/progetti/sloveno-tsv/RIPRESA.md).
-  // TriesteImmobiliare, TriesteAffitti e LignanoVillas non hanno ancora /sl
-  // (404, verificato il 2026-10-01): quando lo pubblicano, si aggiorna qui.
+  // Sloveno: dal 06/10/2026 tutti i siti del gruppo hanno /sl (verificato 200
+  // uno per uno quel giorno); fino ad allora TSI, TA e LV ripiegavano
+  // sull'inglese (decisione D7 del progetto sloveno).
   sl: {
-    tsv: "https://www.triestevillas.com/sl",
-    tsi: "https://www.triesteimmobiliare.com/en",
-    affitti: "https://www.triesteaffitti.com/",
-    lignano: "https://www.lignanovillas.com/",
+    tsv: "https://triestevillas.com/sl",
+    tsi: "https://www.triesteimmobiliare.com/sl",
+    affitti: "https://www.triesteaffitti.com/sl",
+    lignano: "https://www.lignanovillas.com/sl",
+    slovenia: "https://sloveniavillas.com/sl",
   },
 } as const satisfies Record<GroupSiteLocale, Record<string, string>>;
 
@@ -57,6 +62,7 @@ const GROUP = [
   { label: "TriesteImmobiliare", site: "tsi", external: true },
   { label: "TriesteAffitti", site: "affitti", external: true },
   { label: "LignanoVillas", site: "lignano", external: true },
+  { label: "SloveniaVillas", site: "slovenia", external: true },
   { label: "TriesteBusiness", href: "/gruppo", external: false },
 ] as const;
 
