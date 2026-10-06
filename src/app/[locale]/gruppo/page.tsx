@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import LastraLogo from "@/components/LoghiGruppo";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import Timeline from "@/components/Timeline";
@@ -134,6 +135,7 @@ export default async function GroupPage({
                   key={b}
                   className={`card-cine flex flex-col p-6 ${isSelf ? "ring-2 ring-brand/40" : ""}`}
                 >
+                  <LastraLogo marchio={b} />
                   <div className="flex items-baseline justify-between gap-3">
                     {site ? (
                       <a

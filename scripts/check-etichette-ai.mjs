@@ -85,6 +85,7 @@ const SRC = join(RADICE, "src");
 const FILE_SENZA_FOTO = new Map([
   ["src/components/Logo.tsx", "loghi SVG statici da /public"],
   ["src/app/[locale]/gruppo/page.tsx", "loghi dei marchi del gruppo"],
+  ["src/components/LoghiGruppo.tsx", "i loghi dei marchi del gruppo, copiati dai loro repo: SVG e PNG statici, nessuna foto"],
   ["src/lib/brandMail.ts", "il logo nell'HTML delle mail"],
   ["src/components/Planimetrie.tsx", "planimetrie: per la SPEC §5.5 niente etichetta né toggle"],
 ]);
