@@ -34,11 +34,24 @@ export const NOMI_ORIGINE: Record<Origine, Record<Lingua, string>> = {
   udine: { it: "Udine", en: "Udine", de: "Udine", sl: "Videm" },
   aer_trieste: { it: "Aeroporto di Trieste", en: "Trieste Airport", de: "Flughafen Triest", sl: "Letališče Trst" },
   aer_venezia: { it: "Aeroporto di Venezia", en: "Venice Airport", de: "Flughafen Venedig", sl: "Letališče Benetke" },
-  lubiana: { it: "Lubiana", en: "Ljubljana", de: "Laibach", sl: "Ljubljana" },
+  lubiana: { it: "Lubiana", en: "Ljubljana", de: "Ljubljana", sl: "Ljubljana" },
   klagenfurt: { it: "Klagenfurt", en: "Klagenfurt", de: "Klagenfurt", sl: "Celovec" },
   vienna: { it: "Vienna", en: "Vienna", de: "Wien", sl: "Dunaj" },
   monaco: { it: "Monaco di Baviera", en: "Munich", de: "München", sl: "München" },
   salisburgo: { it: "Salisburgo", en: "Salzburg", de: "Salzburg", sl: "Salzburg" },
+};
+
+/** «da Trieste», «z Dunaja»…: la preposizione e il caso giusti per lingua (in sloveno cambiano entrambi). */
+export const DA_ORIGINE: Record<Origine, Record<Lingua, string>> = {
+  trieste: { it: "da Trieste", en: "from Trieste", de: "ab Triest", sl: "iz Trsta" },
+  udine: { it: "da Udine", en: "from Udine", de: "ab Udine", sl: "iz Vidma" },
+  aer_trieste: { it: "dall'aeroporto di Trieste", en: "from Trieste Airport", de: "ab Flughafen Triest", sl: "z letališča Trst" },
+  aer_venezia: { it: "dall'aeroporto di Venezia", en: "from Venice Airport", de: "ab Flughafen Venedig", sl: "z letališča Benetke" },
+  lubiana: { it: "da Lubiana", en: "from Ljubljana", de: "ab Ljubljana", sl: "iz Ljubljane" },
+  klagenfurt: { it: "da Klagenfurt", en: "from Klagenfurt", de: "ab Klagenfurt", sl: "iz Celovca" },
+  vienna: { it: "da Vienna", en: "from Vienna", de: "ab Wien", sl: "z Dunaja" },
+  monaco: { it: "da Monaco di Baviera", en: "from Munich", de: "ab München", sl: "iz Münchna" },
+  salisburgo: { it: "da Salisburgo", en: "from Salzburg", de: "ab Salzburg", sl: "iz Salzburga" },
 };
 
 /** Da dove parte, di default, chi legge in quella lingua. */

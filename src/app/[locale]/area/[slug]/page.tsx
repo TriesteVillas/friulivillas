@@ -19,6 +19,7 @@ import {
   comuniDellArea,
   DATA_MISURA,
   durata,
+  DA_ORIGINE,
   NOMI_ORIGINE,
   ORIGINI,
   puntiCitta,
@@ -208,7 +209,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
               {(["trieste", "udine", "vienna", "monaco"] as const).map((o) => (
                 <div key={o} className="rounded-2xl bg-paper p-4">
                   <dt className="font-mono text-[11px] uppercase tracking-wider text-neutral-500">
-                    {ui("daOrigine", locale)} {NOMI_ORIGINE[o][locale]}
+                    {DA_ORIGINE[o][locale]}
                   </dt>
                   <dd className="mt-1 font-display text-2xl font-semibold text-brand-dark">{durata(tempiArea(area!, o).mediana, locale)}</dd>
                 </div>

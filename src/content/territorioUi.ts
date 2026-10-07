@@ -17,7 +17,7 @@ export const UI = {
     it: "Dalla laguna alle Alpi, quattro paesaggi su una carta.",
     en: "From the lagoon to the Alps: four landscapes on one map.",
     // dal dato: da München la mediana verso i comuni di montagna è 4 h 38, verso la costa 5 h 13 (OSRM, 07/10/2026)
-    de: "Von München sind die Berge näher als das Meer.",
+    de: "Von München aus sind die Berge näher als das Meer.",
     sl: "Od lagune do Alp: štiri pokrajine na enem zemljevidu.",
   },
   heroSotto: {
@@ -27,16 +27,16 @@ export const UI = {
     sl: "Dežela, razdeljena tako, kot jo delita italijanski statistični urad ISTAT in deželni krajinski načrt: obala in laguna, gričevje in nižina, gore, Trst in Kras. Naše hiše so točno tam, kjer jih vidite, in vsako območje ima svojo stran.",
   },
   ctaCase: { it: "Vedi le case", en: "See the homes", de: "Häuser ansehen", sl: "Oglejte si hiše" },
-  ctaVendi: { it: "Valuta la tua casa", en: "Value your home", de: "Ihr Haus bewerten", sl: "Ocenite svojo hišo" },
+  ctaVendi: { it: "Valuta la tua casa", en: "Value your home", de: "Ihr Haus bewerten lassen", sl: "Ocenite svojo hišo" },
   cartaTitolo: {
     it: "Carta del Friuli Venezia Giulia con le quattro aree, le nostre case e i siti del gruppo",
     en: "Map of Friuli Venezia Giulia with the four areas, our homes and the group's sites",
-    de: "Karte von Friaul-Julisch Venetien mit den vier Gebieten, unseren Häusern und den Seiten der Gruppe",
-    sl: "Zemljevid Furlanije - Julijske krajine s štirimi območji, našimi hišami in stranmi skupine",
+    de: "Karte von Friaul-Julisch Venetien mit den vier Gebieten, unseren Häusern und den Websites der Gruppe",
+    sl: "Zemljevid Furlanije - Julijske krajine s štirimi območji, našimi hišami in spletnimi stranmi skupine",
   },
   legendaCasa: { it: "casa in vendita", en: "home for sale", de: "Haus zum Verkauf", sl: "hiša naprodaj" },
-  legendaGruppo: { it: "sito del gruppo", en: "group site", de: "Seite der Gruppe", sl: "stran skupine" },
-  legendaCitta: { it: "città di riferimento", en: "reference town", de: "Orientierungsort", sl: "orientacijski kraj" },
+  legendaGruppo: { it: "sito del gruppo", en: "group site", de: "Website der Gruppe", sl: "spletna stran skupine" },
+  legendaCitta: { it: "città di riferimento", en: "reference town", de: "Bezugsort", sl: "referenčni kraj" },
   fontiCarta: {
     it: "Rilievo: Copernicus DEM GLO-90 (© DLR e.V. 2010-2014, © Airbus Defence and Space GmbH 2014-2018, Copernicus/UE-ESA). Confini e costa: ISTAT, CC BY 4.0. Aree: zona altimetrica ISTAT e ambiti del Piano paesaggistico regionale FVG (2018).",
     en: "Relief: Copernicus DEM GLO-90 (© DLR e.V. 2010-2014, © Airbus Defence and Space GmbH 2014-2018, Copernicus/EU-ESA). Boundaries and coastline: ISTAT, CC BY 4.0. Areas: ISTAT altitude zones and the FVG regional landscape plan (2018).",
@@ -48,12 +48,12 @@ export const UI = {
   areeTitolo: {
     it: "Una regione piccola, quattro modi di abitarla.",
     en: "A small region, four ways of living in it.",
-    de: "Eine kleine Region, vier Arten, in ihr zu wohnen.",
+    de: "Eine kleine Region, vier Arten, hier zu leben.",
     sl: "Majhna dežela, štirje načini bivanja.",
   },
   comuni: { it: "comuni", en: "municipalities", de: "Gemeinden", sl: "občin" },
   inVendita: { it: "in vendita", en: "for sale", de: "zum Verkauf", sl: "naprodaj" },
-  nessunaInVendita: { it: "oggi nessuna in vendita", en: "none for sale today", de: "derzeit keines zum Verkauf", sl: "trenutno nič naprodaj" },
+  nessunaInVendita: { it: "oggi nessuna in vendita", en: "none for sale today", de: "derzeit keines zum Verkauf", sl: "trenutno nobena naprodaj" },
   daOrigine: { it: "da", en: "from", de: "ab", sl: "iz" },
   mediana: { it: "mediana", en: "median", de: "Median", sl: "mediana" },
   scopriArea: { it: "Scopri l'area", en: "Explore the area", de: "Gebiet entdecken", sl: "Odkrijte območje" },
@@ -63,7 +63,7 @@ export const UI = {
   daDoveNota: {
     it: "Minuti in auto, senza traffico né attese al confine, verso la sede municipale di ogni comune: per un'area è la mediana dei suoi comuni. Misurati con OSRM il {data}.",
     en: "Driving minutes, without traffic or border waits, to each municipality's town hall; for an area it is the median of its municipalities. Measured with OSRM on {data}.",
-    de: "Fahrminuten ohne Verkehr und ohne Wartezeit an der Grenze, bis zum Rathaus jeder Gemeinde; für ein Gebiet ist es der Median seiner Gemeinden. Gemessen mit OSRM am {data}.",
+    de: "Fahrzeit in Minuten, ohne Verkehr und ohne Wartezeit an der Grenze, bis zum Rathaus jeder Gemeinde; für ein Gebiet ist es der Median seiner Gemeinden. Gemessen mit OSRM am {data}.",
     sl: "Minute vožnje z avtom, brez prometa in čakanja na meji, do sedeža vsake občine; za območje je to mediana njegovih občin. Izmerjeno z OSRM dne {data}.",
   },
   verso: { it: "verso", en: "to", de: "nach", sl: "do" },
@@ -81,15 +81,15 @@ export const UI = {
   ponteEyebrow: { it: "La città accanto", en: "The city next door", de: "Die Stadt nebenan", sl: "Mesto v bližini" },
   ponteTitolo: {
     it: "Trieste è sul sito di casa sua.",
-    en: "Trieste lives on its own site.",
+    en: "Trieste has its own site.",
     de: "Triest hat seine eigene Seite.",
     sl: "Trst ima svojo stran.",
   },
   ponteTesto: {
     it: "Le case di Trieste non le copiamo qui: stanno su triestevillas.com, lo stesso gruppo. Eccone alcune, scelte una per quartiere fra le {n} che oggi sono in vendita con le foto complete.",
     en: "We don't copy Trieste's homes here: they live on triestevillas.com, part of the same group. Here are a few, one per neighbourhood, from the {n} currently for sale with a full set of photos.",
-    de: "Die Häuser in Triest kopieren wir nicht hierher: Sie stehen auf triestevillas.com, derselben Gruppe. Hier einige davon, eines pro Viertel, aus den {n}, die derzeit mit vollständigen Fotos zum Verkauf stehen.",
-    sl: "Hiš v Trstu tu ne podvajamo: so na triestevillas.com, v isti skupini. Tu je nekaj od njih, po ena na mestno četrt, izmed {n}, ki so trenutno naprodaj s celotnimi fotografijami.",
+    de: "Die Häuser in Triest übernehmen wir nicht hierher: Sie stehen auf triestevillas.com, einer Website derselben Gruppe. Hier einige davon, je eines pro Stadtviertel, aus den {n}, die derzeit mit vollständigen Fotos zum Verkauf stehen.",
+    sl: "Hiš v Trstu tu ne podvajamo: objavljene so na triestevillas.com, strani iste skupine. Tu je nekaj od njih, po ena iz vsake mestne četrti, izmed {n}, ki so trenutno naprodaj s celotnim naborom fotografij.",
   },
   ponteTutte: {
     it: "Tutte le case su triestevillas.com",
@@ -106,7 +106,7 @@ export const UI = {
   },
   trattativaRiservata: { it: "Trattativa riservata", en: "Price on request", de: "Preis auf Anfrage", sl: "Cena na zahtevo" },
   simulazione: { it: "simulazione", en: "simulation", de: "Simulation", sl: "simulacija" },
-  rendering: { it: "rendering", en: "rendering", de: "Rendering", sl: "upodobitev" },
+  rendering: { it: "rendering", en: "rendering", de: "Rendering", sl: "vizualizacija" },
 
   catalogoTitolo: { it: "Immobili in Friuli Venezia Giulia", en: "Properties in Friuli Venezia Giulia", de: "Immobilien in Friaul-Julisch Venetien", sl: "Nepremičnine v Furlaniji - Julijski krajini" },
   catalogoIntro: {
@@ -119,7 +119,7 @@ export const UI = {
   venduti: { it: "Venduti", en: "Sold", de: "Verkauft", sl: "Prodano" },
   altreZone: { it: "Altre zone", en: "Other areas", de: "Weitere Gebiete", sl: "Druga območja" },
   areaLabel: { it: "Area", en: "Area", de: "Gebiet", sl: "Območje" },
-  tempiDaQui: { it: "Da qui, in auto", en: "From here, by car", de: "Von hier, mit dem Auto", sl: "Od tu, z avtom" },
+  tempiDaQui: { it: "Da qui, in auto", en: "From here, by car", de: "Von hier, mit dem Auto", sl: "Od tod z avtom" },
 } satisfies Record<string, T>;
 
 export function ui(k: keyof typeof UI, l: Lingua, vars: Record<string, string | number> = {}): string {

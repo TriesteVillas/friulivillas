@@ -21,6 +21,7 @@ import {
   comuniDellArea,
   DATA_MISURA,
   minuti,
+  DA_ORIGINE,
   NOMI_ORIGINE,
   ORIGINE_DEFAULT,
   ORIGINI,
@@ -193,7 +194,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                       <div className="col-span-2">
                         <dt className="sr-only">{ui("daOrigine", locale)}</dt>
                         <dd>
-                          {ui("daOrigine", locale)} {NOMI_ORIGINE[origDefault][locale]}: <span className="text-brand-dark">{fmt(tm.mediana)}</span> ({ui("mediana", locale)})
+                          {DA_ORIGINE[origDefault][locale]}: <span className="text-brand-dark">{fmt(tm.mediana)}</span> ({ui("mediana", locale)})
                         </dd>
                       </div>
                     </dl>

@@ -38,7 +38,7 @@ export const AREE: readonly AreaId[] = ["costa-laguna", "colline-pianura", "mont
 export const NOMI_AREA: Record<AreaId, Record<Lingua, string>> = {
   "costa-laguna": { it: "Costa e laguna", en: "Coast & Lagoon", de: "Küste & Lagune", sl: "Obala in laguna" },
   "colline-pianura": { it: "Colline e pianura", en: "Hills & Plain", de: "Hügelland & Ebene", sl: "Gričevje in nižina" },
-  montagna: { it: "Montagna", en: "Mountains", de: "Berge", sl: "Gore" },
+  montagna: { it: "Montagna", en: "Mountains", de: "Bergland", sl: "Gore" },
   "trieste-carso": { it: "Trieste e Carso", en: "Trieste & Karst", de: "Triest & Karst", sl: "Trst in Kras" },
 };
 
@@ -46,7 +46,7 @@ export const NOMI_AREA: Record<AreaId, Record<Lingua, string>> = {
 export const SLUG_AREA: Record<AreaId, Record<Lingua, string>> = {
   "costa-laguna": { it: "costa-e-laguna", en: "coast-and-lagoon", de: "kueste-und-lagune", sl: "obala-in-laguna" },
   "colline-pianura": { it: "colline-e-pianura", en: "hills-and-plain", de: "huegelland-und-ebene", sl: "gricevje-in-nizina" },
-  montagna: { it: "montagna", en: "mountains", de: "berge", sl: "gore" },
+  montagna: { it: "montagna", en: "mountains", de: "bergland", sl: "gore" },
   "trieste-carso": { it: "trieste-e-carso", en: "trieste-and-karst", de: "triest-und-karst", sl: "trst-in-kras" },
 };
 

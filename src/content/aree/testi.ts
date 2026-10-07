@@ -119,11 +119,11 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       sottotitolo: "The open sea, the Marano and Grado lagoon, and the towns just inland.",
       intro: [
         // fonte: COMUNI; AREE-C (vedi blocco IT)
-        "Coast & Lagoon brings together nine municipalities: about 399 km², 5% of the region, with 78,626 residents in 2024. Five of them face the open sea according to ISTAT, Italy's statistics office: Lignano Sabbiadoro, Marano Lagunare, Grado, Staranzano and Monfalcone. The other four, Latisana, Aquileia, Terzo d'Aquileia and San Canzian d'Isonzo, have most of their land in the regional landscape plan's “Lagoon and coast” zone, but their town centres lie a few kilometres inland.",
+        "Coast & Lagoon brings together nine municipalities: about 399 km², 5% of the region, with 78,626 residents in 2024. Five of them face the open sea according to ISTAT, Italy's statistics office: Lignano Sabbiadoro, Marano Lagunare, Grado, Staranzano and Monfalcone. The other four, Latisana, Aquileia, Terzo d'Aquileia and San Canzian d'Isonzo, have most of their land in the regional landscape plan's ‘Lagoon and coast’ zone, but their town centres lie a few kilometres inland.",
         // fonte: COMUNI (altitudine_municipio_m; pop_residente)
         "This is flat country: every town hall sits between 4 and 13 metres above sea level. The largest town is Monfalcone, with 30,360 inhabitants; Grado has 7,532 and Lignano 6,888.",
         // fonte: T-AREE costa-laguna
-        "The natural gateway is Trieste Airport at Ronchi dei Legionari. Driving without traffic, the median town hall is 20 minutes from the terminal, ranging from 8 minutes for San Canzian d'Isonzo to 59 for Lignano. From Piazza Unità in Trieste the median is about 55 minutes, from Udine 43, from Venice airport 1 h 20 min. From Munich or Vienna, allow more than five hours.",
+        "The natural gateway is Trieste Airport at Ronchi dei Legionari. Driving without traffic, the area's town halls are a median 20 minutes from the terminal, ranging from 8 minutes for San Canzian d'Isonzo to 59 for Lignano. From Piazza Unità in Trieste the median is about 55 minutes, from Udine 43, from Venice airport 1 hour 20 minutes. From Munich or Vienna, allow more than five hours.",
       ],
       paesaggi: [
         {
@@ -153,7 +153,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "A municipality belongs to Coast & Lagoon if the 2018 regional landscape plan places most of its land in the “Lagoon and coast” zone, or if ISTAT classifies it as coastal. Mountains and Karst are assigned first, though, which is why Duino Aurisina, Muggia and Trieste, although on the sea, are in the Trieste & Karst area. The borderline cases are the lagoon's hinterland: Latisana, Aquileia, Terzo d'Aquileia and San Canzian d'Isonzo qualify by surface area even though their centres are 7 to 15 km from the coast. So when a home in this area stands more than 4 km from the ISTAT shoreline, we list it under Hills & Plain.",
+        "A municipality belongs to Coast & Lagoon if the 2018 regional landscape plan places most of its land in the ‘Lagoon and coast’ zone, or if ISTAT classifies it as coastal. Mountains and Karst are assigned first, though, which is why Duino Aurisina, Muggia and Trieste, although on the sea, are in the Trieste & Karst area. The borderline cases are the lagoon's hinterland: Latisana, Aquileia, Terzo d'Aquileia and San Canzian d'Isonzo qualify by surface area even though their centres are 7 to 15 km from the coast. So when a home in this area stands more than 4 km from the ISTAT shoreline, we list it under Hills & Plain.",
       senzaCase:
         "We have no homes for sale in Coast & Lagoon right now. Tell us what you are looking for and we will say plainly whether we can help.",
       faq: [
@@ -180,7 +180,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
     },
     de: {
-      titleSeo: "Friaul, Küste & Lagune: Lignano, Grado, Aquileia",
+      titleSeo: "Küste & Lagune im Friaul: Lignano, Grado, Aquileia",
       descriptionSeo:
         "Neun Gemeinden zwischen Lignano und Monfalcone: Lagune von Marano und Grado, Aquileia, der untere Isonzo. Gemessene Fahrzeiten und die Abgrenzung des Gebiets.",
       h1: "Küste & Lagune: neun Gemeinden zwischen Lignano und Monfalcone", // fonte: G2 §3
@@ -189,16 +189,16 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         // fonte: COMUNI; AREE-C
         "Küste & Lagune umfasst neun Gemeinden: rund 399 km², 5 % der Region, und 78.626 Einwohner im Jahr 2024. Fünf davon liegen laut ISTAT, dem italienischen Statistikamt, am offenen Meer: Lignano Sabbiadoro, Marano Lagunare, Grado, Staranzano und Monfalcone. Die anderen vier – Latisana, Aquileia, Terzo d'Aquileia und San Canzian d'Isonzo – haben den größten Teil ihrer Fläche im Landschaftsraum „Lagune und Küste“ des regionalen Landschaftsplans, ihr Ortskern liegt aber einige Kilometer landeinwärts.",
         // fonte: COMUNI
-        "Das Land ist flach: Alle Rathäuser liegen zwischen 4 und 13 Metern über dem Meer. Größter Ort ist Monfalcone mit 30.360 Einwohnern; Grado zählt 7.532, Lignano 6.888.",
+        "Das Land ist flach: Alle Rathäuser liegen zwischen 4 und 13 Metern über dem Meeresspiegel. Größter Ort ist Monfalcone mit 30.360 Einwohnern; Grado zählt 7.532, Lignano 6.888.",
         // fonte: T-AREE costa-laguna
-        "Das Tor zur Küste ist der Flughafen Triest in Ronchi dei Legionari: Ohne Verkehr erreicht man die Rathäuser im Median in 20 Minuten, San Canzian d'Isonzo in 8, Lignano in 59. Von der Piazza Unità in Triest sind es im Median rund 55 Minuten, von Udine 43, vom Flughafen Venedig 1 Std. 20 Min. Von München und Wien braucht man über fünf Stunden.",
+        "Das Tor zur Küste ist der Flughafen Triest in Ronchi dei Legionari: Ohne Verkehr erreicht man die Rathäuser im Median in 20 Minuten, San Canzian d'Isonzo in 8, Lignano in 59. Von der Piazza Unità in Triest sind es im Median rund 55 Minuten, von Udine 43, vom Flughafen Venedig 1 Std. 20 Min. Von München und Wien braucht man mehr als fünf Stunden.",
       ],
       paesaggi: [
         {
           nome: "Lignano und die Friaulische Riviera",
           // fonte: COMUNI (lon); AREE-C; GEO §8
           testo:
-            "Lignano Sabbiadoro ist die westlichste Küstengemeinde der Region. Mit Latisana und Marano Lagunare bildet es den Gemeindeverband Riviera Friulana. Der Ortskern von Latisana liegt 14,9 km von der Küstenlinie entfernt, doch 70 % des Gemeindegebiets gehören zum Landschaftsraum der Lagune.",
+            "Lignano Sabbiadoro ist die westlichste Küstengemeinde der Region. Mit Latisana und Marano Lagunare gehört es zum Gemeindeverband Riviera Friulana. Der Ortskern von Latisana liegt 14,9 km von der Küstenlinie entfernt, doch 70 % des Gemeindegebiets gehören zum Landschaftsraum der Lagune.",
         },
         {
           nome: "Die Lagune von Marano und Grado",
@@ -221,9 +221,9 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "Eine Gemeinde gehört zu Küste & Lagune, wenn der regionale Landschaftsplan von 2018 den größten Teil ihrer Fläche dem Raum „Lagune und Küste“ zuordnet oder wenn ISTAT sie als Küstengemeinde führt. Vorher werden aber Berge und Karst vergeben: Deshalb stehen Duino Aurisina, Muggia und Triest, obwohl am Meer, im Gebiet Triest & Karst. Grenzfälle sind die Orte hinter der Lagune: Latisana, Aquileia, Terzo d'Aquileia und San Canzian d'Isonzo zählen nach Fläche dazu, obwohl ihr Ortskern 7 bis 15 km von der Küste entfernt ist. Ein Haus in diesem Gebiet, das mehr als 4 km von der ISTAT-Küstenlinie entfernt liegt, zeigen wir deshalb unter Hügelland & Ebene.",
+        "Eine Gemeinde gehört zu Küste & Lagune, wenn der regionale Landschaftsplan von 2018 den größten Teil ihrer Fläche dem Raum „Lagune und Küste“ zuordnet oder wenn ISTAT sie als Küstengemeinde führt. Zuvor werden jedoch Berge und Karst zugeordnet: Deshalb stehen Duino Aurisina, Muggia und Triest, obwohl am Meer, im Gebiet Triest & Karst. Grenzfälle sind die Orte hinter der Lagune: Latisana, Aquileia, Terzo d'Aquileia und San Canzian d'Isonzo zählen nach Fläche dazu, obwohl ihr Ortskern 7 bis 15 km von der Küste entfernt ist. Ein Haus in diesem Gebiet, das mehr als 4 km von der ISTAT-Küstenlinie entfernt liegt, zeigen wir deshalb unter Hügelland & Ebene.",
       senzaCase:
-        "Derzeit haben wir an Küste & Lagune keine Häuser im Verkauf. Schreiben Sie uns, was Sie suchen – wir sagen Ihnen offen, ob wir helfen können.",
+        "Derzeit haben wir im Gebiet Küste & Lagune keine Häuser zum Verkauf. Schreiben Sie uns, was Sie suchen – wir sagen Ihnen offen, ob wir helfen können.",
       faq: [
         {
           q: "Wie weit ist die Küste vom Flughafen Triest entfernt?",
@@ -256,18 +256,18 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       sottotitolo: "Odprto morje, laguna pri Maranu in Gradežu ter kraji tik za njo.",
       intro: [
         // fonte: COMUNI; AREE-C
-        "Območje Obala in laguna združuje devet občin: približno 399 km², 5 % deželnega ozemlja, in 78.626 prebivalcev v letu 2024. Pet jih po podatkih italijanskega statističnega urada ISTAT leži ob odprtem morju: Lignano Sabbiadoro, Marano Lagunare, Gradež, Štarancan in Tržič. Preostale štiri – Latisana, Oglej, Terzo d'Aquileia in Škocjan ob Soči – imajo večino ozemlja v krajinskem območju »Laguna in obala« deželnega krajinskega načrta, njihova središča pa so nekaj kilometrov v notranjosti.",
+        "Območje Obala in laguna združuje devet občin: približno 399 km², 5 % deželnega ozemlja, in 78.626 prebivalcev leta 2024. Pet jih po podatkih italijanskega statističnega urada ISTAT leži ob odprtem morju: Lignano Sabbiadoro, Marano Lagunare, Gradež, Štarancan in Tržič. Preostale štiri – Latisana, Oglej, Terzo d'Aquileia in Škocjan ob Soči – imajo večino ozemlja v krajinskem območju »Laguna in obala« deželnega krajinskega načrta, njihova središča pa so nekaj kilometrov v notranjosti.",
         // fonte: COMUNI
         "Svet je raven: vsi občinski sedeži so med 4 in 13 metri nadmorske višine. Največji kraj je Tržič s 30.360 prebivalci; Gradež jih ima 7.532, Lignano 6.888.",
         // fonte: T-AREE costa-laguna
-        "Vstopna točka je tržaško letališče v Ronkah: brez prometa so občinski sedeži od terminala oddaljeni v mediani 20 minut, od 8 minut do Škocjana ob Soči do 59 do Lignana. S Trga Unità v Trstu je mediana približno 55 minut, iz Vidma 43, z beneškega letališča 1 uro in 20 minut. Iz Münchna in z Dunaja potrebujete več kot pet ur.",
+        "Vstopna točka je tržaško letališče v Ronkah: brez prometa je mediana vožnje od terminala do občinskih sedežev 20 minut, od 8 minut do Škocjana ob Soči do 59 do Lignana. S Trga Unità v Trstu je mediana približno 55 minut, iz Vidma 43, z beneškega letališča 1 ura in 20 minut. Iz Münchna in z Dunaja potrebujete več kot pet ur.",
       ],
       paesaggi: [
         {
           nome: "Lignano in Furlanska riviera",
           // fonte: COMUNI (lon); AREE-C; GEO §8
           testo:
-            "Lignano Sabbiadoro je najzahodnejša obalna občina dežele. Z Latisano in Maranom Lagunare tvori zvezo občin Riviera Friulana. Središče Latisane je 14,9 km od obalne črte, vendar 70 % njenega ozemlja spada v krajinsko območje lagune.",
+            "Lignano Sabbiadoro je najzahodnejša obalna občina dežele. Z Latisano in Maranom Lagunare spada v zvezo občin Riviera Friulana. Središče Latisane je 14,9 km od obalne črte, vendar 70 % njenega ozemlja spada v krajinsko območje lagune.",
         },
         {
           nome: "Laguna pri Maranu in Gradežu",
@@ -290,14 +290,14 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "Občina spada na območje Obala in laguna, če deželni krajinski načrt iz leta 2018 večino njenega ozemlja uvršča v območje »Laguna in obala« ali če jo ISTAT vodi kot obalno. Pred tem pa se razdelita gorski svet in Kras: zato so Devin - Nabrežina, Milje in Trst, čeprav ob morju, na območju Trst in Kras. Mejni primeri so kraji za laguno: Latisana, Oglej, Terzo d'Aquileia in Škocjan ob Soči so zraven po površini, čeprav so njihova središča od 7 do 15 km od obale. Zato hišo s tega območja, ki je od obalne črte ISTAT oddaljena več kot 4 km, prikažemo pod Gričevjem in nižino.",
+        "Občina spada na območje Obala in laguna, če deželni krajinski načrt iz leta 2018 večino njenega ozemlja uvršča v območje »Laguna in obala« ali če jo ISTAT vodi kot obalno. Pred tem pa se razvrstijo občine gorskega sveta in Krasa: zato so Devin - Nabrežina, Milje in Trst, čeprav ob morju, na območju Trst in Kras. Mejni primeri so kraji za laguno: Latisana, Oglej, Terzo d'Aquileia in Škocjan ob Soči so zraven po površini, čeprav so njihova središča od 7 do 15 km od obale. Zato hišo s tega območja, ki je od obalne črte ISTAT oddaljena več kot 4 km, prikažemo na območju Gričevje in nižina.",
       senzaCase:
         "Trenutno na območju Obala in laguna nimamo hiš naprodaj. Pišite nam, kaj iščete, in odkrito vam bomo povedali, ali vam lahko pomagamo.",
       faq: [
         {
           q: "Kako daleč je obala od tržaškega letališča?",
           // fonte: T-AREE
-          a: "Brez prometa je mediana do devetih občinskih sedežev 20 minut: od 8 minut do Škocjana ob Soči do 59 do Lignana Sabbiadoro. Z beneškega letališča je mediana 1 uro in 20 minut, Latisana je oddaljena 58 minut. Merjeno 7. oktobra 2026.",
+          a: "Brez prometa je mediana do devetih občinskih sedežev 20 minut: od 8 minut do Škocjana ob Soči do 59 do Lignana Sabbiadoro. Z beneškega letališča je mediana 1 ura in 20 minut, Latisana je oddaljena 58 minut. Merjeno 7. oktobra 2026.",
         },
         {
           q: "Ali sta Oglej in Latisana ob morju?",
@@ -307,12 +307,12 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Zakaj Devin in Milje nista na območju Obala in laguna?",
           // fonte: GEO §8; NOMI (Devin - Nabrežina, Milje)
-          a: "Ker ju krajinski načrt uvršča v območje Krasa in vzhodne obale. Ležita ob morju, a v kraški pokrajini, ki je laguni povsem drugačna. Najdete ju pod Trstom in Krasom.",
+          a: "Ker ju krajinski načrt uvršča v območje Krasa in vzhodne obale. Ležita ob morju, a v kraški pokrajini, ki je povsem drugačna od lagunske. Najdete ju na območju Trst in Kras.",
         },
         {
           q: "Koliko časa traja vožnja iz Ljubljane ali Münchna?",
           // fonte: T-AREE costa-laguna lubiana 101, monaco 313; GEO §7
-          a: "V mediani devetih občin približno 1 uro in 41 minut iz Ljubljane (Tržič je najbližji, 80 minut) in 5 ur in 13 minut iz Münchna, brez prometa in čakanja. Ob poletnih koncih tedna je vožnja lahko precej daljša.",
+          a: "V mediani devetih občin približno 1 uro in 41 minut iz Ljubljane (Tržič je najbližji, 80 minut) in 5 ur in 13 minut iz Münchna, brez prometa in čakanja na meji. Ob poletnih koncih tedna je vožnja lahko precej daljša.",
         },
       ],
     },
@@ -426,7 +426,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Cividale and the eastern hills",
           // fonte: UNESCO id 1318; GEO §3; T-OSRM
           testo:
-            "Part of the historic centre of Cividale del Friuli, the Lombard-era quarter, has been included since 2011 in the UNESCO site “Longobards in Italy”. Cividale is about 25 minutes from Udine; around it, Prepotto, Corno di Rosazzo, Torreano, Faedis, Attimis, Nimis and Tarcento trace the eastern hills up to the Torre.",
+            "Part of the historic centre of Cividale del Friuli, the Lombard-era quarter, has been part of the UNESCO site ‘Longobards in Italy’ since 2011. Cividale is about 25 minutes from Udine; around it, Prepotto, Corno di Rosazzo, Torreano, Faedis, Attimis, Nimis and Tarcento trace the eastern hills as far as the River Torre.",
         },
         {
           nome: "The moraine hills and San Daniele",
@@ -444,7 +444,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "The plain and the lowlands",
           // fonte: UNESCO id 1533; en.wikipedia «Palmanova»; AREE-C
           testo:
-            "Ninety-one municipalities of plain, from the upper plain around Udine and Pordenone down to the lowlands that border the lagoon: Codroipo, Sacile, Cervignano del Friuli, Ronchi dei Legionari. Palmanova, the star-shaped fortress town built by Venice in 1593, has been part of the UNESCO site of Venetian defence works since 2017.",
+            "Ninety-one lowland municipalities, from the upper plain around Udine and Pordenone down to the lowlands that border the lagoon: Codroipo, Sacile, Cervignano del Friuli, Ronchi dei Legionari. Palmanova, the star-shaped fortress town built by Venice in 1593, has been part of the UNESCO site of Venetian defence works since 2017.",
         },
       ],
       // fonte: GEO §3, §8; aree.ts
@@ -456,7 +456,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Why are hills and plain one area?",
           // fonte: GEO §0, §3
-          a: "Because we currently have only a few homes here, and two nearly empty boxes would not help anyone searching. The split is ready and counted: 47 hill municipalities and 91 on the plain.",
+          a: "Because we currently have only a few homes here, and two near-empty categories would not help anyone searching. The split is ready and counted: 47 hill municipalities and 91 on the plain.",
         },
         {
           q: "Is the Collio in this area?",
@@ -478,14 +478,14 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
     de: {
       titleSeo: "Hügelland & Ebene im Friaul: vom Collio bis zur Bassa", // fonte: G2 §3 rivisto (niente «Haus kaufen»)
       descriptionSeo:
-        "138 Gemeinden um Pordenone, Udine und Görz: Collio, östliche Hügel, Moränenhügel, Voralpenrand und Ebene. Gemessene Fahrzeiten und wie das Gebiet entsteht.",
+        "138 Gemeinden um Pordenone, Udine und Görz: Collio, östliche Hügel, Moränenhügel, Voralpenrand und Ebene. Gemessene Fahrzeiten und wie das Gebiet abgegrenzt ist.",
       h1: "Hügelland & Ebene: 138 Gemeinden von Pordenone bis zum Collio", // fonte: G2 §3
       sottotitolo: "Der am dichtesten besiedelte Teil der Region: die Städte, der Collio, die Moränenhügel und die Ebene bis zur Lagune.",
       intro: [
         // fonte: COMUNI; AREE-C; NOMI (DE: Görz)
         "Es ist das größte der vier Gebiete: 138 von 215 Gemeinden, rund 3.842 km² – fast die Hälfte der Region – und 818.900 Einwohner, mehr als zwei von drei Bewohnern Friaul-Julisch Venetiens. Dazu gehören die drei früheren Provinzhauptstädte außer Triest: Udine mit 98.279 Einwohnern, Pordenone mit 52.314 und Görz mit 33.620.",
         // fonte: GEO §2, §3
-        "Der Name sagt, was drinsteckt. Der regionale Landschaftsplan teilt dieses Gebiet in sieben Räume: den westlichen Voralpenrand, das Moränenamphitheater, die östlichen Täler mit dem Collio, die obere und untere Ebene von Pordenone sowie die obere und untere friaulische und Isonzo-Ebene. Wächst unser Angebot, teilt sich das Gebiet in Hügelland (47 Gemeinden) und Ebene (91) – nach einer Regel, die schon feststeht.",
+        "Der Name sagt, was dazugehört. Der regionale Landschaftsplan teilt dieses Gebiet in sieben Räume: den westlichen Voralpenrand, das Moränenamphitheater, die östlichen Täler mit dem Collio, die obere und untere Ebene von Pordenone sowie die obere und untere friaulische und Isonzo-Ebene. Wächst unser Angebot, teilt sich das Gebiet in Hügelland (47 Gemeinden) und Ebene (91) – nach einer Regel, die schon feststeht.",
         // fonte: T-AREE colline-pianura
         "Von Udine sind es ohne Verkehr im Median 35 Minuten, zur entferntesten Gemeinde, Polcenigo, 79. Von Triest beträgt der Median 1 Std. 12 Min., vom Flughafen Triest 48 Minuten, vom Flughafen Venedig 1 Std. 20 Min. Von München aus liegt Osoppo am nächsten, rund 4 Std. 30 Min.",
       ],
@@ -500,19 +500,19 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Cividale und die östlichen Hügel",
           // fonte: UNESCO id 1318; GEO §3; T-OSRM
           testo:
-            "Ein Teil der Altstadt von Cividale del Friuli, der langobardische, gehört seit 2011 zur UNESCO-Welterbestätte „Langobarden in Italien“. Cividale liegt rund 25 Minuten von Udine; ringsum ziehen sich mit Prepotto, Corno di Rosazzo, Torreano, Faedis, Attimis, Nimis und Tarcento die östlichen Hügel bis zum Torre.",
+            "Ein Teil der Altstadt von Cividale del Friuli, der langobardische, gehört seit 2011 zur UNESCO-Welterbestätte „Langobarden in Italien“. Cividale liegt rund 25 Minuten von Udine entfernt; ringsum ziehen sich mit Prepotto, Corno di Rosazzo, Torreano, Faedis, Attimis, Nimis und Tarcento die östlichen Hügel bis zum Torre.",
         },
         {
           nome: "Die Moränenhügel und San Daniele",
           // fonte: AREE-C; T-OSRM
           testo:
-            "Nordwestlich von Udine umfasst der Raum des Moränenamphitheaters fünfzehn Gemeinden: San Daniele del Friuli, Fagagna, Majano, Buja, Ragogna, Osoppo, Tricesimo, Moruzzo, Pagnacco und weitere. San Daniele liegt rund 35 Minuten von Udine.",
+            "Nordwestlich von Udine umfasst der Raum des Moränenamphitheaters fünfzehn Gemeinden: San Daniele del Friuli, Fagagna, Majano, Buja, Ragogna, Osoppo, Tricesimo, Moruzzo, Pagnacco und weitere. San Daniele liegt rund 35 Minuten von Udine entfernt.",
         },
         {
           nome: "Der Voralpenrand bei Pordenone",
           // fonte: AREE-C; GEO §8
           testo:
-            "Aviano, Budoia, Polcenigo, Caneva und Maniago liegen am Fuß der Berge um Pordenone. Nach dem regionalen Berggesetz sind sie ganz oder teilweise Berggemeinden, ISTAT führt sie aber als Hügelland – deshalb stehen sie hier und nicht unter Berge.",
+            "Aviano, Budoia, Polcenigo, Caneva und Maniago liegen am Fuß der Berge um Pordenone. Nach dem regionalen Berggesetz sind sie ganz oder teilweise Berggemeinden, ISTAT führt sie aber als Hügelland – deshalb stehen sie hier und nicht im Bergland.",
         },
         {
           nome: "Die Ebene und die Bassa",
@@ -525,7 +525,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       confine:
         "Dieses Gebiet ist, was nach den anderen dreien übrig bleibt: Eine Gemeinde gehört dazu, wenn ISTAT sie nicht als Berggebiet einstuft, der Landschaftsplan sie nicht dem Karst zuordnet und sie weder Küstengemeinde ist noch überwiegend im Raum der Lagune liegt. Die Grenzfälle: Görz, das der Plan zwischen oberer Ebene (59 %) und Collio (41 %) teilt; die Natisone-Täler oberhalb von Cividale, die für ISTAT Berggebiet sind und daher zu den Bergen gehören; der Collio, den ISTAT als Ebene führt, der Plan aber zum Hügelland zählt; und Ronchi dei Legionari, die einzige Gemeinde hier, deren Ortskern weniger als 5 km vom Meer liegt. Häuser in Küstengemeinden, die mehr als 4 km von der Küstenlinie entfernt sind, zeigen wir ebenfalls hier.",
       senzaCase:
-        "Derzeit haben wir in Hügelland & Ebene keine Häuser im Verkauf. Schreiben Sie uns, was Sie suchen und wo.",
+        "Derzeit haben wir im Gebiet Hügelland & Ebene keine Häuser zum Verkauf. Schreiben Sie uns, was Sie suchen und wo.",
       faq: [
         {
           q: "Warum sind Hügelland und Ebene ein Gebiet?",
@@ -551,18 +551,18 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
     },
     sl: {
       // fonte toponimi SL: NOMI (Videm, Gorica, Čedad, Krmin, Pordenon/Pordenone, Collio = Brda); COMUNI nome_sl_wikidata (Koprivno, Dolenje v Brdih, Moš, Števerjan, Prapotno, Čenta, Ronke, Červinjan, Taržizem)
-      titleSeo: "Furlanija, gričevje in nižina: od Brd do spodnje nižine", // fonte: G2 §3 rivisto
+      titleSeo: "Furlansko gričevje in nižina: od Brd do spodnje nižine", // fonte: G2 §3 rivisto
       descriptionSeo:
         "138 občin okoli Pordenona, Vidma in Gorice: Collio (Brda), vzhodni griči, morenski griči, predgorje in nižina. Izmerjeni časi vožnje in pravilo območja.",
       h1: "Gričevje in nižina: 138 občin od Pordenona do Brd", // fonte: G2 §3
       sottotitolo: "Najgosteje naseljeni del dežele: mesta, Brda, morenski griči in nižina vse do lagune.",
       intro: [
         // fonte: COMUNI; AREE-C
-        "To je največje od štirih območij: 138 od 215 občin, približno 3.842 km² – skoraj polovica dežele – in 818.900 prebivalcev, več kot dva od treh prebivalcev Furlanije - Julijske krajine. Sem spadajo tri nekdanja pokrajinska središča razen Trsta: Videm z 98.279 prebivalci, Pordenone z 52.314 in Gorica s 33.620.",
+        "To je največje od štirih območij: 138 od 215 občin, približno 3.842 km² – skoraj polovica dežele – in 818.900 prebivalcev, več kot dve tretjini prebivalstva Furlanije - Julijske krajine. Sem spadajo tri nekdanja pokrajinska središča razen Trsta: Videm z 98.279 prebivalci, Pordenone z 52.314 in Gorica s 33.620.",
         // fonte: GEO §2, §3
-        "Ime pove, kaj je v njem. Deželni krajinski načrt to ozemlje deli na sedem območij: zahodno predgorje, morenski amfiteater, vzhodne doline z Brdi, zgornjo in spodnjo pordenonsko nižino ter zgornjo in spodnjo furlansko in posoško nižino. Ko bo naša ponudba večja, se bo območje razdelilo na Gričevje (47 občin) in Nižino (91), po pravilu, ki je že zapisano.",
+        "Ime pove, kaj zajema. Deželni krajinski načrt to ozemlje deli na sedem območij: zahodno predgorje, morenski amfiteater, vzhodne doline z Brdi, zgornjo in spodnjo pordenonsko nižino ter zgornjo in spodnjo furlansko in posoško nižino. Ko bo naša ponudba večja, se bo območje razdelilo na Gričevje (47 občin) in Nižino (91), po pravilu, ki je že zapisano.",
         // fonte: T-AREE colline-pianura
-        "Iz Vidma je mediana brez prometa 35 minut, do najbolj oddaljene občine, Polcenigo, pa 79. Iz Trsta je mediana 1 uro in 12 minut, s tržaškega letališča 48 minut, z beneškega 1 uro in 20 minut. Iz Ljubljane je najbližja Gorica, približno 78 minut vožnje.",
+        "Iz Vidma je mediana brez prometa 35 minut, do najbolj oddaljene občine, Polcenigo, pa 79. Iz Trsta je mediana 1 ura in 12 minut, s tržaškega letališča 48 minut, z beneškega 1 ura in 20 minut. Iz Ljubljane je najbližja Gorica, približno 78 minut vožnje.",
       ],
       paesaggi: [
         {
@@ -575,7 +575,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Čedad in vzhodni griči",
           // fonte: UNESCO id 1318; GEO §3; T-OSRM; NOMI (Čedad); COMUNI (Prapotno, Čenta)
           testo:
-            "Del zgodovinskega središča Čedada, tisti iz langobardske dobe, je od leta 2011 del Unescove dediščine »Langobardi v Italiji«. Čedad je od Vidma oddaljen približno 25 minut; okoli njega se vzhodni griči s Prapotnim, Cornom di Rosazzo, Torreanom, Faedisom, Attimisom, Nimisom in Čento vlečejo vse do reke Torre.",
+            "Del zgodovinskega središča Čedada, tisti iz langobardske dobe, je od leta 2011 del Unescove dediščine »Langobardi v Italiji«. Čedad je od Vidma oddaljen približno 25 minut; okoli njega se vzhodni griči vlečejo vse do reke Ter: Prapotno, Corno di Rosazzo, Tavorjana, Fojda, Ahten, Neme in Čenta.",
         },
         {
           nome: "Morenski griči in San Daniele",
@@ -615,7 +615,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Koliko sta Gorica in Pordenone oddaljena od Vidma?",
           // fonte: T-OSRM
-          a: "S Piazza della Libertà v Vidmu je brez prometa do Gorice približno 45 minut, do Pordenona približno 62.",
+          a: "S Trga Libertà v Vidmu je brez prometa do Gorice približno 45 minut, do Pordenona približno 62.",
         },
         {
           q: "Katere občine so blizu tržaškega letališča?",
@@ -716,7 +716,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       descriptionSeo:
         "58 mountain municipalities: Carnia, Val Canale and Canal del Ferro, Friulian Dolomites, Sappada, the Natisone valleys. Tarvisio about 45 min from Klagenfurt.",
       h1: "Mountains: 58 municipalities, Tarvisio about 45 minutes from Klagenfurt", // fonte: G2 §3
-      sottotitolo: "Carnia, Val Canale, the Friulian Dolomites, Sappada and the Julian Pre-Alps: the high country of the region.",
+      sottotitolo: "Carnia, Val Canale, the Friulian Dolomites, Sappada and the Julian Pre-Alps: the region's high country.",
       intro: [
         // fonte: COMUNI
         "Mountains means the 58 municipalities that ISTAT, Italy's statistics office, classifies as inland mountain. They cover 3,414 km², 43% of the region, yet only 59,833 people live here, 5% of the total: about 18 inhabitants per km², against a regional average of 150. Forty-two of the 58 have fewer than a thousand residents; the largest is Tolmezzo, with 9,702.",
@@ -742,7 +742,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "The Friulian Dolomites and the Pordenone valleys",
           // fonte: AREE-C; it.wikipedia Parco Dolomiti Friulane; UNESCO id 1237; T-AREE
           testo:
-            "In the upper western valleys, around Claut, Cimolais, Erto e Casso, Barcis, Andreis, Frisanco and Tramonti, the Friulian Dolomites have formed part of the UNESCO “Dolomites” site since 2009. These are the municipalities farthest from Udine, Erto e Casso at about 1 h 42 min, but the closest to Venice airport: Erto is 1 h 14 min away.",
+            "In the upper western valleys, around Claut, Cimolais, Erto e Casso, Barcis, Andreis, Frisanco and Tramonti, the Friulian Dolomites have formed part of the UNESCO ‘Dolomites’ site since 2009. These are the municipalities farthest from Udine, Erto e Casso at about 1 h 42 min, but the closest to Venice airport: Erto is 1 h 14 min away.",
         },
         {
           nome: "Sappada",
@@ -790,15 +790,15 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       titleSeo: "Berge im Friaul: Karnien, Kanaltal, Sappada", // fonte: G2 §3
       descriptionSeo:
         "58 Berggemeinden: Karnien, Kanaltal und Canal del Ferro, Friauler Dolomiten, Sappada, Natisone-Täler. Tarvis liegt rund 45 Minuten von Klagenfurt entfernt.",
-      h1: "Von München sind die Berge näher als das Meer", // fonte: G2 §3; T-AREE monaco montagna 278 < costa 313
-      sottotitolo: "Berge: 58 Gemeinden zwischen Karnien, Kanaltal, Friauler Dolomiten, Sappada und Julischen Voralpen.",
+      h1: "Von München aus sind die Berge näher als das Meer", // fonte: G2 §3; T-AREE monaco montagna 278 < costa 313
+      sottotitolo: "Bergland: 58 Gemeinden zwischen Karnien, Kanaltal, Friauler Dolomiten, Sappada und Julischen Voralpen.",
       intro: [
         // fonte: COMUNI
         "Zu den Bergen zählen die 58 Gemeinden, die ISTAT, das italienische Statistikamt, als inneres Berggebiet einstuft. Sie bedecken 3.414 km², 43 % der Region, doch hier leben nur 59.833 Menschen, 5 %: rund 18 Einwohner je km² gegenüber 150 im regionalen Schnitt. Zweiundvierzig der 58 Gemeinden haben weniger als tausend Einwohner; die größte ist Tolmezzo mit 9.702.",
         // fonte: COMUNI; G3 §1.2
         "Die Rathäuser liegen zwischen 159 Metern in San Leonardo im Natisone-Tal und 1.242 Metern in Sappada; die Hälfte liegt über etwa 480 Metern. Nach dem Geländemodell von ISTAT befindet sich der höchste Punkt aller Gemeindegebiete in Forni Avoltri, auf 2.752 Metern.",
         // fonte: T-AREE; T-OSRM
-        "Von Klagenfurt, Salzburg und München aus ist dies das nächstgelegene der vier Gebiete. Ohne Verkehr erreicht man Tarvis von Klagenfurt in rund 45 Minuten, von Salzburg in 2 Std. 27 Min., von München in 3 Std. 46 Min.; von München beträgt der Median der 58 Gemeinden 4 Std. 38 Min., an die Küste 5 Std. 13 Min. Von Udine sind es im Median 59 Minuten, von Triest 1 Std. 44 Min.",
+        "Von Klagenfurt, Salzburg und München aus ist dies das nächstgelegene der vier Gebiete. Ohne Verkehr erreicht man Tarvis von Klagenfurt in rund 45 Minuten, von Salzburg in 2 Std. 27 Min., von München in 3 Std. 46 Min.; von München beträgt der Median der 58 Gemeinden 4 Std. 38 Min., an die Küste sind es 5 Std. 13 Min. Von Udine sind es im Median 59 Minuten, von Triest 1 Std. 44 Min.",
       ],
       paesaggi: [
         {
@@ -823,7 +823,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Sappada",
           // fonte: GEO §2; COMUNI; T-OSRM; NOMI (DE «Pladen» attestato ma non corrente: si usa Sappada)
           testo:
-            "Seit dem Gesetz 182 von 2017 gehört Sappada zu Friaul-Julisch Venetien; sein Rathaus liegt auf 1.242 Metern, so hoch wie kein anderes in der Region. Von Udine sind es rund 1 Std. 35 Min., von Triest 2 Std. 20 Min., von München 4 Std. 38 Min. In unserer Gruppe hat Sappada eine eigene Website, sappadavillas.com.",
+            "Seit dem Gesetz Nr. 182 von 2017 gehört Sappada zu Friaul-Julisch Venetien; sein Rathaus liegt auf 1.242 Metern, so hoch wie kein anderes in der Region. Von Udine sind es rund 1 Std. 35 Min., von Triest 2 Std. 20 Min., von München 4 Std. 38 Min. In unserer Gruppe hat Sappada eine eigene Website, sappadavillas.com.",
         },
         {
           nome: "Julische Voralpen und Natisone-Täler",
@@ -836,7 +836,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       confine:
         "Hier gilt die einfachste Regel: Zu den Bergen gehört jede Gemeinde, die ISTAT als inneres Berggebiet einstuft – die nationale Höhenzone –, und diese Regel wird zuerst angewendet. Sie deckt sich mit den alpinen Räumen des Landschaftsplans, also Karnien, Kanaltal-Canal del Ferro-Val Resia und den oberen westlichen Tälern, dazu Sappada und neun Gemeinden der östlichen Täler und des Voralpenrands. Das regionale Berggesetz verwenden wir nicht: Es ist viel weiter gefasst, schließt sogar Aviano, Prepotto, Muggia und Duino Aurisina vollständig ein und dient der Förderung, nicht der Frage, wo ein Haus liegt. Sappada ist die einzige Gemeinde ohne doppelte Bestätigung, weil sie in den Raumblättern des Plans von 2018 fehlt.",
       senzaCase:
-        "Derzeit haben wir in den Bergen keine Häuser im Verkauf. Wenn Sie hier suchen, schreiben Sie uns. Für Sappada gibt es außerdem unsere eigene Website sappadavillas.com.",
+        "Derzeit haben wir in den Bergen keine Häuser zum Verkauf. Wenn Sie hier suchen, schreiben Sie uns. Für Sappada gibt es außerdem unsere eigene Website sappadavillas.com.",
       faq: [
         {
           q: "Wie weit sind die Berge von Österreich entfernt?",
@@ -854,7 +854,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           a: "Berggebiet: Pulfero, San Leonardo, Savogna, Stregna, Grimacco und Drenchia sind für ISTAT inneres Berggebiet. Cividale gleich unterhalb ist dagegen Hügelland und gehört zu Hügelland & Ebene.",
         },
         {
-          q: "Wie weit ist es vom Flughafen Venedig?",
+          q: "Wie weit sind die Berge vom Flughafen Venedig entfernt?",
           // fonte: T-AREE
           a: "Ohne Verkehr im Median 1 Std. 58 Min. Am nächsten liegt Erto e Casso mit 1 Std. 14 Min., am weitesten Rigolato mit 2 Std. 17 Min.",
         },
@@ -866,14 +866,14 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       descriptionSeo:
         "58 gorskih občin: Karnija, Kanalska in Železna dolina, Furlanski Dolomiti, Sappada, Nadiške doline. Trbiž je od Celovca oddaljen približno 45 minut vožnje.",
       h1: "Gore: 58 občin, Trbiž približno 45 minut od Celovca", // fonte: G2 §3
-      sottotitolo: "Karnija, Kanalska dolina, Furlanski Dolomiti, Sappada in Julijsko predgorje: visoki svet dežele.",
+      sottotitolo: "Karnija, Kanalska dolina, Furlanski Dolomiti, Sappada in Julijske Predalpe: visoki svet dežele.",
       intro: [
         // fonte: COMUNI
         "Gore so 58 občin, ki jih italijanski statistični urad ISTAT uvršča v notranje gorsko območje. Pokrivajo 3.414 km², 43 % dežele, a v njih živi le 59.833 ljudi, 5 %: približno 18 prebivalcev na km² v primerjavi s 150 v deželnem povprečju. Dvainštirideset od 58 občin ima manj kot tisoč prebivalcev; največja je Tolmeč z 9.702.",
         // fonte: COMUNI; G3 §1.2
         "Občinski sedeži ležijo med 159 metri v Podutani v Nadiških dolinah in 1.242 metri v Sappadi; polovica jih je nad približno 480 metri. Po digitalnem modelu reliefa ISTAT je najvišja točka vseh občinskih ozemelj v občini Forni Avoltri, na 2.752 metrih.",
         // fonte: T-AREE (lubiana montagna 143 = la più alta delle 4: onestà verso il lettore SL); T-OSRM Tarvisio lubiana 87, klagenfurt 45
-        "Za tiste, ki prihajajo iz Celovca, Salzburga ali Münchna, je to najbližje od štirih območij. Iz Ljubljane pa je najbolj oddaljeno: mediana 58 občin je 2 uri in 23 minut, a Trbiž je le približno 1 uro in 27 minut stran, iz Celovca pa 45 minut. Iz Vidma je mediana 59 minut, iz Trsta 1 uro in 44 minut – vse brez prometa.",
+        "Za tiste, ki prihajajo iz Celovca, Salzburga ali Münchna, je to najbližje od štirih območij. Iz Ljubljane pa je najbolj oddaljeno: mediana 58 občin je 2 uri in 23 minut, a Trbiž je le približno 1 uro in 27 minut stran, iz Celovca pa 45 minut. Iz Vidma je mediana 59 minut, iz Trsta 1 ura in 44 minut – vse brez prometa.",
       ],
       paesaggi: [
         {
@@ -901,7 +901,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
             "Sappada je z zakonom št. 182 iz leta 2017 prešla k Furlaniji - Julijski krajini in ima najvišje ležeči občinski sedež v deželi, na 1.242 metrih. Od Vidma je oddaljena približno 1 uro in 35 minut, od Trsta 2 uri in 20 minut. V naši skupini ima svojo spletno stran, sappadavillas.com.",
         },
         {
-          nome: "Julijsko predgorje in Nadiške doline",
+          nome: "Julijske Predalpe in Nadiške doline",
           // fonte: GEO §3, §11; COMUNI; COMUNI nome_sl_wikidata
           testo:
             "Podbonesec, Podutana, Sovodnja, Srednje, Grmek, Dreka, Bardo in Tipana nad Čedadom in Čento ter Forgaria nel Friuli: majhne občine, ki jih krajinski načrt šteje h gričevju in predgorju, ISTAT pa med gorske. Dreka z 89 prebivalci je najmanj naseljena občina v deželi.",
@@ -909,7 +909,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §2, §11; NOMI (Milje, Devin - Nabrežina)
       confine:
-        "Tu velja najpreprostejše pravilo: pod Gore spada vsaka občina, ki jo ISTAT uvršča v notranje gorsko območje – državni višinski pas –, in to pravilo se uporabi prvo. Ujema se z alpskimi območji krajinskega načrta, torej s Karnijo, Kanalsko in Železno dolino z Rezijo ter zgornjimi zahodnimi dolinami, k temu pa še Sappada in devet občin vzhodnih dolin in predgorja. Deželnega zakona o gorskih območjih ne uporabljamo: je veliko širši, v celoti zajema celo Aviano, Prapotno, Milje in Devin - Nabrežino, namenjen pa je spodbudam, ne temu, da bi povedal, kje stoji hiša. Sappada je edina občina brez dvojne potrditve, ker je v listih krajinskega načrta iz leta 2018 ni.",
+        "Tu velja najpreprostejše pravilo: pod Gore spada vsaka občina, ki jo ISTAT uvršča v notranje gorsko območje – državni višinski pas –, in to pravilo se uporabi najprej. Ujema se z alpskimi območji krajinskega načrta, torej s Karnijo, Kanalsko in Železno dolino z Rezijo ter zgornjimi zahodnimi dolinami, k temu pa še Sappada in devet občin vzhodnih dolin in predgorja. Deželnega zakona o gorskih območjih ne uporabljamo: je veliko širši, v celoti zajema celo Aviano, Prapotno, Milje in Devin - Nabrežino, namenjen pa je spodbudam, ne temu, da bi povedal, kje stoji hiša. Sappada je edina občina brez dvojne potrditve, ker je v listih krajinskega načrta iz leta 2018 ni.",
       senzaCase:
         "Trenutno v gorah nimamo hiš naprodaj. Če iščete tukaj, nam pišite. Za Sappado je na voljo tudi naša spletna stran sappadavillas.com.",
       faq: [
@@ -921,7 +921,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Kako daleč so gore od Avstrije?",
           // fonte: T-OSRM; T-AREE
-          a: "Iz Celovca je do Trbiža brez prometa in čakanja približno 45 minut, do Naborjeta 56. Mediana 58 občin je 1 uro in 46 minut; najbolj oddaljen je Erto e Casso, 2 uri in 55 minut.",
+          a: "Iz Celovca je do Trbiža brez prometa in čakanja približno 45 minut, do Naborjeta 56. Mediana 58 občin je 1 ura in 46 minut; najbolj oddaljen je Erto e Casso, 2 uri in 55 minut.",
         },
         {
           q: "Ali Sappada spada k Furlaniji?",
@@ -1031,7 +1031,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       sottotitolo: "The Karst plateau, the Duino coast and Muggia; for the city of Trieste, see triestevillas.com.",
       intro: [
         // fonte: AREE-C; COMUNI
-        "This area covers the ten municipalities that the regional landscape plan assigns to the “Karst and eastern coast” zone: Trieste, Muggia, San Dorligo della Valle, Sgonico, Monrupino and Duino Aurisina in the former province of Trieste, and Doberdò del Lago, Savogna d'Isonzo, Sagrado and Fogliano Redipuglia on the Gorizia side. Together they cover 278 km² and have 235,925 residents, but 198,388 of them live in the city of Trieste; the other nine municipalities have 37,537 between them.",
+        "This area covers the ten municipalities that the regional landscape plan assigns to the ‘Karst and eastern coast’ zone: Trieste, Muggia, San Dorligo della Valle, Sgonico, Monrupino and Duino Aurisina in the former province of Trieste, and Doberdò del Lago, Savogna d'Isonzo, Sagrado and Fogliano Redipuglia on the Gorizia side. Together they cover 278 km² and have 235,925 residents, but 198,388 of them live in the city of Trieste; the other nine municipalities have 37,537 between them.",
         // fonte: SPEC §5
         "For the city of Trieste itself, our sister site triestevillas.com is the place to look, and we do not repeat its listings here. On FriuliVillas this area is about what surrounds the city: the Karst plateau, the coast towards Duino, Muggia on the south side of the gulf, and the Gorizia Karst towards the Isonzo.",
         // fonte: COMUNI; T-OSRM; T-AREE
@@ -1071,7 +1071,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8
       confine:
-        "Landscape decides. A municipality belongs to Trieste & Karst if the 2018 regional landscape plan places most of its land in the “Karst and eastern coast” zone; this rule comes after the mountain rule and before the coast rule. That is why Duino Aurisina, 93% within the zone, and Muggia, 100%, are here and not next to Lignano. The debatable case is the Gorizia Karst: for the plan, Fogliano Redipuglia and Sagrado are entirely Karst, but ISTAT classifies them as plain, and anyone who describes them as part of the Isonzo plain is not wrong.",
+        "Landscape decides. A municipality belongs to Trieste & Karst if the 2018 regional landscape plan places most of its land in the ‘Karst and eastern coast’ zone; this rule comes after the mountain rule and before the coast rule. That is why Duino Aurisina, 93% within the zone, and Muggia, 100%, are here and not next to Lignano. The debatable case is the Gorizia Karst: for the plan, Fogliano Redipuglia and Sagrado are entirely Karst, but ISTAT classifies them as plain, and anyone who describes them as part of the Isonzo plain is not wrong.",
       senzaCase:
         "We have no homes for sale in the Karst outside the city at the moment. For Trieste, see triestevillas.com; for anything else, write to us.",
       faq: [
@@ -1148,7 +1148,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       confine:
         "Es entscheidet die Landschaft. Eine Gemeinde gehört zu Triest & Karst, wenn der regionale Landschaftsplan von 2018 den größten Teil ihrer Fläche dem Raum „Karst und östliche Küste“ zuordnet; diese Regel kommt nach der Bergregel und vor der Küstenregel. Deshalb stehen Duino Aurisina (zu 93 % in diesem Raum) und Muggia (zu 100 %) hier und nicht neben Lignano. Strittig ist der Görzer Karst: Für den Plan sind Fogliano Redipuglia und Sagrado vollständig Karst, ISTAT führt sie aber als Ebene – wer sie zur Isonzo-Ebene zählt, liegt nicht falsch.",
       senzaCase:
-        "Derzeit haben wir im Karst außerhalb der Stadt keine Häuser im Verkauf. Für Triest finden Sie Angebote auf triestevillas.com, für alles andere schreiben Sie uns.",
+        "Derzeit haben wir im Karst außerhalb der Stadt keine Häuser zum Verkauf. Für Triest finden Sie Angebote auf triestevillas.com, für alles andere schreiben Sie uns.",
       faq: [
         {
           q: "Warum finde ich hier keine Häuser in der Stadt Triest?",
@@ -1166,7 +1166,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           a: "Sechs der zehn tragen einen amtlichen Namen auf Italienisch und Slowenisch, den ISTAT führt, etwa Duino Aurisina-Devin Nabrežina oder Sgonico-Zgonik. In amtlichen Dokumenten kann jede der beiden Formen stehen.",
         },
         {
-          q: "Wie weit ist es vom Flughafen Triest?",
+          q: "Wie weit ist das Gebiet vom Flughafen Triest entfernt?",
           // fonte: T-AREE
           a: "Vom Terminal in Ronchi dei Legionari ohne Verkehr im Median 27 Minuten: von 12 Minuten nach Fogliano Redipuglia bis 49 nach Muggia.",
         },
@@ -1181,11 +1181,11 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       sottotitolo: "Kraška planota, obala pri Devinu in Milje; za mesto Trst je tu triestevillas.com.",
       intro: [
         // fonte: AREE-C; COMUNI
-        "Območje zajema deset občin, ki jih deželni krajinski načrt uvršča v območje »Kras in vzhodna obala«: Trst, Milje, Dolino, Zgonik, Repentabor in Devin - Nabrežino v nekdanji tržaški pokrajini ter Doberdob, Sovodnje ob Soči, Zagraj in Sredipolje na Goriškem. Skupaj merijo 278 km² in imajo 235.925 prebivalcev, od tega jih 198.388 živi v mestu Trst; preostalih devet občin jih ima skupaj 37.537.",
+        "Območje zajema deset občin, ki jih deželni krajinski načrt uvršča v območje »Kras in vzhodna obala«: Trst, Milje, Dolino, Zgonik, Repentabor in Devin - Nabrežino v nekdanji tržaški pokrajini ter Doberdob, Sovodnje ob Soči, Zagraj in Foljan - Sredipolje na Goriškem. Skupaj merijo 278 km² in imajo 235.925 prebivalcev, od tega jih 198.388 živi v mestu Trst; preostalih devet občin jih ima skupaj 37.537.",
         // fonte: SPEC §5
         "Za samo mesto Trst je pravi naslov naša sestrska stran triestevillas.com, njenih ponudb tukaj ne ponavljamo. Na FriuliVillas to območje predstavlja, kar mesto obdaja: kraško planoto, obalo proti Devinu, Milje na južni strani zaliva in Goriški Kras proti Soči.",
         // fonte: COMUNI; T-OSRM; T-AREE
-        "Šest od desetih občin ima po podatkih ISTAT uradno ime v italijanščini in slovenščini: Devin Nabrežina, Repentabor, Dolina, Zgonik, Doberdob in Sovodnje ob Soči. S Trga Unità je brez prometa do Milj približno 18 minut, do Devina - Nabrežine 24, do Doberdoba 41; iz Ljubljane je mediana območja 1 uro in 15 minut.",
+        "Šest od desetih občin ima po podatkih ISTAT uradno ime v italijanščini in slovenščini: Devin Nabrežina, Repentabor, Dolina, Zgonik, Doberdob in Sovodnje ob Soči. S Trga Unità je brez prometa do Milj približno 18 minut, do Devina - Nabrežine 24, do Doberdoba 41; iz Ljubljane je mediana območja 1 ura in 15 minut.",
       ],
       paesaggi: [
         {
@@ -1198,7 +1198,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Milje",
           // fonte: COMUNI; T-OSRM
           testo:
-            "Milje ležijo južno od Trsta, na drugi strani zaliva, z občinskim sedežem 5 metrov nad morjem in ozemljem, ki se vzpne do 241 metrov. Z 12.708 prebivalci so druga največja občina območja, približno 18 minut od Trga Unità in 1 uro in 14 minut od Ljubljane.",
+            "Milje ležijo južno od Trsta, na drugi strani zaliva, z občinskim sedežem 5 metrov nad morjem in ozemljem, ki se vzpenja do 241 metrov. Z 12.708 prebivalci so druga največja občina območja, približno 18 minut od Trga Unità in 1 uro in 14 minut od Ljubljane.",
         },
         {
           nome: "Planota: Zgonik, Repentabor, Dolina",
@@ -1210,7 +1210,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Goriški Kras",
           // fonte: AREE-C; T-AREE
           testo:
-            "Doberdob, Sovodnje ob Soči, Zagraj in Sredipolje ležijo na zahodnem robu Krasa, kjer se začne posoška nižina. Tržaškemu letališču so najbližje – Sredipolje 12 minut –, od Trga Unità pa najbolj oddaljene: do Sovodenj je 47 minut.",
+            "Doberdob, Sovodnje ob Soči, Zagraj in Foljan - Sredipolje ležijo na zahodnem robu Krasa, kjer se začne posoška nižina. Tržaškemu letališču so najbližje – Sredipolje 12 minut –, od Trga Unità pa najbolj oddaljene: do Sovodenj je 47 minut.",
         },
         {
           nome: "Mesto Trst",
@@ -1221,7 +1221,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8
       confine:
-        "Odloča pokrajina. Občina spada v območje Trst in Kras, če deželni krajinski načrt iz leta 2018 večino njenega ozemlja uvršča v območje »Kras in vzhodna obala«; to pravilo pride za gorskim in pred obalnim. Zato sta Devin - Nabrežina (93 % v tem območju) in Milje (100 %) tukaj in ne poleg Lignana. Sporen je Goriški Kras: za načrt sta Sredipolje in Zagraj v celoti Kras, ISTAT pa ju vodi kot nižino – kdor ju prišteva k posoški nižini, se ne moti.",
+        "Odloča pokrajina. Občina spada v območje Trst in Kras, če deželni krajinski načrt iz leta 2018 večino njenega ozemlja uvršča v območje »Kras in vzhodna obala«; to pravilo se uporabi po gorskem in pred obalnim. Zato sta Devin - Nabrežina (93 % v tem območju) in Milje (100 %) tukaj in ne poleg Lignana. Sporen je Goriški Kras: za načrt sta Foljan - Sredipolje in Zagraj v celoti Kras, ISTAT pa ju vodi kot nižino – kdor ju prišteva k posoški nižini, se ne moti.",
       senzaCase:
         "Trenutno na Krasu zunaj mesta nimamo hiš naprodaj. Za Trst poglejte triestevillas.com, za vse drugo nam pišite.",
       faq: [
@@ -1233,7 +1233,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Kako daleč je Kras od Ljubljane?",
           // fonte: T-AREE
-          a: "Brez prometa je mediana desetih občin 1 uro in 15 minut s Prešernovega trga. Najbližji je Repentabor, 62 minut, najbolj oddaljeno Sredipolje, 1 uro in 27 minut.",
+          a: "Brez prometa je mediana desetih občin 1 ura in 15 minut s Prešernovega trga. Najbližji je Repentabor, 62 minut, najbolj oddaljeno Sredipolje, 1 uro in 27 minut.",
         },
         {
           q: "Zakaj imajo nekatere občine dve imeni?",
