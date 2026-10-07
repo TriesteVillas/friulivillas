@@ -334,6 +334,7 @@
     "propertyType": "Vrsta lastništva",
     "propertyClass": "Razred nepremičnine",
     "yes": "Da",
+    "no": "Ne",
     "similarTitle": "Druge podobne nepremičnine",
     "type": "Vrsta",
     "contract": "Vrsta posla",

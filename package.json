@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-analytics.mjs && node scripts/check-messages.mjs && node scripts/check-etichette-ai.mjs && node scripts/trasparenza-ripiego.mjs --build",
+    "prebuild": "node scripts/check-analytics.mjs && node scripts/check-messages.mjs && node scripts/check-etichette-ai.mjs && node scripts/check-dotazioni.mjs && node scripts/trasparenza-ripiego.mjs --build",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

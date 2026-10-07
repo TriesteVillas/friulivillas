@@ -1,4 +1,5 @@
 import { routing } from "@/i18n/routing";
+import type { VoceSchema } from "@/lib/dotazioni";
 
 // SEO helpers — canonical + hreflang for next-intl `localePrefix: "as-needed"`
 // (it at the root, en/de/sl prefixed) and JSON-LD builders. The site is read by
@@ -187,7 +188,9 @@ type ListingSchemaInput = {
   // pagina) ma non si dichiara disponibile a un motore di ricerca.
   venduto: boolean;
   onlineDa: string | null;
-  amenities: string[];
+  // Le dotazioni che si SANNO (lib/dotazioni.ts → vociSchema): true = c'è,
+  // false = il CRM dice di no. Mai «campo non vuoto = true».
+  amenities: VoceSchema[];
 };
 
 // Scheda immobile: RealEstateListing (che è una WebPage) + l'immobile stesso in
@@ -231,10 +234,10 @@ export function listingJsonLd(p: ListingSchemaInput) {
     ...(p.annoCostruzione ? { yearBuilt: p.annoCostruzione } : {}),
     ...(p.amenities.length
       ? {
-          amenityFeature: p.amenities.map((name) => ({
+          amenityFeature: p.amenities.map((a) => ({
             "@type": "LocationFeatureSpecification",
-            name,
-            value: true,
+            name: a.name,
+            value: a.value,
           })),
         }
       : {}),
