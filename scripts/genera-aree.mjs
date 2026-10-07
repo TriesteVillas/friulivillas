@@ -18,8 +18,8 @@ const COMUNI = {};
 const ALIAS = {};
 for (const r of aree) {
   const k = chiave(r.comune);
-  COMUNI[k] = [r.comune, r.S4 === "carso-trieste" ? "trieste-carso" : r.S4];
   const a = anag.get(r.codice_istat);
+  COMUNI[k] = [r.comune, r.S4 === "carso-trieste" ? "trieste-carso" : r.S4, Number(a.lat), Number(a.lon), r.codice_istat];
   for (const alt of [a?.denominazione_ufficiale, ...(a?.denominazione_altra_lingua ?? "").split(/[/;]/)]) {
     const ka = alt ? chiave(alt) : "";
     if (ka && ka !== k && !COMUNI[ka]) ALIAS[ka] = k;
@@ -34,7 +34,7 @@ for (const f of costa.features) {
 }
 const blocco =
   "// <dati> — generato da scripts/genera-aree.mjs, non modificare a mano\n" +
-  `const COMUNI: Record<string, [string, string]> = ${JSON.stringify(COMUNI)};\n` +
+  `const COMUNI: Record<string, [string, string, number, number, string]> = ${JSON.stringify(COMUNI)};\n` +
   `const ALIAS: Record<string, string> = ${JSON.stringify(ALIAS)};\n` +
   `const COSTA: [number, number][][] = ${JSON.stringify(COSTA)};\n` +
   "// </dati>";

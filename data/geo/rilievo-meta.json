@@ -1,0 +1,22 @@
+{
+ "bbox": {
+  "west": 12.3,
+  "east": 13.95,
+  "south": 45.55,
+  "north": 46.65
+ },
+ "width": 1600,
+ "height": 1538,
+ "metersPerPixel": 79.60129901583677,
+ "minElevation": -3.5711894035339355,
+ "maxElevation": 3012.798828125,
+ "mercator": {
+  "px0": 560114.3466666667,
+  "py0": 370301.6075794669,
+  "px1": 564920.32,
+  "py1": 374922.50354697695,
+  "z": 12
+ },
+ "source": "Copernicus DEM GLO-90 (DSM), AWS Open Data copernicus-dem-90m",
+ "licence": "\u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved"
+}
