@@ -6,7 +6,7 @@ const VARIANT: Record<Badge["variant"], string> = {
   private:
     "bg-brand-dark/85 text-white ring-1 ring-white/40 backdrop-blur-sm uppercase tracking-[0.12em]",
   cantiere: "bg-brand text-white uppercase tracking-[0.08em]",
-  recent: "bg-[#b88a3e] text-white uppercase tracking-[0.08em] shadow-sm",
+  recent: "bg-[#8a6424] text-white uppercase tracking-[0.08em] shadow-sm",
   featured: "bg-brand-dark text-white uppercase tracking-[0.08em] shadow-sm",
   // «Venduto» — pieno scuro neutro, netto (come su triestevillas.com): non è un
   // accento di marketing ma un fatto. Anello chiaro per staccare dalle foto scure.

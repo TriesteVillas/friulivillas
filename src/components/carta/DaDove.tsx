@@ -66,13 +66,27 @@ export default function DaDove({
 
   return (
     <div>
-      <div role="radiogroup" aria-label={etichette.da} className="flex flex-wrap gap-2">
+      <div
+        role="radiogroup"
+        aria-label={etichette.da}
+        className="flex flex-wrap gap-2"
+        onKeyDown={(e) => {
+          // Un radiogroup si percorre con le frecce, ed è una sola fermata di Tab.
+          const passo = e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 : e.key === "ArrowLeft" || e.key === "ArrowUp" ? -1 : 0;
+          if (!passo) return;
+          e.preventDefault();
+          const n = (o + passo + origini.length) % origini.length;
+          setO(n);
+          (e.currentTarget.children[n] as HTMLElement | undefined)?.focus();
+        }}
+      >
         {origini.map((nome, i) => (
           <button
             key={nome}
             type="button"
             role="radio"
             aria-checked={i === o}
+            tabIndex={i === o ? 0 : -1}
             onClick={() => setO(i)}
             className={
               i === o
@@ -84,13 +98,16 @@ export default function DaDove({
           </button>
         ))}
       </div>
-      <div className="mt-6 grid gap-8 md:grid-cols-2" aria-live="polite">
-        <div>
+      <p className="sr-only" aria-live="polite">
+        {origini[o]}: {aree.map((r) => `${r.nome} ${fmt(r.minuti[o])}`).join(", ")}
+      </p>
+      <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
+        <div className="min-w-0">
           <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">{etichette.aree}</p>
           <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{aree.map((r) => riga(r, max, base))}</ul>
         </div>
         {caseRighe.length ? (
-          <div>
+          <div className="min-w-0">
             <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">{etichette.case}</p>
             <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{caseRighe.map((r) => riga(r, max, base))}</ul>
           </div>

@@ -30,7 +30,7 @@ export const COLORE_AREA: Record<AreaId, string> = {
 };
 
 const POSTO_ETICHETTA: Record<AreaId, [number, number]> = {
-  montagna: [46.47, 12.93],
+  montagna: [46.5, 13.22],
   "colline-pianura": [45.97, 12.93],
   "costa-laguna": [45.59, 13.2],
   "trieste-carso": [45.6, 13.56],
@@ -75,6 +75,14 @@ export default function CartaFvg({
 }) {
   const box = ritaglio ? riquadroArea(ritaglio) : { x: 0, y: 0, w: LARGHEZZA, h: ALTEZZA };
   const pct = (v: number, base: number, tot: number) => `${(((v - base) / tot) * 100).toFixed(3)}%`;
+  // Le etichette delle aree non escono dalla carta: si tengono dentro un margine.
+  const pctDentro = (v: number, base: number, tot: number, m: number) =>
+    `${Math.min(100 - m, Math.max(m, ((v - base) / tot) * 100)).toFixed(3)}%`;
+  // Una città di riferimento accanto a una casa (Grado, Palmanova…) copre il segnaposto: si toglie.
+  const case_ = punti.filter((p) => p.tipo === "casa" || p.tipo === "affitto");
+  const visibili = punti.filter(
+    (p) => p.tipo !== "citta" || !case_.some((c) => Math.hypot((c.lat - p.lat) * 111, (c.lng - p.lng) * 78) < 7),
+  );
   const scala = LARGHEZZA / box.w; // quanto è ingrandita la carta rispetto a quella intera
   const tratto = 1.6 / Math.sqrt(scala);
 
@@ -144,17 +152,20 @@ export default function CartaFvg({
             // Tolmezzo, quello della pianura su Udine, e le due aree sul mare sono strisce.
             const [x, y] = proietta(...POSTO_ETICHETTA[a]);
             void cx; void cy;
-            if (x < box.x || x > box.x + box.w || y < box.y || y > box.y + box.h) return null;
+            // Fuori dal riquadro: l'area ritagliata si etichetta comunque (dentro il margine), le altre no.
+            if ((x < box.x || x > box.x + box.w || y < box.y || y > box.y + box.h) && a !== ritaglio) return null;
             const testo = (
               <>
                 <span className="block font-display text-[0.95em] font-semibold leading-tight">{NOMI_AREA[a][locale]}</span>
                 {conteggi?.[a] ? <span className="mt-0.5 block font-mono text-[0.68em] uppercase tracking-wide opacity-80">{conteggi[a]}</span> : null}
               </>
             );
-            const cls = `carta-etichetta absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-[clamp(10px,1.35vw,15px)] shadow-sm ${
+            // Sulla carta intera, al telefono, le quattro etichette si accavallano: lì le aree
+            // sono elencate accanto alla carta, quindi qui si mostrano da 768 px in su.
+            const cls = `carta-etichetta absolute -translate-x-1/2 ${ritaglio ? "" : "hidden md:block"} -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-[clamp(10px,1.35vw,15px)] shadow-sm ${
               evidenzia && evidenzia !== a ? "bg-white/70 text-neutral-500" : "bg-white/90 text-ink"
             }`;
-            const style = { left: pct(x, box.x, box.w), top: pct(y, box.y, box.h), borderLeft: `3px solid ${COLORE_AREA[a]}` };
+            const style = { left: pctDentro(x, box.x, box.w, 13), top: pctDentro(y, box.y, box.h, 7), borderLeft: `3px solid ${COLORE_AREA[a]}` };
             return linkAree ? (
               <Link key={a} href={`/area/${SLUG_AREA[a][locale]}`} className={`${cls} hover:bg-white focus-visible:outline-2`} style={style}>
                 {testo}
@@ -167,7 +178,7 @@ export default function CartaFvg({
           })}
 
         {/* Punti: case, affitti, siti del gruppo, città di riferimento. */}
-        {punti.map((p) => {
+        {visibili.map((p) => {
           const [x, y] = proietta(p.lat, p.lng);
           if (x < box.x || x > box.x + box.w || y < box.y || y > box.y + box.h) return null;
           const style = { left: pct(x, box.x, box.w), top: pct(y, box.y, box.h) };
@@ -185,10 +196,11 @@ export default function CartaFvg({
           const fx = (x - box.x) / box.w;
           const allinea = fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2";
           const nascosta = (p.tipo === "casa" || p.tipo === "affitto") && !etichetteCase;
+          const soloLargo = p.tipo === "casa" || p.tipo === "affitto" || (p.tipo === "gruppo" && !ritaglio);
           const etichetta = (
             <span
               className={`pointer-events-none absolute top-full mt-1 whitespace-nowrap rounded bg-white/90 px-1.5 py-0.5 text-[clamp(9px,1.05vw,12px)] leading-tight text-ink shadow-sm ${allinea} ${
-                nascosta ? "carta-punto-nascosta" : p.tipo === "casa" || p.tipo === "affitto" ? "carta-punto-etichetta" : ""
+                nascosta ? "carta-punto-nascosta" : soloLargo ? "carta-punto-etichetta" : ""
               }`}
             >
               <span className={p.tipo === "citta" ? "font-medium" : "font-semibold"}>{p.etichetta}</span>

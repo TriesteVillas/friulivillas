@@ -163,7 +163,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
         <div className="absolute inset-0 -z-10">
           {video ? (
             <>
-              <AutoVideo src={video.src} poster={video.poster} ariaLabel={foto.alt[locale]} className="h-full w-full object-cover opacity-80" />
+              <AutoVideo src={video.src} srcPiccolo={video.src.replace("loop-1280", "loop-720")} pausa={{ pausa: { it: "Pausa", en: "Pause", de: "Pause", sl: "Premor" }[locale], riprendi: { it: "Riprendi", en: "Play", de: "Abspielen", sl: "Predvajaj" }[locale] }} poster={video.poster} ariaLabel={foto.alt[locale]} className="h-full w-full object-cover opacity-80" />
               <div className="absolute right-3 top-24 z-10 sm:top-28">
                 <EtichettaVideo dati={video.etichetta[locale]} />
               </div>
@@ -174,7 +174,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" />
         </div>
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-40 sm:px-6 sm:pb-20 sm:pt-52">
+        <div className="pointer-events-none mx-auto max-w-6xl px-4 pb-14 pt-40 sm:px-6 sm:pb-20 sm:pt-52 [&_a]:pointer-events-auto">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-white/75">
             <Link href="/immobili" className="hover:underline">FriuliVillas</Link> · {ui("areaLabel", locale)}
           </p>
