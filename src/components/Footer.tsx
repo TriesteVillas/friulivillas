@@ -22,12 +22,15 @@ type GroupSiteLocale = "it" | "en" | "de" | "sl";
 // senza rimandi. triestevillas.com è canonico senza www (www → 308), e
 // lignanovillas.com risponde a /it e /de senza barra finale (con barra → 308);
 // TriesteAffitti ha /en, /de e /sl veri.
+// SappadaVillas (online dal 07/10/2026): italiano sulla radice, poi /en, /de,
+// /sl; verificati 200 quel giorno.
 const GROUP_SITES = {
   it: {
     tsv: "https://triestevillas.com/",
     tsi: "https://www.triesteimmobiliare.com/",
     affitti: "https://www.triesteaffitti.com/",
     lignano: "https://www.lignanovillas.com/it",
+    sappada: "https://sappadavillas.com/",
     slovenia: "https://sloveniavillas.com/it",
   },
   en: {
@@ -35,6 +38,7 @@ const GROUP_SITES = {
     tsi: "https://www.triesteimmobiliare.com/en",
     affitti: "https://www.triesteaffitti.com/en",
     lignano: "https://www.lignanovillas.com/",
+    sappada: "https://sappadavillas.com/en",
     slovenia: "https://sloveniavillas.com/",
   },
   de: {
@@ -42,6 +46,7 @@ const GROUP_SITES = {
     tsi: "https://www.triesteimmobiliare.com/de",
     affitti: "https://www.triesteaffitti.com/de",
     lignano: "https://www.lignanovillas.com/de",
+    sappada: "https://sappadavillas.com/de",
     slovenia: "https://sloveniavillas.com/de",
   },
   // Sloveno: dal 06/10/2026 tutti i siti del gruppo hanno /sl (verificato 200
@@ -52,6 +57,7 @@ const GROUP_SITES = {
     tsi: "https://www.triesteimmobiliare.com/sl",
     affitti: "https://www.triesteaffitti.com/sl",
     lignano: "https://www.lignanovillas.com/sl",
+    sappada: "https://sappadavillas.com/sl",
     slovenia: "https://sloveniavillas.com/sl",
   },
 } as const satisfies Record<GroupSiteLocale, Record<string, string>>;
@@ -62,6 +68,7 @@ const GROUP = [
   { label: "TriesteImmobiliare", site: "tsi", external: true },
   { label: "TriesteAffitti", site: "affitti", external: true },
   { label: "LignanoVillas", site: "lignano", external: true },
+  { label: "SappadaVillas", site: "sappada", external: true },
   { label: "SloveniaVillas", site: "slovenia", external: true },
   { label: "TriesteBusiness", href: "/gruppo", external: false },
 ] as const;

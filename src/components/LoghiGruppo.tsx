@@ -5,7 +5,7 @@ import { Fraunces } from "next/font/google";
 //
 // Tutti sulla stessa lastra scura, ognuno nella versione che il proprio sito usa
 // sulle superfici scure (è lì che vivono le testate di TSV, TSI, TA, LV e SV):
-// così sette identità diverse stanno in una griglia sola senza che una sparisca
+// così otto identità diverse stanno in una griglia sola senza che una sparisca
 // sul fondo carta. Nessun logo è ridisegnato:
 // - TriesteVillas: public/logo-white.svg di triestevillas-web (la testata).
 // - TriesteImmobiliare: la barchetta bianca (public/brand/boat-white.png) + il
@@ -15,6 +15,12 @@ import { Fraunces } from "next/font/google";
 // - LignanoVillas: il segno tondo e il logotipo di src/components/Logo.tsx tone="light".
 // - SloveniaVillas: gli archi delle isocrone in versione «notte» e il logotipo in
 //   Fraunces, da src/components/shell/Marchio.tsx di sloveniavillas.
+// - SappadaVillas: public/brand/logo-testata-scuro.svg di sappadavillas (segno
+//   e nome, senza la riga piccola «Plodn · by TriesteVillas»). È la forma che
+//   il suo manuale (docs/logo/finale/MARCHIO.md §4) prescrive quando il segno è
+//   alto 30 px: il file ha 16 unità di margine per lato su 152, quindi a 38 px
+//   di altezza il segno ne misura esattamente 30 e cade sui pixel. Copiato il
+//   07/10/2026.
 // - TriesteBusiness: non ha un logo né un sito; si scrive il nome e basta,
 //   perché inventargli un segno vorrebbe dire dargli un'identità che non ha.
 //
@@ -25,7 +31,7 @@ import { Fraunces } from "next/font/google";
 // componente è usato (/gruppo).
 const fraunces = Fraunces({ subsets: ["latin"], axes: ["opsz"], display: "swap" });
 
-export type MarchioGruppo = "tsv" | "tsi" | "affitti" | "friuli" | "business" | "lignano" | "slovenia";
+export type MarchioGruppo = "tsv" | "tsi" | "affitti" | "friuli" | "business" | "lignano" | "sappada" | "slovenia";
 
 // Colori dai globals.css / tokens.css di ciascun sito (06/10/2026).
 const TA_MENTA = "#aed8c4"; // --color-sand di triesteaffitti
@@ -84,6 +90,16 @@ function Lockup({ marchio }: { marchio: MarchioGruppo }) {
             Lignano<span style={{ color: LV_SABBIA }}>Villas</span>
           </span>
         </span>
+      );
+    case "sappada":
+      return (
+        <img
+          src="/brand/gruppo/sappadavillas-logo-testata-scuro.svg"
+          alt=""
+          width={206}
+          height={38}
+          className="h-[38px] w-auto"
+        />
       );
     case "slovenia":
       return (

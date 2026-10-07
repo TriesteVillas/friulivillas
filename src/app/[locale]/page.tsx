@@ -17,6 +17,7 @@ import { BrandMark } from "@/components/Logo";
 import BuyerCta from "@/components/BuyerCta";
 import SellerCta from "@/components/SellerCta";
 import { sloveniaVillasStrings } from "@/content/sloveniaVillasStrings";
+import { sappadaVillasStrings } from "@/content/sappadaVillasStrings";
 
 const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
 
@@ -33,7 +34,7 @@ const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
 // che rientrasse qui.
 const VIDEO_HERO = "/video/hero.mp4";
 const VIDEO_STAGING = "/video/staging-mansarda.mp4";
-const ROUTING = ["luxury", "fvg", "rent", "business", "slovenia"] as const;
+const ROUTING = ["luxury", "fvg", "rent", "business", "sappada", "slovenia"] as const;
 
 export async function generateMetadata({
   params,
@@ -58,6 +59,7 @@ export default async function Home({
   const { locale } = await params;
   setRequestLocale(locale);
   const sv = sloveniaVillasStrings(locale);
+  const sap = sappadaVillasStrings(locale);
   const t = await getTranslations("home");
   const tProp = await getTranslations("property");
   const tZones = await getTranslations("zones");
@@ -318,6 +320,59 @@ export default async function Home({
           >
             {t("groupRouting.cta")} →
           </Link>
+        </div>
+      </section>
+
+      {/* ── SappadaVillas (07/10/2026) ────────────────────────────── */}
+      {/* In regione, in montagna: il sito del gruppo per Sappada/Plodn. Sta
+          prima di SloveniaVillas perché Sappada è dentro il perimetro di
+          FriuliVillas (la striscia in testa la nomina già), e i due riquadri
+          si leggono come una serie «dello stesso gruppo». Tre righe su che
+          cosa c'è, due porte: le borgate e il confronto fra le località di
+          montagna; l'intestazione del riquadro porta alla radice del sito. */}
+      <section id="sappadavillas" className="mx-auto max-w-5xl px-6 pt-20">
+        <div className="grid gap-8 rounded-3xl border border-neutral-200 bg-white px-7 py-10 sm:px-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start">
+          <div data-reveal="left">
+            <p className="eyebrow">{sap.eyebrow}</p>
+            <h2 className="display-chapter mt-2 text-brand-dark">{sap.title}</h2>
+            <p className="mt-4 max-w-2xl text-neutral-600">{sap.lead}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={sap.hamlets.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hero inline-block rounded-full bg-brand px-7 py-3 text-sm font-semibold text-white"
+              >
+                {sap.hamlets.cta} ↗
+              </a>
+              <a
+                href={sap.compare.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press inline-block rounded-full border border-brand/40 px-7 py-3 text-sm font-semibold text-brand hover:border-brand hover:bg-brand/5"
+              >
+                {sap.compare.cta} ↗
+              </a>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-paper p-6">
+            <a
+              href={sap.site.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-500 underline-offset-4 transition-colors hover:text-brand hover:underline"
+            >
+              {sap.site.label} ↗
+            </a>
+            <dl className="mt-3 divide-y divide-neutral-200">
+              {sap.rows.map((row) => (
+                <div key={row.name} className="py-3">
+                  <dt className="font-medium text-brand-dark">{row.name}</dt>
+                  <dd className="mt-1 text-sm text-neutral-600">{row.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
       </section>
 
