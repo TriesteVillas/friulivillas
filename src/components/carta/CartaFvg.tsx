@@ -55,6 +55,7 @@ export default function CartaFvg({
   className = "",
   priority = false,
   etichetteCase = false,
+  notaApprossimato,
 }: {
   locale: Lingua;
   punti?: PuntoCarta[];
@@ -69,6 +70,8 @@ export default function CartaFvg({
   priority?: boolean;
   /** etichette delle case sempre visibili (carte ritagliate); altrimenti al passaggio o al focus */
   etichetteCase?: boolean;
+  /** «posizione indicativa: sede del comune», per le case senza coordinate */
+  notaApprossimato?: string;
 }) {
   const box = ritaglio ? riquadroArea(ritaglio) : { x: 0, y: 0, w: LARGHEZZA, h: ALTEZZA };
   const pct = (v: number, base: number, tot: number) => `${(((v - base) / tot) * 100).toFixed(3)}%`;
@@ -170,7 +173,7 @@ export default function CartaFvg({
           const style = { left: pct(x, box.x, box.w), top: pct(y, box.y, box.h) };
           const segno =
             p.tipo === "casa" ? (
-              <span className="block h-3.5 w-3.5 rotate-45 rounded-[2px] border-2 border-white bg-brand-dark shadow" />
+              <span className={`block h-3.5 w-3.5 rotate-45 rounded-[2px] border-2 shadow ${p.approssimato ? "border-dashed border-brand-dark bg-white" : "border-white bg-brand-dark"}`} />
             ) : p.tipo === "affitto" ? (
               <span className="block h-3.5 w-3.5 rounded-full border-2 border-white bg-[#b8963f] shadow" />
             ) : p.tipo === "gruppo" ? (
@@ -190,6 +193,7 @@ export default function CartaFvg({
             >
               <span className={p.tipo === "citta" ? "font-medium" : "font-semibold"}>{p.etichetta}</span>
               {p.nota ? <span className="block font-mono text-[0.85em] text-neutral-500">{p.nota}</span> : null}
+              {p.approssimato && notaApprossimato ? <span className="block text-[0.8em] italic text-neutral-500">{notaApprossimato}</span> : null}
             </span>
           );
           const cls = "carta-punto group absolute -translate-x-1/2 -translate-y-1/2";

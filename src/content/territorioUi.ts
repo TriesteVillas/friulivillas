@@ -21,10 +21,10 @@ export const UI = {
     sl: "Od lagune do Alp: štiri pokrajine na enem zemljevidu.",
   },
   heroSotto: {
-    it: "La regione divisa come la dividono l'ISTAT e il Piano paesaggistico regionale: costa e laguna, colline e pianura, montagna, Trieste e il Carso. Le nostre case stanno dove le vedete, e ogni area ha la sua pagina.",
-    en: "The region divided the way Italy's statistics office (ISTAT) and the regional landscape plan divide it: coast and lagoon, hills and plain, mountains, Trieste and the Karst. Our homes sit exactly where you see them, and every area has its own page.",
-    de: "Die Region so eingeteilt, wie es das italienische Statistikamt ISTAT und der regionale Landschaftsplan tun: Küste und Lagune, Hügelland und Ebene, Berge, Triest und der Karst. Unsere Häuser liegen genau dort, wo Sie sie sehen – und jedes Gebiet hat eine eigene Seite.",
-    sl: "Dežela, razdeljena tako, kot jo delita italijanski statistični urad ISTAT in deželni krajinski načrt: obala in laguna, gričevje in nižina, gore, Trst in Kras. Naše hiše so točno tam, kjer jih vidite, in vsako območje ima svojo stran.",
+    it: "La regione divisa come la dividono l'ISTAT e il Piano paesaggistico regionale: costa e laguna, colline e pianura, montagna, Trieste e il Carso. Ogni casa sta nella sua area e nel suo comune, e ogni area ha la sua pagina.",
+    en: "The region divided the way Italy's statistics office (ISTAT) and the regional landscape plan divide it: coast and lagoon, hills and plain, mountains, Trieste and the Karst. Each home sits in its own area and municipality, and every area has its own page.",
+    de: "Die Region so eingeteilt, wie es das italienische Statistikamt ISTAT und der regionale Landschaftsplan tun: Küste und Lagune, Hügelland und Ebene, Bergland, Triest und der Karst. Jedes Haus liegt in seinem Gebiet und seiner Gemeinde – und jedes Gebiet hat eine eigene Seite.",
+    sl: "Dežela, razdeljena tako, kot jo delita italijanski statistični urad ISTAT in deželni krajinski načrt: obala in laguna, gričevje in nižina, gore, Trst in Kras. Vsaka hiša je na svojem območju in v svoji občini, vsako območje pa ima svojo stran.",
   },
   ctaCase: { it: "Vedi le case", en: "See the homes", de: "Häuser ansehen", sl: "Oglejte si hiše" },
   ctaVendi: { it: "Valuta la tua casa", en: "Value your home", de: "Ihr Haus bewerten lassen", sl: "Ocenite svojo hišo" },
@@ -35,6 +35,12 @@ export const UI = {
     sl: "Zemljevid Furlanije - Julijske krajine s štirimi območji, našimi hišami in spletnimi stranmi skupine",
   },
   legendaCasa: { it: "casa in vendita", en: "home for sale", de: "Haus zum Verkauf", sl: "hiša naprodaj" },
+  posizioneIndicativa: {
+    it: "posizione indicativa: sede del comune",
+    en: "approximate: town hall of the municipality",
+    de: "ungefähre Lage: Rathaus der Gemeinde",
+    sl: "približna lega: sedež občine",
+  },
   legendaGruppo: { it: "sito del gruppo", en: "group site", de: "Website der Gruppe", sl: "spletna stran skupine" },
   legendaCitta: { it: "città di riferimento", en: "reference town", de: "Bezugsort", sl: "referenčni kraj" },
   fontiCarta: {
@@ -119,6 +125,12 @@ export const UI = {
   venduti: { it: "Venduti", en: "Sold", de: "Verkauft", sl: "Prodano" },
   altreZone: { it: "Altre zone", en: "Other areas", de: "Weitere Gebiete", sl: "Druga območja" },
   areaLabel: { it: "Area", en: "Area", de: "Gebiet", sl: "Območje" },
+  tempiFinoA: {
+    it: "In auto, fino a {luogo}",
+    en: "By car, to {luogo}",
+    de: "Mit dem Auto bis {luogo}",
+    sl: "Z avtom do kraja {luogo}",
+  },
   tempiDaQui: { it: "Da qui, in auto", en: "From here, by car", de: "Von hier, mit dem Auto", sl: "Od tod z avtom" },
 } satisfies Record<string, T>;
 

@@ -194,7 +194,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
           <div className="overflow-hidden rounded-2xl border border-brand/15 bg-white">
-            <CartaFvg locale={locale} punti={punti} evidenzia={area} ritaglio={area} etichetteCase titolo={`${ui("cartaTitolo", locale)} — ${nome}`} />
+            <CartaFvg locale={locale} notaApprossimato={ui("posizioneIndicativa", locale)} punti={punti} evidenzia={area} ritaglio={area} etichetteCase titolo={`${ui("cartaTitolo", locale)} — ${nome}`} />
           </div>
           <div>
             <dl className="grid grid-cols-2 gap-4">

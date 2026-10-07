@@ -39,7 +39,8 @@ export default function ImmobiliBrowser({
   // I riservati contano nei totali: sono immobili veri, e una zona che ha SOLO
   // ghost card deve comunque comparire fra i chip, altrimenti l'unica cosa che
   // abbiamo in quella zona resta invisibile.
-  const count = (g: Group) => g.items.length + (g.ghosts?.length ?? 0);
+  // Il venduto resta in elenco col suo badge, ma non si conta fra le case disponibili (07/10/2026).
+  const count = (g: Group) => g.items.filter((v) => !v.soldBadge).length + (g.ghosts?.length ?? 0);
   const total = useMemo(
     () => groups.reduce((n, g) => n + count(g), 0),
     [groups],

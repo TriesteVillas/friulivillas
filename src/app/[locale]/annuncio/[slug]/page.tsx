@@ -7,8 +7,8 @@ import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getProperties, getProperty } from "@/lib/airtable";
 import { isSold } from "@/lib/properties";
-import { NOMI_AREA, SLUG_AREA, sedeComune, type Lingua } from "@/lib/aree";
-import { areaDiCasa, DATA_MISURA, durata, minuti, NOMI_ORIGINE } from "@/lib/territorio";
+import { NOMI_AREA, SLUG_AREA, type Lingua } from "@/lib/aree";
+import { areaDiCasa, DATA_MISURA, durata, minuti, NOMI_ORIGINE, puntoDeiTempi } from "@/lib/territorio";
 import { dataLunga, ui } from "@/content/territorioUi";
 import { scegliSimili } from "@/lib/simili";
 import { presenza, soloSiNo, statoDotazioni, vociSchema } from "@/lib/dotazioni";
@@ -181,7 +181,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // 07/10 il codice «FVG» finiva dentro l'indirizzo («…, FVG, Cervignano»).
   const lingua = locale as Lingua;
   const area = areaDiCasa(property);
-  const sede = sedeComune(property.comune);
+  const sede = puntoDeiTempi(property);
   // "Prenota una visita" vive nel namespace lead (usato da VisitForm), non property.
   const tLead = await getTranslations("lead");
   const fsLabel =
@@ -731,13 +731,13 @@ export default async function PropertyPage({ params }: { params: Params }) {
                 </Link>
               </h2>
               <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-neutral-500">
-                {ui("tempiDaQui", lingua)} · {sede.nome}
+                {ui("tempiFinoA", lingua, { luogo: sede.luogo })}
               </p>
               <ul className="mt-2 grid grid-cols-2 gap-x-6 sm:grid-cols-3">
                 {(["trieste", "udine", "aer_trieste", "aer_venezia", "vienna", "monaco"] as const).map((o) => (
                   <li key={o} className="flex items-baseline justify-between gap-3 border-b border-neutral-100 py-2 text-sm">
                     <span className="text-neutral-600">{NOMI_ORIGINE[o][lingua]}</span>
-                    <span className="font-mono tabular-nums text-brand-dark">{durata(minuti(sede.istat, o), lingua)}</span>
+                    <span className="font-mono tabular-nums text-brand-dark">{durata(minuti(sede.chiave, o), lingua)}</span>
                   </li>
                 ))}
               </ul>

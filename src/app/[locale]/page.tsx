@@ -15,7 +15,7 @@ import DaDove from "@/components/carta/DaDove";
 import PonteTrieste from "@/components/PonteTrieste";
 import { sloveniaVillasStrings } from "@/content/sloveniaVillasStrings";
 import { sappadaVillasStrings } from "@/content/sappadaVillasStrings";
-import { AREE, NOMI_AREA, SLUG_AREA, sedeComune, type AreaId, type Lingua } from "@/lib/aree";
+import { AREE, NOMI_AREA, SLUG_AREA, type AreaId, type Lingua } from "@/lib/aree";
 import {
   areaDiCasa,
   comuniDellArea,
@@ -27,6 +27,7 @@ import {
   ORIGINI,
   puntiCitta,
   puntiGruppo,
+  puntoDeiTempi,
   puntoDiCasa,
   tempiArea,
 } from "@/lib/territorio";
@@ -109,9 +110,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     minuti: ORIGINI.map((o) => tempiArea(a, o).mediana),
   }));
   const righeCase = inVendita.flatMap((p) => {
-    const s = sedeComune(p.comune);
+    const s = puntoDeiTempi(p);
     if (!s) return [];
-    return [{ id: p.id, nome: localizedTitle(p, locale), nota: p.comune ?? undefined, href: `/annuncio/${p.slug}`, minuti: ORIGINI.map((o) => minuti(s.istat, o)) }];
+    return [{ id: p.id, nome: localizedTitle(p, locale), nota: s.luogo, href: `/annuncio/${p.slug}`, minuti: ORIGINI.map((o) => minuti(s.chiave, o)) }];
   });
 
   const fmt = (m: number) => (m >= 60 ? `${Math.floor(m / 60)} ${ore} ${String(m % 60).padStart(2, "0")}` : `${m} min`);
@@ -149,7 +150,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
           <div>
             <div className="overflow-hidden rounded-3xl border border-brand/15 bg-white shadow-[0_30px_80px_-40px_rgba(22,53,42,0.5)]">
-              <CartaFvg locale={locale} punti={punti} conteggi={conteggi} titolo={ui("cartaTitolo", locale)} priority />
+              <CartaFvg locale={locale} notaApprossimato={ui("posizioneIndicativa", locale)} punti={punti} conteggi={conteggi} titolo={ui("cartaTitolo", locale)} priority />
             </div>
             <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-neutral-600">
               <span className="flex items-center gap-1.5"><span className="inline-block h-2.5 w-2.5 rotate-45 rounded-[1px] bg-brand-dark" />{ui("legendaCasa", locale)}</span>

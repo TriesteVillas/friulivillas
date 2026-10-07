@@ -346,7 +346,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Il Collio e Gorizia",
           // fonte: GEO §3 S5 (Collio e Isontino collinare); AREE-C (DOC Collio Goriziano); T-AREE (lubiana min 78 Gorizia)
           testo:
-            "Cormons, Capriva del Friuli, Dolegna del Collio, Mossa e San Floriano del Collio, insieme a Gorizia, formano il Collio italiano, la zona della DOC «Collio Goriziano». Gorizia è il comune dell'area più vicino a Lubiana: circa 78 minuti in auto.",
+            "Cormons, Capriva del Friuli, Dolegna del Collio, Mossa e San Floriano del Collio, insieme a Gorizia, sono il cuore del Collio italiano; la zona della DOC «Collio Goriziano» comprende anche parte di Farra d'Isonzo e di San Lorenzo Isontino. Gorizia è il comune dell'area più vicino a Lubiana: circa 78 minuti in auto.",
         },
         {
           nome: "Cividale e i Colli Orientali",
@@ -387,7 +387,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Il Collio è in quest'area?",
           // fonte: GEO §8
-          a: "Sì. Cormons, Capriva, Dolegna, Mossa e San Floriano sono qui, e nella divisione futura andranno in Colline: il Piano paesaggistico li assegna all'ambito delle valli orientali e del Collio, anche se l'ISTAT li classifica pianura.",
+          a: "Sì. Cormons, Capriva, Dolegna, Mossa e San Floriano sono qui, e nella divisione futura andranno in Colline: il Piano paesaggistico li assegna all'ambito delle valli orientali e del Collio, anche se l'ISTAT ne classifica quattro su cinque pianura (San Floriano è collina).",
         },
         {
           q: "Quanto distano Gorizia e Pordenone da Udine?",
@@ -420,7 +420,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "The Collio and Gorizia",
           // fonte: GEO §3; AREE-C; T-AREE
           testo:
-            "Cormons, Capriva del Friuli, Dolegna del Collio, Mossa and San Floriano del Collio, together with Gorizia, make up the Italian Collio, home of the Collio Goriziano DOC wine zone. Gorizia is the municipality in this area closest to Ljubljana, about 78 minutes by car.",
+            "Cormons, Capriva del Friuli, Dolegna del Collio, Mossa and San Floriano del Collio, together with Gorizia, form the heart of the Italian Collio; the Collio Goriziano DOC wine zone also takes in parts of Farra d'Isonzo and San Lorenzo Isontino. Gorizia is the municipality in this area closest to Ljubljana, about 78 minutes by car.",
         },
         {
           nome: "Cividale and the eastern hills",
@@ -461,7 +461,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Is the Collio in this area?",
           // fonte: GEO §8
-          a: "Yes. Cormons, Capriva, Dolegna, Mossa and San Floriano are here, and in the future split they will go to Hills: the landscape plan assigns them to the eastern valleys and Collio zone, even though ISTAT classifies them as plain.",
+          a: "Yes. Cormons, Capriva, Dolegna, Mossa and San Floriano are here, and in the future split they will go to Hills: the landscape plan assigns them to the eastern valleys and Collio zone, even though ISTAT classifies four of the five as plain (San Floriano is hill).",
         },
         {
           q: "How far are Gorizia and Pordenone from Udine?",
@@ -494,7 +494,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Der Collio und Görz",
           // fonte: GEO §3; AREE-C; T-AREE; NOMI (Collio in DE resta «Collio»)
           testo:
-            "Cormòns, Capriva del Friuli, Dolegna del Collio, Mossa und San Floriano del Collio bilden zusammen mit Görz den italienischen Collio, das Gebiet der DOC Collio Goriziano. Görz ist die Gemeinde des Gebiets, die Ljubljana am nächsten liegt: rund 78 Minuten mit dem Auto.",
+            "Cormòns, Capriva del Friuli, Dolegna del Collio, Mossa und San Floriano del Collio bilden zusammen mit Görz den Kern des italienischen Collio; das DOC-Gebiet Collio Goriziano umfasst auch Teile von Farra d'Isonzo und San Lorenzo Isontino. Görz ist die Gemeinde des Gebiets, die Ljubljana am nächsten liegt: rund 78 Minuten mit dem Auto.",
         },
         {
           nome: "Cividale und die östlichen Hügel",
@@ -535,7 +535,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Gehört der Collio zu diesem Gebiet?",
           // fonte: GEO §8
-          a: "Ja. Cormòns, Capriva, Dolegna, Mossa und San Floriano liegen hier und kommen bei der späteren Teilung ins Hügelland: Der Landschaftsplan ordnet sie den östlichen Tälern und dem Collio zu, auch wenn ISTAT sie als Ebene führt.",
+          a: "Ja. Cormòns, Capriva, Dolegna, Mossa und San Floriano liegen hier und kommen bei der späteren Teilung ins Hügelland: Der Landschaftsplan ordnet sie den östlichen Tälern und dem Collio zu, auch wenn ISTAT vier der fünf als Ebene führt (San Floriano als Hügelland).",
         },
         {
           q: "Wie weit sind Görz und Pordenone von Udine entfernt?",
@@ -569,7 +569,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Brda na italijanski strani in Gorica",
           // fonte: GEO §3, §5 (SL «Collio (Brda)»); AREE-C (DOC Collio Goriziano); NOMI
           testo:
-            "Krmin, Koprivno, Dolenje v Brdih, Moš in Števerjan skupaj z Gorico tvorijo italijanski del Brd, ki ga Italijani imenujejo Collio – to je tudi območje vin DOC Collio Goriziano. Gorica je občina tega območja, ki je Ljubljani najbližja.",
+            "Krmin, Koprivno, Dolenje v Brdih, Moš in Števerjan so skupaj z Gorico jedro italijanskega dela Brd, ki ga Italijani imenujejo Collio; območje vin DOC Collio Goriziano zajema tudi del Fare in Šlovrenca. Gorica je občina tega območja, ki je Ljubljani najbližja.",
         },
         {
           nome: "Čedad in vzhodni griči",
@@ -610,7 +610,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Ali so Brda na tem območju?",
           // fonte: GEO §8
-          a: "Da, italijanski del Brd: Krmin, Koprivno, Dolenje, Moš in Števerjan so tukaj in bodo ob prihodnji delitvi spadali v Gričevje. Krajinski načrt jih uvršča v območje vzhodnih dolin in Brd, čeprav jih ISTAT vodi kot nižino.",
+          a: "Da, italijanski del Brd: Krmin, Koprivno, Dolenje, Moš in Števerjan so tukaj in bodo ob prihodnji delitvi spadali v Gričevje. Krajinski načrt jih uvršča v območje vzhodnih dolin in Brd, čeprav ISTAT štiri od petih vodi kot nižino (Števerjan kot gričevje).",
         },
         {
           q: "Koliko sta Gorica in Pordenone oddaljena od Vidma?",
@@ -668,7 +668,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Dolomiti friulane e valli pordenonesi",
           // fonte: AREE-C (AP 3 Alte valli occidentali); it.wikipedia «Parco naturale delle Dolomiti Friulane» + UNESCO id 1237 (2009); T-AREE (Erto e Casso: Udine 102, aer. Venezia 74)
           testo:
-            "Nelle alte valli occidentali, a Claut, Cimolais, Erto e Casso, Barcis, Andreis, Frisanco e Tramonti, le Dolomiti friulane fanno parte dal 2009 del bene UNESCO «Dolomiti». Sono i comuni più lontani da Udine, Erto e Casso a circa 1 ora e 42, ma i più vicini all'aeroporto di Venezia: Erto è a 1 ora e 14.",
+            "Nelle alte valli occidentali le Dolomiti friulane fanno parte dal 2009 del bene UNESCO «Dolomiti»; il parco naturale tocca Claut, Cimolais, Erto e Casso, Andreis, Frisanco e Tramonti di Sopra, e in Carnia Forni di Sopra e Forni di Sotto. Erto e Casso è il comune di montagna più lontano da Udine, a circa 1 ora e 42, e il più vicino all'aeroporto di Venezia, a 1 ora e 14.",
         },
         {
           nome: "Sappada",
@@ -685,7 +685,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3 (R1), §2 (L.R. 33/2002: Muggia, Duino, Sgonico, Aviano, Prepotto), §11 (58 = AP 1-3 + Sappada + 9)
       confine:
-        "Qui la regola è la più semplice: è Montagna ogni comune che l'ISTAT classifica «montagna interna», la zona altimetrica nazionale, ed è la prima regola che si applica. Coincide con gli ambiti alpini del Piano paesaggistico, cioè Carnia, Val Canale-Canal del Ferro-Val Resia e alte valli occidentali, più Sappada e nove comuni delle valli orientali e della pedemontana. Non usiamo la legge regionale sulla montagna: è molto più larga, comprende per intero anche Aviano, Prepotto e perfino Muggia e Duino Aurisina, e serve per i contributi, non a dire dove si trova una casa. Sappada è l'unico comune senza doppia conferma, perché manca nelle schede del Piano del 2018.",
+        "Qui la regola è la più semplice: è Montagna ogni comune che l'ISTAT classifica «montagna interna», la zona altimetrica nazionale, ed è la prima regola che si applica. Coincide con gli ambiti alpini del Piano paesaggistico, cioè Carnia, Val Canale-Canal del Ferro-Val Resia e alte valli occidentali, più Sappada e nove comuni delle valli orientali e della pedemontana. Non usiamo la legge regionale sulla montagna: è molto più larga, comprende per intero anche Aviano, Prepotto e perfino Muggia e Duino Aurisina, e serve per i contributi, non a dire dove si trova una casa. Dieci comuni hanno solo la conferma dell'ISTAT: Sappada, che nelle schede del Piano del 2018 non compare, e i nove delle valli orientali e della pedemontana, che il Piano mette in altri ambiti.",
       senzaCase:
         "In questo momento non abbiamo case in vendita in montagna: se cercate qui, scriveteci. Per Sappada c'è anche il nostro sito sappadavillas.com.",
       faq: [
@@ -702,7 +702,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Le valli del Natisone sono montagna?",
           // fonte: GEO §8
-          a: "Sì: Pulfero, San Leonardo, Savogna, Stregna, Grimacco e Drenchia sono montagna interna per l'ISTAT. Cividale, appena a valle, è invece collina e sta in Colline e pianura.",
+          a: "Sì: Pulfero, San Leonardo, Savogna, Stregna, Grimacco e Drenchia sono montagna interna per l'ISTAT. San Pietro al Natisone e Cividale, appena a valle, sono invece collina e stanno in Colline e pianura.",
         },
         {
           q: "Quanto dista la montagna dall'aeroporto di Venezia?",
@@ -742,7 +742,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "The Friulian Dolomites and the Pordenone valleys",
           // fonte: AREE-C; it.wikipedia Parco Dolomiti Friulane; UNESCO id 1237; T-AREE
           testo:
-            "In the upper western valleys, around Claut, Cimolais, Erto e Casso, Barcis, Andreis, Frisanco and Tramonti, the Friulian Dolomites have formed part of the UNESCO ‘Dolomites’ site since 2009. These are the municipalities farthest from Udine, Erto e Casso at about 1 h 42 min, but the closest to Venice airport: Erto is 1 h 14 min away.",
+            "In the upper western valleys the Friulian Dolomites have formed part of the UNESCO ‘Dolomites’ site since 2009; the nature park takes in Claut, Cimolais, Erto e Casso, Andreis, Frisanco and Tramonti di Sopra, and in Carnia Forni di Sopra and Forni di Sotto. Erto e Casso is the mountain municipality farthest from Udine, at about 1 h 42 min, and the closest to Venice airport, at 1 h 14 min.",
         },
         {
           nome: "Sappada",
@@ -759,7 +759,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §2, §11
       confine:
-        "The rule here is the simplest one: every municipality that ISTAT classifies as inland mountain, the national altitude zone, belongs to Mountains, and this rule is applied first. It matches the Alpine zones of the landscape plan, namely Carnia, Val Canale-Canal del Ferro-Val Resia and the upper western valleys, plus Sappada and nine municipalities in the eastern valleys and foothills. We do not use the regional mountain law: it is far broader, covering in full even Aviano, Prepotto, Muggia and Duino Aurisina, and it exists for grants, not to tell you where a house is. Sappada is the only municipality without a double confirmation, because it is missing from the plan's 2018 zone sheets.",
+        "The rule here is the simplest one: every municipality that ISTAT classifies as inland mountain, the national altitude zone, belongs to Mountains, and this rule is applied first. It matches the Alpine zones of the landscape plan, namely Carnia, Val Canale-Canal del Ferro-Val Resia and the upper western valleys, plus Sappada and nine municipalities in the eastern valleys and foothills. We do not use the regional mountain law: it is far broader, covering in full even Aviano, Prepotto, Muggia and Duino Aurisina, and it exists for grants, not to tell you where a house is. Ten municipalities rest on ISTAT alone: Sappada, which does not appear in the plan's 2018 zone sheets, and the nine in the eastern valleys and foothills, which the plan assigns to other zones.",
       senzaCase:
         "We have no homes for sale in the mountains right now. If this is where you are looking, write to us. For Sappada there is also our own site, sappadavillas.com.",
       faq: [
@@ -776,7 +776,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Are the Natisone valleys mountain or hills?",
           // fonte: GEO §8
-          a: "Mountain: Pulfero, San Leonardo, Savogna, Stregna, Grimacco and Drenchia are inland mountain for ISTAT. Cividale, just below them, is hill country and belongs to Hills & Plain.",
+          a: "Mountain: Pulfero, San Leonardo, Savogna, Stregna, Grimacco and Drenchia are inland mountain for ISTAT. San Pietro al Natisone and Cividale, just below them, are hill country and belong to Hills & Plain.",
         },
         {
           q: "How far are the mountains from Venice airport?",
@@ -817,7 +817,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Friauler Dolomiten und die Täler um Pordenone",
           // fonte: AREE-C; it.wikipedia Parco Dolomiti Friulane; UNESCO id 1237; T-AREE
           testo:
-            "In den oberen westlichen Tälern, um Claut, Cimolais, Erto e Casso, Barcis, Andreis, Frisanco und Tramonti, gehören die Friauler Dolomiten seit 2009 zur UNESCO-Welterbestätte „Dolomiten“. Es sind die Gemeinden, die am weitesten von Udine entfernt sind – Erto e Casso rund 1 Std. 42 Min. –, aber dem Flughafen Venedig am nächsten: Erto liegt 1 Std. 14 Min. entfernt.",
+            "In den oberen westlichen Tälern gehören die Friauler Dolomiten seit 2009 zur UNESCO-Welterbestätte „Dolomiten“; der Naturpark umfasst Claut, Cimolais, Erto e Casso, Andreis, Frisanco und Tramonti di Sopra, in Karnien außerdem Forni di Sopra und Forni di Sotto. Erto e Casso ist die Berggemeinde, die am weitesten von Udine entfernt ist – rund 1 Std. 42 Min. –, und die dem Flughafen Venedig am nächsten liegt: 1 Std. 14 Min.",
         },
         {
           nome: "Sappada",
@@ -834,7 +834,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §2, §11
       confine:
-        "Hier gilt die einfachste Regel: Zu den Bergen gehört jede Gemeinde, die ISTAT als inneres Berggebiet einstuft – die nationale Höhenzone –, und diese Regel wird zuerst angewendet. Sie deckt sich mit den alpinen Räumen des Landschaftsplans, also Karnien, Kanaltal-Canal del Ferro-Val Resia und den oberen westlichen Tälern, dazu Sappada und neun Gemeinden der östlichen Täler und des Voralpenrands. Das regionale Berggesetz verwenden wir nicht: Es ist viel weiter gefasst, schließt sogar Aviano, Prepotto, Muggia und Duino Aurisina vollständig ein und dient der Förderung, nicht der Frage, wo ein Haus liegt. Sappada ist die einzige Gemeinde ohne doppelte Bestätigung, weil sie in den Raumblättern des Plans von 2018 fehlt.",
+        "Hier gilt die einfachste Regel: Zum Bergland gehört jede Gemeinde, die ISTAT als inneres Berggebiet einstuft – die nationale Höhenzone –, und diese Regel wird zuerst angewendet. Sie deckt sich mit den alpinen Räumen des Landschaftsplans, also Karnien, Kanaltal-Canal del Ferro-Val Resia und den oberen westlichen Tälern, dazu Sappada und neun Gemeinden der östlichen Täler und des Voralpenrands. Das regionale Berggesetz verwenden wir nicht: Es ist viel weiter gefasst, schließt sogar Aviano, Prepotto, Muggia und Duino Aurisina vollständig ein und dient der Förderung, nicht der Frage, wo ein Haus liegt. Zehn Gemeinden stützen sich nur auf ISTAT: Sappada, das in den Raumblättern des Plans von 2018 fehlt, und die neun der östlichen Täler und des Voralpenrands, die der Plan anderen Räumen zuordnet.",
       senzaCase:
         "Derzeit haben wir in den Bergen keine Häuser zum Verkauf. Wenn Sie hier suchen, schreiben Sie uns. Für Sappada gibt es außerdem unsere eigene Website sappadavillas.com.",
       faq: [
@@ -851,7 +851,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Sind die Natisone-Täler Berg- oder Hügelland?",
           // fonte: GEO §8
-          a: "Berggebiet: Pulfero, San Leonardo, Savogna, Stregna, Grimacco und Drenchia sind für ISTAT inneres Berggebiet. Cividale gleich unterhalb ist dagegen Hügelland und gehört zu Hügelland & Ebene.",
+          a: "Berggebiet: Pulfero, San Leonardo, Savogna, Stregna, Grimacco und Drenchia sind für ISTAT inneres Berggebiet. San Pietro al Natisone und Cividale gleich unterhalb sind dagegen Hügelland und gehören zu Hügelland & Ebene.",
         },
         {
           q: "Wie weit sind die Berge vom Flughafen Venedig entfernt?",
@@ -892,7 +892,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           nome: "Furlanski Dolomiti in pordenonske doline",
           // fonte: AREE-C; it.wikipedia Parco Dolomiti Friulane; UNESCO id 1237; T-AREE
           testo:
-            "V zgornjih zahodnih dolinah, okoli Clauta, Cimolaisa, Erta e Cassa, Barcisa, Andreisa, Frisanca in Tramontov, so Furlanski Dolomiti od leta 2009 del Unescove dediščine »Dolomiti«. To so občine, ki so od Vidma najbolj oddaljene – Erto e Casso približno 1 uro in 42 minut –, beneškemu letališču pa najbližje: do Erta je 1 uro in 14 minut.",
+            "V zgornjih zahodnih dolinah so Furlanski Dolomiti od leta 2009 del Unescove dediščine »Dolomiti«; naravni park zajema Claut, Cimolais, Erto e Casso, Andreis, Frisanco in Tramonti di Sopra, v Karniji pa še Forni di Sopra in Forni di Sotto. Erto e Casso je gorska občina, ki je od Vidma najbolj oddaljena – približno 1 uro in 42 minut –, beneškemu letališču pa najbližja: do tja je 1 ura in 14 minut.",
         },
         {
           nome: "Sappada",
@@ -909,7 +909,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §2, §11; NOMI (Milje, Devin - Nabrežina)
       confine:
-        "Tu velja najpreprostejše pravilo: pod Gore spada vsaka občina, ki jo ISTAT uvršča v notranje gorsko območje – državni višinski pas –, in to pravilo se uporabi najprej. Ujema se z alpskimi območji krajinskega načrta, torej s Karnijo, Kanalsko in Železno dolino z Rezijo ter zgornjimi zahodnimi dolinami, k temu pa še Sappada in devet občin vzhodnih dolin in predgorja. Deželnega zakona o gorskih območjih ne uporabljamo: je veliko širši, v celoti zajema celo Aviano, Prapotno, Milje in Devin - Nabrežino, namenjen pa je spodbudam, ne temu, da bi povedal, kje stoji hiša. Sappada je edina občina brez dvojne potrditve, ker je v listih krajinskega načrta iz leta 2018 ni.",
+        "Tu velja najpreprostejše pravilo: pod Gore spada vsaka občina, ki jo ISTAT uvršča v notranje gorsko območje – državni višinski pas –, in to pravilo se uporabi najprej. Ujema se z alpskimi območji krajinskega načrta, torej s Karnijo, Kanalsko in Železno dolino z Rezijo ter zgornjimi zahodnimi dolinami, k temu pa še Sappada in devet občin vzhodnih dolin in predgorja. Deželnega zakona o gorskih območjih ne uporabljamo: je veliko širši, v celoti zajema celo Aviano, Prapotno, Milje in Devin - Nabrežino, namenjen pa je spodbudam, ne temu, da bi povedal, kje stoji hiša. Deset občin ima le potrditev ISTAT: Sappada, ki je v listih krajinskega načrta iz leta 2018 ni, in devet občin vzhodnih dolin in predgorja, ki jih načrt uvršča v druga območja.",
       senzaCase:
         "Trenutno v gorah nimamo hiš naprodaj. Če iščete tukaj, nam pišite. Za Sappado je na voljo tudi naša spletna stran sappadavillas.com.",
       faq: [
@@ -931,7 +931,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
         {
           q: "Ali so Nadiške doline gorsko območje?",
           // fonte: GEO §8; NOMI (Nadiške doline, Čedad)
-          a: "Da: Podbonesec, Podutana, Sovodnja, Srednje, Grmek in Dreka so za ISTAT notranje gorsko območje. Čedad tik pod njimi pa je gričevnat in spada pod Gričevje in nižino.",
+          a: "Da: Podbonesec, Podutana, Sovodnja, Srednje, Grmek in Dreka so za ISTAT notranje gorsko območje. Špeter in Čedad tik pod njimi pa sta gričevnata in spadata pod Gričevje in nižino.",
         },
       ],
     },

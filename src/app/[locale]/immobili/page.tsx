@@ -82,7 +82,7 @@ export default async function ImmobiliPage({ params }: { params: Promise<{ local
             <p className="mt-4 max-w-xl text-neutral-600">{ui("catalogoIntro", locale)}</p>
           </div>
           <div className="overflow-hidden rounded-2xl border border-brand/15 bg-white">
-            <CartaFvg locale={locale} punti={punti} conteggi={conteggi} titolo={ui("cartaTitolo", locale)} />
+            <CartaFvg locale={locale} notaApprossimato={ui("posizioneIndicativa", locale)} punti={punti} conteggi={conteggi} titolo={ui("cartaTitolo", locale)} />
           </div>
         </header>
 

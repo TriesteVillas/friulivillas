@@ -71,9 +71,32 @@ export function durata(min: number | null, l: Lingua): string {
 }
 
 /** Mediana, minimo e massimo dei minuti da un'origine verso i comuni di un'area (sedi municipali). */
+/** Il comune in cui sta l'origine: da Trieste non si misura Trieste (2 minuti), da Udine non Udine (0). */
+const COMUNE_DELL_ORIGINE: Partial<Record<Origine, string>> = { trieste: "032006", udine: "030129" };
+
+/** Le frazioni misurate a parte (07/10/2026): una casa lì prende i tempi della frazione, non del municipio. */
+const FRAZIONI: { chiave: string; nome: string; comune: string; lat: number; lng: number }[] = [
+  { chiave: "F-viaso", nome: "Viaso", comune: "Socchieve", lat: 46.4071596, lng: 12.8479407 },
+  { chiave: "F-scodovacca", nome: "Scodovacca", comune: "Cervignano del Friuli", lat: 45.8217685, lng: 13.3667674 },
+  { chiave: "F-begliano", nome: "Begliano", comune: "San Canzian d'Isonzo", lat: 45.8188384, lng: 13.4656826 },
+];
+
+/** Da dove si misurano i tempi di una casa: la frazione (se il nome è nel titolo o nell'indirizzo, o la casa
+ *  sta entro 2 km dal suo centro) o la sede del comune. `luogo` è il nome da scrivere in pagina. */
+export function puntoDeiTempi(p: Pick<Property, "comune" | "lat" | "lng" | "title" | "via">): { chiave: string; luogo: string } | null {
+  const testo = `${p.title ?? ""} ${p.via ?? ""}`.toLowerCase();
+  for (const f of FRAZIONI) {
+    if (sedeComune(p.comune)?.nome !== sedeComune(f.comune)?.nome) continue;
+    const vicina = p.lat != null && p.lng != null && Math.hypot((p.lat - f.lat) * 111, (p.lng - f.lng) * 78) < 2;
+    if (vicina || testo.includes(f.nome.toLowerCase())) return { chiave: f.chiave, luogo: f.nome };
+  }
+  const s = sedeComune(p.comune);
+  return s ? { chiave: s.istat, luogo: s.nome } : null;
+}
+
 export function tempiArea(area: AreaId, origine: Origine): { mediana: number; min: { min: number; comune: string }; max: { min: number; comune: string } } {
   const v = tuttiIComuni()
-    .filter((c) => c.area === area)
+    .filter((c) => c.area === area && c.istat !== COMUNE_DELL_ORIGINE[origine])
     .map((c) => ({ comune: c.nome, min: minuti(c.istat, origine) }))
     .filter((x): x is { comune: string; min: number } => x.min != null)
     .sort((a, b) => a.min - b.min);
