@@ -1,0 +1,216 @@
+codice_istat,comune,uts,zona_altimetrica,litoraneo,ppr_ambito,ppr_quota,ppr_altri,lr33_montano,lr33_fascia,comunita,doc,altitudine_municipio_m,regola,S3,S4,S5
+030001,Aiello del Friuli,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Aquileia,18,R5,colline-pianura,colline-pianura,pianura
+030002,Amaro,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,293,R1,montagna,montagna,montagna
+030003,Ampezzo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,563,R1,montagna,montagna,montagna
+030004,Aquileia,Udine,pianura,0,AP 12 - Laguna e costa,0.717,AP 10 - Bassa pianura friulana e isontina 28%,no,,,Friuli Aquileia,5,R3,mare,costa-laguna,costa-laguna
+030005,Arta Terme,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,446,R1,montagna,montagna,montagna
+030006,Artegna,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,totale,A,Comunità di montagna del Gemonese,Friuli Grave (parte),217,R4,colline-pianura,colline-pianura,colline
+030007,Attimis,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,B,Comunità di montagna del Natisone e Torre,Friuli Colli Orientali (parte),197,R4,colline-pianura,colline-pianura,colline
+030008,Bagnaria Arsa,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Aquileia; Friuli Annia; Friuli Grave (parte),20,R5,colline-pianura,colline-pianura,pianura
+030009,Basiliano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,76,R5,colline-pianura,colline-pianura,pianura
+030010,Bertiolo,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Grave,33,R5,colline-pianura,colline-pianura,pianura
+030011,Bicinicco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,37,R5,colline-pianura,colline-pianura,pianura
+030012,Bordano,Udine,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,B,Comunità di montagna del Gemonese,,217,R1,montagna,montagna,montagna
+030013,Buja,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,221,R4,colline-pianura,colline-pianura,colline
+030014,Buttrio,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.772,AP 6 - Valli orientali e Collio 23%,no,,Comunità del Friuli Orientale,Friuli Grave (parte),74,R5,colline-pianura,colline-pianura,pianura
+030015,Camino al Tagliamento,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Grave,31,R5,colline-pianura,colline-pianura,pianura
+030016,Campoformido,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,77,R5,colline-pianura,colline-pianura,pianura
+030018,Carlino,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.658,AP 12 - Laguna e costa 34%,no,,Comunità Riviera Friulana,Friuli Annia,6,R5,colline-pianura,colline-pianura,pianura
+030019,Cassacco,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,,Friuli Grave (parte),178,R4,colline-pianura,colline-pianura,colline
+030020,Castions di Strada,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Annia; Friuli Latisana (parte); Friuli Grave (parte),24,R5,colline-pianura,colline-pianura,pianura
+030021,Cavazzo Carnico,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,283,R1,montagna,montagna,montagna
+030022,Cercivento,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,607,R1,montagna,montagna,montagna
+030023,Cervignano del Friuli,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Aquileia,8,R5,colline-pianura,colline-pianura,pianura
+030024,Chiopris-Viscone,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia (parte); Friuli Grave,35,R5,colline-pianura,colline-pianura,pianura
+030025,Chiusaforte,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,386,R1,montagna,montagna,montagna
+030026,Cividale del Friuli,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,parziale,A,Comunità del Friuli Orientale,Friuli Colli Orientali (parte); Friuli Grave (parte),141,R4,colline-pianura,colline-pianura,colline
+030027,Codroipo,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.577,AP 8 - Alta pianura friulana e isontina 42%,no,,,Friuli Grave,47,R5,colline-pianura,colline-pianura,pianura
+030028,Colloredo di Monte Albano,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,200,R4,colline-pianura,colline-pianura,colline
+030029,Comeglians,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,544,R1,montagna,montagna,montagna
+030030,Corno di Rosazzo,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,no,,,Friuli Colli Orientali (parte); Friuli Grave (parte),88,R4,colline-pianura,colline-pianura,colline
+030031,Coseano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,121,R5,colline-pianura,colline-pianura,pianura
+030032,Dignano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,114,R5,colline-pianura,colline-pianura,pianura
+030033,Dogna,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,424,R1,montagna,montagna,montagna
+030034,Drenchia,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,696,R1,montagna,montagna,montagna
+030035,Enemonzo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,400,R1,montagna,montagna,montagna
+030036,Faedis,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,parziale,A,Comunità di montagna del Natisone e Torre,Friuli Colli Orientali (parte); Friuli Grave (parte),173,R4,colline-pianura,colline-pianura,colline
+030037,Fagagna,Udine,collina interna,0,AP 5 - Anfiteatro morenico,0.702,AP 8 - Alta pianura friulana e isontina 30%,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,178,R4,colline-pianura,colline-pianura,colline
+030039,Flaibano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,104,R5,colline-pianura,colline-pianura,pianura
+030040,Forni Avoltri,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,877,R1,montagna,montagna,montagna
+030041,Forni di Sopra,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,901,R1,montagna,montagna,montagna
+030042,Forni di Sotto,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,774,R1,montagna,montagna,montagna
+030043,Gemona del Friuli,Udine,collina interna,0,AP 6 - Valli orientali e Collio,0.633,AP 5 - Anfiteatro morenico 37%,parziale,A,Comunità di montagna del Gemonese,Friuli Grave (parte),271,R4,colline-pianura,colline-pianura,colline
+030044,Gonars,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Aquileia (parte); Friuli Grave (parte),24,R5,colline-pianura,colline-pianura,pianura
+030045,Grimacco,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,267,R1,montagna,montagna,montagna
+030046,Latisana,Udine,pianura,0,AP 12 - Laguna e costa,0.697,AP 10 - Bassa pianura friulana e isontina 30%,no,,Comunità Riviera Friulana,Friuli Latisana,12,R3,mare,costa-laguna,costa-laguna
+030047,Lauco,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,745,R1,montagna,montagna,montagna
+030048,Lestizza,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,46,R5,colline-pianura,colline-pianura,pianura
+030049,Lignano Sabbiadoro,Udine,pianura,1,AP 12 - Laguna e costa,1.0,,no,,Comunità Riviera Friulana,Friuli Latisana,4,R3,mare,costa-laguna,costa-laguna
+030051,Lusevera,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,0.645,"AP 2 - Val Canale, Canal del Ferro, Val Resia 35%",totale,C,Comunità di montagna del Natisone e Torre,,329,R1,montagna,montagna,montagna
+030052,Magnano in Riviera,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,totale,A,Comunità di montagna del Natisone e Torre,Friuli Grave (parte),200,R4,colline-pianura,colline-pianura,colline
+030053,Majano,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave (parte),169,R4,colline-pianura,colline-pianura,colline
+030054,Malborghetto Valbruna,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,727,R1,montagna,montagna,montagna
+030055,Manzano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.539,AP 6 - Valli orientali e Collio 46%,no,,,Friuli Colli Orientali (parte); Friuli Grave (parte),69,R5,colline-pianura,colline-pianura,pianura
+030056,Marano Lagunare,Udine,pianura,1,AP 12 - Laguna e costa,1.0,,no,,Comunità Riviera Friulana,Friuli Annia,4,R3,mare,costa-laguna,costa-laguna
+030057,Martignacco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,143,R5,colline-pianura,colline-pianura,pianura
+030058,Mereto di Tomba,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,101,R5,colline-pianura,colline-pianura,pianura
+030059,Moggio Udinese,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,354,R1,montagna,montagna,montagna
+030060,Moimacco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Friuli Orientale,Friuli Grave (parte),121,R5,colline-pianura,colline-pianura,pianura
+030061,Montenars,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Gemonese,,470,R4,colline-pianura,colline-pianura,colline
+030062,Mortegliano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,41,R5,colline-pianura,colline-pianura,pianura
+030063,Moruzzo,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,260,R4,colline-pianura,colline-pianura,colline
+030064,Muzzana del Turgnano,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.855,AP 12 - Laguna e costa 15%,no,,Comunità Riviera Friulana,Friuli Annia; Friuli Latisana (parte),9,R5,colline-pianura,colline-pianura,pianura
+030065,Nimis,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,B,Comunità di montagna del Natisone e Torre,Friuli Colli Orientali (parte),212,R4,colline-pianura,colline-pianura,colline
+030066,Osoppo,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave (parte),183,R4,colline-pianura,colline-pianura,colline
+030067,Ovaro,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,532,R1,montagna,montagna,montagna
+030068,Pagnacco,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,170,R4,colline-pianura,colline-pianura,colline
+030069,Palazzolo dello Stella,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.621,AP 12 - Laguna e costa 38%,no,,Comunità Riviera Friulana,Friuli Latisana,6,R5,colline-pianura,colline-pianura,pianura
+030070,Palmanova,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia (parte); Friuli Grave (parte),31,R5,colline-pianura,colline-pianura,pianura
+030071,Paluzza,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,602,R1,montagna,montagna,montagna
+030072,Pasian di Prato,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,110,R5,colline-pianura,colline-pianura,pianura
+030073,Paularo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,650,R1,montagna,montagna,montagna
+030074,Pavia di Udine,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,61,R5,colline-pianura,colline-pianura,pianura
+030075,Pocenia,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,Comunità Riviera Friulana,Friuli Latisana,9,R5,colline-pianura,colline-pianura,pianura
+030076,Pontebba,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,569,R1,montagna,montagna,montagna
+030077,Porpetto,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,Comunità Riviera Friulana,Friuli Annia; Friuli Grave (parte),11,R5,colline-pianura,colline-pianura,pianura
+030078,Povoletto,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.707,AP 6 - Valli orientali e Collio 29%,parziale,A,,Friuli Colli Orientali (parte); Friuli Grave (parte),136,R5,colline-pianura,colline-pianura,pianura
+030079,Pozzuolo del Friuli,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,64,R5,colline-pianura,colline-pianura,pianura
+030080,Pradamano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Friuli Orientale,Friuli Grave,90,R5,colline-pianura,colline-pianura,pianura
+030081,Prato Carnico,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,693,R1,montagna,montagna,montagna
+030082,Precenicco,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.506,AP 12 - Laguna e costa 49%,no,,Comunità Riviera Friulana,Friuli Latisana,6,R5,colline-pianura,colline-pianura,pianura
+030083,Premariacco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.552,AP 6 - Valli orientali e Collio 45%,no,,Comunità del Friuli Orientale,Friuli Grave (parte),112,R5,colline-pianura,colline-pianura,pianura
+030084,Preone,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,444,R1,montagna,montagna,montagna
+030085,Prepotto,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,B,Comunità del Friuli Orientale,Friuli Colli Orientali (parte),111,R4,colline-pianura,colline-pianura,colline
+030086,Pulfero,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,189,R1,montagna,montagna,montagna
+030087,Ragogna,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave (parte),230,R4,colline-pianura,colline-pianura,colline
+030088,Ravascletto,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,964,R1,montagna,montagna,montagna
+030089,Raveo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,518,R1,montagna,montagna,montagna
+030090,Reana del Rojale,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.695,AP 5 - Anfiteatro morenico 31%,no,,,Friuli Grave,164,R5,colline-pianura,colline-pianura,pianura
+030091,Remanzacco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Friuli Orientale,Friuli Grave,111,R5,colline-pianura,colline-pianura,pianura
+030092,Resia,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,482,R1,montagna,montagna,montagna
+030093,Resiutta,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,319,R1,montagna,montagna,montagna
+030094,Rigolato,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,757,R1,montagna,montagna,montagna
+030095,Rive d'Arcano,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,167,R4,colline-pianura,colline-pianura,colline
+030097,Ronchis,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,Comunità Riviera Friulana,Friuli Latisana,10,R5,colline-pianura,colline-pianura,pianura
+030098,Ruda,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Aquileia,12,R5,colline-pianura,colline-pianura,pianura
+030099,San Daniele del Friuli,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave (parte),248,R4,colline-pianura,colline-pianura,colline
+030100,San Giorgio di Nogaro,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.612,AP 12 - Laguna e costa 39%,no,,Comunità Riviera Friulana,Friuli Annia,9,R5,colline-pianura,colline-pianura,pianura
+030101,San Giovanni al Natisone,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,0.885,AP 6 - Valli orientali e Collio 12%,no,,Comunità del Friuli Orientale,Friuli Colli Orientali (parte); Friuli Grave (parte),67,R5,colline-pianura,colline-pianura,pianura
+030102,San Leonardo,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,B,Comunità di montagna del Natisone e Torre,,159,R1,montagna,montagna,montagna
+030103,San Pietro al Natisone,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,A,Comunità di montagna del Natisone e Torre,,172,R4,colline-pianura,colline-pianura,colline
+030104,Santa Maria la Longa,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia (parte); Friuli Grave (parte),40,R5,colline-pianura,colline-pianura,pianura
+030105,San Vito al Torre,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia,24,R5,colline-pianura,colline-pianura,pianura
+030106,San Vito di Fagagna,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,132,R5,colline-pianura,colline-pianura,pianura
+030107,Sauris,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,1209,R1,montagna,montagna,montagna
+030108,Savogna,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,220,R1,montagna,montagna,montagna
+030109,Sedegliano,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,74,R5,colline-pianura,colline-pianura,pianura
+030110,Socchieve,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,480,R1,montagna,montagna,montagna
+030111,Stregna,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,405,R1,montagna,montagna,montagna
+030112,Sutrio,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,560,R1,montagna,montagna,montagna
+030113,Taipana,Udine,montagna interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,C,Comunità di montagna del Natisone e Torre,,485,R1,montagna,montagna,montagna
+030114,Talmassons,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Grave,32,R5,colline-pianura,colline-pianura,pianura
+030116,Tarcento,Udine,collina interna,0,AP 6 - Valli orientali e Collio,0.699,AP 5 - Anfiteatro morenico 30%,parziale,A,Comunità di montagna del Natisone e Torre,Friuli Colli Orientali (parte); Friuli Grave (parte),231,R4,colline-pianura,colline-pianura,colline
+030117,Tarvisio,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,C,Comunità di montagna Canal del Ferro e Val Canale,,760,R1,montagna,montagna,montagna
+030118,Tavagnacco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,134,R5,colline-pianura,colline-pianura,pianura
+030120,Terzo d'Aquileia,Udine,pianura,0,AP 12 - Laguna e costa,0.628,AP 10 - Bassa pianura friulana e isontina 37%,no,,,Friuli Aquileia (parte),5,R3,mare,costa-laguna,costa-laguna
+030121,Tolmezzo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,A,Comunità di montagna della Carnia,,328,R1,montagna,montagna,montagna
+030122,Torreano,Udine,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,A,Comunità di montagna del Natisone e Torre,Friuli Colli Orientali (parte),184,R4,colline-pianura,colline-pianura,colline
+030123,Torviscosa,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.85,AP 12 - Laguna e costa 15%,no,,,Friuli Annia,5,R5,colline-pianura,colline-pianura,pianura
+030124,Trasaghis,Udine,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,B,Comunità di montagna del Gemonese,,198,R1,montagna,montagna,montagna
+030126,Treppo Grande,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,Comunità Collinare del Friuli (art. 21 LR 21/2019),Friuli Grave,234,R4,colline-pianura,colline-pianura,colline
+030127,Tricesimo,Udine,collina interna,0,AP 5 - Anfiteatro morenico,1.0,,no,,,Friuli Grave (parte),199,R4,colline-pianura,colline-pianura,colline
+030128,Trivignano Udinese,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia (parte); Friuli Grave (parte),45,R5,colline-pianura,colline-pianura,pianura
+030129,Udine,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Grave,121,R5,colline-pianura,colline-pianura,pianura
+030130,Varmo,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Latisana,20,R5,colline-pianura,colline-pianura,pianura
+030131,Venzone,Udine,montagna interna,0,"AP 2 - Val Canale, Canal del Ferro, Val Resia",1.0,,totale,B,Comunità di montagna del Gemonese,,240,R1,montagna,montagna,montagna
+030132,Verzegnis,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,408,R1,montagna,montagna,montagna
+030133,Villa Santina,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,361,R1,montagna,montagna,montagna
+030135,Visco,Udine,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Aquileia,24,R5,colline-pianura,colline-pianura,pianura
+030136,Zuglio,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,B,Comunità di montagna della Carnia,,411,R1,montagna,montagna,montagna
+030137,Forgaria nel Friuli,Udine,montagna interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità Collinare del Friuli (art. 21 LR 21/2019),,269,R1,montagna,montagna,montagna
+030138,Campolongo Tapogliano,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.58,AP 8 - Alta pianura friulana e isontina 42%,no,,,Friuli Aquileia,17,R5,colline-pianura,colline-pianura,pianura
+030188,Rivignano Teor,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,Comunità Riviera Friulana,Friuli Latisana,19,R5,colline-pianura,colline-pianura,pianura
+030189,Sappada,Udine,montagna interna,0,(assente nel PPR 2018),,,totale,C,Comunità di montagna della Carnia,,1242,R1,montagna,montagna,montagna
+030190,Fiumicello Villa Vicentina,Udine,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.993,AP 12 - Laguna e costa 1%,no,,,Friuli Aquileia,8,R5,colline-pianura,colline-pianura,pianura
+030191,Treppo Ligosullo,Udine,montagna interna,0,AP 1 - Carnia,1.0,,totale,C,Comunità di montagna della Carnia,,914,R1,montagna,montagna,montagna
+031001,Capriva del Friuli,Gorizia,pianura,0,AP 6 - Valli orientali e Collio,1.0,,parziale,A,Comunità del Collio,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),50,R4,colline-pianura,colline-pianura,colline
+031002,Cormons,Gorizia,pianura,0,AP 6 - Valli orientali e Collio,0.579,AP 8 - Alta pianura friulana e isontina 42%,parziale,A,Comunità del Collio,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),64,R4,colline-pianura,colline-pianura,colline
+031003,Doberdò del Lago,Gorizia,pianura,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras,94,R2,mare,carso-trieste,carso-trieste
+031004,Dolegna del Collio,Gorizia,pianura,0,AP 6 - Valli orientali e Collio,1.0,,totale,A,Comunità del Collio,Collio Goriziano o Collio (parte),89,R4,colline-pianura,colline-pianura,colline
+031005,Farra d'Isonzo,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Collio,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),45,R5,colline-pianura,colline-pianura,pianura
+031006,Fogliano Redipuglia,Gorizia,pianura,0,AP 11 - Carso e costiera orientale,1.0,,parziale,A,,Carso o Carso-Kras (parte); Friuli Isonzo o Isonzo del Friuli (parte),25,R2,mare,carso-trieste,carso-trieste
+031007,Gorizia,Gorizia,collina interna,0,AP 8 - Alta pianura friulana e isontina,0.593,AP 6 - Valli orientali e Collio 41%,parziale,A,,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),86,R4,colline-pianura,colline-pianura,colline
+031008,Gradisca d'Isonzo,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Isonzo o Isonzo del Friuli (parte),35,R5,colline-pianura,colline-pianura,pianura
+031009,Grado,Gorizia,pianura,1,AP 12 - Laguna e costa,1.0,,no,,,,13,R3,mare,costa-laguna,costa-laguna
+031010,Mariano del Friuli,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Collio,Friuli Isonzo o Isonzo del Friuli (parte),35,R5,colline-pianura,colline-pianura,pianura
+031011,Medea,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Collio,Friuli Isonzo o Isonzo del Friuli (parte),31,R5,colline-pianura,colline-pianura,pianura
+031012,Monfalcone,Gorizia,pianura,1,AP 12 - Laguna e costa,0.558,AP 10 - Bassa pianura friulana e isontina 23%; AP 11 - Carso e costiera orientale 22%,parziale,A,,Carso o Carso-Kras (parte); Friuli Isonzo o Isonzo del Friuli (parte),12,R3,mare,costa-laguna,costa-laguna
+031013,Moraro,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,Comunità del Collio,Friuli Isonzo o Isonzo del Friuli (parte),45,R5,colline-pianura,colline-pianura,pianura
+031014,Mossa,Gorizia,pianura,0,AP 6 - Valli orientali e Collio,0.635,AP 8 - Alta pianura friulana e isontina 37%,parziale,A,Comunità del Collio,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),59,R4,colline-pianura,colline-pianura,colline
+031015,Romans d'Isonzo,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Isonzo o Isonzo del Friuli (parte),26,R5,colline-pianura,colline-pianura,pianura
+031016,Ronchi dei Legionari,Gorizia,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.625,AP 11 - Carso e costiera orientale 38%,parziale,A,,Carso o Carso-Kras (parte); Friuli Isonzo o Isonzo del Friuli (parte),13,R5,colline-pianura,colline-pianura,pianura
+031017,Sagrado,Gorizia,pianura,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras (parte); Friuli Isonzo o Isonzo del Friuli (parte),28,R2,mare,carso-trieste,carso-trieste
+031018,San Canzian d'Isonzo,Gorizia,pianura,0,AP 12 - Laguna e costa,0.544,AP 10 - Bassa pianura friulana e isontina 46%,no,,,Friuli Isonzo o Isonzo del Friuli (parte),12,R3,mare,costa-laguna,costa-laguna
+031019,San Floriano del Collio,Gorizia,collina interna,0,AP 6 - Valli orientali e Collio,1.0,,totale,A,Comunità del Collio,Collio Goriziano o Collio (parte),246,R4,colline-pianura,colline-pianura,colline
+031020,San Lorenzo Isontino,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,0.734,AP 6 - Valli orientali e Collio 27%,parziale,A,Comunità del Collio,Collio Goriziano o Collio (parte); Friuli Isonzo o Isonzo del Friuli (parte),51,R5,colline-pianura,colline-pianura,pianura
+031021,San Pier d'Isonzo,Gorizia,pianura,0,AP 10 - Bassa pianura friulana e isontina,0.965,AP 11 - Carso e costiera orientale 3%,no,,,Friuli Isonzo o Isonzo del Friuli (parte),18,R5,colline-pianura,colline-pianura,pianura
+031022,Savogna d'Isonzo,Gorizia,collina interna,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras (parte); Friuli Isonzo o Isonzo del Friuli (parte),40,R2,mare,carso-trieste,carso-trieste
+031023,Staranzano,Gorizia,pianura,1,AP 12 - Laguna e costa,0.722,AP 10 - Bassa pianura friulana e isontina 28%,no,,,Friuli Isonzo o Isonzo del Friuli (parte),9,R3,mare,costa-laguna,costa-laguna
+031024,Turriaco,Gorizia,pianura,0,AP 10 - Bassa pianura friulana e isontina,1.0,,no,,,Friuli Isonzo o Isonzo del Friuli (parte),12,R5,colline-pianura,colline-pianura,pianura
+031025,Villesse,Gorizia,pianura,0,AP 8 - Alta pianura friulana e isontina,1.0,,no,,,Friuli Isonzo o Isonzo del Friuli (parte),21,R5,colline-pianura,colline-pianura,pianura
+032001,Duino Aurisina,Trieste,collina litoranea,1,AP 11 - Carso e costiera orientale,0.931,AP 12 - Laguna e costa 7%,totale,A,,Carso o Carso-Kras,136,R2,mare,carso-trieste,carso-trieste
+032002,Monrupino,Trieste,collina litoranea,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras,371,R2,mare,carso-trieste,carso-trieste
+032003,Muggia,Trieste,collina litoranea,1,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras,5,R2,mare,carso-trieste,carso-trieste
+032004,San Dorligo della Valle,Trieste,collina litoranea,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras,66,R2,mare,carso-trieste,carso-trieste
+032005,Sgonico,Trieste,collina litoranea,0,AP 11 - Carso e costiera orientale,1.0,,totale,A,,Carso o Carso-Kras,275,R2,mare,carso-trieste,carso-trieste
+032006,Trieste,Trieste,collina litoranea,1,AP 11 - Carso e costiera orientale,1.0,,parziale,A,,Carso o Carso-Kras,16,R2,mare,carso-trieste,carso-trieste
+093001,Andreis,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,464,R1,montagna,montagna,montagna
+093002,Arba,Pordenone,collina interna,0,AP 7 - Alta pianura pordenonese,1.0,,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,214,R4,colline-pianura,colline-pianura,colline
+093004,Aviano,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,0.632,AP 7 - Alta pianura pordenonese 37%,totale,A,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",Friuli Grave (parte),158,R4,colline-pianura,colline-pianura,colline
+093005,Azzano Decimo,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,Comunità Sile,Friuli Grave (parte),15,R5,colline-pianura,colline-pianura,pianura
+093006,Barcis,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,421,R1,montagna,montagna,montagna
+093007,Brugnera,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,19,R5,colline-pianura,colline-pianura,pianura
+093008,Budoia,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,0.837,AP 7 - Alta pianura pordenonese 16%,totale,A,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",Friuli Grave (parte),140,R4,colline-pianura,colline-pianura,colline
+093009,Caneva,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,0.751,AP 9 - Bassa pianura pordenonese 25%,parziale,A,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",Friuli Grave (parte),56,R4,colline-pianura,colline-pianura,colline
+093010,Casarsa della Delizia,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,46,R5,colline-pianura,colline-pianura,pianura
+093011,Castelnovo del Friuli,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,238,R4,colline-pianura,colline-pianura,colline
+093012,Cavasso Nuovo,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),278,R4,colline-pianura,colline-pianura,colline
+093013,Chions,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,Comunità Sile,,17,R5,colline-pianura,colline-pianura,pianura
+093014,Cimolais,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,654,R1,montagna,montagna,montagna
+093015,Claut,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,618,R1,montagna,montagna,montagna
+093016,Clauzetto,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,Comunità di montagna delle Prealpi Friulane Orientali,,580,R1,montagna,montagna,montagna
+093017,Cordenons,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,0.658,AP 7 - Alta pianura pordenonese 34%,no,,,Friuli Grave,46,R5,colline-pianura,colline-pianura,pianura
+093018,Cordovado,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,,20,R5,colline-pianura,colline-pianura,pianura
+093019,Erto e Casso,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,814,R1,montagna,montagna,montagna
+093020,Fanna,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),274,R4,colline-pianura,colline-pianura,colline
+093021,Fiume Veneto,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,21,R5,colline-pianura,colline-pianura,pianura
+093022,Fontanafredda,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,0.809,AP 7 - Alta pianura pordenonese 19%,no,,,Friuli Grave,46,R5,colline-pianura,colline-pianura,pianura
+093024,Frisanco,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,0.697,AP 4 - Pedemontana occidentale 30%,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,508,R1,montagna,montagna,montagna
+093025,Maniago,Pordenone,collina interna,0,AP 7 - Alta pianura pordenonese,0.704,AP 4 - Pedemontana occidentale 30%,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),285,R4,colline-pianura,colline-pianura,colline
+093026,Meduno,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),304,R4,colline-pianura,colline-pianura,colline
+093027,Montereale Valcellina,Pordenone,collina interna,0,AP 7 - Alta pianura pordenonese,0.519,AP 4 - Pedemontana occidentale 48%,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),313,R4,colline-pianura,colline-pianura,colline
+093028,Morsano al Tagliamento,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Latisana (parte),19,R5,colline-pianura,colline-pianura,pianura
+093029,Pasiano di Pordenone,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,12,R5,colline-pianura,colline-pianura,pianura
+093030,Pinzano al Tagliamento,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,209,R4,colline-pianura,colline-pianura,colline
+093031,Polcenigo,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,0.836,AP 9 - Bassa pianura pordenonese 16%,totale,A,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",Friuli Grave (parte),45,R4,colline-pianura,colline-pianura,colline
+093032,Porcia,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,36,R5,colline-pianura,colline-pianura,pianura
+093033,Pordenone,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,25,R5,colline-pianura,colline-pianura,pianura
+093034,Prata di Pordenone,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,21,R5,colline-pianura,colline-pianura,pianura
+093035,Pravisdomini,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,Comunità Sile,,12,R5,colline-pianura,colline-pianura,pianura
+093036,Roveredo in Piano,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,0.546,AP 7 - Alta pianura pordenonese 45%,no,,,Friuli Grave,97,R5,colline-pianura,colline-pianura,pianura
+093037,Sacile,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,28,R5,colline-pianura,colline-pianura,pianura
+093038,San Giorgio della Richinvelda,Pordenone,pianura,0,AP 7 - Alta pianura pordenonese,1.0,,no,,,Friuli Grave,84,R5,colline-pianura,colline-pianura,pianura
+093039,San Martino al Tagliamento,Pordenone,pianura,0,AP 7 - Alta pianura pordenonese,1.0,,no,,,Friuli Grave,71,R5,colline-pianura,colline-pianura,pianura
+093040,San Quirino,Pordenone,pianura,0,AP 7 - Alta pianura pordenonese,1.0,,no,,,Friuli Grave,117,R5,colline-pianura,colline-pianura,pianura
+093041,San Vito al Tagliamento,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,35,R5,colline-pianura,colline-pianura,pianura
+093042,Sequals,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,212,R4,colline-pianura,colline-pianura,colline
+093043,Sesto al Reghena,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,,15,R5,colline-pianura,colline-pianura,pianura
+093044,Spilimbergo,Pordenone,pianura,0,AP 7 - Alta pianura pordenonese,1.0,,parziale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,131,R5,colline-pianura,colline-pianura,pianura
+093045,Tramonti di Sopra,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,420,R1,montagna,montagna,montagna
+093046,Tramonti di Sotto,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,"Magnifica Comunità di montagna Dolomiti Friulane, Cavallo e Cansiglio",,371,R1,montagna,montagna,montagna
+093047,Travesio,Pordenone,collina interna,0,AP 4 - Pedemontana occidentale,1.0,,totale,B,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave (parte),214,R4,colline-pianura,colline-pianura,colline
+093049,Vito d'Asio,Pordenone,montagna interna,0,AP 3 - Alte valli occidentali,1.0,,totale,C,Comunità di montagna delle Prealpi Friulane Orientali,,316,R1,montagna,montagna,montagna
+093050,Vivaro,Pordenone,pianura,0,AP 7 - Alta pianura pordenonese,1.0,,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,139,R5,colline-pianura,colline-pianura,pianura
+093051,Zoppola,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,37,R5,colline-pianura,colline-pianura,pianura
+093052,Vajont,Pordenone,collina interna,0,AP 7 - Alta pianura pordenonese,1.0,,totale,A,Comunità di montagna delle Prealpi Friulane Orientali,Friuli Grave,290,R4,colline-pianura,colline-pianura,colline
+093053,Valvasone Arzene,Pordenone,pianura,0,AP 9 - Bassa pianura pordenonese,1.0,,no,,,Friuli Grave,63,R5,colline-pianura,colline-pianura,pianura
