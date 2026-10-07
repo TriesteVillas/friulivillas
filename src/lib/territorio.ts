@@ -136,7 +136,7 @@ export function puntiGruppo(l: Lingua): PuntoCarta[] {
     { id: "g-tsv", tipo: "gruppo", lat: 45.6503, lng: 13.7681, etichetta: "TriesteVillas", nota, href: urlGemello("tsv", l), esterno: true },
     { id: "g-lig", tipo: "gruppo", lat: 45.6892, lng: 13.1296, etichetta: "LignanoVillas", nota, href: urlGemello("lignano", l), esterno: true },
     { id: "g-sap", tipo: "gruppo", lat: 46.566, lng: 12.684, etichetta: "SappadaVillas", nota, href: urlGemello("sappada", l), esterno: true },
-    { id: "g-slo", tipo: "gruppo", lat: 45.709, lng: 13.873, etichetta: "SloveniaVillas", nota, href: urlGemello("slovenia", l), esterno: true },
+    { id: "g-slo", tipo: "gruppo", lat: 45.709, lng: 13.873, etichetta: "SloveniaVillas", nota, href: urlGemello("slovenia", l), esterno: true, sopra: true },
   ];
 }
 

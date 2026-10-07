@@ -20,6 +20,8 @@ export type PuntoCarta = {
   esterno?: boolean;
   /** coordinate del comune, non della casa */
   approssimato?: boolean;
+  /** etichetta sopra il punto invece che sotto (punti vicini fra loro) */
+  sopra?: boolean;
 };
 
 export const COLORE_AREA: Record<AreaId, string> = {
@@ -163,7 +165,7 @@ export default function CartaFvg({
           // Vicino ai bordi l'etichetta si apre verso l'interno, o esce dalla carta.
           const fx = (x - box.x) / box.w;
           const fy = (y - box.y) / box.h;
-          const allinea = `${fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2"} ${fy > 0.84 ? "bottom-full mb-1" : "top-full mt-1"}`;
+          const allinea = `${fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2"} ${fy > 0.84 || p.sopra ? "bottom-full mb-1" : "top-full mt-1"}`;
           const nascosta = (p.tipo === "casa" || p.tipo === "affitto") && !etichetteCase;
           const soloLargo = p.tipo === "casa" || p.tipo === "affitto" || (p.tipo === "gruppo" && !ritaglio);
           const etichetta = (
