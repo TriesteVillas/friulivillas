@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/navigation";
-import { AREE, NOMI_AREA, SLUG_AREA, type AreaId, type Lingua } from "@/lib/aree";
+import { AREE, NOMI_AREA, type AreaId, type Lingua } from "@/lib/aree";
 import { ALTEZZA, LARGHEZZA, proietta, riquadroArea } from "@/lib/carta";
 import { AREE_FORME, COSTA_D, REGIONE_D } from "@/content/carta/forme";
 
@@ -29,13 +29,6 @@ export const COLORE_AREA: Record<AreaId, string> = {
   "trieste-carso": "#8a7766",
 };
 
-const POSTO_ETICHETTA: Record<AreaId, [number, number]> = {
-  montagna: [46.5, 13.22],
-  "colline-pianura": [45.97, 12.93],
-  "costa-laguna": [45.59, 13.2],
-  "trieste-carso": [45.6, 13.56],
-};
-
 const TRAMA: Record<AreaId, string> = {
   "costa-laguna": "M0 6 Q3 3 6 6 T12 6",
   "colline-pianura": "M0 12 L12 0",
@@ -49,7 +42,6 @@ export default function CartaFvg({
   evidenzia,
   ritaglio,
   etichetteAree = true,
-  linkAree = true,
   conteggi,
   titolo,
   className = "",
@@ -62,7 +54,6 @@ export default function CartaFvg({
   evidenzia?: AreaId | null;
   ritaglio?: AreaId | null;
   etichetteAree?: boolean;
-  linkAree?: boolean;
   /** case per area, per l'etichetta («2 in vendita») */
   conteggi?: Partial<Record<AreaId, string>>;
   titolo: string;
@@ -75,9 +66,6 @@ export default function CartaFvg({
 }) {
   const box = ritaglio ? riquadroArea(ritaglio) : { x: 0, y: 0, w: LARGHEZZA, h: ALTEZZA };
   const pct = (v: number, base: number, tot: number) => `${(((v - base) / tot) * 100).toFixed(3)}%`;
-  // Le etichette delle aree non escono dalla carta: si tengono dentro un margine.
-  const pctDentro = (v: number, base: number, tot: number, m: number) =>
-    `${Math.min(100 - m, Math.max(m, ((v - base) / tot) * 100)).toFixed(3)}%`;
   // Una città di riferimento accanto a una casa (Grado, Palmanova…) copre il segnaposto: si toglie.
   const case_ = punti.filter((p) => p.tipo === "casa" || p.tipo === "affitto");
   const visibili = punti.filter(
@@ -143,39 +131,19 @@ export default function CartaFvg({
           <path d={REGIONE_D} fill="none" stroke="#16352a" strokeWidth={tratto * 1.3} strokeOpacity=".7" strokeLinejoin="round" />
         </svg>
 
-        {/* Etichette delle aree: link veri alle loro pagine. */}
-        {etichetteAree &&
-          AREE.map((a) => {
-            const [cx, cy] = AREE_FORME[a].centro;
-            // Trieste e Carso è una striscia: l'etichetta sta sul golfo, non sulla linea.
-            // Posizioni scelte, non il baricentro: quello della montagna cade su
-            // Tolmezzo, quello della pianura su Udine, e le due aree sul mare sono strisce.
-            const [x, y] = proietta(...POSTO_ETICHETTA[a]);
-            void cx; void cy;
-            // Fuori dal riquadro: l'area ritagliata si etichetta comunque (dentro il margine), le altre no.
-            if ((x < box.x || x > box.x + box.w || y < box.y || y > box.y + box.h) && a !== ritaglio) return null;
-            const testo = (
-              <>
-                <span className="block font-display text-[0.95em] font-semibold leading-tight">{NOMI_AREA[a][locale]}</span>
-                {conteggi?.[a] ? <span className="mt-0.5 block font-mono text-[0.68em] uppercase tracking-wide opacity-80">{conteggi[a]}</span> : null}
-              </>
-            );
-            // Sulla carta intera, al telefono, le quattro etichette si accavallano: lì le aree
-            // sono elencate accanto alla carta, quindi qui si mostrano da 768 px in su.
-            const cls = `carta-etichetta absolute -translate-x-1/2 ${ritaglio ? "" : "hidden md:block"} -translate-y-1/2 whitespace-nowrap rounded-full px-3 py-1.5 text-center text-[clamp(10px,1.35vw,15px)] shadow-sm ${
-              evidenzia && evidenzia !== a ? "bg-white/70 text-neutral-500" : "bg-white/90 text-ink"
-            }`;
-            const style = { left: pctDentro(x, box.x, box.w, 13), top: pctDentro(y, box.y, box.h, 7), borderLeft: `3px solid ${COLORE_AREA[a]}` };
-            return linkAree ? (
-              <Link key={a} href={`/area/${SLUG_AREA[a][locale]}`} className={`${cls} hover:bg-white focus-visible:outline-2`} style={style}>
-                {testo}
-              </Link>
-            ) : (
-              <span key={a} className={cls} style={style}>
-                {testo}
-              </span>
-            );
-          })}
+        {/* Le aree NON si etichettano sulla carta intera (verifica del 07/10: sul golfo
+            le etichette coprivano TriesteVillas, LignanoVillas e SloveniaVillas): lì le
+            quattro aree stanno nella legenda accanto, coi loro link. Sulla carta ritagliata
+            l'area si nomina in un cartiglio fisso in alto a sinistra. */}
+        {etichetteAree && ritaglio ? (
+          <span
+            className="carta-etichetta absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1.5 text-[clamp(11px,1.3vw,15px)] text-ink shadow-sm"
+            style={{ borderLeft: `3px solid ${COLORE_AREA[ritaglio]}` }}
+          >
+            <span className="block font-display font-semibold leading-tight">{NOMI_AREA[ritaglio][locale]}</span>
+            {conteggi?.[ritaglio] ? <span className="mt-0.5 block font-mono text-[0.72em] uppercase tracking-wide opacity-80">{conteggi[ritaglio]}</span> : null}
+          </span>
+        ) : null}
 
         {/* Punti: case, affitti, siti del gruppo, città di riferimento. */}
         {visibili.map((p) => {
@@ -194,12 +162,13 @@ export default function CartaFvg({
             );
           // Vicino ai bordi l'etichetta si apre verso l'interno, o esce dalla carta.
           const fx = (x - box.x) / box.w;
-          const allinea = fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2";
+          const fy = (y - box.y) / box.h;
+          const allinea = `${fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2"} ${fy > 0.84 ? "bottom-full mb-1" : "top-full mt-1"}`;
           const nascosta = (p.tipo === "casa" || p.tipo === "affitto") && !etichetteCase;
           const soloLargo = p.tipo === "casa" || p.tipo === "affitto" || (p.tipo === "gruppo" && !ritaglio);
           const etichetta = (
             <span
-              className={`pointer-events-none absolute top-full mt-1 whitespace-nowrap rounded bg-white/90 px-1.5 py-0.5 text-[clamp(9px,1.05vw,12px)] leading-tight text-ink shadow-sm ${allinea} ${
+              className={`pointer-events-none absolute whitespace-nowrap rounded bg-white/90 px-1.5 py-0.5 text-[clamp(9px,1.05vw,12px)] leading-tight text-ink shadow-sm ${allinea} ${
                 nascosta ? "carta-punto-nascosta" : soloLargo ? "carta-punto-etichetta" : ""
               }`}
             >

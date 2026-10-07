@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ImmobiliBrowser from "@/components/ImmobiliBrowser";
 import BuyerCta from "@/components/BuyerCta";
-import CartaFvg, { type PuntoCarta } from "@/components/carta/CartaFvg";
+import CartaFvg, { COLORE_AREA, type PuntoCarta } from "@/components/carta/CartaFvg";
+import { Link } from "@/i18n/navigation";
 import { getProperties } from "@/lib/airtable";
 import { isSold } from "@/lib/properties";
 import { buildPropertyView, localizedTitle } from "@/lib/propertyView";
 import { pageAlternates, pageOpenGraph } from "@/lib/seo";
-import { AREE, NOMI_AREA, type AreaId, type Lingua } from "@/lib/aree";
+import { AREE, NOMI_AREA, SLUG_AREA, type AreaId, type Lingua } from "@/lib/aree";
 import { perArea, puntiGruppo, puntoDiCasa } from "@/lib/territorio";
 import { ui } from "@/content/territorioUi";
 import { formatPrice } from "@/lib/format";
@@ -81,8 +82,23 @@ export default async function ImmobiliPage({ params }: { params: Promise<{ local
             <h1 className="display-chapter mt-3 font-display text-brand-dark">{ui("catalogoTitolo", locale)}</h1>
             <p className="mt-4 max-w-xl text-neutral-600">{ui("catalogoIntro", locale)}</p>
           </div>
+          <div>
           <div className="overflow-hidden rounded-2xl border border-brand/15 bg-white">
             <CartaFvg locale={locale} notaApprossimato={ui("posizioneIndicativa", locale)} punti={punti} conteggi={conteggi} titolo={ui("cartaTitolo", locale)} />
+          </div>
+          <ul className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+            {AREE.map((a) => (
+              <li key={a}>
+                <Link href={`/area/${SLUG_AREA[a][locale]}`} className="group flex items-start gap-2">
+                  <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: COLORE_AREA[a] }} />
+                  <span>
+                    <span className="block font-semibold text-brand-dark group-hover:underline">{NOMI_AREA[a][locale]}</span>
+                    <span className="block font-mono text-[11px] text-neutral-500">{conteggi[a]}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
           </div>
         </header>
 

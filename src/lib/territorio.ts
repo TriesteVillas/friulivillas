@@ -8,6 +8,13 @@ import type { PuntoCarta } from "@/components/carta/CartaFvg";
 
 export { DATA_MISURA, ORIGINI, type Origine };
 
+/** Le frazioni misurate a parte (07/10/2026): una casa lì prende i tempi della frazione, non del municipio. */
+const FRAZIONI: { chiave: string; nome: string; comune: string; lat: number; lng: number }[] = [
+  { chiave: "F-viaso", nome: "Viaso", comune: "Socchieve", lat: 46.4071596, lng: 12.8479407 },
+  { chiave: "F-scodovacca", nome: "Scodovacca", comune: "Cervignano del Friuli", lat: 45.8217685, lng: 13.3667674 },
+  { chiave: "F-begliano", nome: "Begliano", comune: "San Canzian d'Isonzo", lat: 45.8188384, lng: 13.4656826 },
+];
+
 export function areaDiCasa(p: Pick<Property, "comune" | "lat" | "lng">): AreaId | null {
   return areaDi({ comune: p.comune, lat: p.lat, lng: p.lng });
 }
@@ -25,6 +32,10 @@ export function perArea<T extends Pick<Property, "comune" | "lat" | "lng">>(case
 /** Dove sta una casa sulla carta: le sue coordinate, o la sede del comune (dichiarato). */
 export function puntoDiCasa(p: Pick<Property, "comune" | "lat" | "lng">): { lat: number; lng: number; approssimato: boolean } | null {
   if (p.lat != null && p.lng != null) return { lat: p.lat, lng: p.lng, approssimato: false };
+  // Senza coordinate: la frazione misurata, se il titolo la nomina (Scodovacca), poi la sede del comune.
+  const testo = `${(p as { title?: string }).title ?? ""} ${(p as { via?: string | null }).via ?? ""}`.toLowerCase();
+  const f = FRAZIONI.find((x) => sedeComune(x.comune)?.nome === sedeComune(p.comune)?.nome && testo.includes(x.nome.toLowerCase()));
+  if (f) return { lat: f.lat, lng: f.lng, approssimato: true };
   const s = sedeComune(p.comune);
   return s ? { lat: s.lat, lng: s.lng, approssimato: true } : null;
 }
@@ -73,13 +84,6 @@ export function durata(min: number | null, l: Lingua): string {
 /** Mediana, minimo e massimo dei minuti da un'origine verso i comuni di un'area (sedi municipali). */
 /** Il comune in cui sta l'origine: da Trieste non si misura Trieste (2 minuti), da Udine non Udine (0). */
 const COMUNE_DELL_ORIGINE: Partial<Record<Origine, string>> = { trieste: "032006", udine: "030129" };
-
-/** Le frazioni misurate a parte (07/10/2026): una casa lì prende i tempi della frazione, non del municipio. */
-const FRAZIONI: { chiave: string; nome: string; comune: string; lat: number; lng: number }[] = [
-  { chiave: "F-viaso", nome: "Viaso", comune: "Socchieve", lat: 46.4071596, lng: 12.8479407 },
-  { chiave: "F-scodovacca", nome: "Scodovacca", comune: "Cervignano del Friuli", lat: 45.8217685, lng: 13.3667674 },
-  { chiave: "F-begliano", nome: "Begliano", comune: "San Canzian d'Isonzo", lat: 45.8188384, lng: 13.4656826 },
-];
 
 /** Da dove si misurano i tempi di una casa: la frazione (se il nome è nel titolo o nell'indirizzo, o la casa
  *  sta entro 2 km dal suo centro) o la sede del comune. `luogo` è il nome da scrivere in pagina. */

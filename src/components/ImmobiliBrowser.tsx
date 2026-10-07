@@ -87,7 +87,7 @@ export default function ImmobiliBrowser({
                 {g.label}
               </h2>
               <span className="text-sm text-neutral-400">
-                {t("count", { count: count(g) })}
+                {count(g) === 0 && g.items[0]?.soldBadge ? g.items[0].soldBadge.label : t("count", { count: count(g) })}
               </span>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

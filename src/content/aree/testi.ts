@@ -221,7 +221,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "Eine Gemeinde gehört zu Küste & Lagune, wenn der regionale Landschaftsplan von 2018 den größten Teil ihrer Fläche dem Raum „Lagune und Küste“ zuordnet oder wenn ISTAT sie als Küstengemeinde führt. Zuvor werden jedoch Berge und Karst zugeordnet: Deshalb stehen Duino Aurisina, Muggia und Triest, obwohl am Meer, im Gebiet Triest & Karst. Grenzfälle sind die Orte hinter der Lagune: Latisana, Aquileia, Terzo d'Aquileia und San Canzian d'Isonzo zählen nach Fläche dazu, obwohl ihr Ortskern 7 bis 15 km von der Küste entfernt ist. Ein Haus in diesem Gebiet, das mehr als 4 km von der ISTAT-Küstenlinie entfernt liegt, zeigen wir deshalb unter Hügelland & Ebene.",
+        "Eine Gemeinde gehört zu Küste & Lagune, wenn der regionale Landschaftsplan von 2018 den größten Teil ihrer Fläche dem Raum „Lagune und Küste“ zuordnet oder wenn ISTAT sie als Küstengemeinde führt. Zuvor werden jedoch Bergland und Karst zugeordnet: Deshalb stehen Duino Aurisina, Muggia und Triest, obwohl am Meer, im Gebiet Triest & Karst. Grenzfälle sind die Orte hinter der Lagune: Latisana, Aquileia, Terzo d'Aquileia und San Canzian d'Isonzo zählen nach Fläche dazu, obwohl ihr Ortskern 7 bis 15 km von der Küste entfernt ist. Ein Haus in diesem Gebiet, das mehr als 4 km von der ISTAT-Küstenlinie entfernt liegt, zeigen wir deshalb unter Hügelland & Ebene.",
       senzaCase:
         "Derzeit haben wir im Gebiet Küste & Lagune keine Häuser zum Verkauf. Schreiben Sie uns, was Sie suchen – wir sagen Ihnen offen, ob wir helfen können.",
       faq: [
@@ -375,7 +375,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3 (R5 = il resto); GEO §8 (Gorizia 59/41%, valli del Natisone, Collio, Ronchi 3,6 km); aree.ts
       confine:
-        "Quest'area è ciò che resta dopo le altre tre: un comune è qui se l'ISTAT non lo classifica montagna interna, se il Piano paesaggistico non lo mette nel Carso e se non è né litoraneo né in maggioranza nell'ambito della laguna. I casi limite: Gorizia, che il Piano divide fra alta pianura (59%) e Collio (41%); le valli del Natisone a monte di Cividale, che per l'ISTAT sono montagna e quindi vanno in Montagna; il Collio, che l'ISTAT classifica pianura e il Piano mette fra le colline; Ronchi dei Legionari, l'unico comune di quest'area col centro a meno di 5 km dal mare. Qui mostriamo anche le case dei comuni della costa che stanno a più di 4 km dalla linea di costa.",
+        "Quest'area è ciò che resta dopo le altre tre: un comune è qui se l'ISTAT non lo classifica montagna interna, se il Piano paesaggistico non lo mette nel Carso e se non è né litoraneo né in maggioranza nell'ambito della laguna. I casi limite: Gorizia, che il Piano divide fra alta pianura (59%) e Collio (41%); le valli del Natisone a monte di Cividale, che per l'ISTAT sono montagna (tranne San Pietro al Natisone, collina) e quindi vanno in Montagna; il Collio, che l'ISTAT classifica in gran parte pianura (San Floriano è collina) e il Piano mette fra le colline; Ronchi dei Legionari, l'unico comune di quest'area col centro a meno di 5 km dal mare. Qui mostriamo anche le case dei comuni della costa che stanno a più di 4 km dalla linea di costa.",
       senzaCase:
         "In questo momento non abbiamo case in vendita in Colline e pianura: scriveteci che cosa cercate e in quale zona.",
       faq: [
@@ -449,7 +449,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "This area is what remains once the other three are drawn: a municipality belongs here if ISTAT does not classify it as inland mountain, if the landscape plan does not place it in the Karst, and if it is neither coastal nor mostly within the lagoon zone. The borderline cases: Gorizia, which the plan splits between upper plain (59%) and Collio (41%); the Natisone valleys above Cividale, which ISTAT counts as mountain and which therefore go to Mountains; the Collio, which ISTAT classifies as plain but the plan places among the hills; and Ronchi dei Legionari, the only municipality here whose centre is less than 5 km from the sea. Homes in coastal municipalities that stand more than 4 km from the shoreline are also listed here.",
+        "This area is what remains once the other three are drawn: a municipality belongs here if ISTAT does not classify it as inland mountain, if the landscape plan does not place it in the Karst, and if it is neither coastal nor mostly within the lagoon zone. The borderline cases: Gorizia, which the plan splits between upper plain (59%) and Collio (41%); the Natisone valleys above Cividale, which ISTAT counts as mountain (except San Pietro al Natisone, hill) and which therefore go to Mountains; the Collio, which ISTAT classifies mostly as plain (San Floriano is hill) but the plan places among the hills; and Ronchi dei Legionari, the only municipality here whose centre is less than 5 km from the sea. Homes in coastal municipalities that stand more than 4 km from the shoreline are also listed here.",
       senzaCase:
         "We have no homes for sale in Hills & Plain right now. Tell us what you are looking for, and where.",
       faq: [
@@ -523,7 +523,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "Dieses Gebiet ist, was nach den anderen dreien übrig bleibt: Eine Gemeinde gehört dazu, wenn ISTAT sie nicht als Berggebiet einstuft, der Landschaftsplan sie nicht dem Karst zuordnet und sie weder Küstengemeinde ist noch überwiegend im Raum der Lagune liegt. Die Grenzfälle: Görz, das der Plan zwischen oberer Ebene (59 %) und Collio (41 %) teilt; die Natisone-Täler oberhalb von Cividale, die für ISTAT Berggebiet sind und daher zu den Bergen gehören; der Collio, den ISTAT als Ebene führt, der Plan aber zum Hügelland zählt; und Ronchi dei Legionari, die einzige Gemeinde hier, deren Ortskern weniger als 5 km vom Meer liegt. Häuser in Küstengemeinden, die mehr als 4 km von der Küstenlinie entfernt sind, zeigen wir ebenfalls hier.",
+        "Dieses Gebiet ist, was nach den anderen dreien übrig bleibt: Eine Gemeinde gehört dazu, wenn ISTAT sie nicht als Berggebiet einstuft, der Landschaftsplan sie nicht dem Karst zuordnet und sie weder Küstengemeinde ist noch überwiegend im Raum der Lagune liegt. Die Grenzfälle: Görz, das der Plan zwischen oberer Ebene (59 %) und Collio (41 %) teilt; die Natisone-Täler oberhalb von Cividale, die – bis auf San Pietro al Natisone – für ISTAT Berggebiet sind und daher zum Bergland gehören; der Collio, den ISTAT überwiegend als Ebene führt (San Floriano als Hügelland), der Plan aber zum Hügelland zählt; und Ronchi dei Legionari, die einzige Gemeinde hier, deren Ortskern weniger als 5 km vom Meer liegt. Häuser in Küstengemeinden, die mehr als 4 km von der Küstenlinie entfernt sind, zeigen wir ebenfalls hier.",
       senzaCase:
         "Derzeit haben wir im Gebiet Hügelland & Ebene keine Häuser zum Verkauf. Schreiben Sie uns, was Sie suchen und wo.",
       faq: [
@@ -598,7 +598,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       ],
       // fonte: GEO §3, §8; aree.ts
       confine:
-        "To območje je tisto, kar ostane po drugih treh: občina spada sem, če je ISTAT ne uvršča v notranje gorsko območje, če je krajinski načrt ne uvršča na Kras in če ni niti obalna niti pretežno v območju lagune. Mejni primeri: Gorica, ki jo načrt deli med zgornjo nižino (59 %) in Brda (41 %); Nadiške doline nad Čedadom, ki so za ISTAT gorsko območje in zato spadajo pod Gore; Brda, ki jih ISTAT vodi kot nižino, načrt pa kot gričevje; in Ronke, edina občina tega območja, katere središče je manj kot 5 km od morja. Tukaj prikazujemo tudi hiše iz obalnih občin, ki so od obalne črte oddaljene več kot 4 km.",
+        "To območje je tisto, kar ostane po drugih treh: občina spada sem, če je ISTAT ne uvršča v notranje gorsko območje, če je krajinski načrt ne uvršča na Kras in če ni niti obalna niti pretežno v območju lagune. Mejni primeri: Gorica, ki jo načrt deli med zgornjo nižino (59 %) in Brda (41 %); Nadiške doline nad Čedadom, ki so za ISTAT gorsko območje (razen Špetra, ki je gričevje) in zato spadajo pod Gore; Brda, ki jih ISTAT večinoma vodi kot nižino (Števerjan kot gričevje), načrt pa kot gričevje; in Ronke, edina občina tega območja, katere središče je manj kot 5 km od morja. Tukaj prikazujemo tudi hiše iz obalnih občin, ki so od obalne črte oddaljene več kot 4 km.",
       senzaCase:
         "Trenutno na območju Gričevje in nižina nimamo hiš naprodaj. Pišite nam, kaj iščete in kje.",
       faq: [
@@ -790,11 +790,11 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       titleSeo: "Berge im Friaul: Karnien, Kanaltal, Sappada", // fonte: G2 §3
       descriptionSeo:
         "58 Berggemeinden: Karnien, Kanaltal und Canal del Ferro, Friauler Dolomiten, Sappada, Natisone-Täler. Tarvis liegt rund 45 Minuten von Klagenfurt entfernt.",
-      h1: "Von München aus sind die Berge näher als das Meer", // fonte: G2 §3; T-AREE monaco montagna 278 < costa 313
+      h1: "Bergland: 58 Gemeinden, Tarvis rund 45 Minuten von Klagenfurt", // fonte: G2 §3 (riserva); OSRM Tarvisio←Klagenfurt 45,2′. La frase su München resta l'H1 della home DE
       sottotitolo: "Bergland: 58 Gemeinden zwischen Karnien, Kanaltal, Friauler Dolomiten, Sappada und Julischen Voralpen.",
       intro: [
         // fonte: COMUNI
-        "Zu den Bergen zählen die 58 Gemeinden, die ISTAT, das italienische Statistikamt, als inneres Berggebiet einstuft. Sie bedecken 3.414 km², 43 % der Region, doch hier leben nur 59.833 Menschen, 5 %: rund 18 Einwohner je km² gegenüber 150 im regionalen Schnitt. Zweiundvierzig der 58 Gemeinden haben weniger als tausend Einwohner; die größte ist Tolmezzo mit 9.702.",
+        "Zum Bergland zählen die 58 Gemeinden, die ISTAT, das italienische Statistikamt, als inneres Berggebiet einstuft. Sie bedecken 3.414 km², 43 % der Region, doch hier leben nur 59.833 Menschen, 5 %: rund 18 Einwohner je km² gegenüber 150 im regionalen Schnitt. Zweiundvierzig der 58 Gemeinden haben weniger als tausend Einwohner; die größte ist Tolmezzo mit 9.702.",
         // fonte: COMUNI; G3 §1.2
         "Die Rathäuser liegen zwischen 159 Metern in San Leonardo im Natisone-Tal und 1.242 Metern in Sappada; die Hälfte liegt über etwa 480 Metern. Nach dem Geländemodell von ISTAT befindet sich der höchste Punkt aller Gemeindegebiete in Forni Avoltri, auf 2.752 Metern.",
         // fonte: T-AREE; T-OSRM
@@ -836,10 +836,10 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
       confine:
         "Hier gilt die einfachste Regel: Zum Bergland gehört jede Gemeinde, die ISTAT als inneres Berggebiet einstuft – die nationale Höhenzone –, und diese Regel wird zuerst angewendet. Sie deckt sich mit den alpinen Räumen des Landschaftsplans, also Karnien, Kanaltal-Canal del Ferro-Val Resia und den oberen westlichen Tälern, dazu Sappada und neun Gemeinden der östlichen Täler und des Voralpenrands. Das regionale Berggesetz verwenden wir nicht: Es ist viel weiter gefasst, schließt sogar Aviano, Prepotto, Muggia und Duino Aurisina vollständig ein und dient der Förderung, nicht der Frage, wo ein Haus liegt. Zehn Gemeinden stützen sich nur auf ISTAT: Sappada, das in den Raumblättern des Plans von 2018 fehlt, und die neun der östlichen Täler und des Voralpenrands, die der Plan anderen Räumen zuordnet.",
       senzaCase:
-        "Derzeit haben wir in den Bergen keine Häuser zum Verkauf. Wenn Sie hier suchen, schreiben Sie uns. Für Sappada gibt es außerdem unsere eigene Website sappadavillas.com.",
+        "Derzeit haben wir im Bergland keine Häuser zum Verkauf. Wenn Sie hier suchen, schreiben Sie uns. Für Sappada gibt es außerdem unsere eigene Website sappadavillas.com.",
       faq: [
         {
-          q: "Wie weit sind die Berge von Österreich entfernt?",
+          q: "Wie weit ist das Bergland von Österreich entfernt?",
           // fonte: T-OSRM; T-AREE
           a: "Von Klagenfurt erreicht man ohne Verkehr und Wartezeit Tarvis in rund 45 Minuten, Malborghetto Valbruna in 56. Der Median der 58 Gemeinden liegt bei 1 Std. 46 Min.; am weitesten ist es nach Erto e Casso, 2 Std. 55 Min.",
         },
@@ -854,7 +854,7 @@ export const TESTI_AREE: Record<AreaId, Record<Lingua, TestoArea>> = {
           a: "Berggebiet: Pulfero, San Leonardo, Savogna, Stregna, Grimacco und Drenchia sind für ISTAT inneres Berggebiet. San Pietro al Natisone und Cividale gleich unterhalb sind dagegen Hügelland und gehören zu Hügelland & Ebene.",
         },
         {
-          q: "Wie weit sind die Berge vom Flughafen Venedig entfernt?",
+          q: "Wie weit ist das Bergland vom Flughafen Venedig entfernt?",
           // fonte: T-AREE
           a: "Ohne Verkehr im Median 1 Std. 58 Min. Am nächsten liegt Erto e Casso mit 1 Std. 14 Min., am weitesten Rigolato mit 2 Std. 17 Min.",
         },

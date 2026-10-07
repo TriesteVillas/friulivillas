@@ -67,10 +67,10 @@ export const UI = {
   daDoveEyebrow: { it: "Quanto dista", en: "How far", de: "Wie weit", sl: "Kako daleč" },
   daDoveTitolo: { it: "Da dove partite?", en: "Where are you coming from?", de: "Woher kommen Sie?", sl: "Od kod prihajate?" },
   daDoveNota: {
-    it: "Minuti in auto, senza traffico né attese al confine, verso la sede municipale di ogni comune: per un'area è la mediana dei suoi comuni. Misurati con OSRM il {data}.",
-    en: "Driving minutes, without traffic or border waits, to each municipality's town hall; for an area it is the median of its municipalities. Measured with OSRM on {data}.",
-    de: "Fahrzeit in Minuten, ohne Verkehr und ohne Wartezeit an der Grenze, bis zum Rathaus jeder Gemeinde; für ein Gebiet ist es der Median seiner Gemeinden. Gemessen mit OSRM am {data}.",
-    sl: "Minute vožnje z avtom, brez prometa in čakanja na meji, do sedeža vsake občine; za območje je to mediana njegovih občin. Izmerjeno z OSRM dne {data}.",
+    it: "Minuti in auto, senza traffico né attese al confine, verso la sede municipale di ogni comune (per le nostre case, la frazione dove stanno, quando è misurata a parte): per un'area è la mediana dei suoi comuni, escluso quello di partenza. Misurati con OSRM il {data}.",
+    en: "Driving minutes, without traffic or border waits, to each municipality's town hall (for our homes, their own village when it was measured separately); for an area it is the median of its municipalities, excluding the one you start from. Measured with OSRM on {data}.",
+    de: "Fahrzeit in Minuten, ohne Verkehr und ohne Wartezeit an der Grenze, bis zum Rathaus jeder Gemeinde (bei unseren Häusern bis zum Ortsteil, wenn er eigens gemessen wurde); für ein Gebiet ist es der Median seiner Gemeinden ohne die Ausgangsgemeinde. Gemessen mit OSRM am {data}.",
+    sl: "Minute vožnje z avtom, brez prometa in čakanja na meji, do sedeža vsake občine (za naše hiše do zaselka, kadar je bil izmerjen posebej); za območje je to mediana njegovih občin brez izhodiščne. Izmerjeno z OSRM dne {data}.",
   },
   verso: { it: "verso", en: "to", de: "nach", sl: "do" },
   leNostreCase: { it: "Le nostre case", en: "Our homes", de: "Unsere Häuser", sl: "Naše hiše" },
@@ -140,6 +140,12 @@ export function ui(k: keyof typeof UI, l: Lingua, vars: Record<string, string | 
 
 /** «7 ottobre 2026» nella lingua del lettore. */
 export function dataLunga(iso: string, l: Lingua): string {
+  if (l === "sl") {
+    // In sloveno il mese della data va al genitivo («7. oktobra 2026»), che Intl non dà.
+    const MESI = ["januarja", "februarja", "marca", "aprila", "maja", "junija", "julija", "avgusta", "septembra", "oktobra", "novembra", "decembra"];
+    const [a, m, g] = iso.split("-").map(Number);
+    return `${g}. ${MESI[m - 1]} ${a}`;
+  }
   const loc = { it: "it-IT", en: "en-GB", de: "de-DE", sl: "sl-SI" }[l];
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/Rome" });
 }

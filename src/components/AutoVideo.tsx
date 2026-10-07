@@ -24,10 +24,12 @@ export default function AutoVideo({
   pausa,
 }: Props) {
   const [inPausa, setInPausa] = useState(false);
-  const [sorgente, setSorgente] = useState(src);
+  // Con una versione leggera la sorgente si sceglie nel browser, PRIMA di montarla:
+  // dal server arriva solo il poster, così il telefono non scarica anche il file grande.
+  const [sorgente, setSorgente] = useState<string | null>(srcPiccolo ? null : src);
   useEffect(() => {
-    if (srcPiccolo && window.matchMedia("(max-width: 767px)").matches) setSorgente(srcPiccolo);
-  }, [srcPiccolo]);
+    if (srcPiccolo) setSorgente(window.matchMedia("(max-width: 767px)").matches ? srcPiccolo : src);
+  }, [src, srcPiccolo]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const isInViewportRef = useRef(!lazy);
   const prefersReducedMotionRef = useRef(false);
@@ -134,12 +136,12 @@ export default function AutoVideo({
     };
   }, [lazy, tryPlay]);
 
-  const shouldMountSource = hasEnteredViewport && !prefersReducedMotion;
+  const shouldMountSource = hasEnteredViewport && !prefersReducedMotion && sorgente !== null;
 
   const video = (
     <video
       ref={videoRef}
-      src={shouldMountSource ? sorgente : undefined}
+      src={shouldMountSource ? (sorgente ?? undefined) : undefined}
       poster={poster}
       autoPlay
       muted
@@ -164,7 +166,6 @@ export default function AutoVideo({
           else v.pause();
           setInPausa(!inPausa);
         }}
-        aria-pressed={inPausa}
         className="absolute right-3 top-36 z-10 rounded-full sm:top-40 bg-black/55 px-3 py-1 text-xs font-medium text-white hover:bg-black/70 focus-visible:outline-2 focus-visible:outline-white"
       >
         {inPausa ? `▶ ${pausa.riprendi}` : `❚❚ ${pausa.pausa}`}
