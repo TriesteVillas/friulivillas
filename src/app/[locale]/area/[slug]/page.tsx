@@ -140,7 +140,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
       const pt = puntoDiCasa(p);
       if (!pt) return [];
       const prezzo = p.priceSale && !p.trattativaRiservata ? formatPrice(p.priceSale, locale) : ui("trattativaRiservata", locale);
-      return [{ id: p.id, tipo: p.contratto === "AFFITTO" ? ("affitto" as const) : ("casa" as const), lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}` }];
+      return [{ id: p.slug, tipo: p.contratto === "AFFITTO" ? ("affitto" as const) : ("casa" as const), lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}` }];
     }),
   ];
 

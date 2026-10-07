@@ -87,7 +87,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const pt = puntoDiCasa(p);
     if (!pt) return [];
     const prezzo = p.priceSale && !p.trattativaRiservata ? formatPrice(p.priceSale, locale) : ui("trattativaRiservata", locale);
-    return [{ id: p.id, tipo: "casa" as const, lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}`, approssimato: pt.approssimato }];
+    return [{ id: p.slug, tipo: "casa" as const, lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}`, approssimato: pt.approssimato }];
   });
   const punti = [...puntiCitta(locale), ...puntiGruppo(locale), ...puntiCase];
 
@@ -112,7 +112,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const righeCase = inVendita.flatMap((p) => {
     const s = puntoDeiTempi(p);
     if (!s) return [];
-    return [{ id: p.id, nome: localizedTitle(p, locale), nota: s.luogo, href: `/annuncio/${p.slug}`, minuti: ORIGINI.map((o) => minuti(s.chiave, o)) }];
+    return [{ id: p.slug, nome: localizedTitle(p, locale), nota: s.luogo, href: `/annuncio/${p.slug}`, minuti: ORIGINI.map((o) => minuti(s.chiave, o)) }];
   });
 
   const fmt = (m: number) => (m >= 60 ? `${Math.floor(m / 60)} ${ore} ${String(m % 60).padStart(2, "0")}` : `${m} min`);

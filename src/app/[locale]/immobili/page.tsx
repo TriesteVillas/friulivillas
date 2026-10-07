@@ -66,7 +66,7 @@ export default async function ImmobiliPage({ params }: { params: Promise<{ local
         const pt = puntoDiCasa(p);
         if (!pt) return [];
         const prezzo = p.priceSale && !p.trattativaRiservata ? formatPrice(p.priceSale, locale) : ui("trattativaRiservata", locale);
-        return [{ id: p.id, tipo: "casa" as const, lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}`, approssimato: pt.approssimato }];
+        return [{ id: p.slug, tipo: "casa" as const, lat: pt.lat, lng: pt.lng, etichetta: p.comune ?? localizedTitle(p, locale), nota: prezzo, href: `/annuncio/${p.slug}`, approssimato: pt.approssimato }];
       }),
   ];
 
