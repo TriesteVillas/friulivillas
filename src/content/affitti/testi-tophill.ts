@@ -88,7 +88,7 @@ const IT: TestiPagina = {
       {
         titolo: "La montagna, con calma",
         testo:
-          "Le Dolomiti Friulane, il lago di Sauris e le terme di Arta sono a meno di quaranta minuti d'auto. Si torna a una casa calda, con il camino acceso e un tavolo per tutti.",
+          "Le Dolomiti Friulane, il lago di Sauris e lo Zoncolan sono a meno di quaranta minuti d'auto. Si torna a una casa calda, con il camino acceso e un tavolo per tutti.",
       },
       {
         titolo: "Ritiri e riunioni di lavoro",
@@ -216,7 +216,7 @@ const EN: TestiPagina = {
       {
         titolo: "The mountains, slowly",
         testo:
-          "The Friulian Dolomites, Lake Sauris and the Arta spa are less than forty minutes' drive away. You come back to a warm house, the fire lit and a table for everyone.",
+          "The Friulian Dolomites, Lake Sauris and Monte Zoncolan are less than forty minutes' drive away. You come back to a warm house, the fire lit and a table for everyone.",
       },
       {
         titolo: "Retreats and work meetings",
@@ -344,7 +344,7 @@ const DE: TestiPagina = {
       {
         titolo: "Die Berge, in Ruhe",
         testo:
-          "Die Friauler Dolomiten, der Sauris-See und die Therme von Arta liegen weniger als vierzig Autominuten entfernt. Zurück geht es in ein warmes Haus, mit brennendem Kamin und einem Tisch für alle.",
+          "Die Friauler Dolomiten, der Sauris-See und der Monte Zoncolan liegen weniger als vierzig Autominuten entfernt. Zurück geht es in ein warmes Haus, mit brennendem Kamin und einem Tisch für alle.",
       },
       {
         titolo: "Retreats und Arbeitstreffen",
@@ -472,7 +472,7 @@ const SL: TestiPagina = {
       {
         titolo: "Gore, v miru",
         testo:
-          "Furlanski Dolomiti, jezero Sauris in toplice v Arti so manj kot štirideset minut vožnje stran. Vrnete se v toplo hišo, k prižganemu kaminu in mizi za vse.",
+          "Furlanski Dolomiti, jezero Sauris in Zoncolan so manj kot štirideset minut vožnje stran. Vrnete se v toplo hišo, k prižganemu kaminu in mizi za vse.",
       },
       {
         titolo: "Umiki in delovna srečanja",

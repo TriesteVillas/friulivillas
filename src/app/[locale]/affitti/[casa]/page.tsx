@@ -87,14 +87,38 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
 
   const tutte = FOTO[c.slug];
   const vere = tutte.filter((f) => !f.simulazioneDi);
+  // Il mosaico alterna fuori e dentro (le prime 12 si vedono in pagina, le altre dal «Vedi
+  // tutte»): nell'ordine del manifest gli esterni stanno tutti in testa.
+  const fuori = (f: FotoAffitto) => ["esterno", "veduta", "dettaglio", "territorio"].includes(f.stanza ?? "") || f.ruolo === "notte";
+  const alternate: FotoAffitto[] = [];
+  {
+    const a = vere.filter(fuori);
+    const b = vere.filter((f) => !fuori(f));
+    while (a.length || b.length) {
+      if (a.length) alternate.push(a.shift()!);
+      if (b.length) alternate.push(b.shift()!);
+    }
+  }
   const foto = vere.map((f) => comePhoto(f, L));
-  // «Un giorno lassù»: la copertina di giorno, la sua simulazione al tramonto, la prima notte vera.
+  const anteprima = alternate.map((f) => comePhoto(f, L));
+  // «Un giorno lassù»: la stessa inquadratura in tre luci, se esiste una foto vera con la sua
+  // simulazione al tramonto E quella notturna (lo chalet); altrimenti la copertina, la sua
+  // simulazione al tramonto e la prima notte VERA orizzontale (Top Hill).
   const copertina = vere[0] ?? null;
-  const simulazione = copertina ? tutte.find((f) => f.simulazioneDi === copertina.file) ?? null : null;
-  const notte = vere.find((f) => f.ruolo === "notte") ?? null;
+  const simDi = (file: string, luce: "oro" | "notte") =>
+    tutte.find((f) => f.simulazioneDi === file && f.luceSimulata === luce) ?? null;
+  const terna = vere.find((f) => simDi(f.file, "oro") && simDi(f.file, "notte")) ?? null;
+  const baseGiorno = terna ?? vere.find((f) => simDi(f.file, "oro")) ?? copertina;
+  const simulazione = baseGiorno ? simDi(baseGiorno.file, "oro") : null;
+  const notte = terna
+    ? simDi(terna.file, "notte")
+    : vere.find((f) => f.ruolo === "notte" && f.width > f.height) ?? null;
   const fotoSorella = sorella ? FOTO[sorella.slug].find((f) => !f.simulazioneDi) ?? null : null;
   // Tutte le foto che la pagina mostra entrano nel conteggio del riepilogo AI.
-  const mostrate = [...foto, ...(simulazione ? [comePhoto(simulazione, L)] : [])];
+  const mostrate = [
+    ...foto,
+    ...[simulazione, notte].filter((f): f is FotoAffitto => Boolean(f?.simulazioneDi)).map((f) => comePhoto(f, L)),
+  ];
 
   // Senza video di giorno, la testata parte dalla copertina (foto ferma, poster).
   const giornoFoto =
@@ -112,7 +136,7 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
     .map((v) => ({ testo: v.ai!.etichetta[L], didascalia: v.ai!.didascalia[L] }));
 
   const esperienze = ESPERIENZE.filter((e) => e.case.includes(c.slug));
-  const rosa = ROSA[c.slug].map((p) => ({ ...p, nome: p.nome[L] ?? p.nome.it }));
+  const rosa = ROSA[c.slug].map((p) => ({ ...p, nome: p.nome[L] }));
 
   const sezione = "mx-auto max-w-6xl px-6";
   const eyebrow = "text-[11px] font-semibold uppercase tracking-[0.28em] text-brand";
@@ -197,14 +221,14 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
         </div>
         {foto.length > 0 && (
           <div className="mt-14">
-            <Mosaico foto={foto} {...U.galleria} />
+            <Mosaico foto={foto} anteprima={anteprima} {...U.galleria} />
           </div>
         )}
       </section>
 
-      {copertina && notte && (
+      {baseGiorno && notte && (
         <Ore
-          giorno={comePhoto(copertina, L)}
+          giorno={comePhoto(baseGiorno, L)}
           oro={simulazione ? comePhoto(simulazione, L) : null}
           notte={comePhoto(notte, L)}
           coord={c.coord}
@@ -260,7 +284,7 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
 
       {/* Dov'è */}
       <section className={`${sezione} py-24 sm:py-32`}>
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.4fr] lg:items-center lg:gap-12">
           <div>
             <p className={eyebrow}>{T.dove.eyebrow}</p>
             <h2 className={titolo}>{T.dove.titolo}</h2>

@@ -12,6 +12,8 @@ export type FotoAffitto = {
   stanza: string | null;
   /** per le simulazioni: il file della foto vera da cui nascono */
   simulazioneDi: string | null;
+  /** per le simulazioni: la luce che simulano */
+  luceSimulata: "oro" | "notte" | null;
   url: string;
   thumb: string;
   width: number;

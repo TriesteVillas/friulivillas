@@ -51,11 +51,14 @@ export default function RosaTempi({
   /** nord, est, sud, ovest nella lingua della pagina */
   cardinali: [string, string, string, string];
 }) {
-  const W = 760;
+  const W = 860;
   const C = W / 2;
-  const R = 330;
+  const R = 360;
+  // Un anello vuoto attorno alla casa (R0): i luoghi a dieci minuti non si
+  // schiacciano sul centro, e la scala resta monotona (radice dei minuti).
+  const R0 = 70;
   const max = Math.max(150, ...punti.map((p) => p.minuti));
-  const r = (m: number) => R * Math.sqrt(Math.min(m, max) / max);
+  const r = (m: number) => R0 + (R - R0) * Math.sqrt(Math.min(m, max) / max);
 
   // Posizione e lato dell'etichetta; poi una passata che allontana le etichette
   // che cadono a meno di 30 px l'una dall'altra sullo stesso lato.
@@ -68,10 +71,21 @@ export default function RosaTempi({
       return { ...p, x, y, ly: y, destra: x >= C };
     })
     .sort((a, b) => a.y - b.y);
+  // Etichette: sullo stesso lato, almeno 24 px di distanza verticale fra due
+  // etichette che si sovrapporrebbero in orizzontale (stima della larghezza dal
+  // numero di caratteri).
+  const larghezza = (p: { nome: string; minuti: number }) => (p.nome.length + String(p.minuti).length + 7) * 7.4;
   for (const lato of [true, false]) {
     const gruppo = piazzati.filter((p) => p.destra === lato);
     for (let i = 1; i < gruppo.length; i++) {
-      if (gruppo[i].ly - gruppo[i - 1].ly < 30) gruppo[i].ly = gruppo[i - 1].ly + 30;
+      for (let j = 0; j < i; j++) {
+        const a = gruppo[j];
+        const b = gruppo[i];
+        const ax0 = lato ? a.x + 12 : a.x - 12 - larghezza(a);
+        const bx0 = lato ? b.x + 12 : b.x - 12 - larghezza(b);
+        const sovrapposti = ax0 < bx0 + larghezza(b) && bx0 < ax0 + larghezza(a);
+        if (sovrapposti && Math.abs(b.ly - a.ly) < 24) b.ly = a.ly + 24;
+      }
     }
   }
 
@@ -119,7 +133,7 @@ export default function RosaTempi({
               x={p.x + (p.destra ? 12 : -12)}
               y={p.ly + 4}
               textAnchor={p.destra ? "start" : "end"}
-              fontSize={14}
+              fontSize={15}
               fill="currentColor"
             >
               <tspan fontWeight={600}>{p.nome}</tspan>

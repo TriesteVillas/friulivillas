@@ -52,9 +52,9 @@ const IT: TestiPagina = {
     voci: {
       giorno: "Di giorno il prato, gli steccati, il bosco.",
       oro: "Al tramonto il larice si scalda.",
-      notte: "La notte, le stelle sopra il tetto.",
+      notte: "La sera, le finestre accese.",
     },
-    nota: "Il giorno e la notte sono fotografie vere. Il tramonto è una simulazione creata con l'AI dalla foto di giorno.",
+    nota: "Il giorno è una fotografia vera. Il tramonto e la sera sono simulazioni create con l'AI dalla stessa foto: la casa e il paesaggio non cambiano, cambia solo la luce.",
   },
   modi: {
     eyebrow: "Per chi è",
@@ -186,9 +186,9 @@ const EN: TestiPagina = {
     voci: {
       giorno: "By day the meadow, the fences, the woods.",
       oro: "At sunset the larch warms up.",
-      notte: "At night, the stars above the roof.",
+      notte: "In the evening, the windows lit.",
     },
-    nota: "Day and night are real photographs. The sunset is a simulation created with AI from the daytime photo.",
+    nota: "The day is a real photograph. Sunset and evening are simulations created with AI from the same photo: the house and the landscape do not change, only the light does.",
   },
   modi: {
     eyebrow: "Who it is for",
@@ -316,9 +316,9 @@ const DE: TestiPagina = {
     voci: {
       giorno: "Tagsüber die Wiese, die Zäune, der Wald.",
       oro: "Bei Sonnenuntergang wird die Lärche warm.",
-      notte: "Nachts die Sterne über dem Dach.",
+      notte: "Am Abend die erleuchteten Fenster.",
     },
-    nota: "Tag und Nacht sind echte Fotos. Der Sonnenuntergang ist eine mit KI erzeugte Simulation aus dem Tagesfoto.",
+    nota: "Der Tag ist ein echtes Foto. Sonnenuntergang und Abend sind mit KI erzeugte Simulationen aus demselben Foto: Haus und Landschaft bleiben gleich, nur das Licht ändert sich.",
   },
   modi: {
     eyebrow: "Für wen",
@@ -447,9 +447,9 @@ const SL: TestiPagina = {
     voci: {
       giorno: "Podnevi travnik, ograje, gozd.",
       oro: "Ob sončnem zahodu se macesen ogreje.",
-      notte: "Ponoči zvezde nad streho.",
+      notte: "Zvečer prižgana okna.",
     },
-    nota: "Dan in noč sta pravi fotografiji. Sončni zahod je simulacija, ustvarjena z umetno inteligenco iz dnevne fotografije.",
+    nota: "Dan je prava fotografija. Sončni zahod in večer sta simulaciji, ustvarjeni z umetno inteligenco iz iste fotografije: hiša in pokrajina se ne spremenita, spremeni se le svetloba.",
   },
   modi: {
     eyebrow: "Za koga",
