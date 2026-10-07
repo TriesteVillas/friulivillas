@@ -29,7 +29,7 @@ export default function DaDove({
     const h = Math.floor(m / 60), r = m % 60;
     return h ? `${h} ${etichette.ore} ${String(r).padStart(2, "0")}` : `${r} min`;
   };
-  const riga = (r: RigaTempi, max: number) => {
+  const riga = (r: RigaTempi, max: number, base: number) => {
     const m = r.minuti[o];
     const inner = (
       <>
@@ -40,7 +40,7 @@ export default function DaDove({
         </span>
         <span className="flex items-center gap-3">
           <span className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-neutral-200 sm:block" aria-hidden="true">
-            <span className="block h-full rounded-full bg-brand/70 transition-[width] duration-500" style={{ width: `${m == null ? 0 : Math.max(4, (m / max) * 100)}%` }} />
+            <span className="block h-full rounded-full bg-brand/70 transition-[width] duration-500" style={{ width: `${m == null ? 0 : Math.max(4, ((m - base) / Math.max(1, max - base)) * 100)}%` }} />
           </span>
           <span className="w-20 text-right font-mono text-sm tabular-nums text-brand-dark">{fmt(m)}</span>
         </span>
@@ -58,8 +58,11 @@ export default function DaDove({
       </li>
     );
   };
-  const tutti = [...aree, ...caseRighe].map((r) => r.minuti[o] ?? 0);
+  // La barra va dal 60% del più vicino al più lontano: da Vienna tutto sta fra
+  // 5 e 6 ore, e una barra da zero sarebbe piena per tutti.
+  const tutti = [...aree, ...caseRighe].map((r) => r.minuti[o]).filter((m): m is number => m != null);
   const max = Math.max(1, ...tutti);
+  const base = Math.min(...tutti) * 0.6;
 
   return (
     <div>
@@ -84,12 +87,12 @@ export default function DaDove({
       <div className="mt-6 grid gap-8 md:grid-cols-2" aria-live="polite">
         <div>
           <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">{etichette.aree}</p>
-          <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{aree.map((r) => riga(r, max))}</ul>
+          <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{aree.map((r) => riga(r, max, base))}</ul>
         </div>
         {caseRighe.length ? (
           <div>
             <p className="font-mono text-xs uppercase tracking-wider text-neutral-500">{etichette.case}</p>
-            <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{caseRighe.map((r) => riga(r, max))}</ul>
+            <ul className="mt-2 divide-y divide-neutral-200 border-y border-neutral-200">{caseRighe.map((r) => riga(r, max, base))}</ul>
           </div>
         ) : null}
       </div>

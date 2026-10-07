@@ -29,6 +29,13 @@ export const COLORE_AREA: Record<AreaId, string> = {
   "trieste-carso": "#8a7766",
 };
 
+const POSTO_ETICHETTA: Record<AreaId, [number, number]> = {
+  montagna: [46.47, 12.93],
+  "colline-pianura": [45.97, 12.93],
+  "costa-laguna": [45.59, 13.2],
+  "trieste-carso": [45.6, 13.56],
+};
+
 const TRAMA: Record<AreaId, string> = {
   "costa-laguna": "M0 6 Q3 3 6 6 T12 6",
   "colline-pianura": "M0 12 L12 0",
@@ -47,6 +54,7 @@ export default function CartaFvg({
   titolo,
   className = "",
   priority = false,
+  etichetteCase = false,
 }: {
   locale: Lingua;
   punti?: PuntoCarta[];
@@ -59,6 +67,8 @@ export default function CartaFvg({
   titolo: string;
   className?: string;
   priority?: boolean;
+  /** etichette delle case sempre visibili (carte ritagliate); altrimenti al passaggio o al focus */
+  etichetteCase?: boolean;
 }) {
   const box = ritaglio ? riquadroArea(ritaglio) : { x: 0, y: 0, w: LARGHEZZA, h: ALTEZZA };
   const pct = (v: number, base: number, tot: number) => `${(((v - base) / tot) * 100).toFixed(3)}%`;
@@ -127,7 +137,10 @@ export default function CartaFvg({
           AREE.map((a) => {
             const [cx, cy] = AREE_FORME[a].centro;
             // Trieste e Carso è una striscia: l'etichetta sta sul golfo, non sulla linea.
-            const [x, y] = a === "trieste-carso" ? proietta(45.66, 13.62) : a === "costa-laguna" ? proietta(45.64, 13.22) : [cx, cy];
+            // Posizioni scelte, non il baricentro: quello della montagna cade su
+            // Tolmezzo, quello della pianura su Udine, e le due aree sul mare sono strisce.
+            const [x, y] = proietta(...POSTO_ETICHETTA[a]);
+            void cx; void cy;
             if (x < box.x || x > box.x + box.w || y < box.y || y > box.y + box.h) return null;
             const testo = (
               <>
@@ -165,10 +178,14 @@ export default function CartaFvg({
             ) : (
               <span className="block h-2 w-2 rounded-full bg-ink/70" />
             );
+          // Vicino ai bordi l'etichetta si apre verso l'interno, o esce dalla carta.
+          const fx = (x - box.x) / box.w;
+          const allinea = fx > 0.82 ? "right-0" : fx < 0.12 ? "left-0" : "left-1/2 -translate-x-1/2";
+          const nascosta = (p.tipo === "casa" || p.tipo === "affitto") && !etichetteCase;
           const etichetta = (
             <span
-              className={`pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded bg-white/90 px-1.5 py-0.5 text-[clamp(9px,1.05vw,12px)] leading-tight text-ink shadow-sm ${
-                p.tipo === "casa" || p.tipo === "affitto" ? "carta-punto-etichetta" : ""
+              className={`pointer-events-none absolute top-full mt-1 whitespace-nowrap rounded bg-white/90 px-1.5 py-0.5 text-[clamp(9px,1.05vw,12px)] leading-tight text-ink shadow-sm ${allinea} ${
+                nascosta ? "carta-punto-nascosta" : p.tipo === "casa" || p.tipo === "affitto" ? "carta-punto-etichetta" : ""
               }`}
             >
               <span className={p.tipo === "citta" ? "font-medium" : "font-semibold"}>{p.etichetta}</span>

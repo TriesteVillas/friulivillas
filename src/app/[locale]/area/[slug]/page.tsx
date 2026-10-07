@@ -38,7 +38,7 @@ import { formatPrice } from "@/lib/format";
    Reggono anche con zero case: tempi misurati, comuni, paesaggi, come è
    tracciato il confine, domande vere. Le case si contano dai dati. */
 
-export const dynamicParams = false;
+// dynamicParams resta acceso: uno slug di un’altra lingua deve arrivare alla pagina, che risponde 308 verso quello giusto.
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) => AREE.map((a) => ({ locale, slug: SLUG_AREA[a][locale as Lingua] })));
@@ -193,7 +193,7 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
           <div className="overflow-hidden rounded-2xl border border-brand/15 bg-white">
-            <CartaFvg locale={locale} punti={punti} evidenzia={area} ritaglio={area} titolo={`${ui("cartaTitolo", locale)} — ${nome}`} />
+            <CartaFvg locale={locale} punti={punti} evidenzia={area} ritaglio={area} etichetteCase titolo={`${ui("cartaTitolo", locale)} — ${nome}`} />
           </div>
           <div>
             <dl className="grid grid-cols-2 gap-4">
