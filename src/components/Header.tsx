@@ -1,4 +1,5 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { NAV_SOGGIORNI } from "@/content/affitti/nav";
 import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
 import LocaleSwitcher from "./LocaleSwitcher";
@@ -11,9 +12,12 @@ import SellerCta from "./SellerCta";
 // CTA: acquisition is job #1.
 export default async function Header() {
   const t = await getTranslations("nav");
+  const locale = await getLocale();
 
   const links = [
     { href: "/immobili", label: t("properties") },
+    // I soggiorni (dal 07/10/2026): voce fuori dai dizionari, vedi content/affitti/nav.ts.
+    { href: "/affitti", label: NAV_SOGGIORNI[locale as keyof typeof NAV_SOGGIORNI] ?? NAV_SOGGIORNI.it },
     { href: "/vendi", label: t("sell") },
     { href: "/gruppo", label: t("group") },
   ] as const;

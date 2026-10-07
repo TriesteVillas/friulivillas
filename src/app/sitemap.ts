@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getProperties } from "@/lib/airtable";
 import { routing } from "@/i18n/routing";
 import { absUrl, HREFLANG, localizedPath, SITE_URL } from "@/lib/seo";
+import { CASE } from "@/content/affitti/case";
 
 // I codici hreflang vengono da seo.ts e non sono ricopiati qui: la sitemap e
 // i <link rel="alternate"> delle pagine devono dire la stessa cosa, e con due
@@ -22,7 +23,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // del gemello TriesteImmobiliare che qui non è mai esistita, e la sitemap la
   // dichiarava in tre lingue mentre rispondeva 404. Una pagina si aggiunge qui
   // solo quando esiste in src/app/[locale].
-  const staticPaths = ["/", "/immobili", "/vendi", "/gruppo", "/contatti", "/privacy"];
+  const staticPaths = [
+    "/",
+    "/immobili",
+    "/vendi",
+    "/gruppo",
+    "/contatti",
+    "/privacy",
+    // I soggiorni (07/10/2026): l'indice e una pagina per casa, dal registro.
+    "/affitti",
+    ...CASE.map((c) => `/affitti/${c.slug}`),
+  ];
   const entries: MetadataRoute.Sitemap = [];
 
   // lastModified solo dove esiste una data vera: Google lo usa se è
@@ -35,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${SITE_URL}${localizedPath(locale, path) === "/" ? "" : localizedPath(locale, path)}`,
         changeFrequency: path === "/" || path === "/immobili" ? "daily" : "monthly",
-        priority: path === "/" ? 1 : path === "/vendi" ? 0.9 : path === "/immobili" ? 0.9 : 0.6,
+        priority: path === "/" ? 1 : path === "/vendi" ? 0.9 : path === "/immobili" ? 0.9 : path.startsWith("/affitti") ? 0.8 : 0.6,
         alternates: { languages },
       });
     }

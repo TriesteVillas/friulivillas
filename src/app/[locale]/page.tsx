@@ -17,6 +17,7 @@ import { BrandMark } from "@/components/Logo";
 import BuyerCta from "@/components/BuyerCta";
 import SellerCta from "@/components/SellerCta";
 import { sloveniaVillasStrings } from "@/content/sloveniaVillasStrings";
+import BandaSoggiorni from "@/components/affitti/BandaSoggiorni";
 
 const SELLER_CARDS = ["fast", "zeroFee", "simpleMandate", "marketing"] as const;
 
@@ -205,6 +206,9 @@ export default async function Home({
           <p className="mt-3 max-w-2xl text-neutral-600">{t("featured.empty")}</p>
         </section>
       )}
+
+      {/* ── Soggiorni (07/10/2026): l'affitto, separato dalla vendita ─ */}
+      <BandaSoggiorni locale={locale} />
 
       {/* ── Positioning ───────────────────────────────────────────── */}
       <section className="mx-auto max-w-5xl px-6 py-20">

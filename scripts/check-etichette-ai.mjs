@@ -141,6 +141,9 @@ const HOME = new Set([
   "src/app/[locale]/page.tsx",
   "src/app/[locale]/vendi/page.tsx",
   "src/app/[locale]/contatti/page.tsx",
+  // La banda dei soggiorni in home (07/10/2026): un componente della home, con
+  // le sue regole (solo il segno discreto, nessuna pillola).
+  "src/components/affitti/BandaSoggiorni.tsx",
 ]);
 // I componenti che la home può usare anche se nel loro sorgente c'è una pillola:
 // uno per uno, col perché.

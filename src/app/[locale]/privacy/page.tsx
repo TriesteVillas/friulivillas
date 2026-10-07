@@ -12,7 +12,7 @@ const CONTROLLER =
 const CONTENT: Record<string, Content> = {
   it: {
     title: "Informativa sulla Privacy",
-    updated: "Ultimo aggiornamento: giugno 2026",
+    updated: "Ultimo aggiornamento: ottobre 2026",
     intro:
       "La presente informativa descrive come FriuliVillas (marchio di TriesteVillas srl) tratta i dati personali raccolti tramite questo sito, ai sensi del Regolamento (UE) 2016/679 (GDPR).",
     sections: [
@@ -35,7 +35,7 @@ const CONTENT: Record<string, Content> = {
       },
       {
         h: "6. Destinatari e responsabili",
-        p: "I dati possono essere trattati da nostri collaboratori autorizzati e da fornitori che agiscono come responsabili del trattamento per i servizi tecnici del sito (in particolare Airtable per la gestione dei contatti, Vercel per l'hosting e un provider di posta per l'invio delle email). I dati non sono diffusi.",
+        p: "I dati possono essere trattati da nostri collaboratori autorizzati e da fornitori che agiscono come responsabili del trattamento per i servizi tecnici del sito (in particolare Airtable per la gestione dei contatti, Vercel per l'hosting e un provider di posta per l'invio delle email). Le richieste di preventivo per i soggiorni nelle case in affitto presentate sul sito possono essere comunicate al proprietario o al gestore della casa interessata, che le tratta come titolare autonomo per rispondere e, se si arriva a un accordo, per il contratto di soggiorno. I dati non sono diffusi.",
       },
       {
         h: "7. Trasferimenti extra-UE",
@@ -61,7 +61,7 @@ const CONTENT: Record<string, Content> = {
   },
   en: {
     title: "Privacy Policy",
-    updated: "Last updated: June 2026",
+    updated: "Last updated: October 2026",
     intro:
       "This policy explains how FriuliVillas (a TriesteVillas srl brand) processes the personal data collected through this website, under Regulation (EU) 2016/679 (GDPR).",
     sections: [
@@ -84,7 +84,7 @@ const CONTENT: Record<string, Content> = {
       },
       {
         h: "6. Recipients and processors",
-        p: "Data may be handled by our authorised staff and by suppliers acting as data processors for the site's technical services (notably Airtable for contact management, Vercel for hosting and an email provider for sending emails). Data is not disseminated.",
+        p: "Data may be handled by our authorised staff and by suppliers acting as data processors for the site's technical services (notably Airtable for contact management, Vercel for hosting and an email provider for sending emails). Quote requests for stays in the rental houses presented on the site may be passed on to the owner or manager of the house concerned, who handles them as an independent controller in order to reply and, if an agreement is reached, for the rental contract. Data is not disseminated.",
       },
       {
         h: "7. Non-EU transfers",
@@ -110,7 +110,7 @@ const CONTENT: Record<string, Content> = {
   },
   de: {
     title: "Datenschutzerklärung",
-    updated: "Zuletzt aktualisiert: Juni 2026",
+    updated: "Zuletzt aktualisiert: Oktober 2026",
     intro:
       "Diese Erklärung beschreibt, wie FriuliVillas (eine Marke der TriesteVillas srl) die über diese Website erhobenen personenbezogenen Daten gemäß der Verordnung (EU) 2016/679 (DSGVO) verarbeitet.",
     sections: [
@@ -133,7 +133,7 @@ const CONTENT: Record<string, Content> = {
       },
       {
         h: "6. Empfänger und Auftragsverarbeiter",
-        p: "Die Daten können von autorisierten Mitarbeitern und von Dienstleistern als Auftragsverarbeiter für die technischen Dienste der Website verarbeitet werden (insbesondere Airtable für die Kontaktverwaltung, Vercel für das Hosting und ein E-Mail-Anbieter für den Versand). Die Daten werden nicht verbreitet.",
+        p: "Die Daten können von autorisierten Mitarbeitern und von Dienstleistern als Auftragsverarbeiter für die technischen Dienste der Website verarbeitet werden (insbesondere Airtable für die Kontaktverwaltung, Vercel für das Hosting und ein E-Mail-Anbieter für den Versand). Angebotsanfragen für Aufenthalte in den auf der Website vorgestellten Ferienhäusern können an den Eigentümer oder Verwalter des betreffenden Hauses weitergegeben werden, der sie als eigenständiger Verantwortlicher verarbeitet, um zu antworten und, falls es zu einer Einigung kommt, für den Mietvertrag. Die Daten werden nicht verbreitet.",
       },
       {
         h: "7. Übermittlung außerhalb der EU",
@@ -163,7 +163,7 @@ const CONTENT: Record<string, Content> = {
   // da far rileggere a un madrelingua, come quello di TSV.
   sl: {
     title: "Obvestilo o zasebnosti",
-    updated: "Zadnja posodobitev: junij 2026",
+    updated: "Zadnja posodobitev: oktober 2026",
     intro:
       "To obvestilo opisuje, kako FriuliVillas (blagovna znamka družbe TriesteVillas srl) obdeluje osebne podatke, zbrane prek te spletne strani, v skladu z Uredbo (EU) 2016/679 (GDPR).",
     sections: [
@@ -186,7 +186,7 @@ const CONTENT: Record<string, Content> = {
       },
       {
         h: "6. Prejemniki in obdelovalci",
-        p: "Podatke lahko obdelujejo naši pooblaščeni sodelavci in ponudniki, ki kot obdelovalci skrbijo za tehnične storitve spletne strani (zlasti Airtable za upravljanje stikov, Vercel za gostovanje in ponudnik e-pošte za pošiljanje sporočil). Podatkov ne objavljamo.",
+        p: "Podatke lahko obdelujejo naši pooblaščeni sodelavci in ponudniki, ki kot obdelovalci skrbijo za tehnične storitve spletne strani (zlasti Airtable za upravljanje stikov, Vercel za gostovanje in ponudnik e-pošte za pošiljanje sporočil). Povpraševanja za bivanje v počitniških hišah, predstavljenih na spletni strani, lahko posredujemo lastniku ali upravljavcu zadevne hiše, ki jih obdeluje kot samostojni upravljavec, da odgovori in, če pride do dogovora, za pogodbo o bivanju. Podatkov ne objavljamo.",
       },
       {
         h: "7. Prenosi zunaj EU",
