@@ -6,7 +6,9 @@ import { videoAnnuncio, type VideoAnnuncio } from "../content/annunciVideo";
 // (returnFieldsByFieldId=true) and the dev seed.
 export const F = {
   id: "fldR3kYOEvMTn7qKA",
-  internalName: "fldv1buS8yk2NZKOZ",
+  // internal_name NON si chiede più (07/10/2026): non serviva a nessuna pagina e
+  // finiva comunque nella cache del server. Può portare il cognome di chi vende
+  // (regola del 25/08): quello che non si legge non può uscire.
   publicName: "fldcGog8cRFRjZIrI",
   contratto: "fld8sD96k6YChA8pA",
   cluster: "fldcdPH8aCWSfvFlD",

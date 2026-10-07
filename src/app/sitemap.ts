@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getProperties } from "@/lib/airtable";
 import { routing } from "@/i18n/routing";
 import { absUrl, HREFLANG, localizedPath, SITE_URL } from "@/lib/seo";
+import { AREE, SLUG_AREA, type Lingua } from "@/lib/aree";
 
 // I codici hreflang vengono da seo.ts e non sono ricopiati qui: la sitemap e
 // i <link rel="alternate"> delle pagine devono dire la stessa cosa, e con due
@@ -36,6 +37,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         url: `${SITE_URL}${localizedPath(locale, path) === "/" ? "" : localizedPath(locale, path)}`,
         changeFrequency: path === "/" || path === "/immobili" ? "daily" : "monthly",
         priority: path === "/" ? 1 : path === "/vendi" ? 0.9 : path === "/immobili" ? 0.9 : 0.6,
+        alternates: { languages },
+      });
+    }
+  }
+
+  // Le pagine d'area (07/10/2026): lo slug cambia con la lingua, quindi gli
+  // alternates si costruiscono da SLUG_AREA e non sostituendo il prefisso.
+  for (const a of AREE) {
+    const languages: Record<string, string> = {};
+    for (const l of routing.locales) languages[HREFLANG[l]] = absUrl(l, `/area/${SLUG_AREA[a][l as Lingua]}`);
+    languages["x-default"] = absUrl("it", `/area/${SLUG_AREA[a].it}`);
+    for (const locale of routing.locales) {
+      entries.push({
+        url: absUrl(locale, `/area/${SLUG_AREA[a][locale as Lingua]}`),
+        changeFrequency: "weekly",
+        priority: 0.8,
         alternates: { languages },
       });
     }

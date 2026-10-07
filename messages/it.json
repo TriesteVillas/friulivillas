@@ -10,6 +10,7 @@
   "nav": {
     "home": "Home",
     "properties": "Immobili",
+    "areas": "Aree",
     "sell": "Vendi",
     "group": "Il Gruppo",
     "contact": "Contatti",
@@ -21,7 +22,7 @@
   "seo": {
     "home": {
       "title": "FriuliVillas — Ville e proprietà in Friuli Venezia Giulia",
-      "description": "Il marchio del gruppo TriesteVillas per il Friuli Venezia Giulia: ville e proprietà selezionate a Grado, Udine, Tarvisio, Lignano, Sappada.",
+      "description": "Il marchio del gruppo TriesteVillas per il Friuli Venezia Giulia: case in vendita sulla costa e in laguna, fra colline e pianura, in montagna e sul Carso, su una carta che spiega il territorio.",
       "ogTitle": "FriuliVillas — il Friuli Venezia Giulia, letto con metodo",
       "ogDescription": "Brand diversi, una regia sola. Il know-how costruito su Trieste, applicato al resto della regione."
     },
@@ -77,7 +78,7 @@
       "online": "Otto marchi, una regia",
       "mandate": "Valutazione riservata",
       "fee": "Italiano · English · Deutsch",
-      "promoNote": "Grado, Udine, Tarvisio, Lignano, Sappada — e tutto ciò che sta in mezzo."
+      "promoNote": "Costa e laguna, colline e pianura, montagna, Trieste e Carso."
     },
     "positioning": {
       "eyebrow": "Chi siamo",
@@ -449,7 +450,7 @@
       },
       "today": {
         "title": "Un gruppo, ruoli chiari",
-        "text": "FriuliVillas è l'estensione territoriale di quel know-how al resto della regione: Grado, Udine, Tarvisio, Lignano, Sappada. Stessa regia, perimetro diverso."
+        "text": "FriuliVillas è l'estensione territoriale di quel know-how al resto della regione: costa e laguna, colline e pianura, montagna, Trieste e Carso. Stessa regia, perimetro diverso."
       }
     },
     "valuesTitle": "Una stessa cultura del lavoro",
@@ -513,7 +514,7 @@
       "friuli": {
         "name": "FriuliVillas",
         "tag": "Premium nel resto del FVG",
-        "desc": "Immobili premium nel resto del Friuli-Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. L'estensione territoriale del know-how sviluppato su Trieste."
+        "desc": "Immobili premium nel resto del Friuli-Venezia Giulia: costa e laguna, colline e pianura, montagna, Trieste e Carso. L'estensione territoriale del know-how sviluppato su Trieste."
       },
       "business": {
         "name": "TriesteBusiness",
@@ -702,7 +703,7 @@
     "errorContact": "Lasciaci almeno un'email o un telefono per ricontattarti."
   },
   "footer": {
-    "tagline": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia. Grado, Udine, Tarvisio, Lignano, Sappada.",
+    "tagline": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia. Costa e laguna, colline e pianura, montagna, Trieste e Carso.",
     "rights": "Tutti i diritti riservati.",
     "poweredBy": "Powered by TriesteVillas",
     "sitemapTitle": "Mappa del sito",
@@ -714,7 +715,7 @@
   },
   "meta": {
     "title": "FriuliVillas — Ville e proprietà selezionate in Friuli Venezia Giulia",
-    "description": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. Comprare, vendere, mettere a reddito."
+    "description": "Il marchio del gruppo TriesteVillas dedicato al Friuli Venezia Giulia: costa e laguna, colline e pianura, montagna, Trieste e Carso. Comprare, vendere, mettere a reddito."
   },
   "ui": {
     "prev": "Precedente",

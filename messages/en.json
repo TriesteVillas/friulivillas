@@ -10,6 +10,7 @@
   "nav": {
     "home": "Home",
     "properties": "Properties",
+    "areas": "Areas",
     "sell": "Sell",
     "group": "The Group",
     "contact": "Contact",
@@ -21,7 +22,7 @@
   "seo": {
     "home": {
       "title": "FriuliVillas — Villas and property in Friuli Venezia Giulia",
-      "description": "The TriesteVillas group's brand for Friuli Venezia Giulia: selected villas and property in Grado, Udine, Tarvisio, Lignano, Sappada.",
+      "description": "The TriesteVillas group's brand for Friuli Venezia Giulia: homes for sale on the coast and lagoon, across the hills and plain, in the mountains and on the Karst, on a map that explains the region.",
       "ogTitle": "FriuliVillas — Friuli Venezia Giulia, read properly",
       "ogDescription": "Separate brands, a single direction. The know-how built in Trieste, applied to the rest of the region."
     },
@@ -77,7 +78,7 @@
       "online": "Eight brands, one direction",
       "mandate": "Confidential valuation",
       "fee": "Italiano · English · Deutsch",
-      "promoNote": "Grado, Udine, Tarvisio, Lignano, Sappada — and everything in between."
+      "promoNote": "Coast & lagoon, hills & plain, mountains, Trieste & the Karst."
     },
     "positioning": {
       "eyebrow": "Who we are",
@@ -449,7 +450,7 @@
       },
       "today": {
         "title": "One group, clear roles",
-        "text": "FriuliVillas is the territorial extension of that know-how to the rest of the region: Grado, Udine, Tarvisio, Lignano, Sappada. Same direction, different perimeter."
+        "text": "FriuliVillas is the territorial extension of that know-how to the rest of the region: coast and lagoon, hills and plain, mountains, Trieste and the Karst. Same direction, different perimeter."
       }
     },
     "valuesTitle": "One working culture",
@@ -513,7 +514,7 @@
       "friuli": {
         "name": "FriuliVillas",
         "tag": "Premium across the rest of FVG",
-        "desc": "Premium property across the rest of Friuli Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. The territorial extension of the know-how built in Trieste."
+        "desc": "Premium property across the rest of Friuli Venezia Giulia: coast and lagoon, hills and plain, mountains, Trieste and the Karst. The territorial extension of the know-how built in Trieste."
       },
       "business": {
         "name": "TriesteBusiness",
@@ -702,7 +703,7 @@
     "errorContact": "Leave at least an email or phone so we can reach you."
   },
   "footer": {
-    "tagline": "The TriesteVillas group's brand for Friuli Venezia Giulia. Grado, Udine, Tarvisio, Lignano, Sappada.",
+    "tagline": "The TriesteVillas group's brand for Friuli Venezia Giulia. Coast and lagoon, hills and plain, mountains, Trieste and the Karst.",
     "rights": "All rights reserved.",
     "poweredBy": "Powered by TriesteVillas",
     "sitemapTitle": "Sitemap",
@@ -714,7 +715,7 @@
   },
   "meta": {
     "title": "FriuliVillas — Selected villas and property in Friuli Venezia Giulia",
-    "description": "The TriesteVillas group's brand for Friuli Venezia Giulia: Grado, Udine, Tarvisio, Lignano, Sappada. Buying, selling, putting to income."
+    "description": "The TriesteVillas group's brand for Friuli Venezia Giulia: coast and lagoon, hills and plain, mountains, Trieste and the Karst. Buying, selling, putting to income."
   },
   "ui": {
     "prev": "Previous",

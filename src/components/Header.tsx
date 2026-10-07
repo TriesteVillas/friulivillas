@@ -14,6 +14,8 @@ export default async function Header() {
 
   const links = [
     { href: "/immobili", label: t("properties") },
+    // 07/10/2026: le quattro aree stanno nella home, sotto la carta (non c'è un indice a parte).
+    { href: "/#aree", label: t("areas") },
     { href: "/vendi", label: t("sell") },
     { href: "/gruppo", label: t("group") },
   ] as const;
