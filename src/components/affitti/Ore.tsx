@@ -71,7 +71,7 @@ export default function Ore({
         {strato(notte, { opacity: "clamp(0, calc((var(--p) - 0.62) * 6), 1)" })}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(11,21,18,0.78)_0%,rgba(11,21,18,0.35)_45%,rgba(11,21,18,0)_75%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(11,21,18,0.55)_0%,rgba(11,21,18,0.5)_45%,rgba(11,21,18,0.85)_100%)] sm:bg-[linear-gradient(90deg,rgba(11,21,18,0.78)_0%,rgba(11,21,18,0.35)_45%,rgba(11,21,18,0)_75%)]"
         />
         <div className="relative z-[2] mx-auto flex h-full max-w-6xl flex-col justify-center px-6">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sand">{testi.eyebrow}</p>

@@ -93,7 +93,7 @@ const IT: TestiPagina = {
       {
         titolo: "Ritiri e riunioni di lavoro",
         testo:
-          "Una casa intera per una squadra: il tavolo da dodici per lavorare, una camera per dormire ciascuno, una palestra per staccare. Su richiesta si organizzano il cuoco in casa e le uscite con una guida.",
+          "Una casa intera per una squadra: il tavolo da dodici per lavorare, una camera per dormire ciascuno, una palestra per staccare. Su richiesta si organizzano il cuoco in casa e le uscite con una guida; a due chilometri, a Socchieve, c'è un coworking comunale con sala riunioni.",
       },
       {
         titolo: "Famiglie e amici",
@@ -221,7 +221,7 @@ const EN: TestiPagina = {
       {
         titolo: "Retreats and work meetings",
         testo:
-          "A whole house for one team: the table for twelve to work at, a bedroom each to sleep in, a gym to switch off. A chef in the house and outings with a guide can be arranged on request.",
+          "A whole house for one team: the table for twelve to work at, a bedroom each to sleep in, a gym to switch off. A chef in the house and outings with a guide can be arranged on request; two kilometres away, in Socchieve, there is a municipal coworking space with a meeting room.",
       },
       {
         titolo: "Families and friends",
@@ -349,7 +349,7 @@ const DE: TestiPagina = {
       {
         titolo: "Retreats und Arbeitstreffen",
         testo:
-          "Ein ganzes Haus für ein Team: der Tisch für zwölf zum Arbeiten, ein Zimmer für jeden zum Schlafen, ein Fitnessraum zum Abschalten. Auf Anfrage lassen sich ein Koch im Haus und Ausflüge mit Führer organisieren.",
+          "Ein ganzes Haus für ein Team: der Tisch für zwölf zum Arbeiten, ein Zimmer für jeden zum Schlafen, ein Fitnessraum zum Abschalten. Auf Anfrage lassen sich ein Koch im Haus und Ausflüge mit Führer organisieren; zwei Kilometer entfernt, in Socchieve, gibt es einen kommunalen Coworking-Raum mit Besprechungssaal.",
       },
       {
         titolo: "Familien und Freunde",
@@ -477,7 +477,7 @@ const SL: TestiPagina = {
       {
         titolo: "Umiki in delovna srečanja",
         testo:
-          "Cela hiša za ekipo: miza za dvanajst za delo, za vsakogar svoja soba, fitnes za sprostitev. Na zahtevo se organizirata kuhar v hiši in izleti z vodnikom.",
+          "Cela hiša za ekipo: miza za dvanajst za delo, za vsakogar svoja soba, fitnes za sprostitev. Na zahtevo se organizirata kuhar v hiši in izleti z vodnikom; dva kilometra stran, v Socchieveju, je občinski coworking s sejno sobo.",
       },
       {
         titolo: "Družine in prijatelji",

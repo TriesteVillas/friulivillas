@@ -95,3 +95,16 @@ export function oraRoma(d: Date, locale: string): string {
     hourCycle: "h23",
   }).format(arrotondata);
 }
+
+/**
+ * La frazione illuminata della luna (0-1), dall'età del ciclo sinodico a partire
+ * da una luna nuova di riferimento (6/1/2000 18:14 UTC). Approssimazione media:
+ * qualche punto percentuale, che per dire «luna al 40%» basta (collaudata
+ * contro l'USNO il 07/10/2026).
+ */
+export function lunaIlluminata(quando: Date): number {
+  const SINODICO = 29.530588853;
+  const giorni = (quando.getTime() - Date.UTC(2000, 0, 6, 18, 14)) / 86_400_000;
+  const eta = ((giorni % SINODICO) + SINODICO) % SINODICO;
+  return (1 - Math.cos((2 * Math.PI * eta) / SINODICO)) / 2;
+}

@@ -53,7 +53,7 @@ export default function Mosaico({
 
   return (
     <div id={idAncora} className="scroll-mt-28">
-      <ul aria-label={etichetta} className="columns-1 gap-3 sm:columns-2 lg:columns-3 [&>li]:mb-3">
+      <ul aria-label={etichetta} className="columns-2 gap-2 sm:gap-3 lg:columns-3 [&>li]:mb-2 sm:[&>li]:mb-3">
         {mostrate.map((p) => (
           <li key={p.url} className="break-inside-avoid" data-reveal>
             <button
@@ -65,7 +65,7 @@ export default function Mosaico({
               <PhotoImg
                 src={p.thumb}
                 srcSet={`${p.thumb} 960w, ${p.url} 1920w`}
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                sizes="(max-width: 1024px) 50vw, 33vw"
                 alt={p.alt}
                 className="object-cover transition-transform duration-[1200ms] ease-[var(--ease-lux)] group-hover:scale-[1.04]"
               />

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import EtichettaVideo from "@/components/EtichettaVideo";
 import type { EtichettaVideoDati } from "@/lib/videoAi";
-import { albaTramonto, altezzaSole, luceDa, oraRoma, type Luce } from "@/lib/affitti/sole";
+import { albaTramonto, altezzaSole, lunaIlluminata, luceDa, oraRoma, type Luce } from "@/lib/affitti/sole";
 
 // La testata dei soggiorni: la casa con la LUCE CHE C'È ADESSO sopra di lei.
 // Di giorno il volo vero del drone; all'ora d'oro e di notte i video della
@@ -34,8 +34,8 @@ export type TestiTestata = {
   cta2: string;
   /** «Giorno», «Tramonto», «Notte» */
   luci: Record<Luce, string>;
-  /** frase della luce vera: {luce} è il nome della luce, {ora} l'ora */
-  adesso: Record<Luce, string>;
+  /** frase della luce vera: {ora} è l'ora del prossimo passaggio, {luna} la luna in % (di notte) */
+  adesso: Record<Luce, string> & { notteBuio: string };
   tornaVera: string;
   scegliLuce: string;
   pausa: string;
@@ -94,7 +94,10 @@ export default function Testata({
         : primaAlba
           ? alba
           : tramonto;
-      setRiga(prossima ? testi.adesso[l].replace("{ora}", oraRoma(prossima, locale)) : "");
+      // Di notte anche la luna: quanta ce n'è adesso (sotto il 4% è una notte senza luna).
+      const luna = Math.round(lunaIlluminata(ora) * 100);
+      const frase = l === "notte" && luna < 4 ? testi.adesso.notteBuio : testi.adesso[l];
+      setRiga(prossima ? frase.replace("{ora}", oraRoma(prossima, locale)).replace("{luna}", String(luna)) : "");
     };
     aggiorna();
     const id = window.setInterval(aggiorna, 60_000);
@@ -160,7 +163,7 @@ export default function Testata({
       {/* Il velo: il testo bianco regge su qualunque fotogramma (anche un cielo bianco). */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(11,21,18,0.55)_0%,rgba(11,21,18,0.05)_30%,rgba(11,21,18,0.15)_55%,rgba(11,21,18,0.88)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[linear-gradient(180deg,rgba(11,21,18,0.55)_0%,rgba(11,21,18,0.05)_26%,rgba(11,21,18,0.45)_52%,rgba(11,21,18,0.92)_100%)] sm:bg-[linear-gradient(180deg,rgba(11,21,18,0.55)_0%,rgba(11,21,18,0.05)_30%,rgba(11,21,18,0.2)_55%,rgba(11,21,18,0.88)_100%)]"
       />
 
       <div className="relative z-[2] mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-16 sm:pb-20">

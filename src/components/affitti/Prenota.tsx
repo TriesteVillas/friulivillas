@@ -187,6 +187,11 @@ export default function Prenota({ casa, nomeCasa, sorella, ospitiMax, servizi, e
     return new Intl.DateTimeFormat(BCP[locale], { day: "numeric", month: "short", timeZone: "UTC" }).format(new Date(Date.UTC(a, m - 1, g)));
   };
 
+  const dataConAnno = (iso: string) => {
+    const [a, m, g] = iso.split("-").map(Number);
+    return new Intl.DateTimeFormat(BCP[locale], { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(a, m - 1, g)));
+  };
+
   const nNotti = arrivo && partenza ? giorniFra(arrivo, partenza) : 0;
 
   const invia = async (e: React.FormEvent) => {
@@ -362,7 +367,7 @@ export default function Prenota({ casa, nomeCasa, sorella, ospitiMax, servizi, e
                   {testi.aggiornato
                     .replace("{ora}", new Intl.DateTimeFormat(BCP[locale], { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Rome" }).format(new Date(cal.aggiornataAlle)))
                     .replace("{data}", new Intl.DateTimeFormat(BCP[locale], { day: "numeric", month: "long", timeZone: "Europe/Rome" }).format(new Date(cal.aggiornataAlle)))}
-                  {cal.orizzonte ? ` ${testi.oltreOrizzonte.replace("{data}", dataBreve(cal.orizzonte))}` : ""}
+                  {cal.orizzonte ? ` ${testi.oltreOrizzonte.replace("{data}", dataConAnno(cal.orizzonte))}` : ""}
                 </p>
               )}
             </div>

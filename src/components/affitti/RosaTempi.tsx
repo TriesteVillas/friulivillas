@@ -89,13 +89,24 @@ export default function RosaTempi({
     }
   }
 
+  const inOrdine = [...punti].sort((a, b) => a.minuti - b.minuti);
   return (
     <figure className="mx-auto w-full max-w-3xl" data-reveal="scale">
+      {/* Sul telefono la rosa non si leggerebbe: lo stesso dato come nastro dei tempi. */}
+      <ol className="space-y-2 sm:hidden" aria-label={titolo}>
+        {inOrdine.map((p) => (
+          <li key={p.nome} className="flex items-center gap-3 text-sm">
+            <span className="w-16 shrink-0 text-right font-semibold tabular-nums text-ink">{minuti(p.minuti)}</span>
+            <span className="h-1.5 rounded-full bg-sand" style={{ width: `${Math.max(6, Math.round((p.minuti / Math.max(150, inOrdine[inOrdine.length - 1].minuti)) * 45))}%` }} />
+            <span className="min-w-0 text-neutral-800">{p.nome}</span>
+          </li>
+        ))}
+      </ol>
       <svg
         viewBox={`0 0 ${W} ${W}`}
         role="img"
         aria-labelledby="rosa-titolo rosa-legenda"
-        className="h-auto w-full overflow-visible text-ink"
+        className="hidden h-auto w-full overflow-visible text-ink sm:block"
       >
         <title id="rosa-titolo">{titolo}</title>
         <desc id="rosa-legenda">

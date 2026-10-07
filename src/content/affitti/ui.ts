@@ -9,7 +9,7 @@ import type { Lingua } from "./case";
 type Ui = {
   testata: {
     luci: { giorno: string; oro: string; notte: string };
-    adesso: { giorno: string; oro: string; notte: string };
+    adesso: { giorno: string; oro: string; notte: string; notteBuio: string };
     tornaVera: string;
     scegliLuce: string;
     pausa: string;
@@ -42,7 +42,8 @@ const IT: Ui = {
     adesso: {
       giorno: "Adesso lassù è giorno. Il sole tramonta alle {ora}.",
       oro: "Adesso lassù è l'ora d'oro. Tramonto alle {ora}.",
-      notte: "Adesso lassù è notte. Il sole torna alle {ora}.",
+      notte: "Adesso lassù è notte, con la luna al {luna}%. Il sole torna alle {ora}.",
+      notteBuio: "Adesso lassù è notte senza luna: il buio delle stelle. Il sole torna alle {ora}.",
     },
     tornaVera: "Torna alla luce di adesso",
     scegliLuce: "Scegli la luce",
@@ -148,7 +149,8 @@ const EN: Ui = {
     adesso: {
       giorno: "Up there it is daytime right now. The sun sets at {ora}.",
       oro: "Up there it is golden hour right now. Sunset at {ora}.",
-      notte: "Up there it is night right now. The sun is back at {ora}.",
+      notte: "Up there it is night right now, with the moon {luna}% full. The sun is back at {ora}.",
+      notteBuio: "Up there it is a moonless night right now: the dark of the stars. The sun is back at {ora}.",
     },
     tornaVera: "Back to the light of now",
     scegliLuce: "Choose the light",
@@ -249,7 +251,8 @@ const DE: Ui = {
     adesso: {
       giorno: "Dort oben ist es gerade Tag. Die Sonne geht um {ora} unter.",
       oro: "Dort oben ist gerade die goldene Stunde. Sonnenuntergang um {ora}.",
-      notte: "Dort oben ist es gerade Nacht. Die Sonne kommt um {ora} zurück.",
+      notte: "Dort oben ist es gerade Nacht, der Mond ist zu {luna} % beleuchtet. Die Sonne kommt um {ora} zurück.",
+      notteBuio: "Dort oben ist es gerade eine mondlose Nacht: das Dunkel der Sterne. Die Sonne kommt um {ora} zurück.",
     },
     tornaVera: "Zurück zum Licht von jetzt",
     scegliLuce: "Licht wählen",
@@ -350,7 +353,8 @@ const SL: Ui = {
     adesso: {
       giorno: "Tam zgoraj je zdaj dan. Sonce zaide ob {ora}.",
       oro: "Tam zgoraj je zdaj zlata ura. Sončni zahod ob {ora}.",
-      notte: "Tam zgoraj je zdaj noč. Sonce se vrne ob {ora}.",
+      notte: "Tam zgoraj je zdaj noč, luna je osvetljena {luna} %. Sonce se vrne ob {ora}.",
+      notteBuio: "Tam zgoraj je zdaj noč brez lune: tema zvezd. Sonce se vrne ob {ora}.",
     },
     tornaVera: "Nazaj na svetlobo zdaj",
     scegliLuce: "Izberite svetlobo",
