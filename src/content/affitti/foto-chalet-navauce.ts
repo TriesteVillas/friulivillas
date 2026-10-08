@@ -30,8 +30,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/02_chalet-pendio-monti-33bf6aa1-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/02_chalet-pendio-monti-33bf6aa1-960.webp",
+  "url": "/media/affitti/chalet-navauce/02_chalet-pendio-monti-2b5f4dd1-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/02_chalet-pendio-monti-2b5f4dd1-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -46,8 +46,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/02_chalet-pendio-monti-33bf6aa1-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/02_chalet-pendio-monti-33bf6aa1-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/02_chalet-pendio-monti-2b5f4dd1-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/02_chalet-pendio-monti-2b5f4dd1-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -92,8 +92,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/04_chalet-pannelli-terrazza-655ace28-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/04_chalet-pannelli-terrazza-655ace28-960.webp",
+  "url": "/media/affitti/chalet-navauce/04_chalet-pannelli-terrazza-dee377a9-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/04_chalet-pannelli-terrazza-dee377a9-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -108,8 +108,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/04_chalet-pannelli-terrazza-655ace28-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/04_chalet-pannelli-terrazza-655ace28-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/04_chalet-pannelli-terrazza-dee377a9-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/04_chalet-pannelli-terrazza-dee377a9-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -142,8 +142,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/06_aerea-chalet-prato-ff250207-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/06_aerea-chalet-prato-ff250207-960.webp",
+  "url": "/media/affitti/chalet-navauce/06_aerea-chalet-prato-68e32b88-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/06_aerea-chalet-prato-68e32b88-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -153,13 +153,18 @@ export const FOTO: FotoAffitto[] = [
    "sl": "Pogled iz zraka: koča na travniku med gozdovi, terasa, pot iz plošč, ograje in makadamska cesta"
   },
   "ai": {
-   "trattamento": "ai_luce",
+   "trattamento": "ai_pulizia",
    "iptc": "compositeWithTrainedAlgorithmicMedia",
    "origine": "crm",
-   "didascalia": null,
+   "didascalia": {
+    "it": "Tolta una persona lontana al margine del bosco (ritocco locale); luce e ingrandimento con l'AI.",
+    "en": "A distant person at the edge of the woods removed (local retouch); light and enlargement with AI.",
+    "de": "Eine entfernte Person am Waldrand entfernt (lokale Retusche); Licht und Vergrößerung mit KI.",
+    "sl": "Odstranjena oddaljena oseba na robu gozda (lokalna retuša); svetloba in povečava z UI."
+   },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/06_aerea-chalet-prato-ff250207-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/06_aerea-chalet-prato-ff250207-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/06_aerea-chalet-prato-68e32b88-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/06_aerea-chalet-prato-68e32b88-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -211,8 +216,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "veduta",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/09_vista-dalla-finestra-843a01e6-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/09_vista-dalla-finestra-843a01e6-960.webp",
+  "url": "/media/affitti/chalet-navauce/09_vista-dalla-finestra-f82072a8-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/09_vista-dalla-finestra-f82072a8-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -227,8 +232,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/09_vista-dalla-finestra-843a01e6-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/09_vista-dalla-finestra-843a01e6-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/09_vista-dalla-finestra-f82072a8-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/09_vista-dalla-finestra-f82072a8-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -242,8 +247,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "soggiorno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/10_zona-giorno-dalla-porta-ea5e7694-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/10_zona-giorno-dalla-porta-ea5e7694-960.webp",
+  "url": "/media/affitti/chalet-navauce/10_zona-giorno-dalla-porta-8e8de610-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/10_zona-giorno-dalla-porta-8e8de610-960.webp",
   "width": 5056,
   "height": 3371,
   "alt": {
@@ -258,8 +263,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/10_zona-giorno-dalla-porta-ea5e7694-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/10_zona-giorno-dalla-porta-ea5e7694-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/10_zona-giorno-dalla-porta-8e8de610-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/10_zona-giorno-dalla-porta-8e8de610-2560.webp",
     "larghezza": 720,
     "altezza": 480
    },
@@ -273,10 +278,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "soggiorno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/11_soggiorno-cucina-pranzo-0fe1ae4c-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/11_soggiorno-cucina-pranzo-0fe1ae4c-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/11_soggiorno-cucina-pranzo-f70f4c80-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/11_soggiorno-cucina-pranzo-f70f4c80-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Soggiorno con soffitto e travi in larice, divano grigio, cucina e tavolo da pranzo con tovaglia a quadri",
    "en": "Living room with larch ceiling and beams, grey sofa, kitchen and dining table with checked cloth",
@@ -289,8 +294,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/11_soggiorno-cucina-pranzo-0fe1ae4c-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/11_soggiorno-cucina-pranzo-0fe1ae4c-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/11_soggiorno-cucina-pranzo-f70f4c80-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/11_soggiorno-cucina-pranzo-f70f4c80-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -304,10 +309,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "pranzo",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/12_pranzo-divano-662f7ae5-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/12_pranzo-divano-662f7ae5-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/12_pranzo-divano-c47e88ec-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/12_pranzo-divano-c47e88ec-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Tavolo da pranzo con tovaglia a quadri e sedie in legno, finestre con tende a quadri, divano grigio",
    "en": "Dining table with checked cloth and wooden chairs, windows with checked curtains, grey sofa",
@@ -320,8 +325,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/12_pranzo-divano-662f7ae5-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/12_pranzo-divano-662f7ae5-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/12_pranzo-divano-c47e88ec-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/12_pranzo-divano-c47e88ec-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -335,10 +340,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "soggiorno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/13_divano-ingresso-e2539cbe-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/13_divano-ingresso-e2539cbe-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/13_divano-ingresso-49fe9f2b-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/13_divano-ingresso-49fe9f2b-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Divano grigio con plaid rosso, porta d'ingresso in legno, armadio in legno chiaro e stufa a pellet rossa",
    "en": "Grey sofa with red throw, wooden entrance door, light-wood wardrobe and red pellet stove",
@@ -351,8 +356,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/13_divano-ingresso-e2539cbe-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/13_divano-ingresso-e2539cbe-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/13_divano-ingresso-49fe9f2b-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/13_divano-ingresso-49fe9f2b-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -366,10 +371,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "cucina",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/14_cucina-stufa-028acf2b-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/14_cucina-stufa-028acf2b-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/14_cucina-stufa-5b585e4e-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/14_cucina-stufa-5b585e4e-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Cucina sotto il tetto in larice: mobili bianchi, piano grigio, stufa a pellet rossa e porta a vetri sul portico",
    "en": "Kitchen under the larch roof: white units, grey worktop, red pellet stove and glass door to the porch",
@@ -382,8 +387,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/14_cucina-stufa-028acf2b-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/14_cucina-stufa-028acf2b-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/14_cucina-stufa-5b585e4e-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/14_cucina-stufa-5b585e4e-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -397,10 +402,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "camera",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/15_camera-matrimoniale-4c227864-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/15_camera-matrimoniale-4c227864-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/15_camera-matrimoniale-c2109c57-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/15_camera-matrimoniale-c2109c57-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Camera matrimoniale sotto le travi: letto in legno con copriletto a quadri rossi, due comodini con lampade",
    "en": "Double bedroom under the beams: wooden bed with red checked cover, two bedside tables with lamps",
@@ -413,8 +418,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/15_camera-matrimoniale-4c227864-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/15_camera-matrimoniale-4c227864-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/15_camera-matrimoniale-c2109c57-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/15_camera-matrimoniale-c2109c57-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -428,10 +433,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "camera",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/16_camera-matrimoniale-finestra-14b97d79-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/16_camera-matrimoniale-finestra-14b97d79-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/16_camera-matrimoniale-finestra-94165a4e-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/16_camera-matrimoniale-finestra-94165a4e-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "La camera matrimoniale dal lato della finestra: letto a quadri rossi, poltroncina rossa, tetto in larice",
    "en": "The double bedroom from the window side: red checked bed, red armchair, larch roof",
@@ -444,8 +449,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/16_camera-matrimoniale-finestra-14b97d79-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/16_camera-matrimoniale-finestra-14b97d79-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/16_camera-matrimoniale-finestra-94165a4e-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/16_camera-matrimoniale-finestra-94165a4e-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -490,10 +495,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "camera",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/18_seconda-camera-albero-intagliato-86e3a3ea-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/18_seconda-camera-albero-intagliato-86e3a3ea-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/18_seconda-camera-albero-intagliato-e2a4a33a-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/18_seconda-camera-albero-intagliato-e2a4a33a-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Seconda camera sotto il tetto: albero intagliato sulla parete, lampada accesa sul comodino, letto a quadri",
    "en": "Second bedroom under the roof: carved tree on the wall, bedside lamp on, checked bedding",
@@ -506,8 +511,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/18_seconda-camera-albero-intagliato-86e3a3ea-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/18_seconda-camera-albero-intagliato-86e3a3ea-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/18_seconda-camera-albero-intagliato-e2a4a33a-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/18_seconda-camera-albero-intagliato-e2a4a33a-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -552,10 +557,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "camera",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/20_cameretta-tavolo-b2674ea4-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/20_cameretta-tavolo-b2674ea4-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/20_cameretta-tavolo-77115458-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/20_cameretta-tavolo-77115458-960.webp",
+  "width": 2970,
+  "height": 3960,
   "alt": {
    "it": "La cameretta dalla porta: divano letto a quadri, finestra con tende rosse, tavolino e tappeto chiaro",
    "en": "The small room from the door: checked daybed, window with red curtains, small table and light rug",
@@ -573,10 +578,10 @@ export const FOTO: FotoAffitto[] = [
     "sl": "Z UI odstranjeno: črn predmet na robu mize in ključ na naslonjalu stola."
    },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/20_cameretta-tavolo-b2674ea4-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/20_cameretta-tavolo-b2674ea4-2560.webp",
-    "larghezza": 3000,
-    "altezza": 4000
+    "m": "/media/affitti/chalet-navauce/orig/20_cameretta-tavolo-77115458-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/20_cameretta-tavolo-77115458-2560.webp",
+    "larghezza": 2970,
+    "altezza": 3960
    },
    "bloccoDifetti": false
   }
@@ -588,10 +593,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "bagno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/21_bagno-doccia-3efecc88-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/21_bagno-doccia-3efecc88-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/21_bagno-doccia-0bfeb6a3-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/21_bagno-doccia-0bfeb6a3-960.webp",
+  "width": 2448,
+  "height": 3264,
   "alt": {
    "it": "Bagno con doccia e parete in vetro, lavabo d'appoggio su mobile in legno, finestrella sul verde",
    "en": "Bathroom with glass-screen shower, countertop basin on a wooden unit, small window onto greenery",
@@ -604,8 +609,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/21_bagno-doccia-3efecc88-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/21_bagno-doccia-3efecc88-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/21_bagno-doccia-0bfeb6a3-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/21_bagno-doccia-0bfeb6a3-2560.webp",
     "larghezza": 2448,
     "altezza": 3264
    },
@@ -619,10 +624,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "scala",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/chalet-navauce/22_scala-85a619d7-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/22_scala-85a619d7-960.webp",
-  "width": 3584,
-  "height": 4779,
+  "url": "/media/affitti/chalet-navauce/22_scala-885c63d6-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/22_scala-885c63d6-960.webp",
+  "width": 3000,
+  "height": 4000,
   "alt": {
    "it": "Scala in legno con tappetini grigi verso il piano superiore, pareti in larice e corrimano",
    "en": "Wooden staircase with grey tread mats up to the upper floor, larch walls and handrail",
@@ -635,8 +640,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/22_scala-85a619d7-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/22_scala-85a619d7-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/22_scala-885c63d6-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/22_scala-885c63d6-2560.webp",
     "larghezza": 3000,
     "altezza": 4000
    },
@@ -750,10 +755,10 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": "01_chalet-steccato.jpg",
   "luceSimulata": "oro",
-  "url": "/media/affitti/chalet-navauce/27_simulazione-sera-steccato-d5625939-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/27_simulazione-sera-steccato-d5625939-960.webp",
-  "width": 5461,
-  "height": 3072,
+  "url": "/media/affitti/chalet-navauce/27_simulazione-sera-steccato-36be3b69-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/27_simulazione-sera-steccato-36be3b69-960.webp",
+  "width": 3232,
+  "height": 1818,
   "alt": {
    "it": "Simulazione: lo chalet con lo steccato nella luce dorata della sera",
    "en": "Simulation: the chalet and picket fence in golden evening light",
@@ -771,10 +776,10 @@ export const FOTO: FotoAffitto[] = [
     "sl": "Simulacija: isti pogled v zlati večerni svetlobi, poustvarjen z UI."
    },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/27_simulazione-sera-steccato-d5625939-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/27_simulazione-sera-steccato-d5625939-2560.webp",
-    "larghezza": 3264,
-    "altezza": 1836
+    "m": "/media/affitti/chalet-navauce/orig/27_simulazione-sera-steccato-36be3b69-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/27_simulazione-sera-steccato-36be3b69-2560.webp",
+    "larghezza": 3232,
+    "altezza": 1818
    },
    "bloccoDifetti": false
   }
@@ -786,8 +791,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": "02_chalet-pendio-monti.jpg",
   "luceSimulata": "oro",
-  "url": "/media/affitti/chalet-navauce/28_simulazione-sera-pendio-31ef98cb-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/28_simulazione-sera-pendio-31ef98cb-960.webp",
+  "url": "/media/affitti/chalet-navauce/28_simulazione-sera-pendio-09974bae-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/28_simulazione-sera-pendio-09974bae-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -807,8 +812,8 @@ export const FOTO: FotoAffitto[] = [
     "sl": "Simulacija: isti pogled v zlati večerni svetlobi, poustvarjen z UI."
    },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/28_simulazione-sera-pendio-31ef98cb-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/28_simulazione-sera-pendio-31ef98cb-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/28_simulazione-sera-pendio-09974bae-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/28_simulazione-sera-pendio-09974bae-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -822,8 +827,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": "24_pecore-chalet.jpg",
   "luceSimulata": "oro",
-  "url": "/media/affitti/chalet-navauce/29_simulazione-tramonto-pecore-c7728b7c-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/29_simulazione-tramonto-pecore-c7728b7c-960.webp",
+  "url": "/media/affitti/chalet-navauce/29_simulazione-tramonto-pecore-720b4393-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/29_simulazione-tramonto-pecore-720b4393-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -843,8 +848,8 @@ export const FOTO: FotoAffitto[] = [
     "sl": "Simulacija: isti pogled v svetlobi sončnega zahoda, poustvarjen z UI."
    },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/29_simulazione-tramonto-pecore-c7728b7c-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/29_simulazione-tramonto-pecore-c7728b7c-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/29_simulazione-tramonto-pecore-720b4393-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/29_simulazione-tramonto-pecore-720b4393-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
@@ -858,8 +863,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": "02_chalet-pendio-monti.jpg",
   "luceSimulata": "notte",
-  "url": "/media/affitti/chalet-navauce/30_simulazione-notte-finestre-445beb52-1920.webp",
-  "thumb": "/media/affitti/chalet-navauce/30_simulazione-notte-finestre-445beb52-960.webp",
+  "url": "/media/affitti/chalet-navauce/30_simulazione-notte-finestre-ce090668-1920.webp",
+  "thumb": "/media/affitti/chalet-navauce/30_simulazione-notte-finestre-ce090668-960.webp",
   "width": 5461,
   "height": 3072,
   "alt": {
@@ -879,8 +884,8 @@ export const FOTO: FotoAffitto[] = [
     "sl": "Simulacija: isti pogled ponoči, s prižganimi okni in lučjo na zatrepu, poustvarjen z UI."
    },
    "originale": {
-    "m": "/media/affitti/chalet-navauce/orig/30_simulazione-notte-finestre-445beb52-1600.webp",
-    "xl": "/media/affitti/chalet-navauce/orig/30_simulazione-notte-finestre-445beb52-2560.webp",
+    "m": "/media/affitti/chalet-navauce/orig/30_simulazione-notte-finestre-ce090668-1600.webp",
+    "xl": "/media/affitti/chalet-navauce/orig/30_simulazione-notte-finestre-ce090668-2560.webp",
     "larghezza": 1024,
     "altezza": 576
    },
