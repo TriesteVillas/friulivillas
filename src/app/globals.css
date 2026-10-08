@@ -25,6 +25,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-poppins);
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-spline), ui-monospace, monospace;
 
   /* FriuliVillas brand — i verdi e la sabbia del wordmark. Stessi NOMI di
    token di TriesteVillas/TriesteImmobiliare (brand, brand-dark, sand, paper…):
@@ -684,4 +686,19 @@ body:has(.pc-root) .pc-lang button.pc-lang-off:hover {
 .cc-btn:hover {
   background: var(--color-brand, #2a5f43);
   color: #ffffff;
+}
+
+/* ── Carta del FVG (07/10/2026) ───────────────────────────────── */
+.carta-punto { z-index: 2; }
+.carta-punto:hover, .carta-punto:focus-visible { z-index: 5; }
+.carta-etichetta { z-index: 3; transition: background-color .2s; }
+/* Sulla carta intera le etichette delle case si leggono al passaggio o al focus: sono troppe e vicine. */
+.carta-punto-nascosta { opacity: 0; transition: opacity .15s; }
+.carta-punto:hover .carta-punto-nascosta,
+.carta-punto:focus-visible .carta-punto-nascosta { opacity: 1; }
+/* Sul telefono le etichette delle case si leggono al tocco, o si accavallano. */
+@media (max-width: 767px) {
+  .carta-punto-etichetta { opacity: 0; transition: opacity .15s; }
+  .carta-punto:hover .carta-punto-etichetta,
+  .carta-punto:focus-visible .carta-punto-etichetta { opacity: 1; }
 }

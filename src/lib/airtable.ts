@@ -1,6 +1,7 @@
 import "server-only";
 import { F, mapRecord, type Property } from "./properties";
 import { applicaTrasparenza, getTrasparenza } from "./trasparenza";
+import { fotoCrm, fotoDaVetrina, getPropertiesDaVetrina, VETRINA_ATTIVA, VETRINA_URL } from "./vetrina";
 
 const BASE_ID = process.env.AIRTABLE_BASE_ID ?? "app1ZDay9vQNU5V2u";
 const TABLE_ID = "tblwAUWPnX7KF8FhU";
@@ -135,9 +136,9 @@ export function compareShowcase(a: Property, b: Property): number {
 // `allegati=snelli`: gli allegati escono senza url firmate e miniature, che qui
 // non servono (si prendono due campi di testo). Dimezza abbondantemente la
 // risposta; un CRM che non conosce il parametro lo ignora e risponde completo.
-const VETRINA_URL =
-  (process.env.CRM_VETRINA_URL || "").trim() ||
-  "https://tsv-pg.vercel.app/api/vetrina?sito=friulivillas.com&allegati=snelli";
+// L'indirizzo (VETRINA_URL) sta in vetrina.ts: dall'08/10 è anche la sorgente
+// dell'intero catalogo quando CATALOGO_SORGENTE=pg, e allora questa seconda
+// lettura non serve più (lo sloveno è già nella riga).
 const VETRINA_TIMEOUT_MS = 5000;
 
 type SlovenianTexts = { title: string | null; description: string | null };
@@ -201,16 +202,26 @@ async function loadSlovenianTexts(): Promise<Map<string, SlovenianTexts>> {
 }
 
 export async function getProperties(): Promise<Property[]> {
-  // In parallelo al catalogo, non dopo: la vetrina non deve allungare la
-  // risposta più del suo timeout nemmeno quando è lenta.
-  const slovenianTexts = getSlovenianTexts();
   // Anche la trasparenza AI delle foto è una lettura a parte della vetrina del
   // CRM (vista=trasparenza), in parallelo e tollerante: vedi trasparenza.ts.
   const trasparenza = getTrasparenza();
   // In build una vista illeggibile la fa rifiutare DI PROPOSITO (la build si
   // ferma): l'errore arriva all'`await` qui sotto, non come rifiuto orfano
-  // mentre si aspetta Airtable.
+  // mentre si aspetta il catalogo.
   trasparenza.catch(() => {});
+
+  // Il catalogo dal CRM (08/10/2026), dietro l'interruttore dei gemelli
+  // CATALOGO_SORGENTE=pg: stessa regola, stessa forma, stessa trasparenza,
+  // stesso ordinamento. Rollback = togliere la variabile. Vedi vetrina.ts.
+  if (VETRINA_ATTIVA) {
+    const lista = await getPropertiesDaVetrina();
+    const ai = await trasparenza;
+    return lista.map((p) => applicaTrasparenza(p, ai)).sort(compareShowcase);
+  }
+
+  // In parallelo al catalogo, non dopo: la vetrina non deve allungare la
+  // risposta più del suo timeout nemmeno quando è lenta.
+  const slovenianTexts = getSlovenianTexts();
   let raw: RawRecord[];
   if (TOKEN) {
     raw = await fetchAllRaw(FILTER);
@@ -281,6 +292,19 @@ type RawAttachmentCell = {
 };
 
 export async function getPhotoSources(): Promise<Map<string, PhotoSource>> {
+  // Col catalogo dal CRM anche le foto passano dal CRM (08/10/2026): l'indice
+  // viene dalla vetrina, e la sorgente da ricodificare è la rotta foto del CRM
+  // — `m` è la resa `large` di Airtable (il `thumb` di qui sotto), `xl`
+  // l'originale (`url`). Stessi byte di prima, senza un token Airtable nel sito.
+  // Il CRM ricontrolla da sé che la casa sia pubblicabile.
+  if (VETRINA_ATTIVA) {
+    const index = new Map<string, PhotoSource>();
+    for (const [att, { rec, filename }] of await fotoDaVetrina()) {
+      index.set(att, { url: fotoCrm(rec, att, "xl"), thumb: fotoCrm(rec, att, "m"), rec, filename });
+    }
+    return index;
+  }
+
   let raw: RawRecord[];
   if (TOKEN) {
     raw = await fetchAllRaw(FILTER, PHOTO_FIELDS);

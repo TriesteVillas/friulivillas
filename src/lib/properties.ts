@@ -6,7 +6,9 @@ import { videoAnnuncio, type VideoAnnuncio } from "../content/annunciVideo";
 // (returnFieldsByFieldId=true) and the dev seed.
 export const F = {
   id: "fldR3kYOEvMTn7qKA",
-  internalName: "fldv1buS8yk2NZKOZ",
+  // internal_name NON si chiede più (07/10/2026): non serviva a nessuna pagina e
+  // finiva comunque nella cache del server. Può portare il cognome di chi vende
+  // (regola del 25/08): quello che non si legge non può uscire.
   publicName: "fldcGog8cRFRjZIrI",
   contratto: "fld8sD96k6YChA8pA",
   cluster: "fldcdPH8aCWSfvFlD",
@@ -281,7 +283,8 @@ function lines(v: unknown): string[] {
 // The dashboard URL (/models/<id>) — often pasted from the logged-in Matterport
 // backend — refuses iframe embedding (X-Frame-Options) and renders as
 // "connection refused". Handles /models/, /show/?m= and a bare model id.
-function matterportEmbed(v: unknown): string | null {
+// Esportata per vetrina.ts: le due sorgenti del catalogo normalizzano uguale.
+export function matterportEmbed(v: unknown): string | null {
   const raw = str(v);
   if (!raw) return null;
   if (/matterport\.com\/show\/\?/i.test(raw)) return raw; // already embeddable

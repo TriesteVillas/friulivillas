@@ -10,6 +10,7 @@
   "nav": {
     "home": "Start",
     "properties": "Immobilien",
+    "areas": "Gebiete",
     "sell": "Verkaufen",
     "group": "Die Gruppe",
     "contact": "Kontakt",
@@ -21,7 +22,7 @@
   "seo": {
     "home": {
       "title": "FriuliVillas — Villen und Immobilien in Friaul-Julisch Venetien",
-      "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: ausgewählte Villen und Immobilien in Grado, Udine, Tarvis, Lignano, Sappada.",
+      "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: Häuser zum Verkauf an Küste und Lagune, im Hügelland und in der Ebene, in den Bergen und im Karst – auf einer Karte, die die Region erklärt.",
       "ogTitle": "FriuliVillas — Friaul-Julisch Venetien, richtig gelesen",
       "ogDescription": "Verschiedene Marken, eine Regie. Das in Triest entwickelte Know-how, angewandt auf die übrige Region."
     },
@@ -44,8 +45,8 @@
       "ogDescription": "Das FriuliVillas-Portfolio, Gebiet für Gebiet."
     },
     "group": {
-      "title": "Die TriesteVillas-Gruppe — sieben Marken",
-      "description": "FriuliVillas im Ökosystem TriesteVillas: sieben Marken für Luxus, Wohnimmobilien, Vermietung, Gewerbe, das übrige Friaul-Julisch Venetien und einen Atlas der slowenischen Küste und des Karsts.",
+      "title": "Die TriesteVillas-Gruppe — acht Marken",
+      "description": "FriuliVillas im Ökosystem TriesteVillas: acht Marken für Luxus, Wohnimmobilien, Vermietung, Gewerbe, das übrige Friaul-Julisch Venetien, die Berge von Sappada und einen Atlas der slowenischen Küste und des Karsts.",
       "ogTitle": "Die TriesteVillas-Gruppe: verschiedene Marken, eine Regie",
       "ogDescription": "Ein Immobilien-Ökosystem, das auf Spezialisierung gebaut ist, kein generischer Sammelbegriff."
     },
@@ -74,10 +75,10 @@
     },
     "promiseStrip": {
       "valuation": "Die ganze Region",
-      "online": "Sieben Marken, eine Regie",
+      "online": "Acht Marken, eine Regie",
       "mandate": "Vertrauliche Bewertung",
-      "fee": "Italiano · English · Deutsch",
-      "promoNote": "Grado, Udine, Tarvis, Lignano, Sappada — und alles dazwischen."
+      "fee": "Italiano · English · Deutsch · Slovenščina",
+      "promoNote": "Küste & Lagune, Hügelland & Ebene, Berge, Triest & Karst."
     },
     "positioning": {
       "eyebrow": "Wer wir sind",
@@ -128,14 +129,15 @@
     },
     "groupRouting": {
       "eyebrow": "Verschiedene Marken, eine Regie",
-      "title": "Sieben Marken, eine Struktur.",
+      "title": "Acht Marken, eine Struktur.",
       "body": "FriuliVillas ist Teil des Ökosystems TriesteVillas. Jede Marke deckt ihr Segment ab, damit eine Anfrage bei denen ankommt, die sie behandeln können.",
       "luxury": "Luxusimmobilie in Triest → TriesteVillas",
       "fvg": "Triest und Provinz → TriesteImmobiliare",
       "rent": "Vermietung → TriesteAffitti",
       "business": "Lignano → LignanoVillas",
       "cta": "Die Gruppe entdecken",
-      "slovenia": "Slowenische Küste und Karst → SloveniaVillas (Atlas und Ratgeber)"
+      "slovenia": "Slowenische Küste und Karst → SloveniaVillas (Atlas und Ratgeber)",
+      "sappada": "Sappada, in den Bergen → SappadaVillas"
     },
     "valuationCta": {
       "eyebrow": "Unverbindlich",
@@ -432,7 +434,7 @@
       "body": "Nicht jede Immobilie wird gleich verkauft, vermietet oder verwaltet. Eine hochwertige Villa, eine kleine Ertragswohnung und ein Ferienhaus am Meer verlangen andere Sprache, andere Kanäle, andere Ansprechpartner. Deshalb besteht die Gruppe aus getrennten Marken statt aus einem Namen, der behauptet, alles zu können.",
       "tagline": "Kein gemeinsames Logo, kein wiederholter Name. Dieselbe Arbeitskultur, dort angewandt, wo sie hingehört."
     },
-    "brandsTitle": "Sieben Marken, eine Regie",
+    "brandsTitle": "Acht Marken, eine Regie",
     "brandsSubtitle": "Eine Struktur für jeden Immobilienbedarf zwischen Triest und dem übrigen Friaul-Julisch Venetien.",
     "story": {
       "eyebrow": "Was wir waren, was wir sind",
@@ -448,7 +450,7 @@
       },
       "today": {
         "title": "Eine Gruppe, klare Rollen",
-        "text": "FriuliVillas ist die räumliche Erweiterung dieses Know-hows auf die übrige Region: Grado, Udine, Tarvis, Lignano, Sappada. Gleiche Regie, anderer Perimeter."
+        "text": "FriuliVillas ist die räumliche Erweiterung dieses Know-hows auf die übrige Region: Küste und Lagune, Hügelland und Ebene, Berge, Triest und Karst. Gleiche Regie, anderer Perimeter."
       }
     },
     "valuesTitle": "Eine gemeinsame Arbeitskultur",
@@ -512,7 +514,7 @@
       "friuli": {
         "name": "FriuliVillas",
         "tag": "Premium im übrigen Friaul-Julisch Venetien",
-        "desc": "Premium-Immobilien im übrigen Friaul-Julisch Venetien: Grado, Udine, Tarvis, Lignano, Sappada. Die räumliche Erweiterung des in Triest entwickelten Know-hows."
+        "desc": "Premium-Immobilien im übrigen Friaul-Julisch Venetien: Küste und Lagune, Hügelland und Ebene, Berge, Triest und Karst. Die räumliche Erweiterung des in Triest entwickelten Know-hows."
       },
       "business": {
         "name": "TriesteBusiness",
@@ -523,6 +525,11 @@
         "name": "LignanoVillas",
         "tag": "Premium in Lignano",
         "desc": "Premium-Verkäufe in Lignano, gelesen mit einer internationaleren Linse. Für ausländische Käufer und Eigentümer, die Struktur, Kontext und Qualität in der Abwicklung suchen."
+      },
+      "sappada": {
+        "name": "SappadaVillas",
+        "tag": "Berge · Sappada / Plodn",
+        "desc": "Sappada/Plodn in den Bergen: fünfzehn Weiler mit Sonnenstunden und Rundblick, am Geländemodell berechnet, der Markt mit den Zahlen der italienischen Finanzverwaltung, der Vergleich mit den anderen Bergorten, Werkzeuge und die ersten Immobilien. Seiten für Verkäufer und für Bauträger."
       },
       "slovenia": {
         "name": "SloveniaVillas",
@@ -696,7 +703,7 @@
     "errorContact": "Hinterlassen Sie mindestens E-Mail oder Telefon für die Rückmeldung."
   },
   "footer": {
-    "tagline": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien. Grado, Udine, Tarvis, Lignano, Sappada.",
+    "tagline": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien. Küste und Lagune, Hügelland und Ebene, Berge, Triest und Karst.",
     "rights": "Alle Rechte vorbehalten.",
     "poweredBy": "Powered by TriesteVillas",
     "sitemapTitle": "Sitemap",
@@ -708,7 +715,7 @@
   },
   "meta": {
     "title": "FriuliVillas — Ausgewählte Villen und Immobilien in Friaul-Julisch Venetien",
-    "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: Grado, Udine, Tarvis, Lignano, Sappada. Kaufen, verkaufen, Ertrag erzielen."
+    "description": "Die Marke der TriesteVillas-Gruppe für Friaul-Julisch Venetien: Küste und Lagune, Hügelland und Ebene, Berge, Triest und Karst. Kaufen, verkaufen, Ertrag erzielen."
   },
   "ui": {
     "prev": "Zurück",

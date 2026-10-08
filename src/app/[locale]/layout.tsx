@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Poppins } from "next/font/google";
+import { Fraunces, Poppins, Spline_Sans_Mono } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -37,6 +37,23 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
+});
+
+// 07/10/2026, rifacimento: i titoli in serif da display e i dati in mono, come
+// i gemelli (SloveniaVillas, SappadaVillas). Poppins resta il testo corrente.
+// Il mono non si precarica: serve a numeri e didascalie, mai sopra la piega.
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+const splineMono = Spline_Sans_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-spline",
+  display: "swap",
+  preload: false,
 });
 
 // Match the mobile browser chrome to the favicon's exact ink background.
@@ -92,7 +109,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${poppins.variable} h-full scroll-smooth antialiased`}
+      className={`${poppins.variable} ${fraunces.variable} ${splineMono.variable} h-full scroll-smooth antialiased`}
       // The head script below adds data-reveal-armed pre-hydration (by design).
       suppressHydrationWarning
     >

@@ -284,3 +284,13 @@ export function breadcrumbJsonLd(locale: string, trail: Array<{ name: string; pa
     })),
   };
 }
+
+// Alternates quando il percorso CAMBIA con la lingua (07/10/2026: le pagine
+// d'area hanno lo slug tradotto, /area/costa-e-laguna · /en/area/coast-and-lagoon…).
+// `paths` = il percorso SENZA prefisso di lingua, per ogni lingua.
+export function pageAlternatesPerLingua(locale: string, paths: Record<string, string>) {
+  const languages: Record<string, string> = {};
+  for (const l of LOCALES) languages[HREFLANG[l]] = absUrl(l, paths[l]);
+  languages["x-default"] = absUrl("it", paths.it);
+  return { canonical: absUrl(locale, paths[locale]), languages };
+}

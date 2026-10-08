@@ -24,7 +24,7 @@ export async function generateMetadata({
   };
 }
 
-const BRANDS = ["tsv", "tsi", "affitti", "friuli", "business", "lignano", "slovenia"] as const;
+const BRANDS = ["tsv", "tsi", "affitti", "friuli", "business", "lignano", "sappada", "slovenia"] as const;
 type BrandSiteLocale = "it" | "en" | "de" | "sl";
 type BrandSites = Partial<Record<(typeof BRANDS)[number], string>>;
 // URLs verified live on 2026-07-23. TriesteBusiness stays unlinked because it has
@@ -37,12 +37,15 @@ type BrandSites = Partial<Record<(typeof BRANDS)[number], string>>;
 // senza rimandi. triestevillas.com è canonico senza www (www → 308), e
 // lignanovillas.com risponde a /it e /de senza barra finale (con barra → 308);
 // TriesteAffitti ha /en, /de e /sl veri.
+// SappadaVillas (online dal 07/10/2026): italiano sulla radice, poi /en, /de,
+// /sl; verificati 200 quel giorno.
 const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
   it: {
     tsv: "https://triestevillas.com/",
     tsi: "https://www.triesteimmobiliare.com/",
     affitti: "https://www.triesteaffitti.com/",
     lignano: "https://www.lignanovillas.com/it",
+    sappada: "https://sappadavillas.com/",
     slovenia: "https://sloveniavillas.com/it",
   },
   en: {
@@ -50,6 +53,7 @@ const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
     tsi: "https://www.triesteimmobiliare.com/en",
     affitti: "https://www.triesteaffitti.com/en",
     lignano: "https://www.lignanovillas.com/",
+    sappada: "https://sappadavillas.com/en",
     slovenia: "https://sloveniavillas.com/",
   },
   de: {
@@ -57,6 +61,7 @@ const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
     tsi: "https://www.triesteimmobiliare.com/de",
     affitti: "https://www.triesteaffitti.com/de",
     lignano: "https://www.lignanovillas.com/de",
+    sappada: "https://sappadavillas.com/de",
     slovenia: "https://sloveniavillas.com/de",
   },
   // Sloveno: dal 06/10/2026 tutti i siti del gruppo hanno /sl (verificato 200
@@ -67,6 +72,7 @@ const BRAND_SITES: Record<BrandSiteLocale, BrandSites> = {
     tsi: "https://www.triesteimmobiliare.com/sl",
     affitti: "https://www.triesteaffitti.com/sl",
     lignano: "https://www.lignanovillas.com/sl",
+    sappada: "https://sappadavillas.com/sl",
     slovenia: "https://sloveniavillas.com/sl",
   },
 };
@@ -121,7 +127,7 @@ export default async function GroupPage({
         </p>
       </section>
 
-      {/* The 7 brands (SloveniaVillas dal 06/10/2026) */}
+      {/* The 8 brands (SloveniaVillas dal 06/10/2026, SappadaVillas dal 07/10/2026) */}
       <section className="border-y border-neutral-200 bg-paper">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <h2 className="display-chapter text-brand-dark">{t("brandsTitle")}</h2>

@@ -10,6 +10,7 @@
   "nav": {
     "home": "Domov",
     "properties": "Nepremičnine",
+    "areas": "Območja",
     "sell": "Prodaja",
     "group": "Skupina",
     "contact": "Kontakt",
@@ -21,7 +22,7 @@
   "seo": {
     "home": {
       "title": "FriuliVillas – vile in nepremičnine v Furlaniji - Julijski krajini",
-      "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: izbrane vile in nepremičnine v Gradežu, Vidmu, Trbižu, Lignanu in Sappadi.",
+      "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: hiše naprodaj ob obali in laguni, v gričevju in nižini, v gorah in na Krasu, na zemljevidu, ki pojasni deželo.",
       "ogTitle": "FriuliVillas – premišljen pogled na Furlanijo - Julijsko krajino",
       "ogDescription": "Različne blagovne znamke, ena usmeritev. Znanje, pridobljeno v Trstu, prenašamo na preostali del regije."
     },
@@ -44,8 +45,8 @@
       "ogDescription": "Ponudba FriuliVillas, območje za območjem."
     },
     "group": {
-      "title": "Skupina TriesteVillas – sedem blagovnih znamk",
-      "description": "FriuliVillas v ekosistemu TriesteVillas: sedem blagovnih znamk za prestižne in stanovanjske nepremičnine, najeme, poslovne nepremičnine, preostali del Furlanije - Julijske krajine in atlas slovenske obale in Krasa.",
+      "title": "Skupina TriesteVillas – osem blagovnih znamk",
+      "description": "FriuliVillas v ekosistemu TriesteVillas: osem blagovnih znamk za prestižne in stanovanjske nepremičnine, najeme, poslovne nepremičnine, preostali del Furlanije - Julijske krajine, gorsko Sappado ter atlas slovenske obale in Krasa.",
       "ogTitle": "Skupina TriesteVillas: različne blagovne znamke, ena usmeritev",
       "ogDescription": "Nepremičninski ekosistem, zgrajen na specializaciji, ne vse na enem kupu."
     },
@@ -74,10 +75,10 @@
     },
     "promiseStrip": {
       "valuation": "Vsa regija",
-      "online": "Sedem znamk, ena usmeritev",
+      "online": "Osem znamk, ena usmeritev",
       "mandate": "Zaupna cenitev",
-      "fee": "Italiano · English · Deutsch",
-      "promoNote": "Gradež, Videm, Trbiž, Lignano, Sappada – in vse, kar je vmes."
+      "fee": "Italiano · English · Deutsch · Slovenščina",
+      "promoNote": "Obala in laguna, gričevje in nižina, gore, Trst in Kras."
     },
     "positioning": {
       "eyebrow": "Kdo smo",
@@ -128,14 +129,15 @@
     },
     "groupRouting": {
       "eyebrow": "Različne znamke, ena usmeritev",
-      "title": "Sedem znamk, ena struktura.",
+      "title": "Osem znamk, ena struktura.",
       "body": "FriuliVillas je del ekosistema TriesteVillas. Vsaka znamka pokriva svoj segment, zato povpraševanje pride do ljudi, ki ga znajo obravnavati.",
       "luxury": "Prestižne nepremičnine v Trstu → TriesteVillas",
       "fvg": "Trst in Tržaška pokrajina → TriesteImmobiliare",
       "rent": "Najemi → TriesteAffitti",
       "business": "Lignano → LignanoVillas",
       "cta": "Spoznajte skupino",
-      "slovenia": "Slovenska obala in Kras → SloveniaVillas (atlas in vodniki)"
+      "slovenia": "Slovenska obala in Kras → SloveniaVillas (atlas in vodniki)",
+      "sappada": "Sappada, v gorah → SappadaVillas"
     },
     "valuationCta": {
       "eyebrow": "Brez obveznosti",
@@ -432,7 +434,7 @@
       "body": "Ne prodajamo, ne oddajamo in ne upravljamo vseh nepremičnin na enak način. Prestižna vila, manjše stanovanje, kupljeno za donos, in počitniška hiša ob morju zahtevajo drugačen jezik, drugačne kanale in drugačne stike. Zato skupino sestavljajo ločene blagovne znamke, ne eno samo ime, ki trdi, da zna vse.",
       "tagline": "Ne enaka grafična podoba, ne ponavljajoče se ime. Ista delovna kultura, uporabljena tam, kjer je potrebna."
     },
-    "brandsTitle": "Sedem blagovnih znamk, ena usmeritev",
+    "brandsTitle": "Osem blagovnih znamk, ena usmeritev",
     "brandsSubtitle": "Enotna struktura za vse nepremičninske potrebe med Trstom in preostalim delom Furlanije - Julijske krajine.",
     "story": {
       "eyebrow": "Kaj smo bili, kaj smo",
@@ -448,7 +450,7 @@
       },
       "today": {
         "title": "Ena skupina, jasne vloge",
-        "text": "FriuliVillas to znanje prenaša na preostali del regije: Gradež, Videm, Trbiž, Lignano, Sappada. Enaka usmeritev, drugačno območje."
+        "text": "FriuliVillas to znanje prenaša na preostali del regije: obala in laguna, gričevje in nižina, gore, Trst in Kras. Enaka usmeritev, drugačno območje."
       }
     },
     "valuesTitle": "Ena delovna kultura",
@@ -512,7 +514,7 @@
       "friuli": {
         "name": "FriuliVillas",
         "tag": "Prestižno v preostali FJK",
-        "desc": "Prestižne nepremičnine v preostalem delu Furlanije - Julijske krajine: Gradež, Videm, Trbiž, Lignano, Sappada. Ozemeljska razširitev znanja, zgrajenega v Trstu."
+        "desc": "Prestižne nepremičnine v preostalem delu Furlanije - Julijske krajine: obala in laguna, gričevje in nižina, gore, Trst in Kras. Ozemeljska razširitev znanja, zgrajenega v Trstu."
       },
       "business": {
         "name": "TriesteBusiness",
@@ -523,6 +525,11 @@
         "name": "LignanoVillas",
         "tag": "Prestižno v Lignanu",
         "desc": "Prestižni posli v Lignanu, z bolj mednarodnim pogledom. Za tuje kupce in lastnike, ki pri upravljanju svojega premoženja želijo strukturo, kontekst in kakovost."
+      },
+      "sappada": {
+        "name": "SappadaVillas",
+        "tag": "Gore · Sappada / Plodn",
+        "desc": "Sappada/Plodn v gorah: petnajst zaselkov z urami sonca in celotnim obzorjem, izračunanimi na modelu terena, trg s številkami italijanske davčne uprave, primerjava z drugimi gorskimi kraji, orodja in prve nepremičnine. Strani za prodajalce in za investitorje."
       },
       "slovenia": {
         "name": "SloveniaVillas",
@@ -696,7 +703,7 @@
     "errorContact": "Navedite vsaj e-poštni naslov ali telefonsko številko, da vas lahko dosežemo."
   },
   "footer": {
-    "tagline": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino. Gradež, Videm, Trbiž, Lignano, Sappada.",
+    "tagline": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino. Obala in laguna, gričevje in nižina, gore, Trst in Kras.",
     "rights": "Vse pravice pridržane.",
     "poweredBy": "Powered by TriesteVillas",
     "sitemapTitle": "Zemljevid strani",
@@ -708,7 +715,7 @@
   },
   "meta": {
     "title": "FriuliVillas – izbrane vile in nepremičnine v Furlaniji - Julijski krajini",
-    "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: Gradež, Videm, Trbiž, Lignano, Sappada. Nakup, prodaja, oddajanje."
+    "description": "Blagovna znamka skupine TriesteVillas za Furlanijo - Julijsko krajino: obala in laguna, gričevje in nižina, gore, Trst in Kras. Nakup, prodaja, oddajanje."
   },
   "ui": {
     "prev": "Nazaj",

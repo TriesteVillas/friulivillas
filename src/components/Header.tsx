@@ -16,6 +16,8 @@ export default async function Header() {
 
   const links = [
     { href: "/immobili", label: t("properties") },
+    // 07/10/2026: le quattro aree stanno nella home, sotto la carta (non c'è un indice a parte).
+    { href: "/#aree", label: t("areas") },
     // I soggiorni (dal 07/10/2026): voce fuori dai dizionari, vedi content/affitti/nav.ts.
     { href: "/affitti", label: NAV_SOGGIORNI[locale as keyof typeof NAV_SOGGIORNI] ?? NAV_SOGGIORNI.it },
     { href: "/vendi", label: t("sell") },

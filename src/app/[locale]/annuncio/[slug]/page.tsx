@@ -6,7 +6,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { getProperties, getProperty } from "@/lib/airtable";
-import { isSold, zoneKey } from "@/lib/properties";
+import { isSold } from "@/lib/properties";
+import { NOMI_AREA, SLUG_AREA, type Lingua } from "@/lib/aree";
+import { areaDiCasa, DATA_MISURA, durata, minuti, NOMI_ORIGINE, puntoDeiTempi } from "@/lib/territorio";
+import { dataLunga, ui } from "@/content/territorioUi";
 import { scegliSimili } from "@/lib/simili";
 import { presenza, soloSiNo, statoDotazioni, vociSchema } from "@/lib/dotazioni";
 import PropertyCharacteristics, {
@@ -174,7 +177,11 @@ export default async function PropertyPage({ params }: { params: Params }) {
 
   const t = await getTranslations("property");
   const tNav = await getTranslations("nav");
-  const tZones = await getTranslations("zones");
+  // L'area del territorio (src/lib/aree.ts), non il campo `zona` del CRM: fino al
+  // 07/10 il codice «FVG» finiva dentro l'indirizzo («…, FVG, Cervignano»).
+  const lingua = locale as Lingua;
+  const area = areaDiCasa(property);
+  const sede = puntoDeiTempi(property);
   // "Prenota una visita" vive nel namespace lead (usato da VisitForm), non property.
   const tLead = await getTranslations("lead");
   const fsLabel =
@@ -185,7 +192,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
   // Quattro scelte, mostrate tre o quattro secondo la griglia (v. la sezione
   // «simili» in fondo): la regola sta in lib/simili.ts, gemello di TSV.
   const similar = scegliSimili(property, all, 4);
-  const place = [property.via, property.zona, property.comune]
+  const place = [property.via, property.comune]
     .filter(Boolean)
     .join(", ");
   const hasLocation = property.lat != null && property.lng != null;
@@ -430,6 +437,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
           breadcrumbJsonLd(locale, [
             { name: "FriuliVillas", path: "/" },
             { name: tNav("properties"), path: "/immobili" },
+            ...(area ? [{ name: NOMI_AREA[area][lingua], path: `/area/${SLUG_AREA[area][lingua]}` }] : []),
             { name: title, path },
           ]),
         ]}
@@ -713,6 +721,30 @@ export default async function PropertyPage({ params }: { params: Params }) {
             </section>
           )}
 
+          {/* L'area e i tempi misurati dal comune (07/10/2026): OSRM statico, mai dal vivo. */}
+          {area && sede && (
+            <section id="area" className="mt-8 scroll-mt-32">
+              <h2 className="text-lg font-semibold">
+                {ui("areaLabel", lingua)}:{" "}
+                <Link href={`/area/${SLUG_AREA[area][lingua]}`} className="text-brand underline-offset-4 hover:underline">
+                  {NOMI_AREA[area][lingua]}
+                </Link>
+              </h2>
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-wider text-neutral-500">
+                {ui("tempiFinoA", lingua, { luogo: sede.luogo })}
+              </p>
+              <ul className="mt-2 grid grid-cols-2 gap-x-6 sm:grid-cols-3">
+                {(["trieste", "udine", "aer_trieste", "aer_venezia", "vienna", "monaco"] as const).map((o) => (
+                  <li key={o} className="flex items-baseline justify-between gap-3 border-b border-neutral-100 py-2 text-sm">
+                    <span className="text-neutral-600">{NOMI_ORIGINE[o][lingua]}</span>
+                    <span className="font-mono tabular-nums text-brand-dark">{durata(minuti(sede.chiave, o), lingua)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-2 text-xs text-neutral-500">{ui("daDoveNota", lingua, { data: dataLunga(DATA_MISURA, lingua) })}</p>
+            </section>
+          )}
+
           {/* Il riepilogo (SPEC v1.3 §11.2, 02/10/2026: «bello, ma spesso
               troppo»): visibili il titolo, UNA riga calcolata dai conteggi e la
               chiusura; la nota del CRM, le foto per tipo e il link a /ai stanno
@@ -860,7 +892,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
                 {similar.map((p) => (
                   <PropertyCard
                     key={p.slug}
-                    view={buildPropertyView(p, locale, t, tZones(zoneKey(p)))}
+                    view={buildPropertyView(p, locale, t, (() => { const a = areaDiCasa(p); return a ? NOMI_AREA[a][lingua] : null; })())}
                     photosComing={t("photosComing")}
                   />
                 ))}

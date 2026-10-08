@@ -88,6 +88,7 @@ const FILE_SENZA_FOTO = new Map([
   ["src/components/LoghiGruppo.tsx", "i loghi dei marchi del gruppo, copiati dai loro repo: SVG e PNG statici, nessuna foto"],
   ["src/lib/brandMail.ts", "il logo nell'HTML delle mail"],
   ["src/components/Planimetrie.tsx", "planimetrie: per la SPEC §5.5 niente etichetta né toggle"],
+  ["src/components/carta/CartaFvg.tsx", "la carta del FVG (07/10/2026): rilievo Copernicus DEM GLO-90 reso con un programma (ombreggiatura), nessuna foto e nessun modello generativo"],
 ]);
 
 // Gli strumenti: il loro <img>/<video>/<iframe> lo etichetta CHI LI USA, e ogni
@@ -132,6 +133,22 @@ const ESENZIONI = [
     file: "src/app/[locale]/annuncio/[slug]/page.tsx",
     ancora: "<TourFrame",
     motivo: "tour 3D Matterport: scansione dell'immobile, nessun modello generativo",
+  },
+  // 07/10/2026, rifacimento: le pagine d'area e il ponte verso Trieste.
+  {
+    file: "src/app/[locale]/area/[slug]/page.tsx",
+    ancora: "fetchPriority=\"high\" className=\"h-full w-full object-cover opacity-80\"",
+    motivo: "testata d'area quando non c'è il loop: foto di paesaggio a licenza libera (src/content/aree/foto.ts), solo ritagliata e ricompressa, nessun modello generativo; autore e licenza sotto la foto",
+  },
+  {
+    file: "src/app/[locale]/area/[slug]/page.tsx",
+    ancora: "src={`${FOTO_AREA[a].base}-800.webp`}",
+    motivo: "card delle altre aree: le stesse foto di paesaggio a licenza libera, senza modifiche generative",
+  },
+  {
+    file: "src/components/PonteTrieste.tsx",
+    ancora: "src={`${c.foto.base}/800.webp`}",
+    motivo: "card del ponte verso triestevillas.com: la copertina si sceglie fra le foto che la vista trasparenza del CRM NON dà come simulazione o rendering; se non ce n'è nessuna porta il segno discreto. La dichiarazione completa sta sulla scheda di triestevillas.com, dove la card porta",
   },
 ];
 

@@ -1,9 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { photoSrc, photoSrcSet } from "@/lib/photoSrc";
 import type { Photo } from "@/lib/properties";
+import PhotoImg from "./PhotoImg";
 import Lightbox from "./Lightbox";
+
+// Le planimetrie stavano fuori dal proxy /foto: si serviva `photo.url`, cioè
+// l'URL firmata di Airtable — che scade in poche ore mentre la pagina resta in
+// cache (ISR), quindi il primo visitatore dopo ogni scadenza le vedeva rotte
+// (410, audit dei siti del 08/10) — e per giunta l'originale a piena
+// risoluzione dentro un riquadro 4:3 grande come mezza colonna. Dal proxy hanno
+// un indirizzo stabile e la taglia giusta, come su triestevillas.com. Mai
+// etichetta AI sulle planimetrie (SPEC §5.5): photoSrc senza `ai` non mette sigle.
+const WIDTHS = [400, 600, 800] as const;
 
 export default function Planimetrie({
   items,
@@ -28,11 +38,11 @@ export default function Planimetrie({
             onClick={() => setOpen(i)}
             className="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 bg-white"
           >
-            <Image
-              src={p.url}
-              alt={p.alt}
-              fill
+            <PhotoImg
+              src={photoSrc(p, 800)}
+              srcSet={photoSrcSet(p, WIDTHS)}
               sizes="(max-width: 640px) 100vw, 50vw"
+              alt={p.alt}
               className="object-contain p-2"
             />
           </button>
