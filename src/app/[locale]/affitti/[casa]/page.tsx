@@ -13,6 +13,7 @@ import Prenota from "@/components/affitti/Prenota";
 import { ProgrammaProvider } from "@/components/affitti/Programma";
 import RiepilogoAi from "@/components/affitti/RiepilogoAi";
 import Sorella from "@/components/affitti/Sorella";
+import BandaVideo from "@/components/affitti/BandaVideo";
 import Recensioni from "@/components/affitti/Recensioni";
 import { CASE, casaDa, type Lingua, type SlugCasa } from "@/content/affitti/case";
 import { UI } from "@/content/affitti/ui";
@@ -210,6 +211,20 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
         />
       )}
 
+      {media.banda?.modo === "film" && (
+        <BandaVideo
+          modo="film"
+          mp4={media.banda.mp4}
+          mp4Sm={media.banda.mp4Sm}
+          poster={media.banda.poster}
+          ai={datiVideo(media.banda, L)}
+          eyebrow={media.banda.testi[L].eyebrow}
+          titolo={media.banda.testi[L].titolo}
+          testo={media.banda.testi[L].testo}
+          play={media.banda.testi[L].play}
+        />
+      )}
+
       {/* La casa */}
       <section id="casa" className={`${sezione} scroll-mt-24 py-24 sm:py-32`}>
         <p className={eyebrow}>{T.casa.eyebrow}</p>
@@ -225,6 +240,19 @@ export default async function PaginaSoggiorno({ params }: { params: Promise<{ lo
           </div>
         )}
       </section>
+
+      {media.banda?.modo === "loop" && (
+        <BandaVideo
+          modo="loop"
+          mp4={media.banda.mp4}
+          mp4Sm={media.banda.mp4Sm}
+          poster={media.banda.poster}
+          ai={datiVideo(media.banda, L)}
+          eyebrow={media.banda.testi[L].eyebrow}
+          titolo={media.banda.testi[L].titolo}
+          testo={media.banda.testi[L].testo}
+        />
+      )}
 
       {baseGiorno && notte && (
         <Ore
