@@ -43,6 +43,7 @@ export const ETICHETTA_ANIMATO: Testo4 = {
 };
 
 const TH = "/media/affitti/top-hill-cottage/video";
+const CN = "/media/affitti/chalet-navauce/video";
 
 export const MEDIA: Record<SlugCasa, MediaCasa> = {
   "top-hill-cottage": {
@@ -135,9 +136,110 @@ export const MEDIA: Record<SlugCasa, MediaCasa> = {
     },
   },
   "chalet-navauce": {
-    testata: { giorno: null, oro: null, notte: null },
+    testata: {
+      // Giorno: 01, 03, 02, 08, 06, 05, tutte animate con Kling.
+      giorno: {
+        mp4: `${CN}/giorno-1080-18121c2e.mp4`,
+        mp4Sm: `${CN}/giorno-720-4a4ff5ef.mp4`,
+        poster: `${CN}/giorno-poster-e939cb5b.webp`,
+        posterSm: `${CN}/giorno-poster-sm-515be8ba.webp`,
+        ai: {
+          etichetta: ETICHETTA_ANIMATO,
+          didascalia: {
+            it: "Foto dello chalet di giorno, ritoccate con l'AI (in gran parte immagini piccole ricostruite dal modello) e animate con l'AI con un lento avvicinamento.",
+            en: "Daytime photos of the chalet, retouched with AI (mostly small images rebuilt by the model) and animated with AI with a slow push-in.",
+            de: "Tagesfotos des Chalets, mit KI bearbeitet (größtenteils kleine, vom Modell rekonstruierte Bilder) und mit KI animiert, mit einer langsamen Annäherung.",
+            sl: "Dnevne fotografije brunarice, obdelane z UI (večinoma majhne slike, ki jih je poustvaril model) in animirane z UI s počasnim približevanjem.",
+          },
+        },
+      },
+      // Sera: le simulazioni 28 e 27 (Kling) e 29 (ingrandimento digitale).
+      oro: {
+        mp4: `${CN}/oro-1080-ecad84da.mp4`,
+        mp4Sm: `${CN}/oro-720-b5ce5c4f.mp4`,
+        poster: `${CN}/oro-poster-2758c93f.webp`,
+        posterSm: `${CN}/oro-poster-sm-3d8d4f88.webp`,
+        ai: {
+          etichetta: {
+            it: "Sera simulata con l'AI",
+            en: "AI-simulated evening",
+            de: "Mit KI simulierter Abend",
+            sl: "Večer, simuliran z UI",
+          },
+          didascalia: {
+            it: "Simulazione: le foto vere dello chalet con la luce della sera e del tramonto ricreata con l'AI. Animazione in parte con l'AI, in parte con un avvicinamento digitale.",
+            en: "Simulation: real photos of the chalet with the evening and sunset light recreated with AI. Animated partly with AI and partly with a digital zoom.",
+            de: "Simulation: echte Fotos des Chalets, Abend- und Sonnenuntergangslicht mit KI nachgebildet. Teils mit KI, teils mit einem digitalen Zoom animiert.",
+            sl: "Simulacija: resnične fotografije brunarice z večerno svetlobo in sončnim zahodom, poustvarjenima z UI. Animirano deloma z UI in deloma z digitalnim približevanjem.",
+          },
+        },
+      },
+      // Notte: la simulazione 30 (Kling), poi la notte vera 26 (ingrandimento digitale).
+      notte: {
+        mp4: `${CN}/notte-1080-8eefb6b1.mp4`,
+        mp4Sm: `${CN}/notte-720-4f0bccdd.mp4`,
+        poster: `${CN}/notte-poster-b627b79e.webp`,
+        posterSm: `${CN}/notte-poster-sm-58c864a2.webp`,
+        ai: {
+          etichetta: {
+            it: "Notte simulata con l'AI",
+            en: "AI-simulated night",
+            de: "Mit KI simulierte Nacht",
+            sl: "Noč, simulirana z UI",
+          },
+          didascalia: {
+            it: "La prima inquadratura è una simulazione: lo chalet di notte con accese le quattro finestre e il faretto che esistono, ricreato e animato con l'AI. La seconda è una foto notturna vera, avvicinata con un ingrandimento digitale.",
+            en: "The first shot is a simulation: the chalet at night with its four windows and the gable spotlight lit, recreated and animated with AI. The second is a real night photo, brought closer with a digital zoom.",
+            de: "Die erste Einstellung ist eine Simulation: das Chalet bei Nacht mit den vier Fenstern und dem Giebelstrahler erleuchtet, mit KI nachgebildet und animiert. Die zweite ist ein echtes Nachtfoto, mit einem digitalen Zoom herangeholt.",
+            sl: "Prvi kader je simulacija: brunarica ponoči s štirimi prižganimi okni in žarometom na zatrepu, poustvarjena in animirana z UI. Drugi je resnična nočna fotografija, približana z digitalnim približevanjem.",
+          },
+        },
+      },
+    },
     volo: null,
-    banda: null,
+    // Il film dello chalet (44 s): 18 inquadrature, 7 delle quali ingrandimenti digitali
+    // senza AI; tramonto (29), sere (27, 28) e prima notte (30) sono simulazioni.
+    banda: {
+      modo: "film",
+      mp4: `${CN}/film-1080-27f2a3dc.mp4`,
+      mp4Sm: `${CN}/film-720-7d7fdc14.mp4`,
+      poster: `${CN}/film-poster-1622e647.webp`,
+      ai: {
+        etichetta: ETICHETTA_ANIMATO,
+        didascalia: {
+          it: "Le foto dello chalet, ritoccate con l'AI, animate con l'AI e montate in sequenza; sette inquadrature sono un semplice ingrandimento digitale, senza animazione AI. Il tramonto, le due sere e la prima notte sono simulazioni; l'ultima inquadratura è la notte vera.",
+          en: "The chalet's photos, retouched with AI, animated with AI and edited in sequence; seven shots are a plain digital zoom, without AI animation. The sunset, the two evenings and the first night are simulations; the last shot is the real night.",
+          de: "Die Fotos des Chalets, mit KI bearbeitet, mit KI animiert und aneinandergeschnitten; sieben Einstellungen sind ein einfacher digitaler Zoom ohne KI-Animation. Der Sonnenuntergang, die beiden Abende und die erste Nacht sind Simulationen; die letzte Einstellung ist die echte Nacht.",
+          sl: "Fotografije brunarice, obdelane z UI, animirane z UI in zmontirane v zaporedje; sedem kadrov je le digitalno približevanje, brez animacije z UI. Sončni zahod, oba večera in prva noč so simulacije; zadnji kader je resnična noč.",
+        },
+      },
+      testi: {
+        it: {
+          eyebrow: "Il film dello chalet",
+          titolo: "Dall'arrivo alla notte.",
+          testo: "La valle, lo steccato, il sentiero di lastre, il prato, la pietra e il larice, le camere, la terrazza e le pecore; poi la sera e la notte. Quarantaquattro secondi, senza audio.",
+          play: "Guarda il film",
+        },
+        en: {
+          eyebrow: "The chalet film",
+          titolo: "From arrival to night.",
+          testo: "The valley, the fence, the flagstone path, the meadow, stone and larch, the bedrooms, the terrace and the sheep; then evening and night. Forty-four seconds, no sound.",
+          play: "Watch the film",
+        },
+        de: {
+          eyebrow: "Der Film zum Chalet",
+          titolo: "Von der Ankunft bis zur Nacht.",
+          testo: "Das Tal, der Zaun, der Plattenweg, die Wiese, Stein und Lärche, die Zimmer, die Terrasse und die Schafe; dann Abend und Nacht. Vierundvierzig Sekunden, ohne Ton.",
+          play: "Film ansehen",
+        },
+        sl: {
+          eyebrow: "Film o brunarici",
+          titolo: "Od prihoda do noči.",
+          testo: "Dolina, ograja, pot iz kamnitih plošč, travnik, kamen in macesen, sobe, terasa in ovce; nato večer in noč. Štiriinštirideset sekund, brez zvoka.",
+          play: "Oglejte si film",
+        },
+      },
+    },
   },
 };
 
