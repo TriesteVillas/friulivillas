@@ -63,3 +63,26 @@ export const BANDA_SOGGIORNI: Record<
     },
   },
 };
+
+// Il rimando dalla pagina d'area «Montagna» (/area/montagna e le sue lingue):
+// le due case cadono lì, ma non sono schede del catalogo del CRM, quindi la
+// fila «In affitto» della pagina non le vede. Nomi dei paesi fra parentesi per
+// non declinarli in sloveno a orecchio.
+export const AREA_SOGGIORNI: Record<Lingua, { titolo: string; testo: string }> = {
+  it: {
+    titolo: "Soggiorni in Carnia",
+    testo: "Due case dove passare qualche giorno: Top Hill Cottage (Viaso) e Chalet Navauce (Raveo). Date libere e preventivo.",
+  },
+  en: {
+    titolo: "Stays in Carnia",
+    testo: "Two houses for a few days away: Top Hill Cottage (Viaso) and Chalet Navauce (Raveo). Free dates and a quote.",
+  },
+  de: {
+    titolo: "Ferienhäuser in Karnien",
+    testo: "Zwei Häuser für ein paar Tage: Top Hill Cottage (Viaso) und Chalet Navauce (Raveo). Freie Termine und Angebot.",
+  },
+  sl: {
+    titolo: "Počitnice v Karniji",
+    testo: "Dve hiši za nekaj dni: Top Hill Cottage (Viaso) in Chalet Navauce (Raveo). Prosti termini in ponudba.",
+  },
+};

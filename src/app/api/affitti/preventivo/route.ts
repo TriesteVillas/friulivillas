@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { bussaIngresso } from "@/lib/ingressoPorta";
 import { splitNomeCerta } from "@/lib/nomesplit";
 import { brandMailShell, mailContact, mailCta, mailRecapCard, mailText } from "@/lib/brandMail";
 import { casaDa } from "@/content/affitti/case";
@@ -13,17 +14,25 @@ import {
 
 // La richiesta di preventivo dei soggiorni (Top Hill Cottage, Chalet Navauce).
 //
-// Due consegne, indipendenti, e la richiesta è «ricevuta» se ne riesce almeno
-// una (prima, al 07/10/2026, la sola Airtable: FriuliVillas su Vercel non ha
-// ancora la chiave di Resend):
-//   1. una riga in LEAD_ di Airtable, come gli altri moduli del sito: da lì la
-//      copia dei 30′ la porta nel CRM. Con i valori di `tipo_richiesta` e
-//      `motivo` che ESISTONO già (un valore nuovo, via typecast, creerebbe
-//      un'opzione su un campo condiviso coi marchi) e ⛔ MAI `immobile` né
-//      `immobile_rif`: le case non sono nel catalogo, un collegamento creerebbe
-//      un record fantasma in PROPRIETA;
-//   2. la mail a richieste@triestevillas.com (risposta diretta al cliente) e il
-//      riepilogo al cliente nella sua lingua, via Resend, quando c'è la chiave.
+// DALL'08/10/2026 IL DEPOSITO È LA PORTA DEL CRM, come per gli altri moduli di
+// FriuliVillas (/api/lead, commit 088a06c): la submission si posa nel fondo
+// `ingresso` di tsv-pg (porta `sito-friuli`, modulo `soggiorno` → lead «SITO FV
+// /SOGGIORNO», canale «Sito FriuliVillas») PRIMA della validazione, e con
+// `LEAD_SU_AIRTABLE=no` la riga su Airtable LEAD_ non si scrive più (due
+// esecutori farebbero due schede della stessa persona). Il CRM compone il lead
+// dai campi che conosce: `privacyOk`, `lingua` e `messaggio` — per questo il
+// messaggio porta TUTTO (casa, date, ospiti, servizi, pagina).
+//
+// Tre consegne, e la richiesta è «ricevuta» se ne riesce almeno una:
+//   1. la porta del CRM (il deposito vero);
+//   2. Airtable LEAD_, solo se `LEAD_SU_AIRTABLE` non è «no» (rollback); con i
+//      valori di `tipo_richiesta` e `motivo` che ESISTONO già e ⛔ MAI
+//      `immobile` né `immobile_rif`: le case non sono nel catalogo;
+//   3. la mail a richieste@triestevillas.com (risposta diretta al cliente) e il
+//      riepilogo al cliente nella sua lingua, via Resend — ⚠️ al 08/10 il
+//      progetto Vercel friulivillas NON ha `RESEND_API_KEY`/`RESEND_FROM`:
+//      finché non ci sono, nessuna delle due mail parte (nemmeno quelle di
+//      /api/lead) e la richiesta vive solo nel CRM.
 // Rotta separata da /api/lead per non toccare i moduli della vendita.
 
 const LEADS_BASE_ID = process.env.LEADS_BASE_ID ?? "app1ZDay9vQNU5V2u";
@@ -177,15 +186,20 @@ export async function POST(request: Request) {
 
   const r = normalizza(body, ESPERIENZE_ID);
   const errori = valida(r);
-  if (errori.length) return NextResponse.json({ ok: false, errori }, { status: 400 });
-
-  const n = notti(r.arrivo, r.partenza);
-  const casa = nomeCase(r);
+  const sp = splitNomeCerta(r.nome);
   const pagina =
     r.casa === "entrambe"
       ? `${SITE}${r.lingua === "it" ? "" : `/${r.lingua}`}/affitti`
       : `${SITE}${r.lingua === "it" ? "" : `/${r.lingua}`}/affitti/${r.casa}`;
-  const dateIt = `${dataLeggibile(r.arrivo, "it")} → ${dataLeggibile(r.partenza, "it")} (${n} ${n === 1 ? "notte" : "notti"})`;
+
+  // Le righe leggibili si compongono solo su una richiesta valida: su date
+  // sbagliate `dataLeggibile` lancerebbe (Invalid Date). Una richiesta che non
+  // passa la validazione si posa lo stesso, coi valori grezzi.
+  const n = errori.length ? 0 : notti(r.arrivo, r.partenza);
+  const casa = nomeCase(r);
+  const dateIt = errori.length
+    ? `${r.arrivo || "?"} → ${r.partenza || "?"}`
+    : `${dataLeggibile(r.arrivo, "it")} → ${dataLeggibile(r.partenza, "it")} (${n} ${n === 1 ? "notte" : "notti"})`;
   const ospitiIt = `${r.adulti} adulti${r.bambini ? `, ${r.bambini} bambini` : ""}${r.animali ? ", con animali" : ""}`;
   const serviziIt = r.servizi.map((id) => servizioTesto(id, "it"));
 
@@ -193,34 +207,69 @@ export async function POST(request: Request) {
     `Casa: ${casa}`,
     `Date: ${dateIt}`,
     `Ospiti: ${ospitiIt}`,
-    `Tipo di soggiorno: ${NOME_TIPO[r.tipo]}`,
+    `Tipo di soggiorno: ${NOME_TIPO[r.tipo] ?? r.tipo}`,
     serviziIt.length ? `Servizi richiesti: ${serviziIt.join("; ")}` : "",
     r.esperienze.length ? `Esperienze scelte: ${r.esperienze.join("; ")}` : "",
     r.messaggio ? `Messaggio: ${r.messaggio}` : "",
+    `Pagina: ${pagina}`,
   ]
     .filter(Boolean)
     .join("\n");
+  const messaggio =
+    `[Soggiorno in affitto — richiesta di preventivo]\n${riepilogoInterno}\n` +
+    "Le case non sono in gestione nostra: la richiesta va girata a chi le gestisce.";
 
-  const sp = splitNomeCerta(r.nome);
-  const salvato = await salvaLead({
-    nome_completo: r.nome,
-    nome: sp ? sp.nome : r.nome,
-    ...(sp ? { cognome: sp.cognome } : {}),
-    email: r.email,
-    telefono: r.telefono,
-    canale: "Sito FriuliVillas",
-    azienda: "FriuliVillas",
-    tipo_richiesta: "Richiesta info",
-    motivo: "Richiedere disponibilità",
-    messaggio: `[Soggiorno in affitto — preventivo]\n${riepilogoInterno}`,
-    disponibilita_visita: dateIt,
-    privacy_ok: r.privacyOk,
-    immobile_url: pagina,
-    lingua: r.lingua,
-    stato: "NUOVO",
-    data_contatto: new Date().toISOString(),
-    import_source: ["WEB_FORM"],
-  });
+  // 1. La porta del CRM, prima della validazione («prima si posa, poi si capisce»).
+  const posata = await bussaIngresso(
+    "soggiorno",
+    { nome: sp ? sp.nome : r.nome, cognome: sp ? sp.cognome : "", email: r.email, telefono: r.telefono },
+    {
+      privacyOk: r.privacyOk === true,
+      lingua: r.lingua,
+      messaggio,
+      url: pagina,
+      casa: r.casa,
+      arrivo: r.arrivo,
+      partenza: r.partenza,
+      adulti: r.adulti,
+      bambini: r.bambini,
+      animali: r.animali,
+      tipo: r.tipo,
+      servizi: r.servizi,
+      esperienze: r.esperienze,
+    },
+  );
+
+  if (errori.length) return NextResponse.json({ ok: false, errori }, { status: 400 });
+
+  // 2. Airtable, solo col deposito vecchio ancora acceso (rollback).
+  const salvato =
+    process.env.LEAD_SU_AIRTABLE === "no"
+      ? false
+      : await salvaLead({
+          nome_completo: r.nome,
+          nome: sp ? sp.nome : r.nome,
+          ...(sp ? { cognome: sp.cognome } : {}),
+          email: r.email,
+          telefono: r.telefono,
+          canale: "Sito FriuliVillas",
+          azienda: "FriuliVillas",
+          tipo_richiesta: "Richiesta info",
+          motivo: "Richiedere disponibilità",
+          messaggio,
+          disponibilita_visita: dateIt,
+          privacy_ok: r.privacyOk,
+          immobile_url: pagina,
+          lingua: r.lingua,
+          stato: "NUOVO",
+          data_contatto: new Date().toISOString(),
+          import_source: ["WEB_FORM"],
+        });
+  const traccia = posata
+    ? "Salvata nel CRM (lead «SITO FV /SOGGIORNO»)."
+    : salvato
+      ? "Salvata fra i lead di Airtable."
+      : "⚠️ NON salvata nel CRM: la porta non ha risposto. Questa mail è l'unica traccia.";
 
   const righe = (rows: Array<[string, string]>) =>
     rows
@@ -245,11 +294,12 @@ export async function POST(request: Request) {
        ["Lingua", r.lingua],
        ["Pagina", pagina],
      ])}</table>
-     <p style="font-size:12px;color:#6b7a82">Le due case non sono in gestione nostra: la richiesta va girata a chi le gestisce. ${salvato ? "Salvata anche fra i lead." : "⚠️ NON salvata fra i lead (Airtable non ha risposto): questa mail è l'unica traccia."}</p>`,
+     <p style="font-size:12px;color:#6b7a82">Le due case non sono in gestione nostra: la richiesta va girata a chi le gestisce. ${traccia}</p>`,
     r.email || undefined,
   );
 
-  if (!salvato && !inviataInterna) {
+  if (!posata && !salvato && !inviataInterna) {
+    console.error("[preventivo] richiesta NON salvata: porta del CRM, Airtable e mail hanno detto tutti di no");
     return NextResponse.json({ ok: false, error: "save_failed" }, { status: 502 });
   }
 

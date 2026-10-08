@@ -34,6 +34,7 @@ import { FOTO_AREA, creditoFoto } from "@/content/aree/foto";
 import { VIDEO_AREA } from "@/content/aree/video";
 import { breadcrumbJsonLd, pageAlternatesPerLingua, pageOpenGraph } from "@/lib/seo";
 import { formatPrice } from "@/lib/format";
+import { AREA_SOGGIORNI } from "@/content/affitti/nav";
 
 /* Le pagine d'AREA (07/10/2026, SPEC-2026-10 §2): /area/<slug tradotto>.
    Reggono anche con zero case: tempi misurati, comuni, paesaggi, come è
@@ -247,6 +248,14 @@ export default async function AreaPage({ params }: { params: Promise<{ locale: s
                 ))}
               </div>
             </>
+          ) : null}
+          {area === "montagna" ? (
+            <Link href="/affitti" className="mt-10 flex max-w-2xl items-center justify-between gap-6 rounded-2xl border border-neutral-200 bg-white px-6 py-5 hover:border-brand">
+              <span>
+                <span className="block font-semibold text-brand-dark">{AREA_SOGGIORNI[locale].titolo} →</span>
+                <span className="block text-sm text-neutral-600">{AREA_SOGGIORNI[locale].testo}</span>
+              </span>
+            </Link>
           ) : null}
           {gemello ? (
             <a href={urlGemello(gemello.sito, locale, `area-${area}`)} className="mt-10 flex max-w-2xl items-center justify-between gap-6 rounded-2xl border border-neutral-200 bg-white px-6 py-5 hover:border-brand">
