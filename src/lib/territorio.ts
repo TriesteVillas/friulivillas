@@ -149,12 +149,19 @@ const CITTA: Record<string, Partial<Record<Lingua, string>>> = {
   "Cividale del Friuli": { it: "Cividale", en: "Cividale", de: "Cividale", sl: "Čedad" },
   Grado: { sl: "Gradež" },
   Palmanova: { sl: "Palmanova" },
+  // Località di montagna chieste da Martino l'08/10/2026, accanto a Sappada (che sta fra i siti del gruppo).
+  // Nome italiano in tutte le lingue: per entrambe ISTAT non dà una denominazione in altra lingua.
+  "Forni di Sopra": {},
+  Ravascletto: {},
 };
 
-/** Città di riferimento: geografia, non promesse («case a…» solo dove ci sono). */
+/** Etichetta sopra il punto: sotto, a 1024 px, quella di SappadaVillas copriva la «R» di Ravascletto (08/10/2026). */
+const CITTA_SOPRA = new Set(["Ravascletto"]);
+
+/** Città e località di riferimento: geografia, non promesse («case a…» solo dove ci sono). */
 export function puntiCitta(l: Lingua): PuntoCarta[] {
   return Object.entries(CITTA).flatMap(([n, nomi]) => {
     const s = sedeComune(n);
-    return s ? [{ id: `c-${s.istat}`, tipo: "citta" as const, lat: s.lat, lng: s.lng, etichetta: nomi[l] ?? n }] : [];
+    return s ? [{ id: `c-${s.istat}`, tipo: "citta" as const, lat: s.lat, lng: s.lng, etichetta: nomi[l] ?? n, sopra: CITTA_SOPRA.has(n) || undefined }] : [];
   });
 }
