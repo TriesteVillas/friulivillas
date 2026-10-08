@@ -15,10 +15,10 @@ export const BANDA_SOGGIORNI: Record<
   { eyebrow: string; titolo: string; testo: string; vai: string; tutte: string; righe: Record<"top-hill-cottage" | "chalet-navauce", string> }
 > = {
   it: {
-    eyebrow: "Novità · soggiorni in Carnia",
+    eyebrow: "Soggiorni in Carnia",
     titolo: "Due case in montagna, da abitare per qualche giorno.",
     testo:
-      "Da oggi FriuliVillas presenta anche case dove soggiornare: in Carnia, tra il Tagliamento e le Dolomiti Friulane. Date libere e preventivo, direttamente da qui.",
+      "FriuliVillas presenta anche case dove soggiornare: in Carnia, tra il Tagliamento e le Dolomiti Friulane. Date libere e preventivo, direttamente da qui.",
     vai: "Scopri",
     tutte: "Tutti i soggiorni",
     righe: {
@@ -27,10 +27,10 @@ export const BANDA_SOGGIORNI: Record<
     },
   },
   en: {
-    eyebrow: "New · stays in Carnia",
+    eyebrow: "Stays in Carnia",
     titolo: "Two houses in the mountains, to live in for a few days.",
     testo:
-      "From today FriuliVillas also presents houses to stay in: in Carnia, between the Tagliamento and the Friulian Dolomites. Free dates and a quote, right here.",
+      "FriuliVillas also presents houses to stay in: in Carnia, between the Tagliamento and the Friulian Dolomites. Free dates and a quote, right here.",
     vai: "Discover",
     tutte: "All stays",
     righe: {
@@ -39,10 +39,10 @@ export const BANDA_SOGGIORNI: Record<
     },
   },
   de: {
-    eyebrow: "Neu · Aufenthalte in Karnien",
+    eyebrow: "Aufenthalte in Karnien",
     titolo: "Zwei Häuser in den Bergen, für ein paar Tage.",
     testo:
-      "Ab heute stellt FriuliVillas auch Häuser für einen Aufenthalt vor: in Karnien, zwischen dem Tagliamento und den Friauler Dolomiten. Freie Termine und Angebot, direkt hier.",
+      "FriuliVillas stellt auch Häuser für einen Aufenthalt vor: in Karnien, zwischen dem Tagliamento und den Friauler Dolomiten. Freie Termine und Angebot, direkt hier.",
     vai: "Entdecken",
     tutte: "Alle Ferienhäuser",
     righe: {
@@ -51,10 +51,10 @@ export const BANDA_SOGGIORNI: Record<
     },
   },
   sl: {
-    eyebrow: "Novost · bivanje v Karniji",
+    eyebrow: "Bivanje v Karniji",
     titolo: "Dve hiši v gorah, za nekaj dni.",
     testo:
-      "Od danes FriuliVillas predstavlja tudi hiše za bivanje: v Karniji, med Tilmentom in Furlanskimi Dolomiti. Prosti termini in ponudba, kar tukaj.",
+      "FriuliVillas predstavlja tudi hiše za bivanje: v Karniji, med Tilmentom in Furlanskimi Dolomiti. Prosti termini in ponudba, kar tukaj.",
     vai: "Odkrijte",
     tutte: "Vse počitniške hiše",
     righe: {

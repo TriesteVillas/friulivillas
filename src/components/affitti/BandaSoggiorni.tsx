@@ -19,17 +19,18 @@ export default function BandaSoggiorni({ locale }: { locale: string }) {
   const L = (["it", "en", "de", "sl"].includes(locale) ? locale : "it") as Lingua;
   const T = BANDA_SOGGIORNI[L];
   const voci = CASE.map((c) => {
-    const f = COPERTINE[c.slug].find((x) => !x.simulazioneDi && !x.ai) ?? COPERTINE[c.slug].find((x) => !x.simulazioneDi);
+    // Solo una foto VERA e senza AI: il segno qui sotto è vuoto apposta.
+    const f = COPERTINE[c.slug].find((x) => !x.simulazioneDi && !x.ai);
     return { c, foto: f ? comePhoto(f, L) : null };
   }).filter((v) => v.foto);
   if (!voci.length) return null;
 
   return (
-    <section className="mt-20 bg-brand-dark py-20 text-white sm:py-24">
+    <section id="soggiorni" className="mt-20 scroll-mt-28 border-y border-neutral-200 bg-white py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sand">{T.eyebrow}</p>
-        <h2 className="display-chapter mt-2 max-w-3xl text-white">{T.titolo}</h2>
-        <p className="mt-4 max-w-2xl text-white/80">{T.testo}</p>
+        <p className="eyebrow">{T.eyebrow}</p>
+        <h2 className="display-chapter mt-2 max-w-3xl font-display text-brand-dark">{T.titolo}</h2>
+        <p className="mt-4 max-w-2xl text-lg text-neutral-600">{T.testo}</p>
         <ul className="mt-10 grid gap-6 md:grid-cols-2">
           {voci.map(({ c, foto }) => (
             <li key={c.slug}>
@@ -45,15 +46,15 @@ export default function BandaSoggiorni({ locale }: { locale: string }) {
                   <SegnoAiDiscreto dati={null} />
                 </div>
                 <div className="mt-4 flex items-baseline justify-between gap-4">
-                  <h3 className="text-xl font-semibold">{c.nome}</h3>
-                  <span className="text-sm font-semibold text-sand">{T.vai} →</span>
+                  <h3 className="font-display text-2xl font-semibold text-brand-dark">{c.nome}</h3>
+                  <span className="text-sm font-semibold text-brand">{T.vai} →</span>
                 </div>
-                <p className="mt-1 text-sm text-white/70">{T.righe[c.slug]}</p>
+                <p className="mt-1 text-sm text-neutral-600">{T.righe[c.slug]}</p>
               </Link>
             </li>
           ))}
         </ul>
-        <Link href="/affitti" className="mt-10 inline-block text-sm font-semibold text-sand underline-offset-4 hover:underline">
+        <Link href="/affitti" className="mt-10 inline-block text-sm font-semibold text-brand underline-offset-4 hover:underline">
           {T.tutte} →
         </Link>
       </div>
