@@ -73,7 +73,7 @@ export default function BandaVideo({
   };
 
   return (
-    <section className="bg-ink text-white">
+    <section data-banda-video={modo} className="bg-ink text-white">
       <div className="mx-auto max-w-6xl px-6 pb-8 pt-20">
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sand">{eyebrow}</p>
         <h2 className="mt-3 font-[family-name:var(--font-affitti-display)] text-[clamp(2.2rem,5vw,4rem)] leading-[1]">{titolo}</h2>

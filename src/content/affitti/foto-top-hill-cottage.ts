@@ -49,8 +49,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "pranzo",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/03_pranzo-vetrata-f217c7ae-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/03_pranzo-vetrata-f217c7ae-960.webp",
+  "url": "/media/affitti/top-hill-cottage/03_pranzo-vetrata-2dd248a6-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/03_pranzo-vetrata-2dd248a6-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -65,8 +65,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/03_pranzo-vetrata-f217c7ae-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/03_pranzo-vetrata-f217c7ae-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/03_pranzo-vetrata-2dd248a6-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/03_pranzo-vetrata-2dd248a6-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -111,8 +111,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "cucina",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/05_cucina-isola-9d254789-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/05_cucina-isola-9d254789-960.webp",
+  "url": "/media/affitti/top-hill-cottage/05_cucina-isola-527fbaa2-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/05_cucina-isola-527fbaa2-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -127,8 +127,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/05_cucina-isola-9d254789-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/05_cucina-isola-9d254789-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/05_cucina-isola-527fbaa2-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/05_cucina-isola-527fbaa2-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -178,8 +178,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "soggiorno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/07_soggiorno-divano-scala-dae24c5a-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/07_soggiorno-divano-scala-dae24c5a-960.webp",
+  "url": "/media/affitti/top-hill-cottage/07_soggiorno-divano-scala-b3edbddc-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/07_soggiorno-divano-scala-b3edbddc-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -194,8 +194,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/07_soggiorno-divano-scala-dae24c5a-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/07_soggiorno-divano-scala-dae24c5a-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/07_soggiorno-divano-scala-b3edbddc-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/07_soggiorno-divano-scala-b3edbddc-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -209,8 +209,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "scala",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/08_scala-vetrata-montagna-d01f143a-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/08_scala-vetrata-montagna-d01f143a-960.webp",
+  "url": "/media/affitti/top-hill-cottage/08_scala-vetrata-montagna-60ff6237-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/08_scala-vetrata-montagna-60ff6237-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -225,8 +225,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/08_scala-vetrata-montagna-d01f143a-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/08_scala-vetrata-montagna-d01f143a-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/08_scala-vetrata-montagna-60ff6237-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/08_scala-vetrata-montagna-60ff6237-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -369,8 +369,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "scala",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/13_galleria-dall-alto-bd89f530-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/13_galleria-dall-alto-bd89f530-960.webp",
+  "url": "/media/affitti/top-hill-cottage/13_galleria-dall-alto-87bf7ed8-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/13_galleria-dall-alto-87bf7ed8-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -385,8 +385,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/13_galleria-dall-alto-bd89f530-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/13_galleria-dall-alto-bd89f530-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/13_galleria-dall-alto-87bf7ed8-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/13_galleria-dall-alto-87bf7ed8-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -400,8 +400,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "scala",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/14_scala-doppia-altezza-be933d1f-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/14_scala-doppia-altezza-be933d1f-960.webp",
+  "url": "/media/affitti/top-hill-cottage/14_scala-doppia-altezza-8eb9f0be-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/14_scala-doppia-altezza-8eb9f0be-960.webp",
   "width": 2832,
   "height": 3776,
   "alt": {
@@ -416,8 +416,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/14_scala-doppia-altezza-be933d1f-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/14_scala-doppia-altezza-be933d1f-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/14_scala-doppia-altezza-8eb9f0be-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/14_scala-doppia-altezza-8eb9f0be-2560.webp",
     "larghezza": 2832,
     "altezza": 3776
    },
@@ -493,8 +493,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "camera",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/17_camera-studio-b3697314-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/17_camera-studio-b3697314-960.webp",
+  "url": "/media/affitti/top-hill-cottage/17_camera-studio-04dbcdf3-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/17_camera-studio-04dbcdf3-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -509,8 +509,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/17_camera-studio-b3697314-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/17_camera-studio-b3697314-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/17_camera-studio-04dbcdf3-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/17_camera-studio-04dbcdf3-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -560,8 +560,8 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "bagno",
   "simulazioneDi": null,
   "luceSimulata": null,
-  "url": "/media/affitti/top-hill-cottage/19_bagno-lavabo-20396fbf-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/19_bagno-lavabo-20396fbf-960.webp",
+  "url": "/media/affitti/top-hill-cottage/19_bagno-lavabo-aa80a957-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/19_bagno-lavabo-aa80a957-960.webp",
   "width": 3776,
   "height": 2832,
   "alt": {
@@ -576,8 +576,8 @@ export const FOTO: FotoAffitto[] = [
    "origine": "crm",
    "didascalia": null,
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/19_bagno-lavabo-20396fbf-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/19_bagno-lavabo-20396fbf-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/19_bagno-lavabo-aa80a957-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/19_bagno-lavabo-aa80a957-2560.webp",
     "larghezza": 3776,
     "altezza": 2832
    },
@@ -885,65 +885,29 @@ export const FOTO: FotoAffitto[] = [
   "stanza": "esterno",
   "simulazioneDi": "01_esterno-casa-tre-quarti.jpg",
   "luceSimulata": "oro",
-  "url": "/media/affitti/top-hill-cottage/31_simulazione-tramonto-casa-34a8bcd2-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/31_simulazione-tramonto-casa-34a8bcd2-960.webp",
+  "url": "/media/affitti/top-hill-cottage/31_simulazione-tramonto-casa-e9677bbb-1920.webp",
+  "thumb": "/media/affitti/top-hill-cottage/31_simulazione-tramonto-casa-e9677bbb-960.webp",
   "width": 5280,
   "height": 2970,
   "alt": {
-   "it": "Simulazione: la casa in pietra vista dal drone con la luce di poco prima del tramonto",
-   "en": "Simulation: the stone house seen from a drone in the light just before sunset",
-   "de": "Simulation: Drohnenaufnahme des Steinhauses im Licht kurz vor Sonnenuntergang",
-   "sl": "Simulacija: kamnita hiša, posneta z dronom, v svetlobi tik pred sončnim zahodom"
+   "it": "Simulazione: la casa in pietra vista dal drone con una luce calda e un cielo serale",
+   "en": "Simulation: the stone house seen from a drone with warm light and an evening sky",
+   "de": "Simulation: Drohnenaufnahme des Steinhauses mit warmem Licht und Abendhimmel",
+   "sl": "Simulacija: kamnita hiša, posneta z dronom, s toplo svetlobo in večernim nebom"
   },
   "ai": {
    "trattamento": "ai_aggiunte",
    "iptc": "compositeWithTrainedAlgorithmicMedia",
    "origine": "crm",
    "didascalia": {
-    "it": "Simulazione: la stessa foto con la luce di poco prima del tramonto e un cielo serale, ricreati con l'AI.",
-    "en": "Simulation: the same photo with the light just before sunset and an evening sky, recreated with AI.",
-    "de": "Simulation: dasselbe Foto mit Licht kurz vor Sonnenuntergang und Abendhimmel, beides mit KI nachgebildet.",
-    "sl": "Simulacija: ista fotografija, v kateri sta svetloba tik pred sončnim zahodom in večerno nebo poustvarjena z umetno inteligenco."
+    "it": "Simulazione: la stessa foto con una luce calda e un cielo serale ricreati con l'AI; le ombre sono quelle del pomeriggio.",
+    "en": "Simulation: the same photo with warm light and an evening sky recreated with AI; the shadows are those of the afternoon.",
+    "de": "Simulation: dasselbe Foto mit warmem Licht und Abendhimmel, mit KI nachgebildet; die Schatten sind die des Nachmittags.",
+    "sl": "Simulacija: ista fotografija s toplo svetlobo in večernim nebom, poustvarjenima z umetno inteligenco; sence so popoldanske."
    },
    "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/31_simulazione-tramonto-casa-34a8bcd2-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/31_simulazione-tramonto-casa-34a8bcd2-2560.webp",
-    "larghezza": 5280,
-    "altezza": 2970
-   },
-   "bloccoDifetti": false
-  }
- },
- {
-  "n": 32,
-  "file": "32_simulazione-tramonto-prato.jpg",
-  "ruolo": "simulazione",
-  "stanza": "esterno",
-  "simulazioneDi": "20_casa-prato-grande-albero.jpg",
-  "luceSimulata": "oro",
-  "url": "/media/affitti/top-hill-cottage/32_simulazione-tramonto-prato-dd5b6c39-1920.webp",
-  "thumb": "/media/affitti/top-hill-cottage/32_simulazione-tramonto-prato-dd5b6c39-960.webp",
-  "width": 5280,
-  "height": 2970,
-  "alt": {
-   "it": "Simulazione: la casa e il prato con il grande albero nella luce del tramonto",
-   "en": "Simulation: the house and the meadow with the large tree in sunset light",
-   "de": "Simulation: Haus und Wiese mit dem großen Baum im Licht des Sonnenuntergangs",
-   "sl": "Simulacija: hiša in travnik z velikim drevesom v svetlobi sončnega zahoda"
-  },
-  "ai": {
-   "trattamento": "ai_aggiunte",
-   "iptc": "compositeWithTrainedAlgorithmicMedia",
-   "origine": "crm",
-   "didascalia": {
-    "it": "Simulazione: la stessa foto con la luce di poco prima del tramonto e un cielo serale, ricreati con l'AI.",
-    "en": "Simulation: the same photo with the light just before sunset and an evening sky, recreated with AI.",
-    "de": "Simulation: dasselbe Foto mit Licht kurz vor Sonnenuntergang und Abendhimmel, beides mit KI nachgebildet.",
-    "sl": "Simulacija: ista fotografija, v kateri sta svetloba tik pred sončnim zahodom in večerno nebo poustvarjena z umetno inteligenco."
-   },
-   "originale": {
-    "m": "/media/affitti/top-hill-cottage/orig/32_simulazione-tramonto-prato-dd5b6c39-1600.webp",
-    "xl": "/media/affitti/top-hill-cottage/orig/32_simulazione-tramonto-prato-dd5b6c39-2560.webp",
+    "m": "/media/affitti/top-hill-cottage/orig/31_simulazione-tramonto-casa-e9677bbb-1600.webp",
+    "xl": "/media/affitti/top-hill-cottage/orig/31_simulazione-tramonto-casa-e9677bbb-2560.webp",
     "larghezza": 5280,
     "altezza": 2970
    },
