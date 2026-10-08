@@ -20,6 +20,11 @@
 // immobili) — più la larghezza. Stessa foto, stessa larghezza → sempre lo stesso
 // URL, quindi UNA trasformazione e poi CDN per sempre.
 //
+// Dall'08/10/2026, col catalogo dal CRM (CATALOGO_SORGENTE=pg), l'indice viene
+// dalla vetrina e la sorgente da ricodificare è la rotta foto del CRM
+// (/api/vetrina/foto/<rec>/<att>/<m|xl>) invece dell'URL firmata di Airtable:
+// stessi byte, stesso indirizzo pubblico qui. Vedi getPhotoSources().
+//
 // Confine di riservatezza: si risolve solo dentro getPhotoSources(), che gira
 // sullo stesso FILTER di getProperties() — cioè i soli immobili pubblicabili
 // online. Le foto della Private Collection NON sono raggiungibili
