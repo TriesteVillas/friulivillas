@@ -144,7 +144,6 @@ type RigaVetrina = {
   classe_immobile: string | null;
   imposte_prima: string | number | null;
   imposte_seconda: string | number | null;
-  note_imposte: string | null;
   soggetto_iva: string | null;
   spese_condo_mensili: string | number | null;
   ilia_annua: string | number | null;
@@ -293,7 +292,6 @@ function mapRiga(r: RigaVetrina): Property {
     statusCommerciale: str(r.status),
     impostePrima: num(r.imposte_prima),
     imposteSeconda: num(r.imposte_seconda),
-    noteImposte: str(r.note_imposte),
     soggettoIva: flag(r.soggetto_iva),
     condoMensile: num(r.spese_condo_mensili),
     iliaAnnua: num(r.ilia_annua),

@@ -91,7 +91,8 @@ export const F = {
   // 2026-07-23: tax box + tabella costi area riservata (stessi campi del gemello TSV).
   impostePrima: "fld8SMr41gceLNOiN", // imposte_prima (currency)
   imposteSeconda: "fldFQIfYqL0m48QWu", // imposte_seconda (currency)
-  noteImposte: "fldwP6YyY7LdKdWoi", // note_imposte (text)
+  // La nota interna sulle imposte non si chiede più (09/10/2026): sono appunti
+  // di lavoro, e un campo che non arriva non può finire in pagina.
   soggettoIva: "fldKMwdnvCGCSXqzx", // soggetto_iva (checkbox)
   speseCondoMensili: "fldHEZbfTOw0g0Wlj", // spese_condo_mensili (currency, monthly)
   catastoRendita: "fldI7xrGEursVgodv", // catasto_rendita (currency)
@@ -217,7 +218,6 @@ export type Property = {
   statusCommerciale: string | null;
   impostePrima: number | null;
   imposteSeconda: number | null;
-  noteImposte: string | null;
   soggettoIva: boolean;
   // Annual ownership costs. condoMensile is the raw monthly condo fee (×12 for
   // the year); ilia/tari are annual estimates computed by Airtable FORMULAS (no AI
@@ -421,7 +421,6 @@ export function mapRecord(recordId: string, f: Fields): Property {
     statusCommerciale: str(f[F.statusCommerciale]),
     impostePrima: num(f[F.impostePrima]),
     imposteSeconda: num(f[F.imposteSeconda]),
-    noteImposte: str(f[F.noteImposte]),
     soggettoIva: f[F.soggettoIva] === true,
     condoMensile: num(f[F.speseCondoMensili]),
     iliaAnnua: num(f[F.iliaAnnua]),
