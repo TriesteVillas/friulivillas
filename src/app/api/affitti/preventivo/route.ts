@@ -317,7 +317,7 @@ export async function POST(request: Request) {
       body: `<p style="${mailText.title}">${L.hello}${r.nome ? `${r.lingua === "sl" ? ", " : " "}${esc(r.nome)}` : ""},</p>
         <p style="${mailText.p}">${L.body.charAt(0).toUpperCase() + L.body.slice(1)}</p>
         ${mailRecapCard(L.card, rows.map(([k, v]) => [esc(k), esc(v)] as [string, string]))}
-        ${mailCta(esc(pagina), L.cta)}
+        ${mailCta(pagina, L.cta)}
         <p style="${mailText.p}">${L.closing}</p>
         <p style="${mailText.small}">FriuliVillas · ${mailContact.email}</p>`,
     });

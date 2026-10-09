@@ -860,6 +860,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
             url={`${SITE_URL}${locale === "it" ? "" : `/${locale}`}/annuncio/${property.slug}`}
             sito="friulivillas.com"
             lingua={locale}
+            invioAmico={!!(process.env.RESEND_API_KEY && process.env.RESEND_FROM)}
           />
 
           {/* Anche qui il nome italiano: vedi la nota su LeadForm. */}
