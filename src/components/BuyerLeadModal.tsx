@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import RangeDual from "./RangeDual";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { track } from "@/lib/track";
 import { CITY_LIST_ID, citySuggestions } from "@/lib/cities";
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -134,6 +135,8 @@ export default function BuyerLeadModal({
           lingua: locale,
         }),
       });
+      // generate_lead solo a richiesta accettata dal server (09/10/2026).
+      if (res.ok) track("generate_lead", { form: "buyer" });
       setState(res.ok ? "ok" : "error");
     } catch {
       setState("error");

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { track } from "@/lib/track";
 
 const MOTIVI = [
   { value: "Richiedere maggiori informazioni", key: "info" },
@@ -70,6 +71,9 @@ export default function LeadForm({
     e.preventDefault();
     setStatus("sending");
     const ok = await submit({ tipo: "info", motivo, messaggio, nome, email, telefono, privacyOk: privacy });
+    // generate_lead solo a richiesta accettata (09/10/2026). «Invia a un amico»
+    // qui sotto no: come su triestevillas.com, non è una richiesta per noi.
+    if (ok) track("generate_lead", { form: "listing_lead", property_id: rif });
     setStatus(ok ? "ok" : "error");
   }
 

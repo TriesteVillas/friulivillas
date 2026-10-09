@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { useFocusTrap } from "@/lib/useFocusTrap";
+import { track } from "@/lib/track";
 import { CITY_LIST_ID, citySuggestions } from "@/lib/cities";
 import AddressAutocomplete from "./AddressAutocomplete";
 import type { AddressSuggestion } from "@/lib/geocode";
@@ -102,6 +103,7 @@ export default function SellerLeadModal({
           lingua: locale,
         }),
       });
+      if (res.ok) track("generate_lead", { form: "seller" });
       setState(res.ok ? "ok" : "error");
     } catch {
       setState("error");

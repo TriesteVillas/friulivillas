@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useProgramma } from "./Programma";
+import { track } from "@/lib/track";
 import { notti as contaNotti, oggiRoma, type ErrorePreventivo, type TipoSoggiorno } from "@/lib/affitti/preventivo";
 import type { Calendario } from "@/lib/affitti/disponibilita";
 
@@ -224,6 +225,8 @@ export default function Prenota({ casa, nomeCasa, sorella, ospitiMax, servizi, e
       });
       const j = (await r.json().catch(() => ({}))) as { ok?: boolean; errori?: ErrorePreventivo[] };
       if (r.ok && j.ok) {
+        // generate_lead solo a preventivo accettato (09/10/2026); `casa` è lo slug pubblico.
+        track("generate_lead", { form: "soggiorno", casa: casaRichiesta });
         setStato("fatto");
         return;
       }

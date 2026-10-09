@@ -44,10 +44,13 @@ export default function Analytics() {
   // documento, per tutti i punti di contatto del sito — così un modulo nuovo o
   // un numero di telefono in una pagina nuova sono già misurati senza toccare
   // niente:
-  //   · `generate_lead` (evento raccomandato GA4) a ogni submit di un <form>,
-  //     con `modulo` = id/nome del form. In fase di CATTURA, quindi anche se
-  //     React chiama preventDefault: conta la richiesta, non l'esito.
   //   · `contatto` al clic su tel: / WhatsApp / mailto:, con `canale`.
+  //   · `generate_lead` NON più da qui (09/10/2026, Martino: «conta solo le
+  //     richieste arrivate davvero, su tutti i siti»): l'ascoltatore su ogni
+  //     submit contava anche le richieste rifiutate dal server, quelle fermate
+  //     dalla validazione e «Invia a un amico». Ora parte solo dai moduli che
+  //     fanno una richiesta, dopo la risposta ok del server (lib/track.ts:
+  //     buyer, seller, visit, listing_lead, soggiorno). Come triestevillas.com.
   // Nel CRM v4 il job `eventi` li marca come eventi chiave e registra i due
   // parametri come dimensioni: senza, nei report non comparirebbero.
   useEffect(() => {
@@ -62,16 +65,9 @@ export default function Analytics() {
       else if (/wa\.me|api\.whatsapp\.com|^whatsapp:/i.test(h)) invia("contatto", { canale: "whatsapp" });
       else if (/^mailto:/i.test(h)) invia("contatto", { canale: "email" });
     };
-    const alSubmit = (e: Event) => {
-      const f = e.target as HTMLFormElement | null;
-      if (!f || f.tagName !== "FORM") return;
-      invia("generate_lead", { modulo: f.id || f.getAttribute("name") || f.getAttribute("aria-label") || "form" });
-    };
     document.addEventListener("click", alClic, true);
-    document.addEventListener("submit", alSubmit, true);
     return () => {
       document.removeEventListener("click", alClic, true);
-      document.removeEventListener("submit", alSubmit, true);
     };
   }, []);
   if (!GA_ID) return null;
