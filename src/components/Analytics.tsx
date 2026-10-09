@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Script from "next/script";
+import { useUtmGruppo } from "@/lib/utm-gruppo";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Google Analytics 4 su friulivillas.com.
@@ -39,6 +40,8 @@ import Script from "next/script";
 const GA_ID = "G-W9C6G4GL0P";
 
 export default function Analytics() {
+  // I link verso gli altri siti del gruppo escono con la provenienza (lib/utm-gruppo.ts).
+  useUtmGruppo("friulivillas.com");
   // ── Gli eventi che contano (23/09/2026) ────────────────────────────────────
   // Senza eventi GA4 misura pagine e basta. Un ascoltatore solo, delegato al
   // documento, per tutti i punti di contatto del sito — così un modulo nuovo o
