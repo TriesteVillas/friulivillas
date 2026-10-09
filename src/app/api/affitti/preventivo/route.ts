@@ -276,7 +276,12 @@ export async function POST(request: Request) {
       .filter(([, v]) => v)
       .map(([k, v]) => `<tr><td style="padding:4px 12px 4px 0;color:#6b7a82;vertical-align:top">${esc(k)}</td><td style="padding:4px 0">${esc(v).replace(/\n/g, "<br>")}</td></tr>`)
       .join("");
-  const inviataInterna = await mail(
+  // L'avviso a noi lo manda il CRM (09/10/2026, tsv-pg lib/ingresso/avviso-
+  // moduli.ts) quando la porta ha accettato. Se la porta NON ha risposto, questa
+  // mail resta: è l'unica traccia della richiesta. Per riaccenderla sempre:
+  // `NOTIFICHE_INTERNE=sito` sul progetto Vercel.
+  const avvisaIlCrm = posata && process.env.NOTIFICHE_INTERNE !== "sito";
+  const inviataInterna = avvisaIlCrm || await mail(
     NOTIFY_EMAIL,
     `Preventivo soggiorno: ${casa} · ${r.arrivo} → ${r.partenza} · ${r.adulti + r.bambini} ospiti`,
     `<p><strong>Richiesta di preventivo per un soggiorno</strong> dal sito FriuliVillas.</p>
