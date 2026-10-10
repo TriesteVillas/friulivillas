@@ -35,6 +35,9 @@ import { track } from "@/lib/track";
 const PASSO_MS = 250;
 const TENTATIVI = 60;
 
+// ⛔ L'id è il record opaco (`rec…`), MAI il codice TSV-PROP: è testo libero e a
+// volte porta il cognome di chi vende (regola ferrea del gruppo). Il nome
+// leggibile sta in `item_name`, che è il nome pubblico. (10/10/2026)
 export default function TrackViewItem({
   id, nome, tipologia, zona, contratto, prezzo, area,
 }: {

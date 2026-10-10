@@ -449,7 +449,7 @@ export default async function PropertyPage({ params }: { params: Params }) {
           Nome pubblico italiano, mai il nome interno; prezzo solo se la scheda lo
           mostra (priceLabel: in trattativa riservata no). */}
       <TrackViewItem
-        id={property.id}
+        id={property.recId}
         nome={property.title}
         tipologia={property.tipologia}
         zona={property.comune}
