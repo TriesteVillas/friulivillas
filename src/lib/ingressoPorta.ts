@@ -1,4 +1,6 @@
 import { createHmac, randomUUID } from "node:crypto";
+import { headers } from "next/headers";
+import { INTESTAZIONE_PROVENIENZA, provenienzaDaIntestazione } from "@/lib/provenienza";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // LA BUSSATA ALLA PORTA DEL CRM (dal 12/08/2026) — e dal 01/10/2026 la porta
@@ -54,6 +56,22 @@ const SEGRETO = process.env.INGRESSO_HMAC ?? "";
 const PORTA = "sito-friuli";
 const SITO = "friuli";
 
+/** DA DOVE È ARRIVATA LA VISITA (10/10/2026, lib/provenienza.ts, come su
+ *  triestevillas.com 28e6fe9): il browser la manda come intestazione su ogni
+ *  invio verso il sito (lib/provenienza-moduli.ts, montato in Analytics), qui
+ *  la si legge dalla richiesta in corso. Le due rotte che bussano (/api/lead e
+ *  /api/affitti/preventivo) chiamano questa funzione dentro il loro POST, dove
+ *  `headers()` risponde. Fuori da una richiesta (un lavoro dopo la risposta, un
+ *  cron) `headers()` lancia: la provenienza manca, e basta. */
+async function provenienzaDellaRichiesta(): Promise<Record<string, unknown> | null> {
+  try {
+    const h = await headers();
+    return provenienzaDaIntestazione(h.get(INTESTAZIONE_PROVENIENZA)) as Record<string, unknown> | null;
+  } catch {
+    return null;
+  }
+}
+
 const s = (v: unknown, max = 200): string =>
   typeof v === "string" ? v.trim().slice(0, max) : "";
 
@@ -70,6 +88,13 @@ export async function bussaIngresso(
   }
   try {
     const slug = modulo.toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 24) || "info";
+    // La provenienza: quella che il chiamante ha già messo vince, se no
+    // l'intestazione della richiesta. Il CRM la ripulisce di nuovo
+    // (tsv-pg web/lib/ingresso/provenienza.ts, da payload.dati.provenienza).
+    if (dati.provenienza == null) {
+      const p = await provenienzaDellaRichiesta();
+      if (p) dati = { ...dati, provenienza: p };
+    }
     const corpo = JSON.stringify({
       canale: "modulo",
       origine: `sito:${SITO}/${slug}`,

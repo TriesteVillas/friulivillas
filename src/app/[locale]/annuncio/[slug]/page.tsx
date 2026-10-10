@@ -27,6 +27,7 @@ import Scene from "@/components/motion/Scene";
 import LeadForm from "@/components/LeadForm";
 import VisitForm from "@/components/VisitForm";
 import TourFrame from "@/components/TourFrame";
+import TrackViewItem from "@/components/TrackViewItem";
 import {
   buildPropertyView,
   contractBadge,
@@ -443,6 +444,18 @@ export default async function PropertyPage({ params }: { params: Params }) {
             { name: title, path },
           ]),
         ]}
+      />
+      {/* view_item GA4 con l'immobile (per tutti, consenso permettendo; 10/10/2026).
+          Nome pubblico italiano, mai il nome interno; prezzo solo se la scheda lo
+          mostra (priceLabel: in trattativa riservata no). */}
+      <TrackViewItem
+        id={property.id}
+        nome={property.title}
+        tipologia={property.tipologia}
+        zona={property.comune}
+        contratto={property.contratto}
+        prezzo={property.trattativaRiservata ? null : property.contratto === "AFFITTO" ? property.priceRent : property.priceSale}
+        area={area ? NOMI_AREA[area].it : null}
       />
       {/* Cinematic hero — parallax cover, shared-element morph target */}
       <Scene as="header" mode="cover" smooth={0.14} className="relative h-[82vh] min-h-[520px] overflow-hidden bg-ink-2">

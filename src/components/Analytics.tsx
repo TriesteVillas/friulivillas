@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import Script from "next/script";
 import { useUtmGruppo } from "@/lib/utm-gruppo";
+import { useProvenienzaModuli } from "@/lib/provenienza-moduli";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Google Analytics 4 su friulivillas.com.
@@ -42,6 +43,13 @@ const GA_ID = "G-W9C6G4GL0P";
 export default function Analytics() {
   // I link verso gli altri siti del gruppo escono con la provenienza (lib/utm-gruppo.ts).
   useUtmGruppo("friulivillas.com");
+  // Ogni invio verso il sito porta la provenienza della visita al CRM
+  // (lib/provenienza-moduli.ts, 10/10/2026, come su triestevillas.com): le fetch
+  // di /api/lead e /api/affitti/preventivo escono con l'intestazione
+  // `x-provenienza`, e bussaIngresso la mette in dati.provenienza. Sta qui
+  // perché Analytics è montato nel layout di [locale], cioè in ogni pagina, e
+  // gli hook girano prima del ritorno: anche senza GA o senza consenso.
+  useProvenienzaModuli();
   // ── Gli eventi che contano (23/09/2026) ────────────────────────────────────
   // Senza eventi GA4 misura pagine e basta. Un ascoltatore solo, delegato al
   // documento, per tutti i punti di contatto del sito — così un modulo nuovo o
